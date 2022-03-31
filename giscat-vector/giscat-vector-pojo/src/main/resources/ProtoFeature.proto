@@ -1,0 +1,79 @@
+syntax = "proto3";
+package pojo;
+option java_package = "org.wowtools.giscat.vector.pojo.proto";
+option java_outer_classname = "ProtoFeature";
+
+// 属性值
+message Value{
+	double doubleValue = 1;
+	float floatValue = 2;
+	int32 intValue = 3;
+	int64 longValue = 4;
+	bool booleanValue = 5;
+	string stringValue = 6;
+	bytes bytesValue = 7;
+	repeated string subKeys = 8;
+	repeated Value subValues = 9;
+}
+
+// 坐标
+message Coordinate{
+	double x = 1;
+	double y = 2;
+	double z = 3;
+}
+
+// 坐标串
+message CoordinateSequence{
+	repeated Coordinate coordinates = 1;
+}
+
+// geometry具体实现
+message Point{
+	double x = 1;
+	double y = 2;
+	double z = 3;
+}
+message LineString{
+	double xs = 1;
+    double ys = 2;
+    double zs = 3;
+}
+message Polygon{
+	CoordinateSequence shell = 1;
+	repeated CoordinateSequence holes = 2;
+}
+
+message MultiPoint{
+	repeated Point points = 1;
+}
+message MultiLineString{
+	repeated LineString lineStrings = 1;
+}
+message MultiPolygon{
+	repeated Polygon polygons = 1;
+}
+
+message GeometryCollection{
+	repeated Point points = 1;
+	repeated LineString lineStrings = 2;
+	repeated Polygon polygons = 3;
+
+	repeated MultiPoint multiPoints = 4;
+	repeated MultiLineString multiLineStrings = 5;
+	repeated MultiPolygon multiPolygons = 6;
+}
+
+
+// geometry
+message Geometry{
+	Point point = 1;
+	LineString lineString = 2;
+	Polygon polygon = 3;
+
+	MultiPoint multiPoint = 4;
+	MultiLineString multiLineString = 5;
+	MultiPolygon multiPolygon = 6;
+
+	GeometryCollection geometryCollection = 7;
+}

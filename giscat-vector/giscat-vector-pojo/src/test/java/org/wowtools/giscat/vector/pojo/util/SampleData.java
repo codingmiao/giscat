@@ -98,6 +98,45 @@ public class SampleData {
 
     public static final JSONObject polygon2GeoJson = new JSONObject(strPolygon2);
 
+
+    private static final String strPolygon3 = "{\n" +
+            "    \"type\": \"Polygon\", \n" +
+            "    \"coordinates\": [\n" +
+            "        [[10.0, 10.0], [20.0, 10.0], [20.0, 20.0],[10.0, 20.0], [10.0, 10.0]], \n" +
+            "        [[11.0, 11.0], [12.0, 11.0], [12.0, 12.0], [20.0, 30.0]], \n" +
+            "        [[17.0, 17.0], [18.0, 17.0], [18.0, 18.0], [17.0, 17.0]]\n" +
+            "    ]\n" +
+            "}";
+
+    public static final Polygon polygon3;
+
+    static {
+        LinearRing shell = geometryFactory.createLinearRing(new Coordinate[]{
+                new Coordinate(10.0, 10.0),
+                new Coordinate(20.0, 10.0),
+                new Coordinate(20.0, 20.0),
+                new Coordinate(10.0, 20.0),
+                new Coordinate(10.0, 10.0),
+        });
+        LinearRing[] holes = new LinearRing[]{
+                geometryFactory.createLinearRing(new Coordinate[]{
+                        new Coordinate(11.0, 11.0),
+                        new Coordinate(12.0, 11.0),
+                        new Coordinate(12.0, 12.0),
+                        new Coordinate(11.0, 11.0)
+                }),
+                geometryFactory.createLinearRing(new Coordinate[]{
+                        new Coordinate(17.0, 17.0),
+                        new Coordinate(18.0, 17.0),
+                        new Coordinate(18.0, 18.0),
+                        new Coordinate(17.0, 17.0)
+                })
+        };
+        polygon3 = geometryFactory.createPolygon(shell, holes);
+    }
+
+    public static final JSONObject polygon3GeoJson = new JSONObject(strPolygon3);
+
     private static final String strMultiPoint = "{\n" +
             "    \"type\": \"MultiPoint\", \n" +
             "    \"coordinates\": [\n" +
