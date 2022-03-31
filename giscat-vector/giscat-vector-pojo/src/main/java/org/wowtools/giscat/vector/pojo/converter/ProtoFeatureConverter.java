@@ -157,9 +157,9 @@ public class ProtoFeatureConverter {
         int k = -1;
         for (int i = 0; i < lineNum; i++) {
             Coordinate[] childCoordinates = multiLineString.getGeometryN(i).getCoordinates();
-            for (int j = 0; j < childCoordinates.length; j++) {
+            for (Coordinate childCoordinate : childCoordinates) {
                 k++;
-                coordinates[k] = childCoordinates[j];
+                coordinates[k] = childCoordinate;
             }
             if (i < lineNum - 1) {
                 separators.add(k + 1);
@@ -369,9 +369,7 @@ public class ProtoFeatureConverter {
     private static LinearRing coordinates2LinearRing(Coordinate[] coordinates, GeometryFactory geometryFactory) {
         //coordinates的最后一个坐标被省略了，所以这里手工补上后才能转为环
         Coordinate[] ringCoordinates = new Coordinate[coordinates.length + 1];
-        for (int i = 0; i < coordinates.length; i++) {
-            ringCoordinates[i] = coordinates[i];
-        }
+        System.arraycopy(coordinates, 0, ringCoordinates, 0, coordinates.length);
         ringCoordinates[coordinates.length] = coordinates[0].copy();
         return geometryFactory.createLinearRing(ringCoordinates);
     }
