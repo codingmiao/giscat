@@ -11,7 +11,6 @@ import org.wowtools.giscat.vector.pojo.util.SampleData;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
 public class ProtoFeatureConverterTest {
@@ -78,7 +77,7 @@ public class ProtoFeatureConverterTest {
                 "sint64", 1234L,
                 "boolKey", true,
                 "stringKey", "hello",
-                "bytesKey", new byte[]{1,2,3},
+                "bytesKey", new byte[]{1, 2, 3},
                 "subKey", Map.of("subK1", "sub1")));
         testProperties(
                 Map.of("k1", 1, "k2", "sss", "k3", 1L),
@@ -88,6 +87,7 @@ public class ProtoFeatureConverterTest {
                 Map.of("k1", Long.MAX_VALUE, "k2", "测试", "k4", Double.MAX_VALUE)
         );
     }
+
 
     private void testProperties(Map<String, Object>... propertiesArr) {
         FeatureCollection featureCollection = new FeatureCollection();
@@ -106,9 +106,9 @@ public class ProtoFeatureConverterTest {
         for (int i = 0; i < features.size(); i++) {
             Map<String, Object> properties = features.get(i).getProperties();
             Map<String, Object> properties1 = featureCollection1.getFeatures().get(i).getProperties();
-            if (null==properties){
-                Assert.assertEquals(null,properties1);
-            }else {
+            if (null == properties) {
+                Assert.assertEquals(null, properties1);
+            } else {
                 for (String key : properties.keySet()) {
                     testPropertiesEquals(key, properties.get(key), properties1.get(key));
                 }
