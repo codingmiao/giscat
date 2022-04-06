@@ -7,7 +7,6 @@ import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
 
 /**

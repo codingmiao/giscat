@@ -636,7 +636,7 @@ public class ProtoFeatureConverter {
     }
 
 
-    private static Map<Class, PropertiesSetter> propertiesSetterMap;
+    private static final Map<Class, PropertiesSetter> propertiesSetterMap;
 
     static {
         PropertiesSetter doublePropertiesSetter = (propertiesBuilder, keyValueCell, key, value) -> {
