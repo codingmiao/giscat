@@ -4,10 +4,8 @@ package org.wowtools.giscat.vector.pojo.converter;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryCollection;
 import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
-import org.wowtools.giscat.vector.pojo.proto.ProtoFeature;
 import org.wowtools.giscat.vector.pojo.util.SampleData;
 
 import java.util.Iterator;
@@ -129,18 +127,18 @@ public class GeoJsonFeatureConverterTest {
     }
 
     @org.junit.Test
-    public void testGeoJson2FeatureCollection(){
+    public void testGeoJson2FeatureCollection() {
         JSONObject geoJson = new JSONObject("{\"features\":[{\"geometry\":{\"coordinates\":[30,10],\"type\":\"Point\"},\"type\":\"Feature\",\"properties\":{\"id\":1}},{\"geometry\":{\"coordinates\":[[30,10],[10,30],[40,40]],\"type\":\"LineString\"},\"type\":\"Feature\",\"properties\":{\"name\":\"hello\"}}],\"type\":\"FeatureCollection\"}");
         FeatureCollection featureCollection = GeoJsonFeatureConverter.fromGeoJsonFeatureCollection(geoJson, SampleData.geometryFactory);
         Iterator<Feature> iterator = featureCollection.getFeatures().iterator();
 
         Feature feature1 = iterator.next();
-        Assert.assertEquals(SampleData.point.toText(),feature1.getGeometry().toText());
-        Assert.assertEquals(Map.of("id", 1),feature1.getProperties());
+        Assert.assertEquals(SampleData.point.toText(), feature1.getGeometry().toText());
+        Assert.assertEquals(Map.of("id", 1), feature1.getProperties());
 
         Feature feature2 = iterator.next();
-        Assert.assertEquals(SampleData.lineString.toText(),feature2.getGeometry().toText());
-        Assert.assertEquals(Map.of("name", "hello"),feature2.getProperties());
+        Assert.assertEquals(SampleData.lineString.toText(), feature2.getGeometry().toText());
+        Assert.assertEquals(Map.of("name", "hello"), feature2.getProperties());
 
     }
 

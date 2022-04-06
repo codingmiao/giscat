@@ -1,6 +1,6 @@
 package org.wowtools.giscat.vector.pojo;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * FeatureCollection
@@ -8,13 +8,13 @@ import java.util.Collection;
  * @date 2022/3/15
  */
 public class FeatureCollection {
-    private Collection<Feature> features;
+    private List<Feature> features;
 
-    public Collection<Feature> getFeatures() {
+    public List<Feature> getFeatures() {
         return features;
     }
 
-    public void setFeatures(Collection<Feature> features) {
+    public void setFeatures(List<Feature> features) {
         this.features = features;
     }
 }

@@ -3,57 +3,67 @@ package pojo;
 option java_package = "org.wowtools.giscat.vector.pojo.proto";
 option java_outer_classname = "ProtoFeature";
 
-// 属性值
-message Value{
-	double doubleValue = 1;
-	float floatValue = 2;
-	int32 intValue = 3;
-	int64 longValue = 4;
-	bool booleanValue = 5;
-	string stringValue = 6;
-	bytes bytesValue = 7;
-	repeated string subKeys = 8;
-	repeated Value subValues = 9;
-}
+// geometry具体实现。
 
-// 坐标
-message Coordinate{
-	double x = 1;
-	double y = 2;
-	double z = 3;
-}
-
-// 坐标串
-message CoordinateSequence{
-	repeated Coordinate coordinates = 1;
-}
-
-// geometry具体实现
+// Point，包含点的 x y z坐标 ，z可选。
 message Point{
 	double x = 1;
 	double y = 2;
 	double z = 3;
 }
+
+// LineString 包含线段上各个点的x y z坐标，z可选。
 message LineString{
-	double xs = 1;
-    double ys = 2;
-    double zs = 3;
+	repeated double xs = 1;
+	repeated double ys = 2;
+	repeated double zs = 3;
 }
+
+// Polygon 包含多边形上各个点的x y z坐标，z可选。
+// separators用于将坐标串分割为环 例如,xs ys zs 形成了坐标串[p0,p1,p2,p3,p4,p5,p6,p7,p8,p9]，
+// 则separators=[3,7]将坐标串分割为多边形Polygon((p0 p1 p2),(p3 p4 p5 p6),(p7 p8 p9))。
+// 即separators[i]的意义为第i个环的终点(从0开始计数)；最后一个环的终点显然是数组的最后一位，故将其省略。
+// 注意，由于环的最后一个坐标必然和第一个坐标相等，故将环的最后一个坐标省略，仅在转换为jts等对象时将其补全。
 message Polygon{
-	CoordinateSequence shell = 1;
-	repeated CoordinateSequence holes = 2;
+	repeated double xs = 1;
+	repeated double ys = 2;
+	repeated double zs = 3;
+	repeated int32 separators = 4;
 }
 
+// MultiPoint 包含MultiPoint上各个点的x y z坐标，z可选。
 message MultiPoint{
-	repeated Point points = 1;
-}
-message MultiLineString{
-	repeated LineString lineStrings = 1;
-}
-message MultiPolygon{
-	repeated Polygon polygons = 1;
+	repeated double xs = 1;
+	repeated double ys = 2;
+	repeated double zs = 3;
 }
 
+// MultiLineString 包含MultiLineString上各个点的x y z坐标，z可选。
+// separators用于将坐标串分割为子线段 例如,xs ys zs 形成了坐标串[p0,p1,p2,p3,p4,p5,p6,p7,p8,p9]，
+// 则separators=[3,7]将坐标串分割为MultiLineString((p0 p1 p2),(p3 p4 p5 p6),(p7 p8 p9))。
+// 即separators[i]的意义为第i条子线段的终点(从0开始计数)；最后一条子线段的终点显然是数组的最后一位，故将其省略。
+message MultiLineString{
+	repeated double xs = 1;
+	repeated double ys = 2;
+	repeated double zs = 3;
+	repeated int32 separators = 4;
+}
+
+// MultiPolygon 包含MultiPolygon上各个点的x y z坐标，z可选。
+// polygonSeparators用于将坐标串分割为子多边形 例如,xs ys zs 形成了坐标串[p0,p1,p2,p3,p4,p5,p6,p7,p8,p9]，
+// 则polygonSeparators=[3,7]将坐标串分割为MultiPolygon(((p0 p1 p2)),((p3 p4 p5 p6)),((p7 p8 p9)))。
+// 即polygonSeparators[i]的意义为第i个子多边形的终点(从0开始计数)；最后一个子多边形的终点显然是数组的最后一位，故将其省略。
+// 经过polygonSeparators分割后的子多边形坐标串，进一步由coordSeparators分割为环，分割依据与Polygon的separators一致
+message MultiPolygon{
+	repeated double xs = 1;
+	repeated double ys = 2;
+	repeated double zs = 3;
+	repeated int32 coordSeparators = 4;
+	repeated int32 polygonSeparators = 5;
+}
+
+// GeometryCollection
+// 注意 GeometryCollection允许嵌套
 message GeometryCollection{
 	repeated Point points = 1;
 	repeated LineString lineStrings = 2;
@@ -62,10 +72,12 @@ message GeometryCollection{
 	repeated MultiPoint multiPoints = 4;
 	repeated MultiLineString multiLineStrings = 5;
 	repeated MultiPolygon multiPolygons = 6;
+
+	repeated GeometryCollection geometryCollections = 7; // 允许嵌套
 }
 
 
-// geometry
+// geometry 包含了所有jts规范中所罗列的Geometry类型 每个Geometry允许且仅允许其中一种对象非空
 message Geometry{
 	Point point = 1;
 	LineString lineString = 2;
@@ -76,4 +88,65 @@ message Geometry{
 	MultiPolygon multiPolygon = 6;
 
 	GeometryCollection geometryCollection = 7;
+}
+
+
+// 属性 支持的属性类型 double float sint32 sint64 bool string bytes subProperty
+// 属性使用keyId-value或keyId-valueId格式来存储
+// sint64、string等可能占用4字节及以上的对象，用valueId(int32)取代value来存储以减少体积 value本身则存放到FeatureCollection中
+// 示例 [{id:4,name:'tom'},{id:5,name:'jerry',age:4}]转换后:
+// FeatureCollection {
+//      keys = ['id','name','age'],//所有的key收集到keys中
+//      sint32Values = [4,5],//所有的int value收集到sint32Values中
+//      stringValues = ['tom','jerry'],//所有的string value收集到stringValues中
+//      //其它类型的属性也是类似的方式收集为key value
+//      propertiess = [//具体的属性用keyId-value或keyId-valueId格式来存储
+//          {sint32KeyIds=[0], sint32ValueIds=[0], stringKeyIds=[1], stringValueIds=[0]},//tom的属性 {0:0, 1:0}
+//          {sint32KeyIds=[0,2], sint32ValueIds=[1,0], stringKeyIds=[1], stringValueIds=[1]}//jerry的属性 {0:1, 1:1, 2:1}
+//      ]
+// }
+message Map{
+	// key、value id
+	repeated int32 doubleKeyIds = 1;
+	repeated int32 doubleValueIds = 2;
+	repeated int32 floatKeyIds = 3;
+	repeated int32 floatValueIds = 4;
+	repeated int32 sint32KeyIds = 5;
+	repeated int32 sint32ValueIds = 6;
+	repeated int32 sint64KeyIds = 7;
+	repeated int32 sint64ValueIds = 8;
+	repeated int32 boolKeyIds = 9;
+	repeated bool boolValues = 10;
+	repeated int32 stringKeyIds = 11;
+	repeated int32 stringValueIds = 12;
+	repeated int32 bytesKeyIds = 13;
+	repeated int32 bytesValueIds = 14;
+
+	//children Map key、value id
+	repeated int32 subKeyIds = 15;
+	repeated Map subMaps = 16;
+}
+
+
+// Feature 由于properties存放的是key id、value id，所以对其序列化/反序列化没有实际意义,故这个对象仅作保留而不会使用
+message Feature{
+	Geometry geometry = 1;
+	Map properties = 2;
+}
+
+// FeatureCollection
+message FeatureCollection{
+	// key id、value id对应的具体值
+	repeated string keys = 1;
+	repeated double doubleValues = 2;
+	repeated float floatValues = 3;
+	repeated sint32 sint32Values = 4;
+	repeated sint64 sint64Values = 5;
+	repeated string stringValues = 6;
+	repeated bytes bytesValues = 7;
+
+	// features 为了最大限度压缩数据，这里单独列了geometry property，而未使用Feature对象
+	repeated Geometry geometries = 8;
+	repeated Map propertiess = 9;
+
 }

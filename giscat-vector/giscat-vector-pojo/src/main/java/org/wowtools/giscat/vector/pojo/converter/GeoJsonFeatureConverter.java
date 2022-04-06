@@ -319,7 +319,7 @@ public class GeoJsonFeatureConverter {
      */
     public static FeatureCollection fromGeoJsonFeatureCollection(JSONObject geoJsonFeatureCollection, GeometryFactory geometryFactory) {
         JSONArray jaFeatures = geoJsonFeatureCollection.getJSONArray("features");
-        Collection<Feature> features = new ArrayList<>(jaFeatures.length());
+        ArrayList<Feature> features = new ArrayList<>(jaFeatures.length());
         for (Object o : jaFeatures) {
             JSONObject joFeature = (JSONObject) o;
             Feature feature = fromGeoJsonFeature(joFeature, geometryFactory);
