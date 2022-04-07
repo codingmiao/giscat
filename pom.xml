@@ -7,7 +7,7 @@
     <groupId>org.wowtools</groupId>
     <artifactId>giscat</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.0-STABLE</version>
     <name>giscat</name>
     <modules>
         <module>giscat-vector</module>
@@ -101,9 +101,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/codingmiao/giscat.git</url>
-        <connection>scm:git:git://github.com/codingmiao/giscat.git</connection>
-        <developerConnection>scm:git:ssh://github.com/codingmiao/giscat.git</developerConnection>
+        <connection>https://github.com/codingmiao/giscat.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:codingmiao/giscat.git</developerConnection>
+        <url>https://github.com/codingmiao/giscat</url>
     </scm>
     <issueManagement>
         <url>https://github.com/codingmiao/giscat/issues</url>
@@ -115,6 +115,11 @@
             <email>liuyu@wowtools.org</email>
             <name>Liu Yu</name>
             <url>https://blog.wowtools.org/</url>
+            <roles>
+                <role>Project Manager</role>
+                <role>Architect</role>
+            </roles>
+            <timezone>+8</timezone>
         </developer>
     </developers>
 
@@ -166,7 +171,7 @@
                         <tag>
                             <name>date</name>
                             <placement>date</placement>
-                            <head>编写日期</head>
+                            <head>createdate</head>
                         </tag>
                     </tags>
                 </configuration>

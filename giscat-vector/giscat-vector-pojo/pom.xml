@@ -5,12 +5,12 @@
     <parent>
         <artifactId>giscat-vector</artifactId>
         <groupId>org.wowtools</groupId>
-        <version>1.0.0</version>
+        <version>1.0.0-STABLE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>giscat-vector-pojo</artifactId>
-
+    <version>1.0.0-STABLE</version>
     <dependencies>
         <dependency>
             <groupId>org.locationtech.jts</groupId>
