@@ -7,7 +7,7 @@
     <groupId>org.wowtools</groupId>
     <artifactId>giscat</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-STABLE</version>
+    <version>1.0.1-STABLE</version>
     <name>giscat</name>
     <modules>
         <module>giscat-vector</module>
