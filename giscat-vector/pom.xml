@@ -5,13 +5,13 @@
     <parent>
         <artifactId>giscat</artifactId>
         <groupId>org.wowtools</groupId>
-        <version>0.0.1</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>giscat-vector</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <modules>
         <module>giscat-vector-pojo</module>
     </modules>
