@@ -25,3 +25,5 @@ Thumbs.db
 *.ear
 /target
 /public
+
+jmhResult.json

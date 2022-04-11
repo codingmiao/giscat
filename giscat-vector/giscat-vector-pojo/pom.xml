@@ -44,6 +44,12 @@
             <artifactId>jmh-generator-annprocess</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.wololo</groupId>
+            <artifactId>jts2geojson</artifactId>
+            <version>0.17.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

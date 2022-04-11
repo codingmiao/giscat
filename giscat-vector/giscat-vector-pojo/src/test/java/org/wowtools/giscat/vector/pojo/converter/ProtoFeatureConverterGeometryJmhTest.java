@@ -74,15 +74,15 @@ public class ProtoFeatureConverterGeometryJmhTest {
     }
 
     public static void main(String[] args) throws Exception {
-        Blackhole blackhole = new Blackhole("Today's password is swordfish. I understand instantiating Blackholes directly is dangerous.");
-        ProtoFeatureConverterGeometryJmhTest t = new ProtoFeatureConverterGeometryJmhTest();
-        while (true){
-            t.testProtoFeature(blackhole);
-        }
-//        Options opt = new OptionsBuilder()
-//                .include(ProtoFeatureConverterGeometryJmhTest.class.getSimpleName())
-//                .result("result.json")
-//                .resultFormat(ResultFormatType.JSON).build();
-//        new Runner(opt).run();
+//        Blackhole blackhole = new Blackhole("Today's password is swordfish. I understand instantiating Blackholes directly is dangerous.");
+//        ProtoFeatureConverterGeometryJmhTest t = new ProtoFeatureConverterGeometryJmhTest();
+//        while (true){
+//            t.testProtoFeature(blackhole);
+//        }
+        Options opt = new OptionsBuilder()
+                .include(ProtoFeatureConverterGeometryJmhTest.class.getSimpleName())
+                .result("jmhResult.json")
+                .resultFormat(ResultFormatType.JSON).build();
+        new Runner(opt).run();
     }
 }
