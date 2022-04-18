@@ -2,6 +2,17 @@
 同时定义了一套基于protobuf的二进制压缩规范ProtoFeature，提供了比wkb、geojson更高压缩率的序列化方法。
 
 
+# install
+
+maven add dependency:
+```xml
+        <dependency>
+            <groupId>org.wowtools</groupId>
+            <artifactId>giscat-vector-pojo</artifactId>
+            <version>1.1.1-STABLE</version>
+        </dependency>
+```
+
 # 与geojson互转
 geojson to FeatureCollection
 ```java
