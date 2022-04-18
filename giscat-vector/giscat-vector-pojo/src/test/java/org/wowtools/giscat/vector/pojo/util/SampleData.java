@@ -1,7 +1,10 @@
 package org.wowtools.giscat.vector.pojo.util;
 
-import org.json.JSONObject;
 import org.locationtech.jts.geom.*;
+import org.wowtools.giscat.vector.pojo.GeoJsonObject;
+import org.wowtools.giscat.vector.pojo.converter.GeoJsonFeatureConverter;
+
+import java.util.Map;
 
 /**
  * 样例数据
@@ -14,7 +17,7 @@ public class SampleData {
 
     public static final GeometryFactory geometryFactory = new GeometryFactory();
 
-    private static final String strPoint = "{\n" +
+    public static final String strPoint = "{\n" +
             "    \"type\": \"Point\", \n" +
             "    \"coordinates\": [30.0, 10.0]\n" +
             "}";
@@ -24,10 +27,10 @@ public class SampleData {
         point = geometryFactory.createPoint(new Coordinate(30.0, 10.0));
     }
 
-    public static final JSONObject pointGeoJson = new JSONObject(strPoint);
+    public static final GeoJsonObject.Geometry pointGeoJson = GeoJsonFeatureConverter.geometry2GeoJson(point);
 
 
-    private static final String strLineString = "{\n" +
+    public static final String strLineString = "{\n" +
             "    \"type\": \"LineString\", \n" +
             "    \"coordinates\": [\n" +
             "        [30.0, 10.0], [10.0, 30.0], [40.0, 40.0]\n" +
@@ -43,10 +46,10 @@ public class SampleData {
         });
     }
 
-    public static final JSONObject lineStringGeoJson = new JSONObject(strLineString);
+    public static final GeoJsonObject.Geometry lineStringGeoJson = GeoJsonFeatureConverter.geometry2GeoJson(lineString);
 
 
-    private static final String strPolygon1 = "{\n" +
+    public static final String strPolygon1 = "{\n" +
             "    \"type\": \"Polygon\", \n" +
             "    \"coordinates\": [\n" +
             "        [[30.0, 10.0], [40.0, 40.0], [20.0, 40.0], [10.0, 20.0], [30.0, 10.0]]\n" +
@@ -65,9 +68,9 @@ public class SampleData {
         });
     }
 
-    public static final JSONObject polygon1GeoJson = new JSONObject(strPolygon1);
+    public static final GeoJsonObject.Geometry polygon1GeoJson = GeoJsonFeatureConverter.geometry2GeoJson(polygon1);
 
-    private static final String strPolygon2 = "{\n" +
+    public static final String strPolygon2 = "{\n" +
             "    \"type\": \"Polygon\", \n" +
             "    \"coordinates\": [\n" +
             "        [[35.0, 10.0], [45.0, 45.0], [15.0, 40.0], [10.0, 20.0], [35.0, 10.0]], \n" +
@@ -96,14 +99,14 @@ public class SampleData {
         polygon2 = geometryFactory.createPolygon(shell, holes);
     }
 
-    public static final JSONObject polygon2GeoJson = new JSONObject(strPolygon2);
+    public static final GeoJsonObject.Geometry polygon2GeoJson = GeoJsonFeatureConverter.geometry2GeoJson(polygon2);
 
 
-    private static final String strPolygon3 = "{\n" +
+    public static final String strPolygon3 = "{\n" +
             "    \"type\": \"Polygon\", \n" +
             "    \"coordinates\": [\n" +
             "        [[10.0, 10.0], [20.0, 10.0], [20.0, 20.0],[10.0, 20.0], [10.0, 10.0]], \n" +
-            "        [[11.0, 11.0], [12.0, 11.0], [12.0, 12.0], [20.0, 30.0]], \n" +
+            "        [[11.0, 11.0], [12.0, 11.0], [12.0, 12.0], [11.0, 11.0]], \n" +
             "        [[17.0, 17.0], [18.0, 17.0], [18.0, 18.0], [17.0, 17.0]]\n" +
             "    ]\n" +
             "}";
@@ -135,9 +138,9 @@ public class SampleData {
         polygon3 = geometryFactory.createPolygon(shell, holes);
     }
 
-    public static final JSONObject polygon3GeoJson = new JSONObject(strPolygon3);
+    public static final GeoJsonObject.Geometry polygon3GeoJson = GeoJsonFeatureConverter.geometry2GeoJson(polygon3);
 
-    private static final String strMultiPoint = "{\n" +
+    public static final String strMultiPoint = "{\n" +
             "    \"type\": \"MultiPoint\", \n" +
             "    \"coordinates\": [\n" +
             "        [10.0, 40.0], [40.0, 30.0], [20.0, 20.0], [30.0, 10.0]\n" +
@@ -155,9 +158,9 @@ public class SampleData {
         });
     }
 
-    public static final JSONObject multiPointGeoJson = new JSONObject(strMultiPoint);
+    public static final GeoJsonObject.Geometry multiPointGeoJson = GeoJsonFeatureConverter.geometry2GeoJson(multiPoint);
 
-    private static final String strMultiLineString = "{\n" +
+    public static final String strMultiLineString = "{\n" +
             "    \"type\": \"MultiLineString\", \n" +
             "    \"coordinates\": [\n" +
             "        [[10.0, 10.0], [20.0, 20.0], [10.0, 40.0]], \n" +
@@ -184,9 +187,9 @@ public class SampleData {
         multiLineString = geometryFactory.createMultiLineString(lineStrings);
     }
 
-    public static final JSONObject multiLineStringGeoJson = new JSONObject(strMultiLineString);
+    public static final GeoJsonObject.Geometry multiLineStringGeoJson = GeoJsonFeatureConverter.geometry2GeoJson(multiLineString);
 
-    private static final String strMultiPolygon1 = "{\n" +
+    public static final String strMultiPolygon1 = "{\n" +
             "    \"type\": \"MultiPolygon\", \n" +
             "    \"coordinates\": [\n" +
             "        [\n" +
@@ -219,9 +222,9 @@ public class SampleData {
         multiPolygon1 = geometryFactory.createMultiPolygon(polygons);
     }
 
-    public static final JSONObject multiPolygon1GeoJson = new JSONObject(strMultiPolygon1);
+    public static final GeoJsonObject.Geometry multiPolygon1GeoJson = GeoJsonFeatureConverter.geometry2GeoJson(multiPolygon1);
 
-    private static final String strMultiPolygon2 = "{\n" +
+    public static final String strMultiPolygon2 = "{\n" +
             "    \"type\": \"MultiPolygon\", \n" +
             "    \"coordinates\": [\n" +
             "        [\n" +
@@ -269,9 +272,9 @@ public class SampleData {
         multiPolygon2 = geometryFactory.createMultiPolygon(polygons);
     }
 
-    public static final JSONObject multiPolygon2GeoJson = new JSONObject(strMultiPolygon2);
+    public static final GeoJsonObject.Geometry multiPolygon2GeoJson = GeoJsonFeatureConverter.geometry2GeoJson(multiPolygon2);
 
-    private static final String strGeometryCollection = "{\n" +
+    public static final String strGeometryCollection = "{\n" +
             "    \"type\": \"GeometryCollection\",\n" +
             "    \"geometries\": [\n" +
             "        {\n" +
@@ -316,6 +319,208 @@ public class SampleData {
         geometryCollection = geometryFactory.createGeometryCollection(geometries);
     }
 
-    public static final JSONObject geometryCollectionGeoJson = new JSONObject(strGeometryCollection);
+    public static final GeoJsonObject.Geometry geometryCollectionGeoJson = GeoJsonFeatureConverter.geometry2GeoJson(geometryCollection);
+
+    public static final String strFeatureCollection1 = "{\n" +
+            "  \"type\": \"FeatureCollection\",\n" +
+            "  \"features\": [\n" +
+            "    {\n" +
+            "      \"type\": \"Feature\",\n" +
+            "      \"properties\": {\n" +
+            "        \"stroke\": \"#555555\",\n" +
+            "        \"stroke-width\": 2,\n" +
+            "        \"stroke-opacity\": 1,\n" +
+            "        \"sss\": \"sssaa\"\n" +
+            "      },\n" +
+            "      \"geometry\": {\n" +
+            "        \"type\": \"LineString\",\n" +
+            "        \"coordinates\": [\n" +
+            "          [\n" +
+            "            101.173095703125,\n" +
+            "            24.93127614538456\n" +
+            "          ],\n" +
+            "          [\n" +
+            "            101.986083984375,\n" +
+            "            25.145284610685064\n" +
+            "          ],\n" +
+            "          [\n" +
+            "            102.1893310546875,\n" +
+            "            24.98107885823501\n" +
+            "          ],\n" +
+            "          [\n" +
+            "            103.41430664062499,\n" +
+            "            24.961160190729043\n" +
+            "          ],\n" +
+            "          [\n" +
+            "            103.447265625,\n" +
+            "            25.418470119273117\n" +
+            "          ],\n" +
+            "          [\n" +
+            "            102.7496337890625,\n" +
+            "            25.878994400196202\n" +
+            "          ],\n" +
+            "          [\n" +
+            "            103.546142578125,\n" +
+            "            25.94816628853973\n" +
+            "          ]\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"type\": \"Feature\",\n" +
+            "      \"properties\": {\n" +
+            "        \"stroke\": \"#555555\",\n" +
+            "        \"stroke-width\": 2,\n" +
+            "        \"stroke-opacity\": 1,\n" +
+            "        \"aaa\": 213,\n" +
+            "        \"asd\": \"aaa\"\n" +
+            "      },\n" +
+            "      \"geometry\": {\n" +
+            "        \"type\": \"LineString\",\n" +
+            "        \"coordinates\": [\n" +
+            "          [\n" +
+            "            103.9031982421875,\n" +
+            "            26.115985925333536\n" +
+            "          ],\n" +
+            "          [\n" +
+            "            104.04602050781249,\n" +
+            "            25.567220388070023\n" +
+            "          ],\n" +
+            "          [\n" +
+            "            104.56787109374999,\n" +
+            "            25.23972731233395\n" +
+            "          ],\n" +
+            "          [\n" +
+            "            104.0789794921875,\n" +
+            "            24.557116164309626\n" +
+            "          ]\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"type\": \"Feature\",\n" +
+            "      \"properties\": {\n" +
+            "        \"marker-color\": \"#7e7e7e\",\n" +
+            "        \"marker-size\": \"medium\",\n" +
+            "        \"marker-symbol\": \"\",\n" +
+            "        \"ss\": 1\n" +
+            "      },\n" +
+            "      \"geometry\": {\n" +
+            "        \"type\": \"Point\",\n" +
+            "        \"coordinates\": [\n" +
+            "          102.733154296875,\n" +
+            "          26.204734267107604\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"type\": \"Feature\",\n" +
+            "      \"properties\": {\n" +
+            "        \"marker-color\": \"#7e7e7e\",\n" +
+            "        \"marker-size\": \"medium\",\n" +
+            "        \"marker-symbol\": \"\",\n" +
+            "        \"aa\": 11\n" +
+            "      },\n" +
+            "      \"geometry\": {\n" +
+            "        \"type\": \"Point\",\n" +
+            "        \"coordinates\": [\n" +
+            "          104.4525146484375,\n" +
+            "          26.347575438494673\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"type\": \"Feature\",\n" +
+            "      \"properties\": {},\n" +
+            "      \"geometry\": {\n" +
+            "        \"type\": \"Point\",\n" +
+            "        \"coordinates\": [\n" +
+            "          101.766357421875,\n" +
+            "          25.750424835909385\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"type\": \"Feature\",\n" +
+            "      \"properties\": {\n" +
+            "        \"stroke\": \"#555555\",\n" +
+            "        \"stroke-width\": 2,\n" +
+            "        \"stroke-opacity\": 1,\n" +
+            "        \"fill\": \"#555555\",\n" +
+            "        \"fill-opacity\": 0.5,\n" +
+            "        \"ss\": true\n" +
+            "      },\n" +
+            "      \"geometry\": {\n" +
+            "        \"type\": \"Polygon\",\n" +
+            "        \"coordinates\": [\n" +
+            "          [\n" +
+            "            [\n" +
+            "              100.4425048828125,\n" +
+            "              26.426308999847024\n" +
+            "            ],\n" +
+            "            [\n" +
+            "              100.6182861328125,\n" +
+            "              25.70588750345636\n" +
+            "            ],\n" +
+            "            [\n" +
+            "              101.10717773437499,\n" +
+            "              25.859223554761407\n" +
+            "            ],\n" +
+            "            [\n" +
+            "              101.77734374999999,\n" +
+            "              26.534479888888043\n" +
+            "            ],\n" +
+            "            [\n" +
+            "              101.0028076171875,\n" +
+            "              26.775039386999605\n" +
+            "            ],\n" +
+            "            [\n" +
+            "              100.4425048828125,\n" +
+            "              26.426308999847024\n" +
+            "            ]\n" +
+            "          ]\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"type\": \"Feature\",\n" +
+            "      \"properties\": {\n" +
+            "        \"stroke\": \"#555555\",\n" +
+            "        \"stroke-width\": 2,\n" +
+            "        \"stroke-opacity\": 1,\n" +
+            "        \"fill\": \"#555555\",\n" +
+            "        \"fill-opacity\": 0.5,\n" +
+            "        \"aa\": \"ss\"\n" +
+            "      },\n" +
+            "      \"geometry\": {\n" +
+            "        \"type\": \"Polygon\",\n" +
+            "        \"coordinates\": [\n" +
+            "          [\n" +
+            "            [\n" +
+            "              102.50244140624999,\n" +
+            "              27.381523191705053\n" +
+            "            ],\n" +
+            "            [\n" +
+            "              103.22753906249999,\n" +
+            "              26.931865156388916\n" +
+            "            ],\n" +
+            "            [\n" +
+            "              103.73291015625,\n" +
+            "              27.244862521497282\n" +
+            "            ],\n" +
+            "            [\n" +
+            "              103.22753906249999,\n" +
+            "              27.46928747369202\n" +
+            "            ],\n" +
+            "            [\n" +
+            "              102.50244140624999,\n" +
+            "              27.381523191705053\n" +
+            "            ]\n" +
+            "          ]\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}";
 
 }

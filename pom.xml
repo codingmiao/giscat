@@ -7,7 +7,7 @@
     <groupId>org.wowtools</groupId>
     <artifactId>giscat</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1-STABLE</version>
+    <version>1.1.1-STABLE</version>
     <name>giscat</name>
     <modules>
         <module>giscat-vector</module>
@@ -76,6 +76,11 @@
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
                 <version>20200518</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.13.2.2</version>
             </dependency>
             <dependency>
                 <groupId>org.openjdk.jmh</groupId>

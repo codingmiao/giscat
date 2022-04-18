@@ -18,14 +18,19 @@
  */
 package org.wowtools.giscat.vector.pojo.converter;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.locationtech.jts.geom.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LinearRing;
 import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
+import org.wowtools.giscat.vector.pojo.GeoJsonObject;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 /**
  * feature与geojson互转 线程安全
@@ -36,22 +41,57 @@ import java.util.Map;
 public class GeoJsonFeatureConverter {
 
     /**
+     * jackson ObjectMapper
+     */
+    public static final ObjectMapper mapper = new ObjectMapper();
+
+    private static final JavaType typeGeometry = mapper.constructType(GeoJsonObject.Geometry.class);
+    private static final JavaType typeFeature = mapper.constructType(GeoJsonObject.Feature.class);
+    private static final JavaType typeFeatureCollection = mapper.constructType(GeoJsonObject.FeatureCollection.class);
+
+
+    //////////////////////////////////////////////////////////////////////////////////////// feature -> geojson
+
+    /**
+     * 将geometry对象转为GeoJson
+     *
+     * @param geometry geometry
+     * @return geojson
+     */
+    public static GeoJsonObject.Geometry geometry2GeoJson(Geometry geometry) {
+        if (null == geometry) {
+            return null;
+        }
+        if (geometry instanceof org.locationtech.jts.geom.Point) {
+            return new GeoJsonObject.Point((org.locationtech.jts.geom.Point) geometry);
+        } else if (geometry instanceof org.locationtech.jts.geom.LineString) {
+            return new GeoJsonObject.LineString((org.locationtech.jts.geom.LineString) geometry);
+        } else if (geometry instanceof org.locationtech.jts.geom.Polygon) {
+            return new GeoJsonObject.Polygon((org.locationtech.jts.geom.Polygon) geometry);
+        } else if (geometry instanceof org.locationtech.jts.geom.MultiPoint) {
+            return new GeoJsonObject.MultiPoint((org.locationtech.jts.geom.MultiPoint) geometry);
+        } else if (geometry instanceof org.locationtech.jts.geom.MultiLineString) {
+            return new GeoJsonObject.MultiLineString((org.locationtech.jts.geom.MultiLineString) geometry);
+        } else if (geometry instanceof org.locationtech.jts.geom.MultiPolygon) {
+            return new GeoJsonObject.MultiPolygon((org.locationtech.jts.geom.MultiPolygon) geometry);
+        } else if (geometry instanceof org.locationtech.jts.geom.GeometryCollection) {
+            return new GeoJsonObject.GeometryCollection((org.locationtech.jts.geom.GeometryCollection) geometry);
+        } else {
+            throw new RuntimeException("未知类型 " + geometry.getGeometryType());
+        }
+    }
+
+    /**
      * 将feature对象转为GeoJson
      *
      * @param feature feature
      * @return geojson
      */
-    public static JSONObject toGeoJson(Feature feature) {
-        JSONObject jo = new JSONObject();
-        jo.put("type", "Feature");
-        if (null != feature.getGeometry()) {
-            jo.put("geometry", geometry2GeoJson(feature.getGeometry()));
-        }
-        Map<String, Object> properties = feature.getProperties();
-        if (null != properties && properties.size() > 0) {
-            jo.put("properties", feature.getProperties());
-        }
-        return jo;
+    public static GeoJsonObject.Feature toGeoJson(Feature feature) {
+        GeoJsonObject.Feature geoJsonFeature = new GeoJsonObject.Feature();
+        geoJsonFeature.setGeometry(geometry2GeoJson(feature.getGeometry()));
+        geoJsonFeature.setProperties(feature.getProperties());
+        return geoJsonFeature;
     }
 
     /**
@@ -60,143 +100,85 @@ public class GeoJsonFeatureConverter {
      * @param featureCollection featureCollection
      * @return geojson
      */
-    public static JSONObject toGeoJson(FeatureCollection featureCollection) {
-        JSONObject jo = new JSONObject();
-        jo.put("type", "FeatureCollection");
-        JSONArray jaFeatures = new JSONArray();
+    public static GeoJsonObject.FeatureCollection toGeoJson(FeatureCollection featureCollection) {
+        GeoJsonObject.Feature[] geoJsonFeatures = new GeoJsonObject.Feature[featureCollection.getFeatures().size()];
+        int i = 0;
+        GeoJsonObject.FeatureCollection geoJsonFeatureCollection = new GeoJsonObject.FeatureCollection();
         for (Feature feature : featureCollection.getFeatures()) {
-            jaFeatures.put(toGeoJson(feature));
+            geoJsonFeatures[i] = toGeoJson(feature);
+            i++;
         }
-        jo.put("features", jaFeatures);
-        return jo;
+        geoJsonFeatureCollection.setFeatures(geoJsonFeatures);
+        return geoJsonFeatureCollection;
     }
 
 
-    public static JSONObject geometry2GeoJson(Geometry geometry) {
-        if (geometry instanceof Point) {
-            return point2GeoJson(geometry);
-        }
-        if (geometry instanceof LineString) {
-            return lineString2GeoJson(geometry);
-        }
-        if (geometry instanceof Polygon) {
-            return polygon2GeoJson(geometry);
-        }
+    //////////////////////////////////////////////////////////////////////////////////////// feature <- geojson
 
-        if (geometry instanceof MultiPoint) {
-            return multiPoint2GeoJson(geometry);
+    /**
+     * 将GeoJson对象转为Geometry
+     *
+     * @param strGeojsonGeometry geojsonGeometry string
+     * @param geometryFactory    jts GeometryFactory
+     * @return jts Geometry
+     */
+    public static Geometry geoJson2Geometry(String strGeojsonGeometry, GeometryFactory geometryFactory) {
+        GeoJsonObject.Geometry geojsonGeometry;
+        try {
+            geojsonGeometry = mapper.readValue(strGeojsonGeometry, typeGeometry);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
-        if (geometry instanceof MultiLineString) {
-            return multiLineString2GeoJson(geometry);
-        }
-        if (geometry instanceof MultiPolygon) {
-            return multiPolygon2GeoJson(geometry);
-        }
-
-        if (geometry instanceof GeometryCollection) {
-            return geometryCollection2GeoJson(geometry);
-        }
-        //发现其他类型参考 https://en.wikipedia.org/wiki/GeoJSON 补充实现
-        throw new RuntimeException("暂未实现的geometry类型 " + geometry.getGeometryType());
+        return geoJson2Geometry(geojsonGeometry, geometryFactory);
     }
 
-    private static JSONObject point2GeoJson(Geometry geometry) {
-        Point point = (Point) geometry;
-        JSONObject jo = new JSONObject();
-        jo.put("type", "Point");
-        jo.put("coordinates", coordinate2Ja(point.getCoordinate()));
-        return jo;
-    }
-
-    private static JSONObject lineString2GeoJson(Geometry geometry) {
-        LineString lineString = (LineString) geometry;
-        JSONObject jo = new JSONObject();
-        jo.put("type", "LineString");
-        jo.put("coordinates", coordinates2Ja(lineString.getCoordinates()));
-        return jo;
-    }
-
-    private static JSONObject polygon2GeoJson(Geometry geometry) {
-        Polygon polygon = (Polygon) geometry;
-        JSONObject jo = new JSONObject();
-        jo.put("type", "Polygon");
-        JSONArray rings = new JSONArray();
-        rings.put(coordinates2Ja(polygon.getExteriorRing().getCoordinates()));
-        for (int i = 0; i < polygon.getNumInteriorRing(); i++) {
-            rings.put(coordinates2Ja(polygon.getInteriorRingN(i).getCoordinates()));
+    /**
+     * 将GeoJson对象转为Geometry
+     *
+     * @param geojsonGeometry geojsonGeometry
+     * @param geometryFactory jts GeometryFactory
+     * @return jts Geometry
+     */
+    public static Geometry geoJson2Geometry(GeoJsonObject.Geometry geojsonGeometry, GeometryFactory geometryFactory) {
+        if (null == geojsonGeometry) {
+            return null;
         }
-        jo.put("coordinates", rings);
-        return jo;
-    }
-
-    private static JSONObject multiPoint2GeoJson(Geometry geometry) {
-        MultiPoint multiPoint = (MultiPoint) geometry;
-        JSONObject jo = new JSONObject();
-        jo.put("type", "MultiPoint");
-        jo.put("coordinates", coordinates2Ja(multiPoint.getCoordinates()));
-        return jo;
-    }
-
-    private static JSONObject multiLineString2GeoJson(Geometry geometry) {
-        MultiLineString multiLineString = (MultiLineString) geometry;
-        JSONObject jo = new JSONObject();
-        jo.put("type", "MultiLineString");
-        JSONArray lines = new JSONArray();
-        for (int i = 0; i < multiLineString.getNumGeometries(); i++) {
-            lines.put(coordinates2Ja(multiLineString.getGeometryN(i).getCoordinates()));
+        if (geojsonGeometry instanceof GeoJsonObject.Point) {
+            return coords2Point(((GeoJsonObject.Point) geojsonGeometry).getCoordinates(), geometryFactory);
+        } else if (geojsonGeometry instanceof GeoJsonObject.LineString) {
+            return coords2LineString(((GeoJsonObject.LineString) geojsonGeometry).getCoordinates(), geometryFactory);
+        } else if (geojsonGeometry instanceof GeoJsonObject.Polygon) {
+            return coords2Polygon(((GeoJsonObject.Polygon) geojsonGeometry).getCoordinates(), geometryFactory);
+        } else if (geojsonGeometry instanceof GeoJsonObject.MultiPoint) {
+            return coords2MultiPoint(((GeoJsonObject.MultiPoint) geojsonGeometry).getCoordinates(), geometryFactory);
+        } else if (geojsonGeometry instanceof GeoJsonObject.MultiLineString) {
+            return coords2MultiLineString(((GeoJsonObject.MultiLineString) geojsonGeometry).getCoordinates(), geometryFactory);
+        } else if (geojsonGeometry instanceof GeoJsonObject.MultiPolygon) {
+            return coords2MultiPolygon(((GeoJsonObject.MultiPolygon) geojsonGeometry).getCoordinates(), geometryFactory);
+        } else if (geojsonGeometry instanceof GeoJsonObject.GeometryCollection) {
+            return toGeometryCollection((GeoJsonObject.GeometryCollection) geojsonGeometry, geometryFactory);
+        } else {
+            throw new RuntimeException("未知类型 " + geojsonGeometry.getType());
         }
-        jo.put("coordinates", lines);
-        return jo;
-    }
-
-    private static JSONObject multiPolygon2GeoJson(Geometry geometry) {
-        MultiPolygon multiPolygon = (MultiPolygon) geometry;
-        JSONObject jo = new JSONObject();
-        jo.put("type", "MultiPolygon");
-        JSONArray polygons = new JSONArray();
-        for (int j = 0; j < multiPolygon.getNumGeometries(); j++) {
-            Polygon polygon = (Polygon) multiPolygon.getGeometryN(j);
-            JSONArray rings = new JSONArray();
-            rings.put(coordinates2Ja(polygon.getExteriorRing().getCoordinates()));
-            for (int i = 0; i < polygon.getNumInteriorRing(); i++) {
-                rings.put(coordinates2Ja(polygon.getInteriorRingN(i).getCoordinates()));
-            }
-            polygons.put(rings);
-        }
-        jo.put("coordinates", polygons);
-        return jo;
-    }
-
-    private static JSONObject geometryCollection2GeoJson(Geometry geometry) {
-        JSONObject jo = new JSONObject();
-        jo.put("type", "GeometryCollection");
-        JSONArray geometries = new JSONArray();
-        GeometryCollection geometryCollection = (GeometryCollection) geometry;
-        for (int i = 0; i < geometryCollection.getNumGeometries(); i++) {
-            JSONObject sub = geometry2GeoJson(geometry.getGeometryN(i));
-            geometries.put(sub);
-        }
-        jo.put("geometries", geometries);
-        return jo;
     }
 
 
-    private static JSONArray coordinate2Ja(Coordinate coordinate) {
-        JSONArray ja = new JSONArray();
-        ja.put(coordinate.x);
-        ja.put(coordinate.y);
-        return ja;
-    }
-
-    private static JSONArray coordinates2Ja(Coordinate[] coordinates) {
-        JSONArray ja = new JSONArray();
-        for (Coordinate coordinate : coordinates) {
-            ja.put(coordinate2Ja(coordinate));
+    /**
+     * 将GeoJson对象转为Feature
+     *
+     * @param strGeoJsonFeature geoJsonFeature string
+     * @param geometryFactory   jts GeometryFactory
+     * @return Feature
+     */
+    public static Feature fromGeoJsonFeature(String strGeoJsonFeature, GeometryFactory geometryFactory) {
+        GeoJsonObject.Feature geoJsonFeature;
+        try {
+            geoJsonFeature = mapper.readValue(strGeoJsonFeature, typeFeature);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
-        return ja;
+        return fromGeoJsonFeature(geoJsonFeature, geometryFactory);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 将GeoJson对象转为Feature
@@ -205,126 +187,27 @@ public class GeoJsonFeatureConverter {
      * @param geometryFactory jts GeometryFactory
      * @return Feature
      */
-    public static Feature fromGeoJsonFeature(JSONObject geoJsonFeature, GeometryFactory geometryFactory) {
-        Feature feature = new Feature();
-        JSONObject joGeometry = geoJsonFeature.optJSONObject("geometry");
-        if (null != joGeometry) {
-            feature.setGeometry(geoJson2Geometry(joGeometry, geometryFactory));
-        }
-        JSONObject joProperties = geoJsonFeature.optJSONObject("properties");
-        if (joProperties != null) {
-            feature.setProperties(joProperties.toMap());
-        }
+    public static Feature fromGeoJsonFeature(GeoJsonObject.Feature geoJsonFeature, GeometryFactory geometryFactory) {
+        Geometry geometry = geoJson2Geometry(geoJsonFeature.getGeometry(), geometryFactory);
+        Feature feature = new Feature(geometry, geoJsonFeature.getProperties());
         return feature;
     }
 
-    public static Geometry geoJson2Geometry(JSONObject joGeometry, GeometryFactory geometryFactory) {
-        String type = joGeometry.getString("type");
-        switch (type) {
-            case "Point":
-                return geoJson2Point(joGeometry, geometryFactory);
-            case "LineString":
-                return geoJson2LineString(joGeometry, geometryFactory);
-            case "Polygon":
-                return geoJson2Polygon(joGeometry, geometryFactory);
-            case "MultiPoint":
-                return geoJson2MultiPoint(joGeometry, geometryFactory);
-            case "MultiLineString":
-                return geoJson2MultiLineString(joGeometry, geometryFactory);
-            case "MultiPolygon":
-                return geoJson2MultiPolygon(joGeometry, geometryFactory);
-            case "GeometryCollection":
-                return geoJson2GeometryCollection(joGeometry, geometryFactory);
-            default:
-                //发现其他类型参考 https://en.wikipedia.org/wiki/GeoJSON 补充实现
-                throw new RuntimeException("暂未实现的geometry类型 " + type);
+    /**
+     * 将GeoJson对象转为Feature
+     *
+     * @param strGeoJsonFeatureCollection geoJsonFeatureCollection string
+     * @param geometryFactory             geometryFactory
+     * @return FeatureCollection
+     */
+    public static FeatureCollection fromGeoJsonFeatureCollection(String strGeoJsonFeatureCollection, GeometryFactory geometryFactory) {
+        GeoJsonObject.FeatureCollection geoJsonFeatureCollection;
+        try {
+            geoJsonFeatureCollection = mapper.readValue(strGeoJsonFeatureCollection, typeFeatureCollection);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
-
-    }
-
-    private static Point geoJson2Point(JSONObject joGeometry, GeometryFactory geometryFactory) {
-        JSONArray coordinates = joGeometry.getJSONArray("coordinates");
-        return geometryFactory.createPoint(ja2Coordinate(coordinates));
-    }
-
-    private static LineString geoJson2LineString(JSONObject joGeometry, GeometryFactory geometryFactory) {
-        JSONArray coordinates = joGeometry.getJSONArray("coordinates");
-        return geometryFactory.createLineString(jas2Coordinate(coordinates));
-    }
-
-    private static Polygon geoJson2Polygon(JSONObject joGeometry, GeometryFactory geometryFactory) {
-        JSONArray rings = joGeometry.getJSONArray("coordinates");
-        if (rings.length() == 1) {
-            JSONArray ring = rings.getJSONArray(0);
-            return geometryFactory.createPolygon(jas2Coordinate(ring));
-        } else {
-            //FIXME 效率起见，认为第一个环是shell，而没有按顺时针逆时针判断
-            LinearRing shell = geometryFactory.createLinearRing(jas2Coordinate(rings.getJSONArray(0)));
-            LinearRing[] holes = new LinearRing[rings.length() - 1];
-            for (int i = 0; i < holes.length; i++) {
-                holes[i] = geometryFactory.createLinearRing(jas2Coordinate(rings.getJSONArray(i + 1)));
-            }
-            return geometryFactory.createPolygon(shell, holes);
-        }
-    }
-
-
-    private static MultiPoint geoJson2MultiPoint(JSONObject joGeometry, GeometryFactory geometryFactory) {
-        JSONArray jaCoordinates = joGeometry.getJSONArray("coordinates");
-        Coordinate[] coordinates = jas2Coordinate(jaCoordinates);
-        Point[] points = new Point[coordinates.length];
-        for (int i = 0; i < coordinates.length; i++) {
-            points[i] = geometryFactory.createPoint(coordinates[i]);
-        }
-        return geometryFactory.createMultiPoint(points);
-    }
-
-    private static MultiLineString geoJson2MultiLineString(JSONObject joGeometry, GeometryFactory geometryFactory) {
-        JSONArray jaCoordinates = joGeometry.getJSONArray("coordinates");
-        LineString[] lineStrings = new LineString[jaCoordinates.length()];
-        for (int i = 0; i < lineStrings.length; i++) {
-            Coordinate[] lineCoords = jas2Coordinate(jaCoordinates.getJSONArray(i));
-            lineStrings[i] = geometryFactory.createLineString(lineCoords);
-        }
-        return geometryFactory.createMultiLineString(lineStrings);
-    }
-
-    private static MultiPolygon geoJson2MultiPolygon(JSONObject joGeometry, GeometryFactory geometryFactory) {
-        JSONArray jaPolygons = joGeometry.getJSONArray("coordinates");
-        Polygon[] polygons = new Polygon[jaPolygons.length()];
-        for (int pi = 0; pi < polygons.length; pi++) {
-            JSONArray jaRings = jaPolygons.getJSONArray(pi);
-            LinearRing shell = geometryFactory.createLinearRing(jas2Coordinate(jaRings.getJSONArray(0)));
-            LinearRing[] holes = new LinearRing[jaRings.length() - 1];
-            for (int i = 0; i < holes.length; i++) {
-                JSONArray jaRing = jaRings.getJSONArray(i + 1);
-                Coordinate[] ringCoords = jas2Coordinate(jaRing);
-                holes[i] = geometryFactory.createLinearRing(ringCoords);
-            }
-            polygons[pi] = geometryFactory.createPolygon(shell, holes);
-        }
-        return geometryFactory.createMultiPolygon(polygons);
-    }
-
-    private static GeometryCollection geoJson2GeometryCollection(JSONObject joGeometry, GeometryFactory geometryFactory) {
-        JSONArray jaGeometries = joGeometry.getJSONArray("geometries");
-        Geometry[] geometries = new Geometry[jaGeometries.length()];
-        for (int i = 0; i < geometries.length; i++) {
-            geometries[i] = geoJson2Geometry(jaGeometries.getJSONObject(i), geometryFactory);
-        }
-        return geometryFactory.createGeometryCollection(geometries);
-    }
-
-    private static Coordinate ja2Coordinate(JSONArray ja) {
-        return new Coordinate(ja.getDouble(0), ja.getDouble(1));
-    }
-
-    private static Coordinate[] jas2Coordinate(JSONArray jas) {
-        Coordinate[] coordinates = new Coordinate[jas.length()];
-        for (int i = 0; i < jas.length(); i++) {
-            coordinates[i] = ja2Coordinate(jas.getJSONArray(i));
-        }
-        return coordinates;
+        return fromGeoJsonFeatureCollection(geoJsonFeatureCollection, geometryFactory);
     }
 
     /**
@@ -334,17 +217,101 @@ public class GeoJsonFeatureConverter {
      * @param geometryFactory          geometryFactory
      * @return FeatureCollection
      */
-    public static FeatureCollection fromGeoJsonFeatureCollection(JSONObject geoJsonFeatureCollection, GeometryFactory geometryFactory) {
-        JSONArray jaFeatures = geoJsonFeatureCollection.getJSONArray("features");
-        ArrayList<Feature> features = new ArrayList<>(jaFeatures.length());
-        for (Object o : jaFeatures) {
-            JSONObject joFeature = (JSONObject) o;
-            Feature feature = fromGeoJsonFeature(joFeature, geometryFactory);
+    public static FeatureCollection fromGeoJsonFeatureCollection(GeoJsonObject.FeatureCollection geoJsonFeatureCollection, GeometryFactory geometryFactory) {
+        List<Feature> features = new ArrayList<>(geoJsonFeatureCollection.getFeatures().length);
+        for (int i = 0; i < geoJsonFeatureCollection.getFeatures().length; i++) {
+            Feature feature = fromGeoJsonFeature(geoJsonFeatureCollection.getFeatures()[i], geometryFactory);
             features.add(feature);
         }
         FeatureCollection featureCollection = new FeatureCollection();
         featureCollection.setFeatures(features);
         return featureCollection;
     }
+
+    private static Coordinate[] coords2Coordinates(double[][] coords) {
+        Coordinate[] coordinates = new Coordinate[coords.length];
+        for (int i = 0; i < coordinates.length; i++) {
+            double[] xy = coords[i];
+            coordinates[i] = new Coordinate(xy[0], xy[1]);
+        }
+        return coordinates;
+    }
+
+    private static LinearRing coords2Ring(double[][] coords, GeometryFactory geometryFactory) {
+        Coordinate[] coordinates = coords2Coordinates(coords);
+        return geometryFactory.createLinearRing(coordinates);
+    }
+
+    private static org.locationtech.jts.geom.Point coords2Point(double[] coords, GeometryFactory geometryFactory) {
+        return geometryFactory.createPoint(new Coordinate(coords[0], coords[1]));
+    }
+
+    private static org.locationtech.jts.geom.LineString coords2LineString(double[][] coords, GeometryFactory geometryFactory) {
+        Coordinate[] coordinates = coords2Coordinates(coords);
+        return geometryFactory.createLineString(coordinates);
+    }
+
+    private static org.locationtech.jts.geom.Polygon coords2Polygon(double[][][] coords, GeometryFactory geometryFactory) {
+        LinearRing ring = coords2Ring(coords[0], geometryFactory);
+        if (coords.length == 1) {
+            return geometryFactory.createPolygon(ring);
+        } else {
+            LinearRing[] holes = new LinearRing[coords.length - 1];
+            for (int i = 0; i < holes.length; i++) {
+                holes[i] = coords2Ring(coords[i + 1], geometryFactory);
+            }
+            return geometryFactory.createPolygon(ring, holes);
+        }
+    }
+
+    private static org.locationtech.jts.geom.MultiPoint coords2MultiPoint(double[][] coords, GeometryFactory geometryFactory) {
+        org.locationtech.jts.geom.Point[] points = new org.locationtech.jts.geom.Point[coords.length];
+        for (int i = 0; i < points.length; i++) {
+            points[i] = coords2Point(coords[i], geometryFactory);
+        }
+        return geometryFactory.createMultiPoint(points);
+    }
+
+    private static org.locationtech.jts.geom.MultiLineString coords2MultiLineString(double[][][] coords, GeometryFactory geometryFactory) {
+        org.locationtech.jts.geom.LineString[] subs = new org.locationtech.jts.geom.LineString[coords.length];
+        for (int i = 0; i < subs.length; i++) {
+            subs[i] = coords2LineString(coords[i], geometryFactory);
+        }
+        return geometryFactory.createMultiLineString(subs);
+    }
+
+    private static org.locationtech.jts.geom.MultiPolygon coords2MultiPolygon(double[][][][] coords, GeometryFactory geometryFactory) {
+        org.locationtech.jts.geom.Polygon[] subs = new org.locationtech.jts.geom.Polygon[coords.length];
+        for (int i = 0; i < subs.length; i++) {
+            subs[i] = coords2Polygon(coords[i], geometryFactory);
+        }
+        return geometryFactory.createMultiPolygon(subs);
+    }
+
+    private static org.locationtech.jts.geom.GeometryCollection toGeometryCollection(GeoJsonObject.GeometryCollection geometryCollection, GeometryFactory geometryFactory) {
+        org.locationtech.jts.geom.Geometry[] geos = new org.locationtech.jts.geom.Geometry[geometryCollection.getGeometries().length];
+        for (int i = 0; i < geos.length; i++) {
+            GeoJsonObject.Geometry sub = geometryCollection.getGeometries()[i];
+            if (sub instanceof GeoJsonObject.Point) {
+                geos[i] = coords2Point(((GeoJsonObject.Point) sub).getCoordinates(), geometryFactory);
+            } else if (sub instanceof GeoJsonObject.LineString) {
+                geos[i] = coords2LineString(((GeoJsonObject.LineString) sub).getCoordinates(), geometryFactory);
+            } else if (sub instanceof GeoJsonObject.Polygon) {
+                geos[i] = coords2Polygon(((GeoJsonObject.Polygon) sub).getCoordinates(), geometryFactory);
+            } else if (sub instanceof GeoJsonObject.MultiPoint) {
+                geos[i] = coords2MultiPoint(((GeoJsonObject.MultiPoint) sub).getCoordinates(), geometryFactory);
+            } else if (sub instanceof GeoJsonObject.MultiLineString) {
+                geos[i] = coords2MultiLineString(((GeoJsonObject.MultiLineString) sub).getCoordinates(), geometryFactory);
+            } else if (sub instanceof GeoJsonObject.MultiPolygon) {
+                geos[i] = coords2MultiPolygon(((GeoJsonObject.MultiPolygon) sub).getCoordinates(), geometryFactory);
+            } else if (sub instanceof GeoJsonObject.GeometryCollection) {
+                geos[i] = toGeometryCollection((GeoJsonObject.GeometryCollection) sub, geometryFactory);
+            } else {
+                throw new RuntimeException("未知类型 " + sub.getType());
+            }
+        }
+        return geometryFactory.createGeometryCollection(geos);
+    }
+
 
 }

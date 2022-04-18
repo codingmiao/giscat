@@ -5,24 +5,28 @@
     <parent>
         <artifactId>giscat-vector</artifactId>
         <groupId>org.wowtools</groupId>
-        <version>1.0.1-STABLE</version>
+        <version>1.1.1-STABLE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>giscat-vector-pojo</artifactId>
-    <version>1.0.1-STABLE</version>
+    <version>1.1.1-STABLE</version>
     <dependencies>
         <dependency>
             <groupId>org.locationtech.jts</groupId>
             <artifactId>jts-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
