@@ -17,48 +17,20 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.pojo;
+package org.wowtools.giscat.vector.mvt;
 
 import org.locationtech.jts.geom.Geometry;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
- * 要素 包含properties和geometry
+ * mvt feature
  *
  * @author liuyu
- * @date 2022/3/15
+ * @date 2022/4/24
  */
-public class Feature {
-    private Geometry geometry;
-    private Map<String, Object> properties;
+public final class MvtFeature {
 
-    public Feature(Geometry geometry, Map<String, Object> properties) {
-        this.geometry = geometry;
-        this.properties = properties;
-    }
-
-    public Feature(Geometry geometry) {
-        this.geometry = geometry;
-    }
-
-    public Feature() {
-    }
-
-    public Geometry getGeometry() {
-        return geometry;
-    }
-
-    public void setGeometry(Geometry geometry) {
-        this.geometry = geometry;
-    }
-
-    public Map<String, Object> getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Map<String, Object> properties) {
-        this.properties = properties;
-    }
-
+    Geometry geometry;
+    ArrayList<Integer> tags;
 }

@@ -3,35 +3,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>giscat-vector</artifactId>
+        <artifactId>giscat</artifactId>
         <groupId>org.wowtools</groupId>
         <version>1.2.0-STABLE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>giscat-vector-pojo</artifactId>
+    <artifactId>giscat-vector-util</artifactId>
     <version>1.2.0-STABLE</version>
+
+    <description>常用gis工具</description>
+
     <dependencies>
         <dependency>
-            <groupId>org.locationtech.jts</groupId>
-            <artifactId>jts-core</artifactId>
+            <artifactId>giscat-vector-pojo</artifactId>
+            <groupId>org.wowtools</groupId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math</artifactId>
         </dependency>
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
@@ -44,9 +34,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.wololo</groupId>
-            <artifactId>jts2geojson</artifactId>
-            <version>0.17.0</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

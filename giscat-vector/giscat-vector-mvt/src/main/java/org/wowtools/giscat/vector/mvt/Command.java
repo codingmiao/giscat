@@ -1,5 +1,5 @@
 /*****************************************************************
- *  Copyright (c) 2022- "giscat by 刘雨 (https://github.com/codingmiao/giscat)"
+ * This document is adapted from https://github.com/ElectronicChartCentre/java-vector-tile
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
  *  distributed with this work for additional information
@@ -17,23 +17,27 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.pojo;
+package org.wowtools.giscat.vector.mvt;
 
-import java.util.List;
+final class Command {
 
-/**
- * FeatureCollection
- * @author liuyu
- * @date 2022/3/15
- */
-public class FeatureCollection {
-    private List<Feature> features;
+    /**
+     * MoveTo: 1. (2 parameters follow)
+     */
+    static final int MoveTo = 1;
 
-    public List<Feature> getFeatures() {
-        return features;
+    /**
+     * LineTo: 2. (2 parameters follow)
+     */
+    static final int LineTo = 2;
+
+    /**
+     * ClosePath: 7. (no parameters follow)
+     */
+    static final int ClosePath = 7;
+
+    private Command() {
+
     }
 
-    public void setFeatures(List<Feature> features) {
-        this.features = features;
-    }
 }

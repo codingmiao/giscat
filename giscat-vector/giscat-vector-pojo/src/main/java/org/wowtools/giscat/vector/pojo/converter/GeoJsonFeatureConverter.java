@@ -1,5 +1,5 @@
 /*****************************************************************
- *  Copyright (c) 2022- "giscat by 刘雨"
+ *  Copyright (c) 2022- "giscat by 刘雨 (https://github.com/codingmiao/giscat)"
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
  *  distributed with this work for additional information
@@ -190,8 +190,7 @@ public class GeoJsonFeatureConverter {
      */
     public static Feature fromGeoJsonFeature(GeoJsonObject.Feature geoJsonFeature, GeometryFactory geometryFactory) {
         Geometry geometry = geoJson2Geometry(geoJsonFeature.getGeometry(), geometryFactory);
-        Feature feature = new Feature(geometry, geoJsonFeature.getProperties());
-        return feature;
+        return new Feature(geometry, geoJsonFeature.getProperties());
     }
 
     /**

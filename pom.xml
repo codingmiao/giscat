@@ -7,11 +7,10 @@
     <groupId>org.wowtools</groupId>
     <artifactId>giscat</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.2-STABLE</version>
+    <version>1.2.0-STABLE</version>
     <name>giscat</name>
     <modules>
         <module>giscat-vector</module>
-        <module>giscat-vector-mvt</module>
     </modules>
 
     <properties>
@@ -26,16 +25,26 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <artifactId>giscat-vector-pojo</artifactId>
+                <groupId>org.wowtools</groupId>
+                <version>1.2.0-STABLE</version>
+            </dependency>
+            <dependency>
+                <artifactId>giscat-vector-util</artifactId>
+                <groupId>org.wowtools</groupId>
+                <version>1.2.0-STABLE</version>
+            </dependency>
+            <dependency>
+                <artifactId>giscat-vector-mvt</artifactId>
+                <groupId>org.wowtools</groupId>
+                <version>1.2.0-STABLE</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>2.6.4</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.10</version>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>
@@ -46,7 +55,6 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.8</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
@@ -92,6 +100,12 @@
                 <groupId>org.openjdk.jmh</groupId>
                 <artifactId>jmh-generator-annprocess</artifactId>
                 <version>1.23</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math</artifactId>
+                <version>2.2</version>
+                <scope>compile</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

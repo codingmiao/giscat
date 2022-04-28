@@ -3,34 +3,29 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>giscat-vector</artifactId>
+        <artifactId>giscat</artifactId>
         <groupId>org.wowtools</groupId>
         <version>1.2.0-STABLE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>giscat-vector-pojo</artifactId>
+    <artifactId>giscat-vector-mvt</artifactId>
     <version>1.2.0-STABLE</version>
+    <description>Mapbox vector tile (mvt) 的序列化与反序列化</description>
+
     <dependencies>
         <dependency>
-            <groupId>org.locationtech.jts</groupId>
-            <artifactId>jts-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <artifactId>giscat-vector-util</artifactId>
+            <groupId>org.wowtools</groupId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -44,9 +39,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.wololo</groupId>
-            <artifactId>jts2geojson</artifactId>
-            <version>0.17.0</version>
+            <groupId>org.wowtools</groupId>
+            <artifactId>catframe-common</artifactId>
+            <version>1.4.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
