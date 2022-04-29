@@ -37,14 +37,14 @@ public class WebDemo {
      * 数据来源
      * https://datav.aliyun.com/portal/school/atlas/area_selector
      */
-    private static final FeatureCollection areaFeatureCollection;
-
-    private static final FeatureCollection lineFeatureCollection;
-    private static final FeatureCollection pointFeatureCollection;
+    private static final FeatureCollection areaFeatureCollection;//面数据
+    private static final FeatureCollection lineFeatureCollection;//线数据
+    private static final FeatureCollection pointFeatureCollection;//点数据
 
     private static final GeometryFactory geometryFactory = new GeometryFactory();
 
     static {
+        //构造示例数据
         GeometryFactory gf = new GeometryFactory();
         String strJson = org.wowtools.common.utils.ResourcesReader.readStr(WebDemo.class, "china.json");
         areaFeatureCollection = GeoJsonFeatureConverter.fromGeoJsonFeatureCollection(strJson, gf);
@@ -91,35 +91,42 @@ public class WebDemo {
     private static final String vtContentType = "application/octet-stream";
 
     @RequestMapping("/{z}/{x}/{y}")
-    public void getBgTile(@PathVariable int z, @PathVariable int x, @PathVariable int y, HttpServletResponse response) {
+    public void getTile(@PathVariable int z, @PathVariable int x, @PathVariable int y, HttpServletResponse response) {
+        //构造一个MvtBuilder对象
         MvtBuilder mvtBuilder = new MvtBuilder(z, x, y, geometryFactory);
 
-        MvtLayer layer = mvtBuilder.getOrCreateLayer("area");
+        //向mvt中添加layer
+        MvtLayer layer = mvtBuilder.getOrCreateLayer("省区域");
+        //向layer中添加feature
         for (Feature feature : areaFeatureCollection.getFeatures()) {
+            //这里简单地从内存中取数据并判断其是否与瓦片有交集，实际运用中可从数据库查询，例如postgis的ST_intersects函数
             if (mvtBuilder.getBbox().envIntersects(feature.getGeometry())) {
                 layer.addFeature(feature);
             }
         }
 
-        layer = mvtBuilder.getOrCreateLayer("line");
+        //如法炮制添加layer
+        layer = mvtBuilder.getOrCreateLayer("省边界");
         for (Feature feature : lineFeatureCollection.getFeatures()) {
             if (mvtBuilder.getBbox().envIntersects(feature.getGeometry())) {
                 layer.addFeature(feature);
             }
         }
 
-        layer = mvtBuilder.getOrCreateLayer("point");
+        //如法炮制添加layer
+        layer = mvtBuilder.getOrCreateLayer("省会位置");
         for (Feature feature : pointFeatureCollection.getFeatures()) {
             if (mvtBuilder.getBbox().envIntersects(feature.getGeometry())) {
                 layer.addFeature(feature);
             }
         }
 
+        //数据添加完毕，转为
         byte[] bytes = mvtBuilder.toBytes();
         exportByte(bytes, vtContentType, response);
     }
 
-
+    //将bytes写进HttpServletResponse
     private void exportByte(byte[] bytes, String contentType, HttpServletResponse response) {
         response.setContentType(contentType);
         try (OutputStream os = response.getOutputStream()) {
