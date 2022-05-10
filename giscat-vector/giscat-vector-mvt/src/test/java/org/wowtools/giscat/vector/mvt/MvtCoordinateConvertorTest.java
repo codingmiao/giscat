@@ -18,17 +18,34 @@ public class MvtCoordinateConvertorTest {
                 "]");
         double wgs84X = 103.31;
         int mvtX = mvtCoordinateConvertor.wgs84X2mvt(wgs84X);
-        assertEquals(1794, mvtX);
+        assertEquals(1795, mvtX);
         double wgs84Y = 23.35;
         int mvtY = mvtCoordinateConvertor.wgs84Y2mvt(wgs84Y);
-        assertEquals(2678, mvtY);
+        assertEquals(2679, mvtY);
 
         wgs84X = 103.41;
         mvtX = mvtCoordinateConvertor.wgs84X2mvt(wgs84X);
         assertEquals(6455, mvtX);
         wgs84Y = 23.41;
         mvtY = mvtCoordinateConvertor.wgs84Y2mvt(wgs84Y);
-        assertEquals(-367, mvtY);
+        assertEquals(-366, mvtY);
+
+    }
+
+    @org.junit.Test
+    public void testMvt2Wgs84(){
+        System.out.println(Math.log(2.3));
+        System.out.println(Math.exp(0.8329091229351039));
+
+
+        int z = 12, x = 3223, y = 1774;
+        MvtCoordinateConvertor mvtCoordinateConvertor = new MvtCoordinateConvertor(z, x, y);
+
+        assertEquals(103.31, mvtCoordinateConvertor.mvtX2wgs84(1795),0.0001);
+        assertEquals(103.41, mvtCoordinateConvertor.mvtX2wgs84(6455),0.0001);
+
+        assertEquals(23.35, mvtCoordinateConvertor.mvtY2wgs84(2679),0.0001);
+        assertEquals(23.41, mvtCoordinateConvertor.mvtY2wgs84(-366),0.0001);
 
     }
 

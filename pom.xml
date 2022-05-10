@@ -7,7 +7,7 @@
     <groupId>org.wowtools</groupId>
     <artifactId>giscat</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.0-STABLE</version>
+    <version>1.3.0-STABLE</version>
     <name>giscat</name>
     <modules>
         <module>giscat-vector</module>
@@ -27,17 +27,17 @@
             <dependency>
                 <artifactId>giscat-vector-pojo</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>1.2.0-STABLE</version>
+                <version>1.3.0-STABLE</version>
             </dependency>
             <dependency>
                 <artifactId>giscat-vector-util</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>1.2.0-STABLE</version>
+                <version>1.3.0-STABLE</version>
             </dependency>
             <dependency>
                 <artifactId>giscat-vector-mvt</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>1.2.0-STABLE</version>
+                <version>1.3.0-STABLE</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -115,8 +115,9 @@
     <url>https://github.com/codingmiao/giscat</url>
     <licenses>
         <license>
-            <name>GNU General Public License, Version 3</name>
-            <url>http://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+            <name>custom</name>
+            <comments>The software uses different open source protocols for different industries</comments>
+            <url>https://github.com/codingmiao/giscat/blob/main/LICENSE</url>
         </license>
     </licenses>
 

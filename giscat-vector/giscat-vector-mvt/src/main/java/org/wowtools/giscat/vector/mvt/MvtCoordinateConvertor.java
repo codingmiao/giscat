@@ -28,16 +28,27 @@ package org.wowtools.giscat.vector.mvt;
 class MvtCoordinateConvertor {
     private static final short TILE_SIZE = 256;
 
+    private static final long[] zoomPow;
+
+    static {
+        int n = 30;
+        zoomPow = new long[n];
+        long s = TILE_SIZE;
+        for (int i = 0; i < n; i++) {
+            zoomPow[i] = s;
+            s = s * 2;
+        }
+    }
 
     private final double px;
     private final double py;
-    private final long zoomMultiple;
+    private final long zoomMultiple;// 使用int的话超过22级就溢出了
 
     public MvtCoordinateConvertor(int z, int x, int y) {
         px = x * TILE_SIZE;
         py = y * TILE_SIZE;
 
-        zoomMultiple = (long) TILE_SIZE << z;
+        zoomMultiple = zoomPow[z];
     }
 
     /**
@@ -48,7 +59,7 @@ class MvtCoordinateConvertor {
      */
     public int wgs84X2mvt(double x) {
         double ppx = (x + 180) / 360 * zoomMultiple;
-        return (int) ((ppx - px) * 16);
+        return (int) ((ppx - px) * 16 + 0.5);
     }
 
     /**
@@ -59,19 +70,24 @@ class MvtCoordinateConvertor {
      */
     public int wgs84Y2mvt(double y) {
         double sinLatitude = Math.sin(y * Math.PI / 180);
-        double ppy = (0.5 - Math.log((1 + sinLatitude) / (1 - sinLatitude))
-                / (4 * Math.PI))
-                * zoomMultiple;
-        return (int) (((ppy) - py) * 16);
+        double mp = Math.log((1 + sinLatitude) / (1 - sinLatitude));
+        double ppy = (0.5 - mp / (4 * Math.PI)) * zoomMultiple;
+        return (int) ((ppy - py) * 16 + 0.5);
     }
 
 
     public double mvtX2wgs84(double pixelX) {
-        throw new UnsupportedOperationException("coming soon");
+        double ppx = pixelX / 16d + px;
+        return ppx / zoomMultiple * 360d - 180d;
     }
 
-    public double mvtY2wgs84(double pixelX) {
-        throw new UnsupportedOperationException("coming soon");
+    public double mvtY2wgs84(double pixelY) {
+        double ppy = pixelY / 16d + py;
+        double mp = (0.5d - ppy / zoomMultiple) * (4d * Math.PI);
+        double exp = Math.exp(mp);
+        double sinLatitude = (exp - 1d) / (exp + 1d);
+        double y = Math.asin(sinLatitude) * 180d / Math.PI;
+        return y;
 
     }
 
