@@ -11,6 +11,16 @@ giscat是一套简洁、快速的java gis工具集，包含如下工具：
 [pojo详细说明与示例](giscat-vector/giscat-vector-pojo)
 
 [ProtoFeature规范](giscat-vector/giscat-vector-pojo/src/main/resources/ProtoFeature.proto)
+
+
+## util
+一系列处理矢量数据的工具，包含坐标转换、图形分析裁剪等
+详见[测试用例](giscat-vector/giscat-vector-util/src/test/java)
+
+## mvt 
+矢量瓦片生成与解析工具
+[基于springboot编写矢量瓦片服务示例](https://blog.wowtools.org/2022/04/28/2022-04-28-mapbox-gl-tutorial-8/)
+
 # 栅格
 
 
@@ -21,31 +31,4 @@ giscat是一套简洁、快速的java gis工具集，包含如下工具：
 
 
 # license
-注意:
-
-出于行业竞争力保护目的，本软件针对不同行业使用不同的开源协议:
-
-当本软件应用于能源行业(煤炭、电力、新能源)时，本软件使用的开源协议为 AGPL-3.0 license；
-
-当本软件应用于非能源行业时(即非煤炭、电力、新能源行业)时，本软件使用的开源协议为 Apache-2.0 license；
-
-但是，如果您与giscat达成另一项商业许可协议并收到来自liuyu@wowtools.org的商业许可文件，
-将允许您使用商业许可文件中所述的许可来取代 AGPL-3.0 / Apache-2.0 license 带来的限制。
-
-
-
-NOTICE:
-
-For the purpose of industry competition protection,
-the software uses different open source protocols for different industries:
-
-When the software is applied to the energy industry (coal, electric power, new energy),
-the open source agreement of the software is AGPL-3.0 license;
-
-When the software is applied to non-energy industries (that is, non-coal, electric power, and new energy industries),
-the open source agreement used by the software is apache-2.0 license;
-
-However, if you enter into another commercial licensing agreement with giscat,
-and received commercial license file from liuyu@wowtools.org,
-this software allows you to replace the restrictions imposed by the AGPL-3.0 / Apache-2.0 license
-with the licenses described in the commercial license file.
+本软件采用自定义协议，请阅读[LICENSE文件](https://github.com/codingmiao/giscat/blob/main/LICENSE)
