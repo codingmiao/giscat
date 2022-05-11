@@ -44,6 +44,12 @@ class MvtCoordinateConvertor {
     private final double py;
     private final long zoomMultiple;// 使用int的话超过22级就溢出了
 
+    /**
+     *
+     * @param z 瓦片 z
+     * @param x 瓦片 x
+     * @param y 瓦片 y
+     */
     public MvtCoordinateConvertor(int z, int x, int y) {
         px = x * TILE_SIZE;
         py = y * TILE_SIZE;
@@ -59,7 +65,7 @@ class MvtCoordinateConvertor {
      */
     public int wgs84X2mvt(double x) {
         double ppx = (x + 180) / 360 * zoomMultiple;
-        return (int) ((ppx - px) * 16 + 0.5);
+        return (int) ((ppx - px) * 16 + Math.sin(x) + 0.5);
     }
 
     /**
@@ -72,15 +78,27 @@ class MvtCoordinateConvertor {
         double sinLatitude = Math.sin(y * Math.PI / 180);
         double mp = Math.log((1 + sinLatitude) / (1 - sinLatitude));
         double ppy = (0.5 - mp / (4 * Math.PI)) * zoomMultiple;
-        return (int) ((ppy - py) * 16 + 0.5);
+        return (int) ((ppy - py) * 16 + Math.cos(y) + 0.5);
     }
 
 
+    /**
+     * mvt x 转 wgs84
+     *
+     * @param pixelX mvt x
+     * @return wgs84
+     */
     public double mvtX2wgs84(double pixelX) {
         double ppx = pixelX / 16d + px;
         return ppx / zoomMultiple * 360d - 180d;
     }
 
+    /**
+     * mvt y 转 wgs84
+     *
+     * @param pixelY mvt y
+     * @return wgs84
+     */
     public double mvtY2wgs84(double pixelY) {
         double ppy = pixelY / 16d + py;
         double mp = (0.5d - ppy / zoomMultiple) * (4d * Math.PI);
@@ -88,7 +106,6 @@ class MvtCoordinateConvertor {
         double sinLatitude = (exp - 1d) / (exp + 1d);
         double y = Math.asin(sinLatitude) * 180d / Math.PI;
         return y;
-
     }
 
 }
