@@ -246,7 +246,7 @@ public class TileClip {
 
 
     private boolean inTile(double x, double y) {
-        return x > xmin && x < xmax && y > ymin && y < ymax;
+        return x >= xmin && x <= xmax && y >= ymin && y <= ymax;
     }
 
     private Coordinate getLineInOutIntersection(double inX, double inY, double outX, double outY) {
@@ -321,6 +321,9 @@ public class TileClip {
                 c1 = new Coordinate(xmin, yLeft);
                 c2 = new Coordinate(xDown, ymin);
             } else {//与右边界相交
+//                if (x1 < xmax && x2 < xmax){
+//                    return null;
+//                }
                 c1 = new Coordinate(xmin, yLeft);
                 c2 = new Coordinate(xmax, yRight);
             }

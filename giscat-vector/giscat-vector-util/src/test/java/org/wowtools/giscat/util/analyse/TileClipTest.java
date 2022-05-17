@@ -1,9 +1,6 @@
 package org.wowtools.giscat.util.analyse;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.*;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 
@@ -16,24 +13,24 @@ public class TileClipTest {
     public void test() throws ParseException {
         GeometryFactory gf = new GeometryFactory();
         Geometry clipGeometry = gf.createPolygon(new Coordinate[]{
-                new Coordinate(0.2, 0.2),
-                new Coordinate(0.8, 0.2),
-                new Coordinate(0.8, 0.8),
-                new Coordinate(0.2, 0.8),
-                new Coordinate(0.2, 0.2)
+                new Coordinate(20, 20),
+                new Coordinate(80, 20),
+                new Coordinate(80, 80),
+                new Coordinate(20, 80),
+                new Coordinate(20, 20)
         });
         TileClip tileClip = new TileClip(clipGeometry, geometryFactory);
         testGeo(clipGeometry, tileClip,
-                (LineString) new WKTReader().read("LINESTRING (0.3148974120930301 0.0370910468762162, 0.4638855977254692 0.1006166810782042, 0.755127868609657 0.9085917793308416, 0.4545110586050796 0.4253592058070585)")
+                (LineString) new WKTReader().read("LINESTRING (37 51, 5 17, 21 34)")
         );
 
         Random random = new Random(233);
-        int n = 1000;
+        int n = 100000;
         for (int i = 0; i < n; i++) {
-            Coordinate[] coords = new Coordinate[2 + random.nextInt(50)];
+            Coordinate[] coords = new Coordinate[2 + random.nextInt(3)];
 
             for (int i1 = 0; i1 < coords.length; i1++) {
-                coords[i1] = new Coordinate(random.nextDouble(), random.nextDouble());
+                coords[i1] = new Coordinate(random.nextInt(100), random.nextInt(100));
             }
             LineString line = gf.createLineString(coords);
             try {
@@ -47,10 +44,13 @@ public class TileClipTest {
 
     private void testGeo(Geometry clipGeometry, TileClip tileClip, LineString line) {
         Geometry c1 = clipGeometry.intersection(line);
+        if (c1 instanceof GeometryCollection) {
+            return;
+        }
         Geometry c2 = tileClip.intersection(line);
-        int len1 = (int) (100000 * c1.getLength());
-        int len2 = c2 == null ? 0 : (int) (100000 * c2.getLength());
-        if (len1 != len2) {
+        int area1 = c1 instanceof Point ? 0 : (int) (c1.buffer(1).getArea() * 100);
+        int area2 = c2 == null ? 0 : (int) (c2.buffer(1).getArea() * 100);
+        if (Math.abs(area1 - area2) > 314) {
             throw new RuntimeException();
         }
     }

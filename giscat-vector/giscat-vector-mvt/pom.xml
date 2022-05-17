@@ -10,13 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>giscat-vector-mvt</artifactId>
-    <version>1.3.0-STABLE</version>
+    <version>1.3.1-STABLE</version>
     <description>Mapbox vector tile (mvt) 的序列化与反序列化</description>
 
     <dependencies>
         <dependency>
             <artifactId>giscat-vector-util</artifactId>
             <groupId>org.wowtools</groupId>
+            <version>1.3.1-STABLE</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
