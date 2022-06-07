@@ -52,8 +52,7 @@ public class WebMercator2Wgs84 {
      * @return web墨卡托 x
      */
     public static double lon2WebMercatorX(double lon) {
-        double x = lon * d / 180D;
-        return x;
+        return lon * d / 180D;
     }
 
     /**
@@ -75,8 +74,7 @@ public class WebMercator2Wgs84 {
      * @return wgs84 x
      */
     public static double webMercatorX2lon(double mercatorX) {
-        double x = mercatorX / d * 180D;
-        return x;
+        return mercatorX / d * 180D;
     }
 
     /**
