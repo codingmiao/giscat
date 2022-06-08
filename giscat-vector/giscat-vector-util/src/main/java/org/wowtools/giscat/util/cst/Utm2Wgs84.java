@@ -1,9 +1,27 @@
+/*****************************************************************
+ *  Copyright (c) 2022- "giscat by 刘雨 (https://github.com/codingmiao/giscat)"
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ ****************************************************************/
 package org.wowtools.giscat.util.cst;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Locale;
 
 /**
  * utm坐标与wgs84互转，代码从stackoverflow抄过来的，很多魔术数字未做处理
@@ -38,6 +56,10 @@ public class Utm2Wgs84 {
          */
         private char letter;
 
+        public UtmCoord() {
+
+        }
+
         public UtmCoord(byte zone, char letter, double easting, double northing) {
             this.easting = easting;
             this.northing = northing;
@@ -47,10 +69,28 @@ public class Utm2Wgs84 {
 
         public UtmCoord(String utmStr) {
             String[] parts = utmStr.split(" ");
-            zone = Byte.parseByte(parts[0]);
-            letter = parts[1].toUpperCase(Locale.ENGLISH).charAt(0);
-            easting = Double.parseDouble(parts[2]);
-            northing = Double.parseDouble(parts[3]);
+            if (parts.length == 4) {
+                zone = Byte.parseByte(parts[0]);
+                letter = parts[1].charAt(0);
+                if (letter >= 'a') {
+                    letter -= 32;
+                }
+                easting = Double.parseDouble(parts[2]);
+                northing = Double.parseDouble(parts[3]);
+            } else if (parts.length == 3) {
+                String area = parts[0];
+                int n = area.length() - 1;
+                zone = Byte.parseByte(area.substring(0, n));
+                letter = area.charAt(n);
+                if (letter >= 'a') {
+                    letter -= 32;
+                }
+                easting = Double.parseDouble(parts[1]);
+                northing = Double.parseDouble(parts[2]);
+            } else {
+                throw new RuntimeException("utmStr格式不合法 " + utmStr);
+            }
+
         }
 
     }
@@ -69,26 +109,34 @@ public class Utm2Wgs84 {
     //http://docs.ros.org/en/diamondback/api/art_common/html/UTM_8h_source.html
     private static final double ep = 0.0820944379;
 
+    /**
+     * utm坐标转wgs84坐标
+     *
+     * @param utmStr utm坐标字符串，形如 "18 G 615471.66 4789269.78" "18 g 615471.66 4789269.78" "18G 615471.66 4789269.78" "18g 615471.66 4789269.78"
+     * @return wgs84坐标
+     */
     public static LonLat utm2wgs84(String utmStr) {
         UtmCoord utmCoord = new UtmCoord(utmStr);
         return utm2wgs84(utmCoord);
     }
 
+    /**
+     * utm坐标转wgs84坐标
+     *
+     * @param utmCoord utm坐标
+     * @return wgs84坐标
+     */
     public static LonLat utm2wgs84(UtmCoord utmCoord) {
         byte zone = utmCoord.zone;
         char letter = utmCoord.letter;
         double Easting = utmCoord.easting;
         double Northing = utmCoord.northing;
-        double Hem;
-        if (letter > 'M')
-            Hem = 'N';
-        else
-            Hem = 'S';
         double north;
-        if (Hem == 'S')
+        if (letter <= 'M') {
             north = Northing - 10000000;
-        else
+        } else {
             north = Northing;
+        }
         double d7 = Math.pow(Math.cos(north / r2d / cll), 2);
         double d1 = 1 + e21 * d7;
         double d9 = cll * prc / Math.sqrt((1 + e21 * d7));

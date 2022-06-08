@@ -11,6 +11,15 @@ public class Utm2Wgs84Test {
         Assert.assertEquals(-73.48, lonlat.getLongitude(), 0.00001);
         Assert.assertEquals(-47.04, lonlat.getLatitude(), 0.00001);
 
+        strUtm = "18G 615471.66 4789269.78";
+        lonlat = Utm2Wgs84.utm2wgs84(strUtm);
+        Assert.assertEquals(-73.48, lonlat.getLongitude(), 0.00001);
+        Assert.assertEquals(-47.04, lonlat.getLatitude(), 0.00001);
+
+        strUtm = "18g 615471.66 4789269.78";
+        lonlat = Utm2Wgs84.utm2wgs84(strUtm);
+        Assert.assertEquals(-73.48, lonlat.getLongitude(), 0.00001);
+        Assert.assertEquals(-47.04, lonlat.getLatitude(), 0.00001);
     }
 
     @org.junit.Test
