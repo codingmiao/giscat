@@ -26,10 +26,23 @@
 </style>
 <body>
 
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
+<!--<script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>-->
+<script src='http://centos540:9966/dist/mapbox-gl-dev.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
 <div id='map' style='width: 100%; height: 100vh;'></div>
 <script>
+    // const _fetch = window.fetch
+    // window.fetch = (...origParams) => {
+    //     console.log('send called');
+    //     var p = _fetch(...origParams);
+    //     p.then(r =>{
+    //         return r.arrayBuffer()
+    //     }).then(bf =>{
+    //         console.log(bf)
+    //     })
+    //     return p;
+    // }
+
     mapboxgl.accessToken = 'pk.eyJ1IjoiaW1saXV5dSIsImEiOiJjbDM4aHM4eXowMDBpM2RvZGdxdGZjeWMxIn0.mYtay02E_Z4iYOsDx3IdoA';
     // 新建一个空白地图
     const map = new mapboxgl.Map({
@@ -69,6 +82,17 @@
             "type": "circle",
             "paint": {
                 "circle-color": "#FF00FF",
+                "circle-radius": 5
+            }
+        });
+
+        map.addLayer({
+            "id": "reload-point-layer",
+            "source": 'tile',
+            "source-layer": "实时位置",
+            "type": "circle",
+            "paint": {
+                "circle-color": "#00FF00",
                 "circle-radius": 5
             }
         });
