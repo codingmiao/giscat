@@ -17,6 +17,7 @@
         <module>giscat-vector-pojo</module>
         <module>giscat-vector-mvt</module>
         <module>giscat-vector-util</module>
+        <module>giscat-vector-mbexpression</module>
     </modules>
 
 </project>

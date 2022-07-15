@@ -1,5 +1,6 @@
 package org.wowtools.giscat.vector.pojo.converter;
 
+import org.junit.Assert;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
