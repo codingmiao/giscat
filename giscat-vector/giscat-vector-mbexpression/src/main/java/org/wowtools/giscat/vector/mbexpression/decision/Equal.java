@@ -20,13 +20,14 @@
 package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
+import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * ==
  * <p>
  * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#==
  * <p>
@@ -37,6 +38,7 @@ import java.util.Objects;
  * @author liuyu
  * @date 2022/7/15
  */
+@ExpressionName("==")
 public class Equal extends Expression<Boolean> {
     protected Equal(ArrayList expressionArray) {
         super(expressionArray);
@@ -46,21 +48,16 @@ public class Equal extends Expression<Boolean> {
     }
 
     @Override
-    public String getExpressionName() {
-        return "==";
-    }
-
-    @Override
-    public Boolean getValue(Map<String, Object> featureProperties) {
+    public Boolean getValue(Feature feature) {
         Object o1 = expressionArray.get(1);
         if (o1 instanceof Expression) {
             Expression expression = (Expression) o1;
-            o1 = expression.getValue(featureProperties);
+            o1 = expression.getValue(feature);
         }
         Object o2 = expressionArray.get(2);
         if (o2 instanceof Expression) {
             Expression expression = (Expression) o2;
-            o2 = expression.getValue(featureProperties);
+            o2 = expression.getValue(feature);
         }
         return Objects.equals(o1, o2);
     }

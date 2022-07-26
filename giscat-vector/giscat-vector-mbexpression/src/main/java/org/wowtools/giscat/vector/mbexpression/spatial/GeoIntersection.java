@@ -17,47 +17,50 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.lookup;
+package org.wowtools.giscat.vector.mbexpression.spatial;
 
+import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
- * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#get
- * <p>
+ * 输入geometry，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
  * Syntax
- * ["get", string]: value
- * ["get", string, object]: value
+ * ["geoIntersection", wkt_string or geometry]: Feature
+ * 示例
+ * ["geoIntersection", "LINESTRING(100 20,120 30)"]
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("get")
-public class Get extends Expression<Object> {
-    protected Get(ArrayList expressionArray) {
+@ExpressionName("geoIntersection")
+public class GeoIntersection extends Expression<Feature> {
+    private final Geometry inputGeometry;
+    protected GeoIntersection(ArrayList expressionArray) {
         super(expressionArray);
+        Object value = expressionArray.get(1);
+        inputGeometry = Read.readGeometry(value);
     }
 
+
     @Override
-    public Object getValue(Feature feature) {
-        String key = (String) expressionArray.get(1);
-        Map<String, Object> featureProperties = feature.getProperties();
-        if (null == featureProperties) {
+    public Feature getValue(Feature feature) {
+        Geometry featureGeometry = feature.getGeometry();
+        if (null == featureGeometry) {
             return null;
         }
-        Object value = featureProperties.get(key);
-        if (null != value && expressionArray.size() == 3) {
-            value = expressionArray.get(2);
+        if (null == inputGeometry) {
+            return null;
         }
-        if (value instanceof Expression) {
-            Expression sub = (Expression) value;
-            return sub.getValue(feature);
+        featureGeometry = inputGeometry.intersection(featureGeometry);
+        if (featureGeometry.isEmpty()) {
+            return null;
         }
-        return value;
+        feature.setGeometry(featureGeometry);
+        return feature;
     }
+
 }

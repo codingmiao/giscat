@@ -17,47 +17,43 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.lookup;
+package org.wowtools.giscat.vector.mbexpression.spatial;
 
+import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
- * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#get
- * <p>
+ * 判断输入的bbox是否与要素的geometry相交
  * Syntax
- * ["get", string]: value
- * ["get", string, object]: value
+ * ["bboxIntersects", [xmin,ymin,xmax,ymax]]: boolean
+ * 示例
+ * ["bboxIntersects", "LINESTRING(100 20,120 30)"]
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("get")
-public class Get extends Expression<Object> {
-    protected Get(ArrayList expressionArray) {
+@ExpressionName("bboxIntersects")
+public class BboxIntersects extends Expression<Boolean> {
+    private final Geometry inputGeometry;
+
+    protected BboxIntersects(ArrayList expressionArray) {
         super(expressionArray);
+        Object value = expressionArray.get(1);
+        inputGeometry = Read.readGeometry(value);
     }
 
     @Override
-    public Object getValue(Feature feature) {
-        String key = (String) expressionArray.get(1);
-        Map<String, Object> featureProperties = feature.getProperties();
-        if (null == featureProperties) {
-            return null;
+    public Boolean getValue(Feature feature) {
+        Geometry featureGeometry = feature.getGeometry();
+        if (null == featureGeometry) {
+            return false;
         }
-        Object value = featureProperties.get(key);
-        if (null != value && expressionArray.size() == 3) {
-            value = expressionArray.get(2);
-        }
-        if (value instanceof Expression) {
-            Expression sub = (Expression) value;
-            return sub.getValue(feature);
-        }
-        return value;
+        //TODO
+        return true;
     }
+
 }

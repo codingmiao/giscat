@@ -28,32 +28,25 @@ import java.util.Map;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#get
+ * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#at
  * <p>
  * Syntax
- * ["get", string]: value
- * ["get", string, object]: value
+ ["at", number, array]: ItemType
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("get")
-public class Get extends Expression<Object> {
-    protected Get(ArrayList expressionArray) {
+@ExpressionName("at")
+public class At extends Expression<Object> {
+    protected At(ArrayList expressionArray) {
         super(expressionArray);
     }
 
     @Override
     public Object getValue(Feature feature) {
-        String key = (String) expressionArray.get(1);
-        Map<String, Object> featureProperties = feature.getProperties();
-        if (null == featureProperties) {
-            return null;
-        }
-        Object value = featureProperties.get(key);
-        if (null != value && expressionArray.size() == 3) {
-            value = expressionArray.get(2);
-        }
+        int idx = (int) expressionArray.get(1);
+        ArrayList array = (ArrayList) expressionArray.get(2);
+        Object value = array.get(idx);
         if (value instanceof Expression) {
             Expression sub = (Expression) value;
             return sub.getValue(feature);

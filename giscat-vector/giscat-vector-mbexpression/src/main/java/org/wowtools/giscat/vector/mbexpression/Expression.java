@@ -31,12 +31,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * An expression defines a formula for computing the value of the property using the operators described below. The expression operators provided by Mapbox GL include:
- * <p>
- * Mathematical operators for performing arithmetic and other operations on numeric values
- * Logical operators for manipulating boolean values and making conditional decisions
- * String operators for manipulating strings
- * Data operators for providing access to the properties of source features
+ * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions
+ * 仅实现了与要素筛选相关的lookup decision string math类型，并增加了spatial类型用于计算空间关系
  *
  * @author liuyu
  * @date 2022/7/15
@@ -53,10 +49,17 @@ public abstract class Expression<R> {
             try {
                 Constructor<? extends Expression> implConstructor = aClass.getDeclaredConstructor(ArrayList.class);
                 implConstructor.setAccessible(true);
-                String name = implConstructor.newInstance(new ArrayList<>(0)).getExpressionName();
-                _implConstructors.put(name, implConstructor);
+                String name = null;
+                try {
+                    name = aClass.getAnnotation(ExpressionName.class).value();
+                } catch (Exception e) {
+                    throw new RuntimeException("获取ExpressionName失败，请检查是否有@ExpressionName注解 " + aClass, e);
+                }
+                if (null != _implConstructors.put(name, implConstructor)) {
+                    throw new RuntimeException("重复的ExpressionName:" + name);
+                }
             } catch (Exception e) {
-                throw new RuntimeException("注册Expression驱动类失败:" + aClass.getClass(), e);
+                throw new RuntimeException("注册Expression驱动类失败:" + aClass, e);
             }
         }
         implConstructors = Map.copyOf(_implConstructors);
@@ -86,8 +89,10 @@ public abstract class Expression<R> {
         for (int i = 1; i < expressionArray.size(); i++) {
             Object sub = expressionArray.get(i);
             if (sub instanceof ArrayList) {
-                sub = newInstance((ArrayList) sub);
-                expressionArray.set(i, sub);
+                sub = parseSub((ArrayList) sub);
+                if (null != sub) {
+                    expressionArray.set(i, sub);
+                }
             }
         }
         try {
@@ -95,6 +100,20 @@ public abstract class Expression<R> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static Object parseSub(ArrayList expressionArray) {
+        //[expression_name, argument_0, argument_1, ...] or [obj1, obj2, ...]
+        Object o0 = expressionArray.get(0);
+        if (!(o0 instanceof String)) {
+            return null;
+        }
+        String expressionName = (String) o0;
+        Constructor<? extends Expression> constructor = implConstructors.get(expressionName);
+        if (null == constructor) {
+            return null;
+        }
+        return newInstance(expressionArray);
     }
 
     /**
@@ -114,20 +133,13 @@ public abstract class Expression<R> {
     }
 
     /**
-     * 获取表达式名称
+     * 传入所需要素,经表达式计算后返回对应值
      *
-     * @return
-     */
-    public abstract String getExpressionName();
-
-    /**
-     * 传入所需要素的属性,经表达式计算后返回对应值
-     *
-     * @param featureProperties Feature.Properties
+     * @param feature feature
      * @return 对应值
      * @see Feature
      */
-    public abstract R getValue(Map<String, Object> featureProperties);
+    public abstract R getValue(Feature feature);
 
     /**
      * 获取此表达式的数组
@@ -137,4 +149,5 @@ public abstract class Expression<R> {
     public ArrayList getExpressionArray() {
         return expressionArray;
     }
+
 }

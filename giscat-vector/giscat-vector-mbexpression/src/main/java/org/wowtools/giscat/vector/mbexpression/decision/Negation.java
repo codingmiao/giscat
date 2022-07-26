@@ -17,7 +17,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.lookup;
+package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
@@ -28,36 +28,34 @@ import java.util.Map;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#get
+ * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#!
  * <p>
  * Syntax
- * ["get", string]: value
- * ["get", string, object]: value
+ * ["!", boolean]: boolean
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("get")
-public class Get extends Expression<Object> {
-    protected Get(ArrayList expressionArray) {
+@ExpressionName("!")
+public class Negation extends Expression<Boolean> {
+    protected Negation(ArrayList expressionArray) {
         super(expressionArray);
     }
 
     @Override
-    public Object getValue(Feature feature) {
-        String key = (String) expressionArray.get(1);
-        Map<String, Object> featureProperties = feature.getProperties();
-        if (null == featureProperties) {
-            return null;
-        }
-        Object value = featureProperties.get(key);
-        if (null != value && expressionArray.size() == 3) {
-            value = expressionArray.get(2);
-        }
+    public Boolean getValue(Feature feature) {
+        Object value = expressionArray.get(1);
         if (value instanceof Expression) {
             Expression sub = (Expression) value;
-            return sub.getValue(feature);
+            value = sub.getValue(feature);
         }
-        return value;
+        if (value instanceof Boolean) {
+            return (Boolean) value;
+        }
+        if (value instanceof Number) {
+            return ((Number) value).doubleValue() > 0;
+        }
+        return value != null;
     }
+
 }
