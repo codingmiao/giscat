@@ -20,15 +20,15 @@
 package org.wowtools.giscat.vector.mbexpression.lookup;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
-import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * get
- *
+ * <p>
  * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#get
- *
+ * <p>
  * Syntax
  * ["get", string]: value
  * ["get", string, object]: value
@@ -47,10 +47,10 @@ public class Get extends Expression<Object> {
     }
 
     @Override
-    public Object getValue(Feature feature) {
+    public Object getValue(Map<String, Object> featureProperties) {
         String key = (String) expressionArray.get(1);
-        Object value = feature.getProperties().get(key);
-        if (null!=value && expressionArray.size()==3){
+        Object value = featureProperties.get(key);
+        if (null != value && expressionArray.size() == 3) {
             value = expressionArray.get(2);
         }
         return value;

@@ -121,12 +121,13 @@ public abstract class Expression<R> {
     public abstract String getExpressionName();
 
     /**
-     * 传入所需要素，返回对应值
+     * 传入所需要素的属性,经表达式计算后返回对应值
      *
-     * @param feature feature
+     * @param featureProperties Feature.Properties
      * @return 对应值
+     * @see Feature
      */
-    public abstract R getValue(Feature feature);
+    public abstract R getValue(Map<String, Object> featureProperties);
 
     /**
      * 获取此表达式的数组
