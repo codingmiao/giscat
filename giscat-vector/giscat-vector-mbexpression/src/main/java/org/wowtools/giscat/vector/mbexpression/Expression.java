@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions">...</a>
  * 仅实现了与要素筛选相关的lookup decision string math类型，并增加了spatial类型用于计算空间关系
  *
  * @author liuyu
@@ -119,8 +119,8 @@ public abstract class Expression<R> {
     /**
      * 将字符串形式的表达式解析为对象
      *
-     * @param expressionStr
-     * @return
+     * @param expressionStr 表达式字符串
+     * @return Expression
      */
     public static Expression newInstance(String expressionStr) {
         ArrayList expressionArray;
@@ -135,11 +135,12 @@ public abstract class Expression<R> {
     /**
      * 传入所需要素,经表达式计算后返回对应值
      *
-     * @param feature feature
+     * @param feature          feature
+     * @param expressionParams 绑定变量
      * @return 对应值
      * @see Feature
      */
-    public abstract R getValue(Feature feature);
+    public abstract R getValue(Feature feature, ExpressionParams expressionParams);
 
     /**
      * 获取此表达式的数组
@@ -151,14 +152,35 @@ public abstract class Expression<R> {
     }
 
 
-    protected static Object getRealValue(Feature feature, Object o) {
-        if (o instanceof Expression) {
-            Expression expression = (Expression) o;
-            o = expression.getValue(feature);
-            if (o instanceof Expression) {
-                return getRealValue(feature, o);
+    protected static Object getRealValue(Feature feature, Object o, ExpressionParams expressionParams) {
+        //若结果不是表达式，即结果是具体值，检查是不是绑定变量，绑定变量返回绑定值，否则返回原值
+        if (!(o instanceof Expression)) {
+            if (o instanceof String) {
+                String str = (String) o;
+                if (str.charAt(0) == '$') {
+                    return expressionParams.getValue(str);
+                }
             }
+            return o;
         }
+        //尝试取缓存
+        Object cache = expressionParams.getCache(o);
+        if (null != cache) {
+            if (ExpressionParams.empty == cache) {
+                return null;
+            }
+            return cache;
+        }
+        Object key = o;
+        //若结果是表达式，则取表达式的值
+        Expression expression = (Expression) o;
+        o = expression.getValue(feature, expressionParams);
+        if (o instanceof Expression) {
+            //取出来的表达式仍是一个表达式，则进行递归
+            return getRealValue(feature, o, expressionParams);
+        }
+        //缓存结果
+        expressionParams.putCache(key, o);
         return o;
     }
 

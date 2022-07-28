@@ -21,6 +21,7 @@ package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#in
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#in">...</a>
  * 当keyword input都是string时，相当于strInput.indexOf(strKeyword)
  * 否则，相当于 keyword in(xxx,xxx)
  * <p>
@@ -48,13 +49,13 @@ public class In extends Expression<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Feature feature) {
-        Object keyword = getRealValue(feature, expressionArray.get(1));
-        Object input = getRealValue(feature, expressionArray.get(2));
+    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
+        Object keyword = getRealValue(feature, expressionArray.get(1), expressionParams);
+        Object input = getRealValue(feature, expressionArray.get(2), expressionParams);
         if (keyword instanceof String && input instanceof String) {
             String strKeyword = (String) keyword;
             String strInput = (String) input;
-            return strInput.indexOf(strKeyword) >= 0;
+            return strInput.contains(strKeyword);
         } else {
             ArrayList inputArr = (ArrayList) input;
             for (Object inputObj : inputArr) {

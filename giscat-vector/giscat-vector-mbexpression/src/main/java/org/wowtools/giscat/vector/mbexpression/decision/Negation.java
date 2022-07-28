@@ -21,13 +21,14 @@ package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#!
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#">...</a>!
  * <p>
  * Syntax
  * ["!", boolean]: boolean
@@ -42,9 +43,9 @@ public class Negation extends Expression<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Feature feature) {
+    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
         Object value = expressionArray.get(1);
-        value = getRealValue(feature, value);
+        value = getRealValue(feature, value, expressionParams);
         if (value instanceof Boolean) {
             return Boolean.FALSE.equals(value);
         }

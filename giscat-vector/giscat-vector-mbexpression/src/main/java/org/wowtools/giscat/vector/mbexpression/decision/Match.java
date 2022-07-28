@@ -21,6 +21,7 @@ package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#match
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#match">...</a>
  * <p>
  * Syntax
  * ["match",
@@ -49,16 +50,16 @@ public class Match extends Expression<Object> {
     }
 
     @Override
-    public Object getValue(Feature feature) {
-        Object input = getRealValue(feature, expressionArray.get(1));
+    public Object getValue(Feature feature, ExpressionParams expressionParams) {
+        Object input = getRealValue(feature, expressionArray.get(1), expressionParams);
         for (int i = 2; i < expressionArray.size() - 1; i += 2) {
             Object o = expressionArray.get(i);
-            o = getRealValue(feature, o);
+            o = getRealValue(feature, o, expressionParams);
             if (Objects.equals(input, o)) {
-                return getRealValue(feature, expressionArray.get(i + 1));
+                return getRealValue(feature, expressionArray.get(i + 1), expressionParams);
             }
         }
-        return getRealValue(feature, expressionArray.get(expressionArray.size() - 1));
+        return getRealValue(feature, expressionArray.get(expressionArray.size() - 1), expressionParams);
     }
 
 }

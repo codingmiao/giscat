@@ -21,13 +21,14 @@ package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#slice
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#slice">...</a>
  * <p>
  * Syntax
  * ["slice",
@@ -51,12 +52,12 @@ public class Slice extends Expression<Object> {
     }
 
     @Override
-    public Object getValue(Feature feature) {
-        Object input = getRealValue(feature, expressionArray.get(1));
-        int start = (int) getRealValue(feature, expressionArray.get(2));
+    public Object getValue(Feature feature, ExpressionParams expressionParams) {
+        Object input = getRealValue(feature, expressionArray.get(1), expressionParams);
+        int start = (int) getRealValue(feature, expressionArray.get(2), expressionParams);
         int end;
         if (expressionArray.size() == 4) {
-            end = (int) getRealValue(feature, expressionArray.get(3));
+            end = (int) getRealValue(feature, expressionArray.get(3), expressionParams);
         } else {
             end = -1;
         }
@@ -73,7 +74,7 @@ public class Slice extends Expression<Object> {
             }
             ArrayList res = new ArrayList(end - start);
             for (int i = start; i < end; i++) {
-                res.add(getRealValue(feature, inputArr.get(i)));
+                res.add(getRealValue(feature, inputArr.get(i), expressionParams));
             }
             return res;
         } else {

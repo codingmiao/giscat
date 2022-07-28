@@ -22,12 +22,14 @@ package org.wowtools.giscat.vector.mbexpression.spatial;
 import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * 输入geometry，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
+ * 注意，参数不支持表达式嵌套
  * Syntax
  * ["geoIntersection", wkt_string or geometry]: Feature
  * 示例
@@ -38,17 +40,28 @@ import java.util.ArrayList;
  */
 @ExpressionName("geoIntersection")
 public class GeoIntersection extends Expression<Feature> {
-    private final Geometry inputGeometry;
 
     protected GeoIntersection(ArrayList expressionArray) {
         super(expressionArray);
-        Object value = expressionArray.get(1);
-        inputGeometry = Read.readGeometry(value);
     }
 
 
     @Override
-    public Feature getValue(Feature feature) {
+    public Feature getValue(Feature feature, ExpressionParams expressionParams) {
+        Geometry inputGeometry;
+        {
+            Object cache = expressionParams.getCache(this);
+            if (ExpressionParams.empty == cache) {
+                inputGeometry = null;
+            } else if (null == cache) {
+                Object value = expressionArray.get(1);
+                inputGeometry = Read.readGeometry(value, expressionParams);
+                expressionParams.putCache(this, inputGeometry);
+            } else {
+                inputGeometry = (Geometry) cache;
+            }
+        }
+
         Geometry featureGeometry = feature.getGeometry();
         if (null == featureGeometry) {
             return null;

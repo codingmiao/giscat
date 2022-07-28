@@ -21,6 +21,7 @@ package org.wowtools.giscat.vector.mbexpression.string;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.Locale;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#downcase
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#downcase">...</a>
  * <p>
  * Syntax
  * ["downcase", string]: string
@@ -43,8 +44,8 @@ public class Downcase extends Expression<String> {
     }
 
     @Override
-    public String getValue(Feature feature) {
-        String s = (String) getRealValue(feature, expressionArray.get(1));
+    public String getValue(Feature feature, ExpressionParams expressionParams) {
+        String s = (String) getRealValue(feature, expressionArray.get(1), expressionParams);
         if (s == null) {
             return null;
         }

@@ -22,12 +22,14 @@ package org.wowtools.giscat.vector.mbexpression.spatial;
 import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * 判断输入的wkt geometry是否与要素的geometry相交
+ * 注意，参数不支持表达式嵌套
  * Syntax
  * ["geoIntersects", wkt_string or geometry]: boolean
  * 示例
@@ -38,17 +40,28 @@ import java.util.ArrayList;
  */
 @ExpressionName("geoIntersects")
 public class GeoIntersects extends Expression<Boolean> {
-    private final Geometry inputGeometry;
 
     protected GeoIntersects(ArrayList expressionArray) {
         super(expressionArray);
-        Object value = expressionArray.get(1);
-        inputGeometry = Read.readGeometry(value);
     }
 
 
     @Override
-    public Boolean getValue(Feature feature) {
+    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
+        Geometry inputGeometry;
+        {
+            Object cache = expressionParams.getCache(this);
+            if (ExpressionParams.empty == cache) {
+                inputGeometry = null;
+            } else if (null == cache) {
+                Object value = expressionArray.get(1);
+                inputGeometry = Read.readGeometry(value, expressionParams);
+                expressionParams.putCache(this, inputGeometry);
+            } else {
+                inputGeometry = (Geometry) cache;
+            }
+        }
+
         Geometry featureGeometry = feature.getGeometry();
         if (null == featureGeometry) {
             return false;

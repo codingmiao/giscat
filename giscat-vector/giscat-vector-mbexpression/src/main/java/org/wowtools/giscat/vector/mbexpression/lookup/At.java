@@ -21,13 +21,14 @@ package org.wowtools.giscat.vector.mbexpression.lookup;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#at
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#at">...</a>
  * <p>
  * Syntax
  * ["at", number, array]: ItemType
@@ -42,11 +43,11 @@ public class At extends Expression<Object> {
     }
 
     @Override
-    public Object getValue(Feature feature) {
+    public Object getValue(Feature feature, ExpressionParams expressionParams) {
         int idx = (int) expressionArray.get(1);
         ArrayList array = (ArrayList) expressionArray.get(2);
         Object value = array.get(idx);
-        value = getRealValue(feature, value);
+        value = getRealValue(feature, value, expressionParams);
         return value;
     }
 }

@@ -21,13 +21,14 @@ package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#all
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#all">...</a>
  * <p>
  * Syntax
  * ["all", boolean, boolean, ...]: boolean
@@ -42,10 +43,10 @@ public class All extends Expression<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Feature feature) {
+    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
         for (int i = 1; i < expressionArray.size(); i++) {
             Object o = expressionArray.get(i);
-            o = getRealValue(feature, o);
+            o = getRealValue(feature, o, expressionParams);
 
             if (null == o) {
                 return false;

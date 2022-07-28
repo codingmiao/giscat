@@ -21,6 +21,7 @@ package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#!=
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#!=">...</a>
  * <p>
  * Syntax
  * ["!=", value, value]: boolean
@@ -47,11 +48,11 @@ public class NotEqual extends Expression<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Feature feature) {
+    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
         Object o1 = expressionArray.get(1);
-        o1 = getRealValue(feature, o1);
+        o1 = getRealValue(feature, o1, expressionParams);
         Object o2 = expressionArray.get(2);
-        o2 = getRealValue(feature, o2);
+        o2 = getRealValue(feature, o2, expressionParams);
         return !Objects.equals(o1, o2);
     }
 

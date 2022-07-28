@@ -4,6 +4,7 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import org.wowtools.giscat.util.analyse.Bbox;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 
 import java.util.ArrayList;
 
@@ -17,10 +18,11 @@ class Read {
     private static final WKTReader wktReader = new WKTReader();
 
 
-    public static Geometry readGeometry(Object value) {
+    public static Geometry readGeometry(Object value, ExpressionParams expressionParams) {
         if (null == value) {
             return null;
         }
+        value = getValue(value, expressionParams);
         Geometry inputGeometry;
         if (value instanceof String) {
             String wkt = (String) value;
@@ -37,18 +39,30 @@ class Read {
         return inputGeometry;
     }
 
-    public static Bbox readBbox(Object value) {
+    public static Bbox readBbox(Object value, ExpressionParams expressionParams) {
         if (null == value) {
             return null;
         }
         if (value instanceof ArrayList) {
             ArrayList list = (ArrayList) value;
-            Bbox bbox = new Bbox((double) list.get(0), (double) list.get(1), (double) list.get(2), (double) list.get(3));
-            return bbox;
+            return new Bbox(((Number) getValue(list.get(0), expressionParams)).doubleValue(),
+                    ((Number) getValue(list.get(1), expressionParams)).doubleValue(),
+                    ((Number) getValue(list.get(2), expressionParams)).doubleValue(),
+                    ((Number) getValue(list.get(3), expressionParams)).doubleValue());
         }
         if (value instanceof Bbox) {
             return (Bbox) value;
         }
         throw new RuntimeException("未知的Bbox数据类型 " + value);
+    }
+
+    private static Object getValue(Object o, ExpressionParams expressionParams) {
+        if (o instanceof String) {
+            String s = (String) o;
+            if (s.charAt(0) == '$') {
+                return expressionParams.getValue(s);
+            }
+        }
+        return o;
     }
 }

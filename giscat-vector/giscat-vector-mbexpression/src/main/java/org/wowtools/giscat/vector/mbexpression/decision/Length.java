@@ -21,13 +21,14 @@ package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#length
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#length">...</a>
  * <p>
  * Syntax
  * ["length", string | array | value]: number
@@ -42,8 +43,8 @@ public class Length extends Expression<Integer> {
     }
 
     @Override
-    public Integer getValue(Feature feature) {
-        Object input = getRealValue(feature, expressionArray.get(1));
+    public Integer getValue(Feature feature, ExpressionParams expressionParams) {
+        Object input = getRealValue(feature, expressionArray.get(1), expressionParams);
         if (input instanceof String) {
             return ((String) input).length();
         } else if (input instanceof ArrayList) {

@@ -21,6 +21,7 @@ package org.wowtools.giscat.vector.mbexpression.lookup;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#get
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#get">...</a>
  * <p>
  * Syntax
  * ["get", string]: value
@@ -44,7 +45,7 @@ public class Get extends Expression<Object> {
     }
 
     @Override
-    public Object getValue(Feature feature) {
+    public Object getValue(Feature feature, ExpressionParams expressionParams) {
         String key = (String) expressionArray.get(1);
         Map<String, Object> featureProperties = feature.getProperties();
         if (null == featureProperties) {
@@ -54,7 +55,7 @@ public class Get extends Expression<Object> {
         if (null != value && expressionArray.size() == 3) {
             value = expressionArray.get(2);
         }
-        value = getRealValue(feature, value);
+        value = getRealValue(feature, value, expressionParams);
         return value;
     }
 }

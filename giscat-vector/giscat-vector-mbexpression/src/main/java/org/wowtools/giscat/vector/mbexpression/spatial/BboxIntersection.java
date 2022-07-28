@@ -25,12 +25,15 @@ import org.wowtools.giscat.util.analyse.Bbox;
 import org.wowtools.giscat.util.analyse.TileClip;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * 输入bbox，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
+ * 注意，参数不支持表达式嵌套
+ * Syntax
  * ["bboxIntersection", [xmin,ymin,xmax,ymax] or Bbox]: boolean
  * 示例
  * ["bboxIntersection", [90,20,92.5,21.3]]
@@ -43,22 +46,33 @@ public class BboxIntersection extends Expression<Feature> {
 
     private static final GeometryFactory gf = new GeometryFactory();
 
-    private final TileClip tileClip;
 
     protected BboxIntersection(ArrayList expressionArray) {
         super(expressionArray);
-        Object value = expressionArray.get(1);
-        Bbox bbox = Read.readBbox(value);
-        if (null == bbox) {
-            tileClip = null;
-        } else {
-            tileClip = new TileClip(bbox.toPolygon(gf), gf);
-        }
     }
 
 
     @Override
-    public Feature getValue(Feature feature) {
+    public Feature getValue(Feature feature, ExpressionParams expressionParams) {
+        TileClip tileClip;
+        {
+            Object cache = expressionParams.getCache(this);
+            if (ExpressionParams.empty == cache) {
+                tileClip = null;
+            } else if (null == cache) {
+                Object value = expressionArray.get(1);
+                Bbox bbox = Read.readBbox(value, expressionParams);
+                if (null == bbox) {
+                    tileClip = null;
+                } else {
+                    tileClip = new TileClip(bbox.toPolygon(gf), gf);
+                }
+                expressionParams.putCache(this, tileClip);
+            } else {
+                tileClip = (TileClip) cache;
+            }
+        }
+
         Geometry featureGeometry = feature.getGeometry();
         if (null == featureGeometry) {
             return null;

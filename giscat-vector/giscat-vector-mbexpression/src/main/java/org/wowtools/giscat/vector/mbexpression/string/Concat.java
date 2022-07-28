@@ -21,13 +21,14 @@ package org.wowtools.giscat.vector.mbexpression.string;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#concat
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#concat">...</a>
  * <p>
  * Syntax
  * ["concat", value, value, ...]: string
@@ -42,10 +43,11 @@ public class Concat extends Expression<String> {
     }
 
     @Override
-    public String getValue(Feature feature) {
+    public String getValue(Feature feature, ExpressionParams expressionParams) {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < expressionArray.size(); i++) {
             Object o = expressionArray.get(i);
+            o = getRealValue(feature, o, expressionParams);
             sb.append(o);
         }
         return sb.toString();

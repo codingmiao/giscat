@@ -21,13 +21,14 @@ package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#<=
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#">...</a><=
  * <p>
  * Syntax
  * ["<=", value, value]: boolean
@@ -46,8 +47,8 @@ public class LessOrEqualThan extends Expression<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Feature feature) {
-        return Compare.compare(expressionArray, feature) <= 0;
+    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
+        return Compare.compare(expressionArray, feature, expressionParams) <= 0;
     }
 
 }

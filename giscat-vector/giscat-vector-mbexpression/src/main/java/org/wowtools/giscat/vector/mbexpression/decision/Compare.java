@@ -1,6 +1,7 @@
 package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
@@ -14,16 +15,16 @@ import java.util.ArrayList;
 class Compare {
 
 
-    public static int compare(ArrayList expressionArray, Feature feature) {
+    public static int compare(ArrayList expressionArray, Feature feature, ExpressionParams expressionParams) {
         Object o1 = expressionArray.get(1);
         if (o1 instanceof Expression) {
             Expression expression = (Expression) o1;
-            o1 = expression.getValue(feature);
+            o1 = expression.getValue(feature, expressionParams);
         }
         Object o2 = expressionArray.get(2);
         if (o2 instanceof Expression) {
             Expression expression = (Expression) o2;
-            o2 = expression.getValue(feature);
+            o2 = expression.getValue(feature, expressionParams);
         }
         if (o1 instanceof Number) {
             Number n1 = (Number) o1;

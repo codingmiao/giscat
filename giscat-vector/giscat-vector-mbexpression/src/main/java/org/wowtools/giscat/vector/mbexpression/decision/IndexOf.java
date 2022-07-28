@@ -21,6 +21,7 @@ package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#index-of
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#index-of">...</a>
  * <p>
  * Syntax
  * ["index-of",
@@ -52,12 +53,12 @@ public class IndexOf extends Expression<Object> {
     }
 
     @Override
-    public Object getValue(Feature feature) {
-        Object keyword = getRealValue(feature, expressionArray.get(1));
-        Object input = getRealValue(feature, expressionArray.get(2));
+    public Object getValue(Feature feature, ExpressionParams expressionParams) {
+        Object keyword = getRealValue(feature, expressionArray.get(1), expressionParams);
+        Object input = getRealValue(feature, expressionArray.get(2), expressionParams);
         int index = 0;
         if (expressionArray.size() == 4) {
-            index = (int) getRealValue(feature, expressionArray.get(3));
+            index = (int) getRealValue(feature, expressionArray.get(3), expressionParams);
         }
         if (keyword instanceof String && input instanceof String) {
             String strKeyword = (String) keyword;

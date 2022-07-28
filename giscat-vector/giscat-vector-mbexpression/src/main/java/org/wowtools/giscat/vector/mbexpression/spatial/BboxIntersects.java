@@ -23,12 +23,14 @@ import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.util.analyse.Bbox;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
+import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
 /**
  * 判断输入的bbox是否与要素的geometry相交(envIntersects)
+ * 注意，参数不支持表达式嵌套
  * Syntax
  * ["bboxIntersects", [xmin,ymin,xmax,ymax] or Bbox]: boolean
  * 示例
@@ -39,16 +41,26 @@ import java.util.ArrayList;
  */
 @ExpressionName("bboxIntersects")
 public class BboxIntersects extends Expression<Boolean> {
-    private final Bbox bbox;
 
     protected BboxIntersects(ArrayList expressionArray) {
         super(expressionArray);
-        Object value = expressionArray.get(1);
-        bbox = Read.readBbox(value);
     }
 
     @Override
-    public Boolean getValue(Feature feature) {
+    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
+        Bbox bbox;
+        {
+            Object cache = expressionParams.getCache(this);
+            if (ExpressionParams.empty == cache) {
+                bbox = null;
+            } else if (null == cache) {
+                Object value = expressionArray.get(1);
+                bbox = Read.readBbox(value, expressionParams);
+                expressionParams.putCache(this, bbox);
+            } else {
+                bbox = (Bbox) cache;
+            }
+        }
         Geometry featureGeometry = feature.getGeometry();
         if (null == featureGeometry) {
             return false;
