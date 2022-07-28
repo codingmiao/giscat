@@ -108,46 +108,7 @@ public class ExpressionTest {
         Assert.assertEquals(false,
                 getValue(feature, "[\">\", 1.0,1.0]")
         );
-        //has
-        Assert.assertEquals(true,
-                getValue(feature, "[\"has\", \"int1\"]")
-        );
-        Assert.assertEquals(false,
-                getValue(feature, "[\"has\", \"int3\"]")
-        );
-        //in
-        Assert.assertEquals(true,
-                getValue(feature, "[\"in\", 1,[0,1]]")
-        );
-        Assert.assertEquals(false,
-                getValue(feature, "[\"in\", 1,[0,2]]")
-        );
-        Assert.assertEquals(true,
-                getValue(feature, "[\"in\", \"a\",\"abc\"]")
-        );
-        Assert.assertEquals(false,
-                getValue(feature, "[\"in\", \"a\",\"bbc\"]")
-        );
-        //index-of
-        Assert.assertEquals(2,
-                getValue(feature, "[\"index-of\", \"a\",\"ihas\"]")
-        );
-        Assert.assertEquals(-1,
-                getValue(feature, "[\"index-of\", \"a\",\"ihs\"]")
-        );
-        Assert.assertEquals(1,
-                getValue(feature, "[\"index-of\", \"a\",[\"i\",\"a\",\"a\"]]")
-        );
-        Assert.assertEquals(2,
-                getValue(feature, "[\"index-of\", \"a\",[\"i\",\"a\",\"a\"],2]")
-        );
-        //length
-        Assert.assertEquals(4,
-                getValue(feature, "[\"length\", \"ihas\"]")
-        );
-        Assert.assertEquals(3,
-                getValue(feature, "[\"length\", [\"i\",\"a\",\"a\"]]")
-        );
+
         //<=
         Assert.assertEquals(true,
                 getValue(feature, "[\"<=\", 1,2]")
@@ -192,19 +153,6 @@ public class ExpressionTest {
         Assert.assertEquals(true,
                 getValue(feature, "[\"!=\",1.0,1.2]")
         );
-        //slice
-        Assert.assertArrayEquals(new Object[]{2, 3, 4},
-                ((ArrayList) getValue(feature, "[\"slice\",[1,2,3,4],1]")).toArray()
-        );
-        Assert.assertArrayEquals(new Object[]{2, 3},
-                ((ArrayList) getValue(feature, "[\"slice\",[1,2,3,4],1,3]")).toArray()
-        );
-        Assert.assertEquals("bcd",
-                getValue(feature, "[\"slice\",\"abcd\",1]")
-        );
-        Assert.assertEquals("bc",
-                getValue(feature, "[\"slice\",\"abcd\",1,3]")
-        );
         //组合测试
         Assert.assertEquals(true,
                 getValue(feature, "[\"all\", [\"==\", [\"get\", \"int1\"], [\"get\", \"int1\"]]]")
@@ -227,6 +175,59 @@ public class ExpressionTest {
         //get
         Assert.assertEquals("1",
                 getValue(feature, "[\"get\",\"str1\"]")
+        );
+        //has
+        Assert.assertEquals(true,
+                getValue(feature, "[\"has\", \"int1\"]")
+        );
+        Assert.assertEquals(false,
+                getValue(feature, "[\"has\", \"int3\"]")
+        );
+        //in
+        Assert.assertEquals(true,
+                getValue(feature, "[\"in\", 1,[0,1]]")
+        );
+        Assert.assertEquals(false,
+                getValue(feature, "[\"in\", 1,[0,2]]")
+        );
+        Assert.assertEquals(true,
+                getValue(feature, "[\"in\", \"a\",\"abc\"]")
+        );
+        Assert.assertEquals(false,
+                getValue(feature, "[\"in\", \"a\",\"bbc\"]")
+        );
+        //index-of
+        Assert.assertEquals(2,
+                getValue(feature, "[\"index-of\", \"a\",\"ihas\"]")
+        );
+        Assert.assertEquals(-1,
+                getValue(feature, "[\"index-of\", \"a\",\"ihs\"]")
+        );
+        Assert.assertEquals(1,
+                getValue(feature, "[\"index-of\", \"a\",[\"i\",\"a\",\"a\"]]")
+        );
+        Assert.assertEquals(2,
+                getValue(feature, "[\"index-of\", \"a\",[\"i\",\"a\",\"a\"],2]")
+        );
+        //length
+        Assert.assertEquals(4,
+                getValue(feature, "[\"length\", \"ihas\"]")
+        );
+        Assert.assertEquals(3,
+                getValue(feature, "[\"length\", [\"i\",\"a\",\"a\"]]")
+        );
+        //slice
+        Assert.assertArrayEquals(new Object[]{2, 3, 4},
+                ((ArrayList) getValue(feature, "[\"slice\",[1,2,3,4],1]")).toArray()
+        );
+        Assert.assertArrayEquals(new Object[]{2, 3},
+                ((ArrayList) getValue(feature, "[\"slice\",[1,2,3,4],1,3]")).toArray()
+        );
+        Assert.assertEquals("bcd",
+                getValue(feature, "[\"slice\",\"abcd\",1]")
+        );
+        Assert.assertEquals("bc",
+                getValue(feature, "[\"slice\",\"abcd\",1,3]")
         );
     }
 

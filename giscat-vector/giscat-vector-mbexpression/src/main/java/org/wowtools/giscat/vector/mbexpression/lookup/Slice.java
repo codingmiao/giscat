@@ -17,7 +17,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.decision;
+package org.wowtools.giscat.vector.mbexpression.lookup;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
@@ -28,27 +28,55 @@ import java.util.ArrayList;
 
 /**
  * <p>
- * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#length">...</a>
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#slice">...</a>
  * <p>
  * Syntax
- * ["length", string | array | value]: number
+ * ["slice",
+ * input: InputType (array or string),
+ * index: number
+ * ]: OutputType (ItemType or string)
+ * <p>
+ * ["slice",
+ * input: InputType (array or string),
+ * index: number,
+ * index: number
+ * ]: OutputType (ItemType or string)
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("length")
-public class Length extends Expression<Integer> {
-    protected Length(ArrayList expressionArray) {
+@ExpressionName("slice")
+public class Slice extends Expression<Object> {
+    protected Slice(ArrayList expressionArray) {
         super(expressionArray);
     }
 
     @Override
-    public Integer getValue(Feature feature, ExpressionParams expressionParams) {
+    public Object getValue(Feature feature, ExpressionParams expressionParams) {
         Object input = getRealValue(feature, expressionArray.get(1), expressionParams);
+        int start = (int) getRealValue(feature, expressionArray.get(2), expressionParams);
+        int end;
+        if (expressionArray.size() == 4) {
+            end = (int) getRealValue(feature, expressionArray.get(3), expressionParams);
+        } else {
+            end = -1;
+        }
         if (input instanceof String) {
-            return ((String) input).length();
+            if (end > 0) {
+                return ((String) input).substring(start, end);
+            } else {
+                return ((String) input).substring(start);
+            }
         } else if (input instanceof ArrayList) {
-            return ((ArrayList) input).size();
+            ArrayList inputArr = (ArrayList) input;
+            if (end < 0) {
+                end = inputArr.size();
+            }
+            ArrayList res = new ArrayList(end - start);
+            for (int i = start; i < end; i++) {
+                res.add(getRealValue(feature, inputArr.get(i), expressionParams));
+            }
+            return res;
         } else {
             throw new RuntimeException("未知类型 " + feature);
         }

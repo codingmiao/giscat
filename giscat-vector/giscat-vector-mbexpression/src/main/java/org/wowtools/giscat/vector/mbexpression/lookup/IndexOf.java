@@ -17,7 +17,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.decision;
+package org.wowtools.giscat.vector.mbexpression.lookup;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
