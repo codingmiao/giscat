@@ -2,7 +2,7 @@ package org.wowtools.giscat.vector.mvt;
 
 import org.wowtools.giscat.util.cst.Tile2Wgs84;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class MvtCoordinateConvertorTest {
 
@@ -33,16 +33,16 @@ public class MvtCoordinateConvertorTest {
     }
 
     @org.junit.Test
-    public void testMvt2Wgs84(){
+    public void testMvt2Wgs84() {
 
         int z = 12, x = 3223, y = 1774;
         MvtCoordinateConvertor mvtCoordinateConvertor = new MvtCoordinateConvertor(z, x, y);
 
-        assertEquals(103.31, mvtCoordinateConvertor.mvtX2wgs84(1795),0.0001);
-        assertEquals(103.41, mvtCoordinateConvertor.mvtX2wgs84(6456),0.0001);
+        assertEquals(103.31, mvtCoordinateConvertor.mvtX2wgs84(1795), 0.0001);
+        assertEquals(103.41, mvtCoordinateConvertor.mvtX2wgs84(6456), 0.0001);
 
-        assertEquals(23.35, mvtCoordinateConvertor.mvtY2wgs84(2679),0.0001);
-        assertEquals(23.41, mvtCoordinateConvertor.mvtY2wgs84(-367),0.0001);
+        assertEquals(23.35, mvtCoordinateConvertor.mvtY2wgs84(2679), 0.0001);
+        assertEquals(23.41, mvtCoordinateConvertor.mvtY2wgs84(-367), 0.0001);
 
     }
 

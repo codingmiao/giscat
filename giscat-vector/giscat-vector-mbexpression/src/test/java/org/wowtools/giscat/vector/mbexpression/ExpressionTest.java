@@ -5,23 +5,27 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
 import org.wowtools.giscat.vector.pojo.Feature;
-import org.wowtools.giscat.vector.pojo.converter.GeoJsonFeatureConverter;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 public class ExpressionTest {
-    //        Assert.assertEquals(-73.48, lonlat.getLongitude(), 0.00001);
 
     private static Object getValue(Feature feature, String strExpression) {
+        ExpressionParams expressionParams = new ExpressionParams();
         Expression expression = Expression.newInstance(strExpression);
-        return expression.getValue(feature);
+        return expression.getValue(feature, expressionParams);
     }
 
-    private static Feature buildTestFeature(){
+    private static Object getValue(Feature feature, String strExpression, ExpressionParams expressionParams) {
+        Expression expression = Expression.newInstance(strExpression);
+        return expression.getValue(feature, expressionParams);
+    }
+
+    private static Feature buildTestFeature() {
         LineString geo = new GeometryFactory().createLineString(new Coordinate[]{
-                new Coordinate(90, 20),
-                new Coordinate(120, 30)
+                new Coordinate(10, 10),
+                new Coordinate(20, 20)
         });
         Feature feature = new Feature(geo, Map.of(
                 "str1", "1",
@@ -32,6 +36,21 @@ public class ExpressionTest {
                 "double2", 2d
         ));
         return feature;
+    }
+
+    @org.junit.Test
+    public void expressionParams() {
+        Feature feature = buildTestFeature();
+        Assert.assertEquals(true,
+                getValue(feature,
+                        "[\"==\", \"$1\",\"$2\"]",
+                        new ExpressionParams(Map.of("$1", 1, "$2", 1)))
+        );
+        Assert.assertEquals(true,
+                getValue(feature,
+                        "[\"==\", \"$1\",\"$2\"]",
+                        new ExpressionParams(Map.of("$1", "$1", "$2", "$1")))
+        );
     }
 
     @org.junit.Test
@@ -174,11 +193,11 @@ public class ExpressionTest {
                 getValue(feature, "[\"!=\",1.0,1.2]")
         );
         //slice
-        Assert.assertArrayEquals(new Object[]{2,3,4},
-                ((ArrayList)getValue(feature, "[\"slice\",[1,2,3,4],1]")).toArray()
+        Assert.assertArrayEquals(new Object[]{2, 3, 4},
+                ((ArrayList) getValue(feature, "[\"slice\",[1,2,3,4],1]")).toArray()
         );
-        Assert.assertArrayEquals(new Object[]{2,3},
-                ((ArrayList)getValue(feature, "[\"slice\",[1,2,3,4],1,3]")).toArray()
+        Assert.assertArrayEquals(new Object[]{2, 3},
+                ((ArrayList) getValue(feature, "[\"slice\",[1,2,3,4],1,3]")).toArray()
         );
         Assert.assertEquals("bcd",
                 getValue(feature, "[\"slice\",\"abcd\",1]")
@@ -218,12 +237,66 @@ public class ExpressionTest {
 
     @org.junit.Test
     public void spatial() {
+        Feature feature;
+        //bboxIntersection
+        feature = buildTestFeature();
+        feature = (Feature) getValue(feature, "[\"bboxIntersection\",[15,15,16,16]]");
+        Assert.assertEquals("LINESTRING (15 15, 16 16)", feature.getGeometry().toText());
 
+        feature = buildTestFeature();
+        feature = (Feature) getValue(feature, "[\"bboxIntersection\",[\"$1\",\"$2\",\"$3\",\"$4\"]]"
+                , new ExpressionParams(Map.of("$1", 15, "$2", 15, "$3", 16, "$4", 16)));
+        Assert.assertEquals("LINESTRING (15 15, 16 16)", feature.getGeometry().toText());
+
+        feature = buildTestFeature();
+        feature = (Feature) getValue(feature, "[\"bboxIntersection\",[0,0,5,5]]");
+        Assert.assertEquals(null, feature);
+        //bboxIntersects
+        feature = buildTestFeature();
+        Assert.assertEquals(true,
+                getValue(feature, "[\"bboxIntersects\",[0,0,50,50]]")
+        );
+        Assert.assertEquals(false,
+                getValue(feature, "[\"bboxIntersects\",[0,0,5,5]]")
+        );
+        //geoIntersection
+        feature = buildTestFeature();
+        feature = (Feature) getValue(feature, "[\"geoIntersection\",\"LINESTRING(0 0,16 16)\"]");
+        Assert.assertEquals("LINESTRING (10 10, 16 16)", feature.getGeometry().toText());
+
+        feature = buildTestFeature();
+        feature = (Feature) getValue(feature, "[\"geoIntersection\",\"$1\"]",
+                new ExpressionParams(Map.of("$1", "LINESTRING(0 0,16 16)")));
+        Assert.assertEquals("LINESTRING (10 10, 16 16)", feature.getGeometry().toText());
+
+        feature = buildTestFeature();
+        feature = (Feature) getValue(feature, "[\"geoIntersection\",\"LINESTRING(0 0,1 1)\"]");
+        Assert.assertEquals(null, feature);
+        //geoIntersects
+        feature = buildTestFeature();
+        Assert.assertEquals(true,
+                getValue(feature, "[\"geoIntersects\",\"LINESTRING(0 0,16 16)\"]")
+        );
+        Assert.assertEquals(false,
+                getValue(feature, "[\"geoIntersects\",\"LINESTRING(0 0,1 1)\"]")
+        );
     }
 
     @org.junit.Test
     public void string() {
-
+        Feature feature = buildTestFeature();
+        //concat
+        Assert.assertEquals("abcd",
+                getValue(feature, "[\"concat\",\"a\",\"b\",\"cd\"]")
+        );
+        //concat
+        Assert.assertEquals("asd",
+                getValue(feature, "[\"downcase\",\"aSd\"]")
+        );
+        //upcase
+        Assert.assertEquals("ASD",
+                getValue(feature, "[\"upcase\",\"aSd\"]")
+        );
     }
 
 }

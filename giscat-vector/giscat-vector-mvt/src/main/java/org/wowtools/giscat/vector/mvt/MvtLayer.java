@@ -19,7 +19,9 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mvt;
 
-import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryCollection;
+import org.locationtech.jts.geom.TopologyException;
 import org.locationtech.jts.simplify.TopologyPreservingSimplifier;
 import org.wowtools.giscat.util.analyse.Bbox;
 import org.wowtools.giscat.vector.pojo.Feature;
@@ -45,7 +47,7 @@ public final class MvtLayer {
 
 
     /**
-     * @param mvtBuilder mvtBuilder
+     * @param mvtBuilder       mvtBuilder
      * @param simplifyDistance 对geometry进行简化的长度,单位是瓦片像素，取值范围[0,extent+clipBuffer]，为0时表示不做简化
      */
     protected MvtLayer(MvtBuilder mvtBuilder, int simplifyDistance) {

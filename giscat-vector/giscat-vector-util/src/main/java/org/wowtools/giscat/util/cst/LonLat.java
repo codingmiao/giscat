@@ -15,7 +15,7 @@ public class LonLat {
     private double latitude;
     private double longitude;
 
-    public LonLat(double longitude,double latitude) {
+    public LonLat(double longitude, double latitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }

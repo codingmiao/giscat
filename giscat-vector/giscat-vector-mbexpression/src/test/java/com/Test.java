@@ -15,17 +15,5 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
 
-        String expressionStr = "[\"==\",[\"get\", \"name1\"],[\"get\", \"name2\"]]";
-        Expression expression = Expression.newInstance(expressionStr);
-
-        System.out.println(expression.getValue(new Feature(null, Map.of(
-                "name1", "1",
-                "name2", "1"
-        ))));
-
-        System.out.println(expression.getValue(new Feature(null, Map.of(
-                "name1", "1",
-                "name2", 1
-        ))));
     }
 }

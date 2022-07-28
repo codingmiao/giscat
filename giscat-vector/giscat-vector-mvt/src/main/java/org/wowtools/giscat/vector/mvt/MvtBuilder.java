@@ -23,8 +23,8 @@ package org.wowtools.giscat.vector.mvt;
 import org.locationtech.jts.algorithm.Orientation;
 import org.locationtech.jts.geom.*;
 import org.wowtools.giscat.util.analyse.Bbox;
-import org.wowtools.giscat.util.cst.Tile2Wgs84;
 import org.wowtools.giscat.util.analyse.TileClip;
+import org.wowtools.giscat.util.cst.Tile2Wgs84;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

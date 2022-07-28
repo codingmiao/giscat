@@ -49,15 +49,15 @@ public class ProtoFeatureConverterGeometryJmhTest {
         }
     }
 
-    @Param(value = {"0","1","2","3","4","5","6"})
+    @Param(value = {"0", "1", "2", "3", "4", "5", "6"})
 //    @Param(value = {"1"})
     private int geometryIndex = 0;
 
 //    private final WKBWriter wkbWriter = new WKBWriter(2,false);
 
     @Benchmark
-    public void testWkb(Blackhole blackhole) throws Exception{
-        WKBWriter wkbWriter = new WKBWriter(2,false);
+    public void testWkb(Blackhole blackhole) throws Exception {
+        WKBWriter wkbWriter = new WKBWriter(2, false);
         Geometry geometry = geometries[geometryIndex];
         byte[] bytes = wkbWriter.write(geometry);
         WKBReader wkbReader = new WKBReader();
@@ -69,7 +69,7 @@ public class ProtoFeatureConverterGeometryJmhTest {
     public void testProtoFeature(Blackhole blackhole) {
         Geometry geometry = geometries[geometryIndex];
         byte[] bytes = ProtoFeatureConverter.geometry2Proto(geometry);
-        Geometry res = ProtoFeatureConverter.proto2Geometry(bytes,new GeometryFactory());
+        Geometry res = ProtoFeatureConverter.proto2Geometry(bytes, new GeometryFactory());
         blackhole.consume(res);
     }
 

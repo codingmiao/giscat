@@ -21,7 +21,6 @@
 package org.wowtools.giscat.vector.mvt;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.locationtech.jts.algorithm.CGAlgorithms;
 import org.locationtech.jts.algorithm.Orientation;
 import org.locationtech.jts.geom.*;
 import org.wowtools.giscat.vector.pojo.Feature;
