@@ -150,4 +150,16 @@ public abstract class Expression<R> {
         return expressionArray;
     }
 
+
+    protected static Object getRealValue(Feature feature, Object o) {
+        if (o instanceof Expression) {
+            Expression expression = (Expression) o;
+            o = expression.getValue(feature);
+            if (o instanceof Expression) {
+                return getRealValue(feature, o);
+            }
+        }
+        return o;
+    }
+
 }

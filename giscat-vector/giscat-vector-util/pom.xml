@@ -5,12 +5,12 @@
     <parent>
         <artifactId>giscat</artifactId>
         <groupId>org.wowtools</groupId>
-        <version>1.3.0-STABLE</version>
+        <version>1.4.0-STABLE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>giscat-vector-util</artifactId>
-    <version>1.3.2-STABLE</version>
+    <version>1.4.0-STABLE</version>
 
     <description>常用gis工具</description>
 

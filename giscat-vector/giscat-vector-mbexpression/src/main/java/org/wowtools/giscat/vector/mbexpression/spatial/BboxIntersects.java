@@ -20,6 +20,7 @@
 package org.wowtools.giscat.vector.mbexpression.spatial;
 
 import org.locationtech.jts.geom.Geometry;
+import org.wowtools.giscat.util.analyse.Bbox;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
@@ -27,23 +28,23 @@ import org.wowtools.giscat.vector.pojo.Feature;
 import java.util.ArrayList;
 
 /**
- * 判断输入的bbox是否与要素的geometry相交
+ * 判断输入的bbox是否与要素的geometry相交(envIntersects)
  * Syntax
- * ["bboxIntersects", [xmin,ymin,xmax,ymax]]: boolean
+ * ["bboxIntersects", [xmin,ymin,xmax,ymax] or Bbox]: boolean
  * 示例
- * ["bboxIntersects", "LINESTRING(100 20,120 30)"]
+ * ["bboxIntersects", [90,20,92.5,21.3]]
  *
  * @author liuyu
  * @date 2022/7/15
  */
 @ExpressionName("bboxIntersects")
 public class BboxIntersects extends Expression<Boolean> {
-    private final Geometry inputGeometry;
+    private final Bbox bbox;
 
     protected BboxIntersects(ArrayList expressionArray) {
         super(expressionArray);
         Object value = expressionArray.get(1);
-        inputGeometry = Read.readGeometry(value);
+        bbox = Read.readBbox(value);
     }
 
     @Override
@@ -52,8 +53,10 @@ public class BboxIntersects extends Expression<Boolean> {
         if (null == featureGeometry) {
             return false;
         }
-        //TODO
-        return true;
+        if (null == bbox) {
+            return false;
+        }
+        return bbox.envIntersects(featureGeometry);
     }
 
 }

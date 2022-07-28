@@ -54,10 +54,7 @@ public class Get extends Expression<Object> {
         if (null != value && expressionArray.size() == 3) {
             value = expressionArray.get(2);
         }
-        if (value instanceof Expression) {
-            Expression sub = (Expression) value;
-            return sub.getValue(feature);
-        }
+        value = getRealValue(feature, value);
         return value;
     }
 }

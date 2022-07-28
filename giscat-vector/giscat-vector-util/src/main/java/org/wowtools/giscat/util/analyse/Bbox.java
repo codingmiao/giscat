@@ -19,9 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.util.analyse;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.*;
 
 /**
  * 获取geometry的bbox，并利用bbox进行一些空间分析操作
@@ -62,13 +60,13 @@ public class Bbox {
             }
         } else {
             Coordinate[] coords = envelope.getCoordinates();
-            if (coords.length==1){
+            if (coords.length == 1) {
                 Coordinate c = coords[0];
                 xmin = c.x;
                 ymin = c.y;
                 xmax = c.x;
                 ymax = c.y;
-            }else {
+            } else {
                 Coordinate low = coords[0];
                 xmin = low.x;
                 ymin = low.y;
@@ -85,6 +83,7 @@ public class Bbox {
 
     /**
      * 判断bbox是否与geometry的bbox
+     *
      * @param geometry geometry
      * @return 是否相交
      */
@@ -95,6 +94,7 @@ public class Bbox {
 
     /**
      * 判断bbox是否与另一个bbox相交
+     *
      * @param bbox bbox
      * @return 是否相交
      */
@@ -138,4 +138,14 @@ public class Bbox {
         return x >= xmin && x <= xmax && y >= ymin && y <= ymax;
     }
 
+
+    public Polygon toPolygon(GeometryFactory gf) {
+        return gf.createPolygon(new Coordinate[]{
+                new Coordinate(xmin, ymin),
+                new Coordinate(xmax, ymin),
+                new Coordinate(xmax, ymax),
+                new Coordinate(xmin, ymax),
+                new Coordinate(xmin, ymin)
+        });
+    }
 }

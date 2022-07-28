@@ -24,7 +24,6 @@ import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * <p>
@@ -45,17 +44,14 @@ public class Negation extends Expression<Boolean> {
     @Override
     public Boolean getValue(Feature feature) {
         Object value = expressionArray.get(1);
-        if (value instanceof Expression) {
-            Expression sub = (Expression) value;
-            value = sub.getValue(feature);
-        }
+        value = getRealValue(feature, value);
         if (value instanceof Boolean) {
-            return (Boolean) value;
+            return Boolean.FALSE.equals(value);
         }
         if (value instanceof Number) {
-            return ((Number) value).doubleValue() > 0;
+            return ((Number) value).doubleValue() <= 0;
         }
-        return value != null;
+        return value == null;
     }
 
 }

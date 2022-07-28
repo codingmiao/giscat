@@ -17,51 +17,38 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.spatial;
+package org.wowtools.giscat.vector.mbexpression.string;
 
-import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
- * 输入geometry，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
+ * <p>
+ * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#downcase
+ * <p>
  * Syntax
- * ["geoIntersection", wkt_string or geometry]: Feature
- * 示例
- * ["geoIntersection", "LINESTRING(100 20,120 30)"]
+ * ["downcase", string]: string
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("geoIntersection")
-public class GeoIntersection extends Expression<Feature> {
-    private final Geometry inputGeometry;
-
-    protected GeoIntersection(ArrayList expressionArray) {
+@ExpressionName("downcase")
+public class Downcase extends Expression<String> {
+    protected Downcase(ArrayList expressionArray) {
         super(expressionArray);
-        Object value = expressionArray.get(1);
-        inputGeometry = Read.readGeometry(value);
     }
 
-
     @Override
-    public Feature getValue(Feature feature) {
-        Geometry featureGeometry = feature.getGeometry();
-        if (null == featureGeometry) {
+    public String getValue(Feature feature) {
+        String s = (String) getRealValue(feature, expressionArray.get(1));
+        if (s == null) {
             return null;
         }
-        if (null == inputGeometry) {
-            return null;
-        }
-        featureGeometry = inputGeometry.intersection(featureGeometry);
-        if (featureGeometry.isEmpty()) {
-            return null;
-        }
-        feature.setGeometry(featureGeometry);
-        return feature;
+        return s.toLowerCase(Locale.ROOT);
     }
 
 }

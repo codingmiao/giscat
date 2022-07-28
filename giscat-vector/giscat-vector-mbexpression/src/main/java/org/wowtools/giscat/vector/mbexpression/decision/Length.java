@@ -17,9 +17,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.spatial;
+package org.wowtools.giscat.vector.mbexpression.decision;
 
-import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
@@ -27,41 +26,30 @@ import org.wowtools.giscat.vector.pojo.Feature;
 import java.util.ArrayList;
 
 /**
- * 输入geometry，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
+ * <p>
+ * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#length
+ * <p>
  * Syntax
- * ["geoIntersection", wkt_string or geometry]: Feature
- * 示例
- * ["geoIntersection", "LINESTRING(100 20,120 30)"]
+ * ["length", string | array | value]: number
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("geoIntersection")
-public class GeoIntersection extends Expression<Feature> {
-    private final Geometry inputGeometry;
-
-    protected GeoIntersection(ArrayList expressionArray) {
+@ExpressionName("length")
+public class Length extends Expression<Integer> {
+    protected Length(ArrayList expressionArray) {
         super(expressionArray);
-        Object value = expressionArray.get(1);
-        inputGeometry = Read.readGeometry(value);
     }
-
 
     @Override
-    public Feature getValue(Feature feature) {
-        Geometry featureGeometry = feature.getGeometry();
-        if (null == featureGeometry) {
-            return null;
+    public Integer getValue(Feature feature) {
+        Object input = getRealValue(feature, expressionArray.get(1));
+        if (input instanceof String) {
+            return ((String) input).length();
+        } else if (input instanceof ArrayList) {
+            return ((ArrayList) input).size();
+        } else {
+            throw new RuntimeException("未知类型 " + feature);
         }
-        if (null == inputGeometry) {
-            return null;
-        }
-        featureGeometry = inputGeometry.intersection(featureGeometry);
-        if (featureGeometry.isEmpty()) {
-            return null;
-        }
-        feature.setGeometry(featureGeometry);
-        return feature;
     }
-
 }

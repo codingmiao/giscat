@@ -17,9 +17,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.spatial;
+package org.wowtools.giscat.vector.mbexpression.decision;
 
-import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
@@ -27,41 +26,28 @@ import org.wowtools.giscat.vector.pojo.Feature;
 import java.util.ArrayList;
 
 /**
- * 输入geometry，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
+ * <p>
+ * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#%3C
+ * <p>
  * Syntax
- * ["geoIntersection", wkt_string or geometry]: Feature
- * 示例
- * ["geoIntersection", "LINESTRING(100 20,120 30)"]
+ * ["<", value, value]: boolean
+ * ["<", value, value, collator]: boolean 未实现
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("geoIntersection")
-public class GeoIntersection extends Expression<Feature> {
-    private final Geometry inputGeometry;
-
-    protected GeoIntersection(ArrayList expressionArray) {
+@ExpressionName("<")
+public class LessThan extends Expression<Boolean> {
+    protected LessThan(ArrayList expressionArray) {
         super(expressionArray);
-        Object value = expressionArray.get(1);
-        inputGeometry = Read.readGeometry(value);
+        if (expressionArray.size() == 4) {
+            throw new UnsupportedOperationException("collator参数暂未实现");
+        }
     }
 
-
     @Override
-    public Feature getValue(Feature feature) {
-        Geometry featureGeometry = feature.getGeometry();
-        if (null == featureGeometry) {
-            return null;
-        }
-        if (null == inputGeometry) {
-            return null;
-        }
-        featureGeometry = inputGeometry.intersection(featureGeometry);
-        if (featureGeometry.isEmpty()) {
-            return null;
-        }
-        feature.setGeometry(featureGeometry);
-        return feature;
+    public Boolean getValue(Feature feature) {
+        return Compare.compare(expressionArray, feature) < 0;
     }
 
 }

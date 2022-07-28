@@ -17,36 +17,62 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.lookup;
+package org.wowtools.giscat.vector.mbexpression.decision;
 
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * <p>
- * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#at
+ * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#index-of
  * <p>
  * Syntax
- * ["at", number, array]: ItemType
+ * ["index-of",
+ * keyword: InputType (boolean, string, or number),
+ * input: InputType (array or string)
+ * ]: number
+ * <p>
+ * ["index-of",
+ * keyword: InputType (boolean, string, or number),
+ * input: InputType (array or string),
+ * index: number
+ * ]: number
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("at")
-public class At extends Expression<Object> {
-    protected At(ArrayList expressionArray) {
+@ExpressionName("index-of")
+public class IndexOf extends Expression<Object> {
+    protected IndexOf(ArrayList expressionArray) {
         super(expressionArray);
     }
 
     @Override
     public Object getValue(Feature feature) {
-        int idx = (int) expressionArray.get(1);
-        ArrayList array = (ArrayList) expressionArray.get(2);
-        Object value = array.get(idx);
-        value = getRealValue(feature, value);
-        return value;
+        Object keyword = getRealValue(feature, expressionArray.get(1));
+        Object input = getRealValue(feature, expressionArray.get(2));
+        int index = 0;
+        if (expressionArray.size() == 4) {
+            index = (int) getRealValue(feature, expressionArray.get(3));
+        }
+        if (keyword instanceof String && input instanceof String) {
+            String strKeyword = (String) keyword;
+            String strInput = (String) input;
+            return strInput.indexOf(strKeyword, index);
+        } else {
+            ArrayList inputArr = (ArrayList) input;
+            for (int i = index; i < inputArr.size(); i++) {
+                Object inputObj = inputArr.get(i);
+                if (Objects.equals(keyword, inputObj)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }
+
 }

@@ -20,6 +20,9 @@
 package org.wowtools.giscat.vector.mbexpression.spatial;
 
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.wowtools.giscat.util.analyse.Bbox;
+import org.wowtools.giscat.util.analyse.TileClip;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
@@ -27,23 +30,30 @@ import org.wowtools.giscat.vector.pojo.Feature;
 import java.util.ArrayList;
 
 /**
- * 输入geometry，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
- * Syntax
- * ["geoIntersection", wkt_string or geometry]: Feature
+ * 输入bbox，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
+ * ["bboxIntersection", [xmin,ymin,xmax,ymax] or Bbox]: boolean
  * 示例
- * ["geoIntersection", "LINESTRING(100 20,120 30)"]
+ * ["bboxIntersection", [90,20,92.5,21.3]]
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("geoIntersection")
-public class GeoIntersection extends Expression<Feature> {
-    private final Geometry inputGeometry;
+@ExpressionName("bboxIntersection")
+public class BboxIntersection extends Expression<Feature> {
 
-    protected GeoIntersection(ArrayList expressionArray) {
+    private static final GeometryFactory gf = new GeometryFactory();
+
+    private final TileClip tileClip;
+
+    protected BboxIntersection(ArrayList expressionArray) {
         super(expressionArray);
         Object value = expressionArray.get(1);
-        inputGeometry = Read.readGeometry(value);
+        Bbox bbox = Read.readBbox(value);
+        if (null == bbox) {
+            tileClip = null;
+        } else {
+            tileClip = new TileClip(bbox.toPolygon(gf), gf);
+        }
     }
 
 
@@ -53,11 +63,11 @@ public class GeoIntersection extends Expression<Feature> {
         if (null == featureGeometry) {
             return null;
         }
-        if (null == inputGeometry) {
+        if (null == tileClip) {
             return null;
         }
-        featureGeometry = inputGeometry.intersection(featureGeometry);
-        if (featureGeometry.isEmpty()) {
+        featureGeometry = tileClip.intersection(featureGeometry);
+        if (null == featureGeometry || featureGeometry.isEmpty()) {
             return null;
         }
         feature.setGeometry(featureGeometry);

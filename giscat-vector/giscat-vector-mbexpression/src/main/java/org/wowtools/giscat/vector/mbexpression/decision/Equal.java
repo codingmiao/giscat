@@ -24,7 +24,6 @@ import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -50,15 +49,9 @@ public class Equal extends Expression<Boolean> {
     @Override
     public Boolean getValue(Feature feature) {
         Object o1 = expressionArray.get(1);
-        if (o1 instanceof Expression) {
-            Expression expression = (Expression) o1;
-            o1 = expression.getValue(feature);
-        }
+        o1 = getRealValue(feature, o1);
         Object o2 = expressionArray.get(2);
-        if (o2 instanceof Expression) {
-            Expression expression = (Expression) o2;
-            o2 = expression.getValue(feature);
-        }
+        o2 = getRealValue(feature, o2);
         return Objects.equals(o1, o2);
     }
 

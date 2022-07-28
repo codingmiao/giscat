@@ -17,51 +17,53 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.vector.mbexpression.spatial;
+package org.wowtools.giscat.vector.mbexpression.decision;
 
-import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
- * 输入geometry，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
+ * <p>
+ * 参见 https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#in
+ * 当keyword input都是string时，相当于strInput.indexOf(strKeyword)
+ * 否则，相当于 keyword in(xxx,xxx)
+ * <p>
  * Syntax
- * ["geoIntersection", wkt_string or geometry]: Feature
- * 示例
- * ["geoIntersection", "LINESTRING(100 20,120 30)"]
+ * ["in",
+ * keyword: InputType (boolean, string, or number),
+ * input: InputType (array or string)
+ * ]: boolean
  *
  * @author liuyu
  * @date 2022/7/15
  */
-@ExpressionName("geoIntersection")
-public class GeoIntersection extends Expression<Feature> {
-    private final Geometry inputGeometry;
-
-    protected GeoIntersection(ArrayList expressionArray) {
+@ExpressionName("in")
+public class In extends Expression<Boolean> {
+    protected In(ArrayList expressionArray) {
         super(expressionArray);
-        Object value = expressionArray.get(1);
-        inputGeometry = Read.readGeometry(value);
     }
 
-
     @Override
-    public Feature getValue(Feature feature) {
-        Geometry featureGeometry = feature.getGeometry();
-        if (null == featureGeometry) {
-            return null;
+    public Boolean getValue(Feature feature) {
+        Object keyword = getRealValue(feature, expressionArray.get(1));
+        Object input = getRealValue(feature, expressionArray.get(2));
+        if (keyword instanceof String && input instanceof String) {
+            String strKeyword = (String) keyword;
+            String strInput = (String) input;
+            return strInput.indexOf(strKeyword) >= 0;
+        } else {
+            ArrayList inputArr = (ArrayList) input;
+            for (Object inputObj : inputArr) {
+                if (Objects.equals(keyword, inputObj)) {
+                    return true;
+                }
+            }
+            return false;
         }
-        if (null == inputGeometry) {
-            return null;
-        }
-        featureGeometry = inputGeometry.intersection(featureGeometry);
-        if (featureGeometry.isEmpty()) {
-            return null;
-        }
-        feature.setGeometry(featureGeometry);
-        return feature;
     }
 
 }
