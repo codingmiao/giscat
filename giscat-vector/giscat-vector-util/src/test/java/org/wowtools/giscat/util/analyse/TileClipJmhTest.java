@@ -37,7 +37,7 @@ public class TileClipJmhTest {
                 new Coordinate(0.2, 0.8),
                 new Coordinate(0.2, 0.2)
         });
-        tileClip = new TileClip(clipGeometry, geometryFactory);
+        tileClip = new TileClip(0.2, 0.2, 0.8, 0.8, geometryFactory);
         Random random = new Random(233);
         int n = 100;
         lines = new LineString[n];

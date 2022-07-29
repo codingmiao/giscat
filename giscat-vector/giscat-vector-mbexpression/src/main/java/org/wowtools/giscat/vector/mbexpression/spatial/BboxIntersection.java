@@ -65,7 +65,7 @@ public class BboxIntersection extends Expression<Feature> {
                 if (null == bbox) {
                     tileClip = null;
                 } else {
-                    tileClip = new TileClip(bbox.toPolygon(gf), gf);
+                    tileClip = new TileClip(bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax, gf);
                 }
                 expressionParams.putCache(this, tileClip);
             } else {

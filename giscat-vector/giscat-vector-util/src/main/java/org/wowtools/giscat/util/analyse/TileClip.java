@@ -41,17 +41,20 @@ public class TileClip {
     private final double ymin;
     private final double xmax;
     private final double ymax;
-
-    public TileClip(Geometry clipGeometry, GeometryFactory gf) {
+    public TileClip(double xmin, double ymin, double xmax, double ymax, GeometryFactory gf) {
         this.gf = gf;
-        this.clipGeometry = clipGeometry;
-        Coordinate[] coords = clipGeometry.getEnvelope().getCoordinates();
-        Coordinate low = coords[0];
-        Coordinate up = coords[2];
-        xmin = low.x;
-        ymin = low.y;
-        xmax = up.x;
-        ymax = up.y;
+        this.xmin = xmin;
+        this.ymin = ymin;
+        this.xmax = xmax;
+        this.ymax = ymax;
+        Coordinate[] coords = new Coordinate[]{
+                new Coordinate(xmin, ymin),
+                new Coordinate(xmax, ymin),
+                new Coordinate(xmax, ymax),
+                new Coordinate(xmin, ymax),
+                new Coordinate(xmin, ymin)
+        };
+        clipGeometry = gf.createPolygon(coords);
     }
 
     /**

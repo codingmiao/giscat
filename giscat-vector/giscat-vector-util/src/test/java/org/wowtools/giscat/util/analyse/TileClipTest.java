@@ -19,7 +19,7 @@ public class TileClipTest {
                 new Coordinate(20, 80),
                 new Coordinate(20, 20)
         });
-        TileClip tileClip = new TileClip(clipGeometry, geometryFactory);
+        TileClip tileClip = new TileClip(20, 20, 80, 80, geometryFactory);
         testGeo(clipGeometry, tileClip,
                 (LineString) new WKTReader().read("LINESTRING (37 51, 5 17, 21 34)")
         );

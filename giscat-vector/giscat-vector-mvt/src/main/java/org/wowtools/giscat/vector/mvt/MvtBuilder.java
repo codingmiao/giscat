@@ -69,8 +69,7 @@ public class MvtBuilder {
     public MvtBuilder(int z, int x, int y, int extent, int clipBuffer, GeometryFactory geometryFactory) {
         this.extent = extent;
         bbox = createTileBbox(z, x, y, extent, clipBuffer);
-        Geometry clipGeometry = createTileEnvelope();
-        tileClip = new TileClip(clipGeometry, geometryFactory);
+        tileClip = new TileClip(bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax, geometryFactory);
         mvtCoordinateConvertor = new MvtCoordinateConvertor(z, x, y);
 
 
@@ -129,18 +128,6 @@ public class MvtBuilder {
         y1 = y1 - clipBufferY;
 
         return new Bbox(x0, y1, x1, y0);
-    }
-
-    private Geometry createTileEnvelope() {
-
-        Coordinate[] coords = new Coordinate[]{
-                new Coordinate(bbox.xmin, bbox.ymin),
-                new Coordinate(bbox.xmax, bbox.ymin),
-                new Coordinate(bbox.xmax, bbox.ymax),
-                new Coordinate(bbox.xmin, bbox.ymax),
-                new Coordinate(bbox.xmin, bbox.ymin)
-        };
-        return new GeometryFactory().createPolygon(coords);
     }
 
 
