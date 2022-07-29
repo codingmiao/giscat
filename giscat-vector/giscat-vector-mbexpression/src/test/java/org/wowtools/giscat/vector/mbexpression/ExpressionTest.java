@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.io.WKTReader;
+import org.wowtools.giscat.util.analyse.Bbox;
+import org.wowtools.giscat.util.analyse.TileClip;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
@@ -237,7 +240,8 @@ public class ExpressionTest {
     }
 
     @org.junit.Test
-    public void spatial() {
+    public void spatial() throws Exception {
+        WKTReader wktReader = new WKTReader();
         Feature feature;
         //bboxIntersection
         feature = buildTestFeature();
@@ -247,6 +251,11 @@ public class ExpressionTest {
         feature = buildTestFeature();
         feature = (Feature) getValue(feature, "[\"bboxIntersection\",[\"$1\",\"$2\",\"$3\",\"$4\"]]"
                 , new ExpressionParams(Map.of("$1", 15, "$2", 15, "$3", 16, "$4", 16)));
+        Assert.assertEquals("LINESTRING (15 15, 16 16)", feature.getGeometry().toText());
+
+        feature = buildTestFeature();
+        feature = (Feature) getValue(feature, "[\"bboxIntersection\",\"$1\"]"
+                ,new ExpressionParams(Map.of("$1",new TileClip(15,15,16,16,new GeometryFactory()))));
         Assert.assertEquals("LINESTRING (15 15, 16 16)", feature.getGeometry().toText());
 
         feature = buildTestFeature();
@@ -260,6 +269,30 @@ public class ExpressionTest {
         Assert.assertEquals(false,
                 getValue(feature, "[\"bboxIntersects\",[0,0,5,5]]")
         );
+
+        Assert.assertEquals(true,
+                getValue(feature, "[\"bboxIntersects\",[\"$1\",\"$2\",\"$3\",\"$4\"]]",
+                        new ExpressionParams(Map.of("$1",0,"$2",0,"$3",50,"$4",50))
+                )
+        );
+
+        ArrayList<Double> list = new ArrayList<>();
+        list.add(0d);
+        list.add(0d);
+        list.add(50d);
+        list.add(50d);
+        Assert.assertEquals(true,
+                getValue(feature, "[\"bboxIntersects\",\"$1\"]",
+                        new ExpressionParams(Map.of("$1",list))
+                )
+        );
+
+        Assert.assertEquals(true,
+                getValue(feature, "[\"bboxIntersects\",\"$1\"]",
+                        new ExpressionParams(Map.of("$1",new Bbox(0,0,50,50)))
+                )
+        );
+
         //geoIntersection
         feature = buildTestFeature();
         feature = (Feature) getValue(feature, "[\"geoIntersection\",\"LINESTRING(0 0,16 16)\"]");
@@ -268,6 +301,11 @@ public class ExpressionTest {
         feature = buildTestFeature();
         feature = (Feature) getValue(feature, "[\"geoIntersection\",\"$1\"]",
                 new ExpressionParams(Map.of("$1", "LINESTRING(0 0,16 16)")));
+        Assert.assertEquals("LINESTRING (10 10, 16 16)", feature.getGeometry().toText());
+
+        feature = buildTestFeature();
+        feature = (Feature) getValue(feature, "[\"geoIntersection\",\"$1\"]",
+                new ExpressionParams(Map.of("$1", wktReader.read("LINESTRING(0 0,16 16)"))));
         Assert.assertEquals("LINESTRING (10 10, 16 16)", feature.getGeometry().toText());
 
         feature = buildTestFeature();

@@ -4,7 +4,10 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import org.wowtools.giscat.util.analyse.Bbox;
+import org.wowtools.giscat.util.analyse.TileClip;
+import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
+import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;
 
@@ -18,11 +21,11 @@ class Read {
     private static final WKTReader wktReader = new WKTReader();
 
 
-    public static Geometry readGeometry(Object value, ExpressionParams expressionParams) {
+    public static Geometry readGeometry(Feature feature,Object value, ExpressionParams expressionParams) {
         if (null == value) {
             return null;
         }
-        value = getValue(value, expressionParams);
+        value = Expression.getRealValue(feature, value, expressionParams);
         Geometry inputGeometry;
         if (value instanceof String) {
             String wkt = (String) value;
@@ -39,16 +42,17 @@ class Read {
         return inputGeometry;
     }
 
-    public static Bbox readBbox(Object value, ExpressionParams expressionParams) {
+    public static Bbox readBbox(Feature feature, Object value, ExpressionParams expressionParams) {
         if (null == value) {
             return null;
         }
+        value = Expression.getRealValue(feature, value, expressionParams);
         if (value instanceof ArrayList) {
             ArrayList list = (ArrayList) value;
-            return new Bbox(((Number) getValue(list.get(0), expressionParams)).doubleValue(),
-                    ((Number) getValue(list.get(1), expressionParams)).doubleValue(),
-                    ((Number) getValue(list.get(2), expressionParams)).doubleValue(),
-                    ((Number) getValue(list.get(3), expressionParams)).doubleValue());
+            return new Bbox(((Number) Expression.getRealValue(feature, list.get(0), expressionParams)).doubleValue(),
+                    ((Number) Expression.getRealValue(feature, list.get(1), expressionParams)).doubleValue(),
+                    ((Number) Expression.getRealValue(feature, list.get(2), expressionParams)).doubleValue(),
+                    ((Number) Expression.getRealValue(feature, list.get(3), expressionParams)).doubleValue());
         }
         if (value instanceof Bbox) {
             return (Bbox) value;
@@ -56,13 +60,28 @@ class Read {
         throw new RuntimeException("未知的Bbox数据类型 " + value);
     }
 
-    private static Object getValue(Object o, ExpressionParams expressionParams) {
-        if (o instanceof String) {
-            String s = (String) o;
-            if (s.charAt(0) == '$') {
-                return expressionParams.getValue(s);
-            }
+    public static TileClip readTileClip(Feature feature, Object value, ExpressionParams expressionParams) {
+        if (null == value) {
+            return null;
         }
-        return o;
+        value = Expression.getRealValue(feature, value, expressionParams);
+        if (value instanceof ArrayList) {
+            ArrayList list = (ArrayList) value;
+            return new TileClip(((Number) Expression.getRealValue(feature, list.get(0), expressionParams)).doubleValue(),
+                    ((Number) Expression.getRealValue(feature, list.get(1), expressionParams)).doubleValue(),
+                    ((Number) Expression.getRealValue(feature, list.get(2), expressionParams)).doubleValue(),
+                    ((Number) Expression.getRealValue(feature, list.get(3), expressionParams)).doubleValue(),
+                    expressionParams.getGeometryFactory()
+            );
+        }
+        if (value instanceof TileClip) {
+            return (TileClip) value;
+        }
+        if (value instanceof Bbox) {
+            Bbox bbox = (Bbox) value;
+            return new TileClip(bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax, expressionParams.getGeometryFactory());
+        }
+        throw new RuntimeException("未知的TileClip数据类型 " + value);
     }
+
 }

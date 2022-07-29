@@ -1,5 +1,7 @@
 package org.wowtools.giscat.vector.mbexpression;
 
+import org.locationtech.jts.geom.GeometryFactory;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,16 +12,27 @@ import java.util.Map;
  * 例如，希望表达式["concat", "$a","sss"]输出结果为"$asss"，则可通过传入参数{"$a":"$a"}来解决。
  * 使用参数绑定可减少解析时的性能消耗。
  *
+ * 包含一个geometryFactory对象，用于geometry对象变换相关的表达式，可根据需要通过setGeometryFactory设置自定义的geometryFactory
+ *
  * @author liuyu
  * @date 2022/7/28
  */
 public class ExpressionParams {
+    private static final GeometryFactory defaultGeometryFactory = new GeometryFactory();
+    /**
+     * 空对象 用以避免实际值为null时缓存重复查询的问题
+     */
+    public static final Object empty = new Object();
+
+    /**
+     * 参数
+     */
     private final Map<String, Object> params;
 
     //取值缓存，供表达式解析用，减少重复的解析
     private final Map<Object, Object> cache = new HashMap<>();
 
-    public static final Object empty = new Object();
+    private GeometryFactory geometryFactory = defaultGeometryFactory;
 
     /**
      * @param params 绑定参数 例如 {"$a":"hello","$b":"world"}
@@ -48,5 +61,13 @@ public class ExpressionParams {
 
     public Object getCache(Object key) {
         return cache.get(key);
+    }
+
+    public GeometryFactory getGeometryFactory() {
+        return geometryFactory;
+    }
+
+    public void setGeometryFactory(GeometryFactory geometryFactory) {
+        this.geometryFactory = geometryFactory;
     }
 }

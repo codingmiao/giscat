@@ -30,7 +30,6 @@ import java.util.ArrayList;
 
 /**
  * 判断输入的bbox是否与要素的geometry相交(envIntersects)
- * 注意，参数不支持表达式嵌套
  * Syntax
  * ["bboxIntersects", [xmin,ymin,xmax,ymax] or Bbox]: boolean
  * 示例
@@ -55,7 +54,7 @@ public class BboxIntersects extends Expression<Boolean> {
                 bbox = null;
             } else if (null == cache) {
                 Object value = expressionArray.get(1);
-                bbox = Read.readBbox(value, expressionParams);
+                bbox = Read.readBbox(feature, value, expressionParams);
                 expressionParams.putCache(this, bbox);
             } else {
                 bbox = (Bbox) cache;

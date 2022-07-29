@@ -32,9 +32,8 @@ import java.util.ArrayList;
 
 /**
  * 输入bbox，若geometry与要素相交则裁剪要素的geometry并返回裁剪后的要素，若不相交则返回null
- * 注意，参数不支持表达式嵌套
  * Syntax
- * ["bboxIntersection", [xmin,ymin,xmax,ymax] or Bbox]: boolean
+ * ["bboxIntersection", [xmin,ymin,xmax,ymax] or TileClip]: boolean
  * 示例
  * ["bboxIntersection", [90,20,92.5,21.3]]
  *
@@ -61,12 +60,7 @@ public class BboxIntersection extends Expression<Feature> {
                 tileClip = null;
             } else if (null == cache) {
                 Object value = expressionArray.get(1);
-                Bbox bbox = Read.readBbox(value, expressionParams);
-                if (null == bbox) {
-                    tileClip = null;
-                } else {
-                    tileClip = new TileClip(bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax, gf);
-                }
+                tileClip = Read.readTileClip(feature, value, expressionParams);
                 expressionParams.putCache(this, tileClip);
             } else {
                 tileClip = (TileClip) cache;

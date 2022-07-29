@@ -152,7 +152,7 @@ public abstract class Expression<R> {
     }
 
 
-    protected static Object getRealValue(Feature feature, Object o, ExpressionParams expressionParams) {
+    public static Object getRealValue(Feature feature, Object o, ExpressionParams expressionParams) {
         //若结果不是表达式，即结果是具体值，检查是不是绑定变量，绑定变量返回绑定值，否则返回原值
         if (!(o instanceof Expression)) {
             if (o instanceof String) {
