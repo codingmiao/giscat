@@ -28,11 +28,11 @@ import java.util.ArrayList;
 
 /**
  * <p>
- * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#">...</a><=
+ * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#%3C=">...</a>
  * <p>
  * Syntax
- * ["<=", value, value]: boolean
- * ["<=", value, value, collator]: boolean 未实现
+ * ["&lt;=", value, value]: boolean
+ * ["&lt;=", value, value, collator]: boolean 未实现
  *
  * @author liuyu
  * @date 2022/7/15
