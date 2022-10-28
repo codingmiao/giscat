@@ -5,6 +5,10 @@ option java_outer_classname = "ProtoFeature";
 
 // geometry具体实现。
 
+// 空几何对象 解析后返回null
+message NullGeometry{
+
+}
 // Point，包含点的 x y z坐标 ，z可选。
 message Point{
 	double x = 1;
@@ -88,11 +92,17 @@ message Geometry{
 	MultiPolygon multiPolygon = 6;
 
 	GeometryCollection geometryCollection = 7;
+
+	NullGeometry nullGeometry = 8;
 }
 
+// Feature 仅作保留，不用这个进行序列化和反序列化
+message Feature{
 
-// 属性 支持的属性类型 double float sint32 sint64 bool string bytes subProperty
-// 属性使用keyId-value或keyId-valueId格式来存储
+}
+
+// 属性映射 支持的属性类型 double float sint32 sint64 bool string bytes subProperty
+// 属性映射使用keyId-value或keyId-valueId格式，与FeatureCollection中的key、value结合来存实际键值
 // sint64、string等可能占用4字节及以上的对象，用valueId(int32)取代value来存储以减少体积 value本身则存放到FeatureCollection中
 // 示例 [{id:4,name:'tom'},{id:5,name:'jerry',age:4}]转换后:
 // FeatureCollection {
@@ -106,32 +116,56 @@ message Geometry{
 //      ]
 // }
 message Map{
-	// key、value id
+	// keyId、valueId/value
 	repeated int32 doubleKeyIds = 1;
 	repeated int32 doubleValueIds = 2;
+
 	repeated int32 floatKeyIds = 3;
 	repeated int32 floatValueIds = 4;
+
 	repeated int32 sint32KeyIds = 5;
 	repeated int32 sint32ValueIds = 6;
+
 	repeated int32 sint64KeyIds = 7;
 	repeated int32 sint64ValueIds = 8;
+
 	repeated int32 boolKeyIds = 9;
 	repeated bool boolValues = 10;
+
 	repeated int32 stringKeyIds = 11;
 	repeated int32 stringValueIds = 12;
+
 	repeated int32 bytesKeyIds = 13;
 	repeated int32 bytesValueIds = 14;
 
-	//children Map key、value id
-	repeated int32 subKeyIds = 15;
-	repeated Map subMaps = 16;
+    // list keyId、valueId
+	repeated int32 listKeyIds = 15;
+	repeated int32 listValueIds = 16;
+
+	// children keyId、valueId
+	repeated int32 subKeyIds = 17;
+	repeated int32 subMapValueIds = 18;
+
 }
 
+// list 属性
+message List{
+    // indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+    repeated int32 indexes = 1;
+    // 数组值id，按数组先后顺序填入
+	// valueId/value
+	repeated int32 doubleKeyIds = 2;
+	repeated int32 floatKeyIds = 3;
+	repeated int32 sint32KeyIds = 4;
+	repeated int32 sint64KeyIds = 5;
+	repeated bool boolValues = 6;
+	repeated int32 stringValueIds = 7;
+	repeated int32 bytesValueIds = 8;
+    // mapId
+    repeated int32 mapKeyIds = 9;
+    // children id
+	repeated int32 subKeyIds = 10;
 
-// Feature 由于properties存放的是key id、value id，所以对其序列化/反序列化没有实际意义,故这个对象仅作保留而不会使用
-message Feature{
-	Geometry geometry = 1;
-	Map properties = 2;
 }
 
 // FeatureCollection
@@ -147,6 +181,6 @@ message FeatureCollection{
 
 	// features 为了最大限度压缩数据，这里单独列了geometry property，而未使用Feature对象
 	repeated Geometry geometries = 8;
-	repeated Map propertiess = 9;
-
+	repeated Map maps = 9;
+    repeated List lists = 10;
 }

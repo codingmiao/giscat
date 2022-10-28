@@ -17,6 +17,468 @@ public final class ProtoFeature {
                 (com.google.protobuf.ExtensionRegistryLite) registry);
     }
 
+    public interface NullGeometryOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:pojo.NullGeometry)
+            com.google.protobuf.MessageOrBuilder {
+    }
+
+    /**
+     * <pre>
+     * 空几何对象 解析后返回null
+     * </pre>
+     * <p>
+     * Protobuf type {@code pojo.NullGeometry}
+     */
+    public static final class NullGeometry extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:pojo.NullGeometry)
+            NullGeometryOrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use NullGeometry.newBuilder() to construct.
+        private NullGeometry(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private NullGeometry() {
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new NullGeometry();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private NullGeometry(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (com.google.protobuf.UninitializedMessageException e) {
+                throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_NullGeometry_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_NullGeometry_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.class, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder.class);
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry)) {
+                return super.equals(obj);
+            }
+            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry other = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry) obj;
+
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * 空几何对象 解析后返回null
+         * </pre>
+         * <p>
+         * Protobuf type {@code pojo.NullGeometry}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:pojo.NullGeometry)
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_NullGeometry_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_NullGeometry_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.class, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder.class);
+            }
+
+            // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_NullGeometry_descriptor;
+            }
+
+            @java.lang.Override
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry getDefaultInstanceForType() {
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry build() {
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry buildPartial() {
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry result = new org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry(this);
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry) {
+                    return mergeFrom((org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry other) {
+                if (other == org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.getDefaultInstance())
+                    return this;
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:pojo.NullGeometry)
+        }
+
+        // @@protoc_insertion_point(class_scope:pojo.NullGeometry)
+        private static final org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry();
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<NullGeometry>
+                PARSER = new com.google.protobuf.AbstractParser<NullGeometry>() {
+            @java.lang.Override
+            public NullGeometry parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new NullGeometry(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<NullGeometry> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<NullGeometry> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
     public interface PointOrBuilder extends
             // @@protoc_insertion_point(interface_extends:pojo.Point)
             com.google.protobuf.MessageOrBuilder {
@@ -381,7 +843,8 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
@@ -1290,7 +1753,8 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
@@ -2520,7 +2984,8 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
@@ -3752,7 +4217,8 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
@@ -4981,7 +5447,8 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
@@ -6434,7 +6901,8 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
@@ -8192,7 +8660,8 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
@@ -10729,6 +11198,25 @@ public final class ProtoFeature {
          * <code>.pojo.GeometryCollection geometryCollection = 7;</code>
          */
         org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollectionOrBuilder getGeometryCollectionOrBuilder();
+
+        /**
+         * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+         *
+         * @return Whether the nullGeometry field is set.
+         */
+        boolean hasNullGeometry();
+
+        /**
+         * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+         *
+         * @return The nullGeometry.
+         */
+        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry getNullGeometry();
+
+        /**
+         * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+         */
+        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder getNullGeometryOrBuilder();
     }
 
     /**
@@ -10870,6 +11358,19 @@ public final class ProtoFeature {
                             if (subBuilder != null) {
                                 subBuilder.mergeFrom(geometryCollection_);
                                 geometryCollection_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 66: {
+                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder subBuilder = null;
+                            if (nullGeometry_ != null) {
+                                subBuilder = nullGeometry_.toBuilder();
+                            }
+                            nullGeometry_ = input.readMessage(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(nullGeometry_);
+                                nullGeometry_ = subBuilder.buildPartial();
                             }
 
                             break;
@@ -11126,6 +11627,37 @@ public final class ProtoFeature {
             return getGeometryCollection();
         }
 
+        public static final int NULLGEOMETRY_FIELD_NUMBER = 8;
+        private org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry nullGeometry_;
+
+        /**
+         * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+         *
+         * @return Whether the nullGeometry field is set.
+         */
+        @java.lang.Override
+        public boolean hasNullGeometry() {
+            return nullGeometry_ != null;
+        }
+
+        /**
+         * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+         *
+         * @return The nullGeometry.
+         */
+        @java.lang.Override
+        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry getNullGeometry() {
+            return nullGeometry_ == null ? org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.getDefaultInstance() : nullGeometry_;
+        }
+
+        /**
+         * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+         */
+        @java.lang.Override
+        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder getNullGeometryOrBuilder() {
+            return getNullGeometry();
+        }
+
         private byte memoizedIsInitialized = -1;
 
         @java.lang.Override
@@ -11161,6 +11693,9 @@ public final class ProtoFeature {
             }
             if (geometryCollection_ != null) {
                 output.writeMessage(7, getGeometryCollection());
+            }
+            if (nullGeometry_ != null) {
+                output.writeMessage(8, getNullGeometry());
             }
             unknownFields.writeTo(output);
         }
@@ -11198,6 +11733,10 @@ public final class ProtoFeature {
             if (geometryCollection_ != null) {
                 size += com.google.protobuf.CodedOutputStream
                         .computeMessageSize(7, getGeometryCollection());
+            }
+            if (nullGeometry_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(8, getNullGeometry());
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -11249,6 +11788,11 @@ public final class ProtoFeature {
                 if (!getGeometryCollection()
                         .equals(other.getGeometryCollection())) return false;
             }
+            if (hasNullGeometry() != other.hasNullGeometry()) return false;
+            if (hasNullGeometry()) {
+                if (!getNullGeometry()
+                        .equals(other.getNullGeometry())) return false;
+            }
             if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
         }
@@ -11287,6 +11831,10 @@ public final class ProtoFeature {
             if (hasGeometryCollection()) {
                 hash = (37 * hash) + GEOMETRYCOLLECTION_FIELD_NUMBER;
                 hash = (53 * hash) + getGeometryCollection().hashCode();
+            }
+            if (hasNullGeometry()) {
+                hash = (37 * hash) + NULLGEOMETRY_FIELD_NUMBER;
+                hash = (53 * hash) + getNullGeometry().hashCode();
             }
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
@@ -11396,7 +11944,8 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
@@ -11485,6 +12034,12 @@ public final class ProtoFeature {
                     geometryCollection_ = null;
                     geometryCollectionBuilder_ = null;
                 }
+                if (nullGeometryBuilder_ == null) {
+                    nullGeometry_ = null;
+                } else {
+                    nullGeometry_ = null;
+                    nullGeometryBuilder_ = null;
+                }
                 return this;
             }
 
@@ -11545,6 +12100,11 @@ public final class ProtoFeature {
                     result.geometryCollection_ = geometryCollection_;
                 } else {
                     result.geometryCollection_ = geometryCollectionBuilder_.build();
+                }
+                if (nullGeometryBuilder_ == null) {
+                    result.nullGeometry_ = nullGeometry_;
+                } else {
+                    result.nullGeometry_ = nullGeometryBuilder_.build();
                 }
                 onBuilt();
                 return result;
@@ -11621,6 +12181,9 @@ public final class ProtoFeature {
                 }
                 if (other.hasGeometryCollection()) {
                     mergeGeometryCollection(other.getGeometryCollection());
+                }
+                if (other.hasNullGeometry()) {
+                    mergeNullGeometry(other.getNullGeometry());
                 }
                 this.mergeUnknownFields(other.unknownFields);
                 onChanged();
@@ -12561,6 +13124,136 @@ public final class ProtoFeature {
                 return geometryCollectionBuilder_;
             }
 
+            private org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry nullGeometry_;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder> nullGeometryBuilder_;
+
+            /**
+             * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+             *
+             * @return Whether the nullGeometry field is set.
+             */
+            public boolean hasNullGeometry() {
+                return nullGeometryBuilder_ != null || nullGeometry_ != null;
+            }
+
+            /**
+             * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+             *
+             * @return The nullGeometry.
+             */
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry getNullGeometry() {
+                if (nullGeometryBuilder_ == null) {
+                    return nullGeometry_ == null ? org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.getDefaultInstance() : nullGeometry_;
+                } else {
+                    return nullGeometryBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+             */
+            public Builder setNullGeometry(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry value) {
+                if (nullGeometryBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    nullGeometry_ = value;
+                    onChanged();
+                } else {
+                    nullGeometryBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+             */
+            public Builder setNullGeometry(
+                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder builderForValue) {
+                if (nullGeometryBuilder_ == null) {
+                    nullGeometry_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    nullGeometryBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+             */
+            public Builder mergeNullGeometry(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry value) {
+                if (nullGeometryBuilder_ == null) {
+                    if (nullGeometry_ != null) {
+                        nullGeometry_ =
+                                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.newBuilder(nullGeometry_).mergeFrom(value).buildPartial();
+                    } else {
+                        nullGeometry_ = value;
+                    }
+                    onChanged();
+                } else {
+                    nullGeometryBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+             */
+            public Builder clearNullGeometry() {
+                if (nullGeometryBuilder_ == null) {
+                    nullGeometry_ = null;
+                    onChanged();
+                } else {
+                    nullGeometry_ = null;
+                    nullGeometryBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+             */
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder getNullGeometryBuilder() {
+
+                onChanged();
+                return getNullGeometryFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+             */
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder getNullGeometryOrBuilder() {
+                if (nullGeometryBuilder_ != null) {
+                    return nullGeometryBuilder_.getMessageOrBuilder();
+                } else {
+                    return nullGeometry_ == null ?
+                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.getDefaultInstance() : nullGeometry_;
+                }
+            }
+
+            /**
+             * <code>.pojo.NullGeometry nullGeometry = 8;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder>
+            getNullGeometryFieldBuilder() {
+                if (nullGeometryBuilder_ == null) {
+                    nullGeometryBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder>(
+                            getNullGeometry(),
+                            getParentForChildren(),
+                            isClean());
+                    nullGeometry_ = null;
+                }
+                return nullGeometryBuilder_;
+            }
+
             @java.lang.Override
             public final Builder setUnknownFields(
                     final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -12615,13 +13308,475 @@ public final class ProtoFeature {
 
     }
 
+    public interface FeatureOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:pojo.Feature)
+            com.google.protobuf.MessageOrBuilder {
+    }
+
+    /**
+     * <pre>
+     * Feature 仅作保留，不用这个进行序列化和反序列化
+     * </pre>
+     * <p>
+     * Protobuf type {@code pojo.Feature}
+     */
+    public static final class Feature extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:pojo.Feature)
+            FeatureOrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use Feature.newBuilder() to construct.
+        private Feature(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private Feature() {
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new Feature();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private Feature(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (com.google.protobuf.UninitializedMessageException e) {
+                throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.class, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.Builder.class);
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature)) {
+                return super.equals(obj);
+            }
+            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature other = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature) obj;
+
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @java.lang.Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * Feature 仅作保留，不用这个进行序列化和反序列化
+         * </pre>
+         * <p>
+         * Protobuf type {@code pojo.Feature}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:pojo.Feature)
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.FeatureOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_descriptor;
+            }
+
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.class, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.Builder.class);
+            }
+
+            // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            @java.lang.Override
+            public Builder clear() {
+                super.clear();
+                return this;
+            }
+
+            @java.lang.Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_descriptor;
+            }
+
+            @java.lang.Override
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature getDefaultInstanceForType() {
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.getDefaultInstance();
+            }
+
+            @java.lang.Override
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature build() {
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @java.lang.Override
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature buildPartial() {
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature result = new org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature(this);
+                onBuilt();
+                return result;
+            }
+
+            @java.lang.Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @java.lang.Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.setField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @java.lang.Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @java.lang.Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @java.lang.Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature) {
+                    return mergeFrom((org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature other) {
+                if (other == org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.getDefaultInstance())
+                    return this;
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            @java.lang.Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            @java.lang.Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @java.lang.Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:pojo.Feature)
+        }
+
+        // @@protoc_insertion_point(class_scope:pojo.Feature)
+        private static final org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature();
+        }
+
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<Feature>
+                PARSER = new com.google.protobuf.AbstractParser<Feature>() {
+            @java.lang.Override
+            public Feature parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new Feature(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<Feature> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<Feature> getParserForType() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
     public interface MapOrBuilder extends
             // @@protoc_insertion_point(interface_extends:pojo.Map)
             com.google.protobuf.MessageOrBuilder {
 
         /**
          * <pre>
-         * key、value id
+         * keyId、valueId/value
          * </pre>
          *
          * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -12632,7 +13787,7 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * key、value id
+         * keyId、valueId/value
          * </pre>
          *
          * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -12643,7 +13798,7 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * key、value id
+         * keyId、valueId/value
          * </pre>
          *
          * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -12941,10 +14096,66 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * children Map key、value id
+         * list keyId、valueId
          * </pre>
          *
-         * <code>repeated int32 subKeyIds = 15;</code>
+         * <code>repeated int32 listKeyIds = 15;</code>
+         *
+         * @return A list containing the listKeyIds.
+         */
+        java.util.List<java.lang.Integer> getListKeyIdsList();
+
+        /**
+         * <pre>
+         * list keyId、valueId
+         * </pre>
+         *
+         * <code>repeated int32 listKeyIds = 15;</code>
+         *
+         * @return The count of listKeyIds.
+         */
+        int getListKeyIdsCount();
+
+        /**
+         * <pre>
+         * list keyId、valueId
+         * </pre>
+         *
+         * <code>repeated int32 listKeyIds = 15;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The listKeyIds at the given index.
+         */
+        int getListKeyIds(int index);
+
+        /**
+         * <code>repeated int32 listValueIds = 16;</code>
+         *
+         * @return A list containing the listValueIds.
+         */
+        java.util.List<java.lang.Integer> getListValueIdsList();
+
+        /**
+         * <code>repeated int32 listValueIds = 16;</code>
+         *
+         * @return The count of listValueIds.
+         */
+        int getListValueIdsCount();
+
+        /**
+         * <code>repeated int32 listValueIds = 16;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The listValueIds at the given index.
+         */
+        int getListValueIds(int index);
+
+        /**
+         * <pre>
+         * children keyId、valueId
+         * </pre>
+         *
+         * <code>repeated int32 subKeyIds = 17;</code>
          *
          * @return A list containing the subKeyIds.
          */
@@ -12952,10 +14163,10 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * children Map key、value id
+         * children keyId、valueId
          * </pre>
          *
-         * <code>repeated int32 subKeyIds = 15;</code>
+         * <code>repeated int32 subKeyIds = 17;</code>
          *
          * @return The count of subKeyIds.
          */
@@ -12963,10 +14174,10 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * children Map key、value id
+         * children keyId、valueId
          * </pre>
          *
-         * <code>repeated int32 subKeyIds = 15;</code>
+         * <code>repeated int32 subKeyIds = 17;</code>
          *
          * @param index The index of the element to return.
          * @return The subKeyIds at the given index.
@@ -12974,38 +14185,32 @@ public final class ProtoFeature {
         int getSubKeyIds(int index);
 
         /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
+         * <code>repeated int32 subMapValueIds = 18;</code>
+         *
+         * @return A list containing the subMapValueIds.
          */
-        java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>
-        getSubMapsList();
+        java.util.List<java.lang.Integer> getSubMapValueIdsList();
 
         /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
+         * <code>repeated int32 subMapValueIds = 18;</code>
+         *
+         * @return The count of subMapValueIds.
          */
-        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getSubMaps(int index);
+        int getSubMapValueIdsCount();
 
         /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
+         * <code>repeated int32 subMapValueIds = 18;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The subMapValueIds at the given index.
          */
-        int getSubMapsCount();
-
-        /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
-         */
-        java.util.List<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
-        getSubMapsOrBuilderList();
-
-        /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
-         */
-        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getSubMapsOrBuilder(
-                int index);
+        int getSubMapValueIds(int index);
     }
 
     /**
      * <pre>
-     * 属性 支持的属性类型 double float sint32 sint64 bool string bytes subProperty
-     * 属性使用keyId-value或keyId-valueId格式来存储
+     * 属性映射 支持的属性类型 double float sint32 sint64 bool string bytes subProperty
+     * 属性映射使用keyId-value或keyId-valueId格式，与FeatureCollection中的key、value结合来存实际键值
      * sint64、string等可能占用4字节及以上的对象，用valueId(int32)取代value来存储以减少体积 value本身则存放到FeatureCollection中
      * 示例 [{id:4,name:'tom'},{id:5,name:'jerry',age:4}]转换后:
      * FeatureCollection {
@@ -13048,8 +14253,10 @@ public final class ProtoFeature {
             stringValueIds_ = emptyIntList();
             bytesKeyIds_ = emptyIntList();
             bytesValueIds_ = emptyIntList();
+            listKeyIds_ = emptyIntList();
+            listValueIds_ = emptyIntList();
             subKeyIds_ = emptyIntList();
-            subMaps_ = java.util.Collections.emptyList();
+            subMapValueIds_ = emptyIntList();
         }
 
         @java.lang.Override
@@ -13380,18 +14587,60 @@ public final class ProtoFeature {
                         }
                         case 120: {
                             if (!((mutable_bitField0_ & 0x00004000) != 0)) {
-                                subKeyIds_ = newIntList();
+                                listKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00004000;
                             }
-                            subKeyIds_.addInt(input.readInt32());
+                            listKeyIds_.addInt(input.readInt32());
                             break;
                         }
                         case 122: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
                             if (!((mutable_bitField0_ & 0x00004000) != 0) && input.getBytesUntilLimit() > 0) {
-                                subKeyIds_ = newIntList();
+                                listKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00004000;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                listKeyIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 128: {
+                            if (!((mutable_bitField0_ & 0x00008000) != 0)) {
+                                listValueIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00008000;
+                            }
+                            listValueIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 130: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00008000) != 0) && input.getBytesUntilLimit() > 0) {
+                                listValueIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00008000;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                listValueIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 136: {
+                            if (!((mutable_bitField0_ & 0x00010000) != 0)) {
+                                subKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00010000;
+                            }
+                            subKeyIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 138: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00010000) != 0) && input.getBytesUntilLimit() > 0) {
+                                subKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00010000;
                             }
                             while (input.getBytesUntilLimit() > 0) {
                                 subKeyIds_.addInt(input.readInt32());
@@ -13399,13 +14648,25 @@ public final class ProtoFeature {
                             input.popLimit(limit);
                             break;
                         }
-                        case 130: {
-                            if (!((mutable_bitField0_ & 0x00008000) != 0)) {
-                                subMaps_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>();
-                                mutable_bitField0_ |= 0x00008000;
+                        case 144: {
+                            if (!((mutable_bitField0_ & 0x00020000) != 0)) {
+                                subMapValueIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00020000;
                             }
-                            subMaps_.add(
-                                    input.readMessage(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.parser(), extensionRegistry));
+                            subMapValueIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 146: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00020000) != 0) && input.getBytesUntilLimit() > 0) {
+                                subMapValueIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00020000;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                subMapValueIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
                             break;
                         }
                         default: {
@@ -13468,10 +14729,16 @@ public final class ProtoFeature {
                     bytesValueIds_.makeImmutable(); // C
                 }
                 if (((mutable_bitField0_ & 0x00004000) != 0)) {
-                    subKeyIds_.makeImmutable(); // C
+                    listKeyIds_.makeImmutable(); // C
                 }
                 if (((mutable_bitField0_ & 0x00008000) != 0)) {
-                    subMaps_ = java.util.Collections.unmodifiableList(subMaps_);
+                    listValueIds_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00010000) != 0)) {
+                    subKeyIds_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00020000) != 0)) {
+                    subMapValueIds_.makeImmutable(); // C
                 }
                 this.unknownFields = unknownFields.build();
                 makeExtensionsImmutable();
@@ -13496,7 +14763,7 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * key、value id
+         * keyId、valueId/value
          * </pre>
          *
          * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -13511,7 +14778,7 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * key、value id
+         * keyId、valueId/value
          * </pre>
          *
          * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -13524,7 +14791,7 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * key、value id
+         * keyId、valueId/value
          * </pre>
          *
          * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -13993,15 +15260,97 @@ public final class ProtoFeature {
 
         private int bytesValueIdsMemoizedSerializedSize = -1;
 
-        public static final int SUBKEYIDS_FIELD_NUMBER = 15;
+        public static final int LISTKEYIDS_FIELD_NUMBER = 15;
+        private com.google.protobuf.Internal.IntList listKeyIds_;
+
+        /**
+         * <pre>
+         * list keyId、valueId
+         * </pre>
+         *
+         * <code>repeated int32 listKeyIds = 15;</code>
+         *
+         * @return A list containing the listKeyIds.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Integer>
+        getListKeyIdsList() {
+            return listKeyIds_;
+        }
+
+        /**
+         * <pre>
+         * list keyId、valueId
+         * </pre>
+         *
+         * <code>repeated int32 listKeyIds = 15;</code>
+         *
+         * @return The count of listKeyIds.
+         */
+        public int getListKeyIdsCount() {
+            return listKeyIds_.size();
+        }
+
+        /**
+         * <pre>
+         * list keyId、valueId
+         * </pre>
+         *
+         * <code>repeated int32 listKeyIds = 15;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The listKeyIds at the given index.
+         */
+        public int getListKeyIds(int index) {
+            return listKeyIds_.getInt(index);
+        }
+
+        private int listKeyIdsMemoizedSerializedSize = -1;
+
+        public static final int LISTVALUEIDS_FIELD_NUMBER = 16;
+        private com.google.protobuf.Internal.IntList listValueIds_;
+
+        /**
+         * <code>repeated int32 listValueIds = 16;</code>
+         *
+         * @return A list containing the listValueIds.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Integer>
+        getListValueIdsList() {
+            return listValueIds_;
+        }
+
+        /**
+         * <code>repeated int32 listValueIds = 16;</code>
+         *
+         * @return The count of listValueIds.
+         */
+        public int getListValueIdsCount() {
+            return listValueIds_.size();
+        }
+
+        /**
+         * <code>repeated int32 listValueIds = 16;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The listValueIds at the given index.
+         */
+        public int getListValueIds(int index) {
+            return listValueIds_.getInt(index);
+        }
+
+        private int listValueIdsMemoizedSerializedSize = -1;
+
+        public static final int SUBKEYIDS_FIELD_NUMBER = 17;
         private com.google.protobuf.Internal.IntList subKeyIds_;
 
         /**
          * <pre>
-         * children Map key、value id
+         * children keyId、valueId
          * </pre>
          *
-         * <code>repeated int32 subKeyIds = 15;</code>
+         * <code>repeated int32 subKeyIds = 17;</code>
          *
          * @return A list containing the subKeyIds.
          */
@@ -14013,10 +15362,10 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * children Map key、value id
+         * children keyId、valueId
          * </pre>
          *
-         * <code>repeated int32 subKeyIds = 15;</code>
+         * <code>repeated int32 subKeyIds = 17;</code>
          *
          * @return The count of subKeyIds.
          */
@@ -14026,10 +15375,10 @@ public final class ProtoFeature {
 
         /**
          * <pre>
-         * children Map key、value id
+         * children keyId、valueId
          * </pre>
          *
-         * <code>repeated int32 subKeyIds = 15;</code>
+         * <code>repeated int32 subKeyIds = 17;</code>
          *
          * @param index The index of the element to return.
          * @return The subKeyIds at the given index.
@@ -14040,50 +15389,40 @@ public final class ProtoFeature {
 
         private int subKeyIdsMemoizedSerializedSize = -1;
 
-        public static final int SUBMAPS_FIELD_NUMBER = 16;
-        private java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> subMaps_;
+        public static final int SUBMAPVALUEIDS_FIELD_NUMBER = 18;
+        private com.google.protobuf.Internal.IntList subMapValueIds_;
 
         /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
+         * <code>repeated int32 subMapValueIds = 18;</code>
+         *
+         * @return A list containing the subMapValueIds.
          */
         @java.lang.Override
-        public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> getSubMapsList() {
-            return subMaps_;
+        public java.util.List<java.lang.Integer>
+        getSubMapValueIdsList() {
+            return subMapValueIds_;
         }
 
         /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
+         * <code>repeated int32 subMapValueIds = 18;</code>
+         *
+         * @return The count of subMapValueIds.
          */
-        @java.lang.Override
-        public java.util.List<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
-        getSubMapsOrBuilderList() {
-            return subMaps_;
+        public int getSubMapValueIdsCount() {
+            return subMapValueIds_.size();
         }
 
         /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
+         * <code>repeated int32 subMapValueIds = 18;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The subMapValueIds at the given index.
          */
-        @java.lang.Override
-        public int getSubMapsCount() {
-            return subMaps_.size();
+        public int getSubMapValueIds(int index) {
+            return subMapValueIds_.getInt(index);
         }
 
-        /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
-         */
-        @java.lang.Override
-        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getSubMaps(int index) {
-            return subMaps_.get(index);
-        }
-
-        /**
-         * <code>repeated .pojo.Map subMaps = 16;</code>
-         */
-        @java.lang.Override
-        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getSubMapsOrBuilder(
-                int index) {
-            return subMaps_.get(index);
-        }
+        private int subMapValueIdsMemoizedSerializedSize = -1;
 
         private byte memoizedIsInitialized = -1;
 
@@ -14199,15 +15538,33 @@ public final class ProtoFeature {
             for (int i = 0; i < bytesValueIds_.size(); i++) {
                 output.writeInt32NoTag(bytesValueIds_.getInt(i));
             }
-            if (getSubKeyIdsList().size() > 0) {
+            if (getListKeyIdsList().size() > 0) {
                 output.writeUInt32NoTag(122);
+                output.writeUInt32NoTag(listKeyIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < listKeyIds_.size(); i++) {
+                output.writeInt32NoTag(listKeyIds_.getInt(i));
+            }
+            if (getListValueIdsList().size() > 0) {
+                output.writeUInt32NoTag(130);
+                output.writeUInt32NoTag(listValueIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < listValueIds_.size(); i++) {
+                output.writeInt32NoTag(listValueIds_.getInt(i));
+            }
+            if (getSubKeyIdsList().size() > 0) {
+                output.writeUInt32NoTag(138);
                 output.writeUInt32NoTag(subKeyIdsMemoizedSerializedSize);
             }
             for (int i = 0; i < subKeyIds_.size(); i++) {
                 output.writeInt32NoTag(subKeyIds_.getInt(i));
             }
-            for (int i = 0; i < subMaps_.size(); i++) {
-                output.writeMessage(16, subMaps_.get(i));
+            if (getSubMapValueIdsList().size() > 0) {
+                output.writeUInt32NoTag(146);
+                output.writeUInt32NoTag(subMapValueIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < subMapValueIds_.size(); i++) {
+                output.writeInt32NoTag(subMapValueIds_.getInt(i));
             }
             unknownFields.writeTo(output);
         }
@@ -14413,21 +15770,59 @@ public final class ProtoFeature {
             }
             {
                 int dataSize = 0;
+                for (int i = 0; i < listKeyIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(listKeyIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getListKeyIdsList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                listKeyIdsMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
+                for (int i = 0; i < listValueIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(listValueIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getListValueIdsList().isEmpty()) {
+                    size += 2;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                listValueIdsMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
                 for (int i = 0; i < subKeyIds_.size(); i++) {
                     dataSize += com.google.protobuf.CodedOutputStream
                             .computeInt32SizeNoTag(subKeyIds_.getInt(i));
                 }
                 size += dataSize;
                 if (!getSubKeyIdsList().isEmpty()) {
-                    size += 1;
+                    size += 2;
                     size += com.google.protobuf.CodedOutputStream
                             .computeInt32SizeNoTag(dataSize);
                 }
                 subKeyIdsMemoizedSerializedSize = dataSize;
             }
-            for (int i = 0; i < subMaps_.size(); i++) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(16, subMaps_.get(i));
+            {
+                int dataSize = 0;
+                for (int i = 0; i < subMapValueIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(subMapValueIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getSubMapValueIdsList().isEmpty()) {
+                    size += 2;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                subMapValueIdsMemoizedSerializedSize = dataSize;
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -14472,10 +15867,14 @@ public final class ProtoFeature {
                     .equals(other.getBytesKeyIdsList())) return false;
             if (!getBytesValueIdsList()
                     .equals(other.getBytesValueIdsList())) return false;
+            if (!getListKeyIdsList()
+                    .equals(other.getListKeyIdsList())) return false;
+            if (!getListValueIdsList()
+                    .equals(other.getListValueIdsList())) return false;
             if (!getSubKeyIdsList()
                     .equals(other.getSubKeyIdsList())) return false;
-            if (!getSubMapsList()
-                    .equals(other.getSubMapsList())) return false;
+            if (!getSubMapValueIdsList()
+                    .equals(other.getSubMapValueIdsList())) return false;
             if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
         }
@@ -14543,13 +15942,21 @@ public final class ProtoFeature {
                 hash = (37 * hash) + BYTESVALUEIDS_FIELD_NUMBER;
                 hash = (53 * hash) + getBytesValueIdsList().hashCode();
             }
+            if (getListKeyIdsCount() > 0) {
+                hash = (37 * hash) + LISTKEYIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getListKeyIdsList().hashCode();
+            }
+            if (getListValueIdsCount() > 0) {
+                hash = (37 * hash) + LISTVALUEIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getListValueIdsList().hashCode();
+            }
             if (getSubKeyIdsCount() > 0) {
                 hash = (37 * hash) + SUBKEYIDS_FIELD_NUMBER;
                 hash = (53 * hash) + getSubKeyIdsList().hashCode();
             }
-            if (getSubMapsCount() > 0) {
-                hash = (37 * hash) + SUBMAPS_FIELD_NUMBER;
-                hash = (53 * hash) + getSubMapsList().hashCode();
+            if (getSubMapValueIdsCount() > 0) {
+                hash = (37 * hash) + SUBMAPVALUEIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getSubMapValueIdsList().hashCode();
             }
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
@@ -14659,13 +16066,14 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
          * <pre>
-         * 属性 支持的属性类型 double float sint32 sint64 bool string bytes subProperty
-         * 属性使用keyId-value或keyId-valueId格式来存储
+         * 属性映射 支持的属性类型 double float sint32 sint64 bool string bytes subProperty
+         * 属性映射使用keyId-value或keyId-valueId格式，与FeatureCollection中的key、value结合来存实际键值
          * sint64、string等可能占用4字节及以上的对象，用valueId(int32)取代value来存储以减少体积 value本身则存放到FeatureCollection中
          * 示例 [{id:4,name:'tom'},{id:5,name:'jerry',age:4}]转换后:
          * FeatureCollection {
@@ -14713,7 +16121,6 @@ public final class ProtoFeature {
             private void maybeForceBuilderInitialization() {
                 if (com.google.protobuf.GeneratedMessageV3
                         .alwaysUseFieldBuilders) {
-                    getSubMapsFieldBuilder();
                 }
             }
 
@@ -14748,14 +16155,14 @@ public final class ProtoFeature {
                 bitField0_ = (bitField0_ & ~0x00001000);
                 bytesValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00002000);
-                subKeyIds_ = emptyIntList();
+                listKeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00004000);
-                if (subMapsBuilder_ == null) {
-                    subMaps_ = java.util.Collections.emptyList();
-                    bitField0_ = (bitField0_ & ~0x00008000);
-                } else {
-                    subMapsBuilder_.clear();
-                }
+                listValueIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00008000);
+                subKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00010000);
+                subMapValueIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00020000);
                 return this;
             }
 
@@ -14854,19 +16261,25 @@ public final class ProtoFeature {
                 }
                 result.bytesValueIds_ = bytesValueIds_;
                 if (((bitField0_ & 0x00004000) != 0)) {
-                    subKeyIds_.makeImmutable();
+                    listKeyIds_.makeImmutable();
                     bitField0_ = (bitField0_ & ~0x00004000);
                 }
-                result.subKeyIds_ = subKeyIds_;
-                if (subMapsBuilder_ == null) {
-                    if (((bitField0_ & 0x00008000) != 0)) {
-                        subMaps_ = java.util.Collections.unmodifiableList(subMaps_);
-                        bitField0_ = (bitField0_ & ~0x00008000);
-                    }
-                    result.subMaps_ = subMaps_;
-                } else {
-                    result.subMaps_ = subMapsBuilder_.build();
+                result.listKeyIds_ = listKeyIds_;
+                if (((bitField0_ & 0x00008000) != 0)) {
+                    listValueIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00008000);
                 }
+                result.listValueIds_ = listValueIds_;
+                if (((bitField0_ & 0x00010000) != 0)) {
+                    subKeyIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00010000);
+                }
+                result.subKeyIds_ = subKeyIds_;
+                if (((bitField0_ & 0x00020000) != 0)) {
+                    subMapValueIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00020000);
+                }
+                result.subMapValueIds_ = subMapValueIds_;
                 onBuilt();
                 return result;
             }
@@ -15061,41 +16474,45 @@ public final class ProtoFeature {
                     }
                     onChanged();
                 }
+                if (!other.listKeyIds_.isEmpty()) {
+                    if (listKeyIds_.isEmpty()) {
+                        listKeyIds_ = other.listKeyIds_;
+                        bitField0_ = (bitField0_ & ~0x00004000);
+                    } else {
+                        ensureListKeyIdsIsMutable();
+                        listKeyIds_.addAll(other.listKeyIds_);
+                    }
+                    onChanged();
+                }
+                if (!other.listValueIds_.isEmpty()) {
+                    if (listValueIds_.isEmpty()) {
+                        listValueIds_ = other.listValueIds_;
+                        bitField0_ = (bitField0_ & ~0x00008000);
+                    } else {
+                        ensureListValueIdsIsMutable();
+                        listValueIds_.addAll(other.listValueIds_);
+                    }
+                    onChanged();
+                }
                 if (!other.subKeyIds_.isEmpty()) {
                     if (subKeyIds_.isEmpty()) {
                         subKeyIds_ = other.subKeyIds_;
-                        bitField0_ = (bitField0_ & ~0x00004000);
+                        bitField0_ = (bitField0_ & ~0x00010000);
                     } else {
                         ensureSubKeyIdsIsMutable();
                         subKeyIds_.addAll(other.subKeyIds_);
                     }
                     onChanged();
                 }
-                if (subMapsBuilder_ == null) {
-                    if (!other.subMaps_.isEmpty()) {
-                        if (subMaps_.isEmpty()) {
-                            subMaps_ = other.subMaps_;
-                            bitField0_ = (bitField0_ & ~0x00008000);
-                        } else {
-                            ensureSubMapsIsMutable();
-                            subMaps_.addAll(other.subMaps_);
-                        }
-                        onChanged();
+                if (!other.subMapValueIds_.isEmpty()) {
+                    if (subMapValueIds_.isEmpty()) {
+                        subMapValueIds_ = other.subMapValueIds_;
+                        bitField0_ = (bitField0_ & ~0x00020000);
+                    } else {
+                        ensureSubMapValueIdsIsMutable();
+                        subMapValueIds_.addAll(other.subMapValueIds_);
                     }
-                } else {
-                    if (!other.subMaps_.isEmpty()) {
-                        if (subMapsBuilder_.isEmpty()) {
-                            subMapsBuilder_.dispose();
-                            subMapsBuilder_ = null;
-                            subMaps_ = other.subMaps_;
-                            bitField0_ = (bitField0_ & ~0x00008000);
-                            subMapsBuilder_ =
-                                    com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                                            getSubMapsFieldBuilder() : null;
-                        } else {
-                            subMapsBuilder_.addAllMessages(other.subMaps_);
-                        }
-                    }
+                    onChanged();
                 }
                 this.mergeUnknownFields(other.unknownFields);
                 onChanged();
@@ -15139,7 +16556,7 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * key、value id
+             * keyId、valueId/value
              * </pre>
              *
              * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -15154,7 +16571,7 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * key、value id
+             * keyId、valueId/value
              * </pre>
              *
              * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -15167,7 +16584,7 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * key、value id
+             * keyId、valueId/value
              * </pre>
              *
              * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -15181,7 +16598,7 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * key、value id
+             * keyId、valueId/value
              * </pre>
              *
              * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -15200,7 +16617,7 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * key、value id
+             * keyId、valueId/value
              * </pre>
              *
              * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -15217,7 +16634,7 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * key、value id
+             * keyId、valueId/value
              * </pre>
              *
              * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -15236,7 +16653,7 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * key、value id
+             * keyId、valueId/value
              * </pre>
              *
              * <code>repeated int32 doubleKeyIds = 1;</code>
@@ -16472,36 +17889,252 @@ public final class ProtoFeature {
                 return this;
             }
 
-            private com.google.protobuf.Internal.IntList subKeyIds_ = emptyIntList();
+            private com.google.protobuf.Internal.IntList listKeyIds_ = emptyIntList();
 
-            private void ensureSubKeyIdsIsMutable() {
+            private void ensureListKeyIdsIsMutable() {
                 if (!((bitField0_ & 0x00004000) != 0)) {
-                    subKeyIds_ = mutableCopy(subKeyIds_);
+                    listKeyIds_ = mutableCopy(listKeyIds_);
                     bitField0_ |= 0x00004000;
                 }
             }
 
             /**
              * <pre>
-             * children Map key、value id
+             * list keyId、valueId
              * </pre>
              *
-             * <code>repeated int32 subKeyIds = 15;</code>
+             * <code>repeated int32 listKeyIds = 15;</code>
+             *
+             * @return A list containing the listKeyIds.
+             */
+            public java.util.List<java.lang.Integer>
+            getListKeyIdsList() {
+                return ((bitField0_ & 0x00004000) != 0) ?
+                        java.util.Collections.unmodifiableList(listKeyIds_) : listKeyIds_;
+            }
+
+            /**
+             * <pre>
+             * list keyId、valueId
+             * </pre>
+             *
+             * <code>repeated int32 listKeyIds = 15;</code>
+             *
+             * @return The count of listKeyIds.
+             */
+            public int getListKeyIdsCount() {
+                return listKeyIds_.size();
+            }
+
+            /**
+             * <pre>
+             * list keyId、valueId
+             * </pre>
+             *
+             * <code>repeated int32 listKeyIds = 15;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The listKeyIds at the given index.
+             */
+            public int getListKeyIds(int index) {
+                return listKeyIds_.getInt(index);
+            }
+
+            /**
+             * <pre>
+             * list keyId、valueId
+             * </pre>
+             *
+             * <code>repeated int32 listKeyIds = 15;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The listKeyIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setListKeyIds(
+                    int index, int value) {
+                ensureListKeyIdsIsMutable();
+                listKeyIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * list keyId、valueId
+             * </pre>
+             *
+             * <code>repeated int32 listKeyIds = 15;</code>
+             *
+             * @param value The listKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addListKeyIds(int value) {
+                ensureListKeyIdsIsMutable();
+                listKeyIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * list keyId、valueId
+             * </pre>
+             *
+             * <code>repeated int32 listKeyIds = 15;</code>
+             *
+             * @param values The listKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllListKeyIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureListKeyIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, listKeyIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * list keyId、valueId
+             * </pre>
+             *
+             * <code>repeated int32 listKeyIds = 15;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearListKeyIds() {
+                listKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00004000);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList listValueIds_ = emptyIntList();
+
+            private void ensureListValueIdsIsMutable() {
+                if (!((bitField0_ & 0x00008000) != 0)) {
+                    listValueIds_ = mutableCopy(listValueIds_);
+                    bitField0_ |= 0x00008000;
+                }
+            }
+
+            /**
+             * <code>repeated int32 listValueIds = 16;</code>
+             *
+             * @return A list containing the listValueIds.
+             */
+            public java.util.List<java.lang.Integer>
+            getListValueIdsList() {
+                return ((bitField0_ & 0x00008000) != 0) ?
+                        java.util.Collections.unmodifiableList(listValueIds_) : listValueIds_;
+            }
+
+            /**
+             * <code>repeated int32 listValueIds = 16;</code>
+             *
+             * @return The count of listValueIds.
+             */
+            public int getListValueIdsCount() {
+                return listValueIds_.size();
+            }
+
+            /**
+             * <code>repeated int32 listValueIds = 16;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The listValueIds at the given index.
+             */
+            public int getListValueIds(int index) {
+                return listValueIds_.getInt(index);
+            }
+
+            /**
+             * <code>repeated int32 listValueIds = 16;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The listValueIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setListValueIds(
+                    int index, int value) {
+                ensureListValueIdsIsMutable();
+                listValueIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 listValueIds = 16;</code>
+             *
+             * @param value The listValueIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addListValueIds(int value) {
+                ensureListValueIdsIsMutable();
+                listValueIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 listValueIds = 16;</code>
+             *
+             * @param values The listValueIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllListValueIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureListValueIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, listValueIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 listValueIds = 16;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearListValueIds() {
+                listValueIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00008000);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList subKeyIds_ = emptyIntList();
+
+            private void ensureSubKeyIdsIsMutable() {
+                if (!((bitField0_ & 0x00010000) != 0)) {
+                    subKeyIds_ = mutableCopy(subKeyIds_);
+                    bitField0_ |= 0x00010000;
+                }
+            }
+
+            /**
+             * <pre>
+             * children keyId、valueId
+             * </pre>
+             *
+             * <code>repeated int32 subKeyIds = 17;</code>
              *
              * @return A list containing the subKeyIds.
              */
             public java.util.List<java.lang.Integer>
             getSubKeyIdsList() {
-                return ((bitField0_ & 0x00004000) != 0) ?
+                return ((bitField0_ & 0x00010000) != 0) ?
                         java.util.Collections.unmodifiableList(subKeyIds_) : subKeyIds_;
             }
 
             /**
              * <pre>
-             * children Map key、value id
+             * children keyId、valueId
              * </pre>
              *
-             * <code>repeated int32 subKeyIds = 15;</code>
+             * <code>repeated int32 subKeyIds = 17;</code>
              *
              * @return The count of subKeyIds.
              */
@@ -16511,10 +18144,10 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * children Map key、value id
+             * children keyId、valueId
              * </pre>
              *
-             * <code>repeated int32 subKeyIds = 15;</code>
+             * <code>repeated int32 subKeyIds = 17;</code>
              *
              * @param index The index of the element to return.
              * @return The subKeyIds at the given index.
@@ -16525,10 +18158,10 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * children Map key、value id
+             * children keyId、valueId
              * </pre>
              *
-             * <code>repeated int32 subKeyIds = 15;</code>
+             * <code>repeated int32 subKeyIds = 17;</code>
              *
              * @param index The index to set the value at.
              * @param value The subKeyIds to set.
@@ -16544,10 +18177,10 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * children Map key、value id
+             * children keyId、valueId
              * </pre>
              *
-             * <code>repeated int32 subKeyIds = 15;</code>
+             * <code>repeated int32 subKeyIds = 17;</code>
              *
              * @param value The subKeyIds to add.
              * @return This builder for chaining.
@@ -16561,10 +18194,10 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * children Map key、value id
+             * children keyId、valueId
              * </pre>
              *
-             * <code>repeated int32 subKeyIds = 15;</code>
+             * <code>repeated int32 subKeyIds = 17;</code>
              *
              * @param values The subKeyIds to add.
              * @return This builder for chaining.
@@ -16580,278 +18213,112 @@ public final class ProtoFeature {
 
             /**
              * <pre>
-             * children Map key、value id
+             * children keyId、valueId
              * </pre>
              *
-             * <code>repeated int32 subKeyIds = 15;</code>
+             * <code>repeated int32 subKeyIds = 17;</code>
              *
              * @return This builder for chaining.
              */
             public Builder clearSubKeyIds() {
                 subKeyIds_ = emptyIntList();
-                bitField0_ = (bitField0_ & ~0x00004000);
+                bitField0_ = (bitField0_ & ~0x00010000);
                 onChanged();
                 return this;
             }
 
-            private java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> subMaps_ =
-                    java.util.Collections.emptyList();
+            private com.google.protobuf.Internal.IntList subMapValueIds_ = emptyIntList();
 
-            private void ensureSubMapsIsMutable() {
-                if (!((bitField0_ & 0x00008000) != 0)) {
-                    subMaps_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>(subMaps_);
-                    bitField0_ |= 0x00008000;
-                }
-            }
-
-            private com.google.protobuf.RepeatedFieldBuilderV3<
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder> subMapsBuilder_;
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> getSubMapsList() {
-                if (subMapsBuilder_ == null) {
-                    return java.util.Collections.unmodifiableList(subMaps_);
-                } else {
-                    return subMapsBuilder_.getMessageList();
+            private void ensureSubMapValueIdsIsMutable() {
+                if (!((bitField0_ & 0x00020000) != 0)) {
+                    subMapValueIds_ = mutableCopy(subMapValueIds_);
+                    bitField0_ |= 0x00020000;
                 }
             }
 
             /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
+             * <code>repeated int32 subMapValueIds = 18;</code>
+             *
+             * @return A list containing the subMapValueIds.
              */
-            public int getSubMapsCount() {
-                if (subMapsBuilder_ == null) {
-                    return subMaps_.size();
-                } else {
-                    return subMapsBuilder_.getCount();
-                }
+            public java.util.List<java.lang.Integer>
+            getSubMapValueIdsList() {
+                return ((bitField0_ & 0x00020000) != 0) ?
+                        java.util.Collections.unmodifiableList(subMapValueIds_) : subMapValueIds_;
             }
 
             /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
+             * <code>repeated int32 subMapValueIds = 18;</code>
+             *
+             * @return The count of subMapValueIds.
              */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getSubMaps(int index) {
-                if (subMapsBuilder_ == null) {
-                    return subMaps_.get(index);
-                } else {
-                    return subMapsBuilder_.getMessage(index);
-                }
+            public int getSubMapValueIdsCount() {
+                return subMapValueIds_.size();
             }
 
             /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
+             * <code>repeated int32 subMapValueIds = 18;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The subMapValueIds at the given index.
              */
-            public Builder setSubMaps(
-                    int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map value) {
-                if (subMapsBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    ensureSubMapsIsMutable();
-                    subMaps_.set(index, value);
-                    onChanged();
-                } else {
-                    subMapsBuilder_.setMessage(index, value);
-                }
+            public int getSubMapValueIds(int index) {
+                return subMapValueIds_.getInt(index);
+            }
+
+            /**
+             * <code>repeated int32 subMapValueIds = 18;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The subMapValueIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setSubMapValueIds(
+                    int index, int value) {
+                ensureSubMapValueIdsIsMutable();
+                subMapValueIds_.setInt(index, value);
+                onChanged();
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
+             * <code>repeated int32 subMapValueIds = 18;</code>
+             *
+             * @param value The subMapValueIds to add.
+             * @return This builder for chaining.
              */
-            public Builder setSubMaps(
-                    int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder builderForValue) {
-                if (subMapsBuilder_ == null) {
-                    ensureSubMapsIsMutable();
-                    subMaps_.set(index, builderForValue.build());
-                    onChanged();
-                } else {
-                    subMapsBuilder_.setMessage(index, builderForValue.build());
-                }
+            public Builder addSubMapValueIds(int value) {
+                ensureSubMapValueIdsIsMutable();
+                subMapValueIds_.addInt(value);
+                onChanged();
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
+             * <code>repeated int32 subMapValueIds = 18;</code>
+             *
+             * @param values The subMapValueIds to add.
+             * @return This builder for chaining.
              */
-            public Builder addSubMaps(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map value) {
-                if (subMapsBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    ensureSubMapsIsMutable();
-                    subMaps_.add(value);
-                    onChanged();
-                } else {
-                    subMapsBuilder_.addMessage(value);
-                }
+            public Builder addAllSubMapValueIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureSubMapValueIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, subMapValueIds_);
+                onChanged();
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
+             * <code>repeated int32 subMapValueIds = 18;</code>
+             *
+             * @return This builder for chaining.
              */
-            public Builder addSubMaps(
-                    int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map value) {
-                if (subMapsBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    ensureSubMapsIsMutable();
-                    subMaps_.add(index, value);
-                    onChanged();
-                } else {
-                    subMapsBuilder_.addMessage(index, value);
-                }
+            public Builder clearSubMapValueIds() {
+                subMapValueIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00020000);
+                onChanged();
                 return this;
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public Builder addSubMaps(
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder builderForValue) {
-                if (subMapsBuilder_ == null) {
-                    ensureSubMapsIsMutable();
-                    subMaps_.add(builderForValue.build());
-                    onChanged();
-                } else {
-                    subMapsBuilder_.addMessage(builderForValue.build());
-                }
-                return this;
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public Builder addSubMaps(
-                    int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder builderForValue) {
-                if (subMapsBuilder_ == null) {
-                    ensureSubMapsIsMutable();
-                    subMaps_.add(index, builderForValue.build());
-                    onChanged();
-                } else {
-                    subMapsBuilder_.addMessage(index, builderForValue.build());
-                }
-                return this;
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public Builder addAllSubMaps(
-                    java.lang.Iterable<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> values) {
-                if (subMapsBuilder_ == null) {
-                    ensureSubMapsIsMutable();
-                    com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                            values, subMaps_);
-                    onChanged();
-                } else {
-                    subMapsBuilder_.addAllMessages(values);
-                }
-                return this;
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public Builder clearSubMaps() {
-                if (subMapsBuilder_ == null) {
-                    subMaps_ = java.util.Collections.emptyList();
-                    bitField0_ = (bitField0_ & ~0x00008000);
-                    onChanged();
-                } else {
-                    subMapsBuilder_.clear();
-                }
-                return this;
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public Builder removeSubMaps(int index) {
-                if (subMapsBuilder_ == null) {
-                    ensureSubMapsIsMutable();
-                    subMaps_.remove(index);
-                    onChanged();
-                } else {
-                    subMapsBuilder_.remove(index);
-                }
-                return this;
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder getSubMapsBuilder(
-                    int index) {
-                return getSubMapsFieldBuilder().getBuilder(index);
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getSubMapsOrBuilder(
-                    int index) {
-                if (subMapsBuilder_ == null) {
-                    return subMaps_.get(index);
-                } else {
-                    return subMapsBuilder_.getMessageOrBuilder(index);
-                }
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public java.util.List<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
-            getSubMapsOrBuilderList() {
-                if (subMapsBuilder_ != null) {
-                    return subMapsBuilder_.getMessageOrBuilderList();
-                } else {
-                    return java.util.Collections.unmodifiableList(subMaps_);
-                }
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder addSubMapsBuilder() {
-                return getSubMapsFieldBuilder().addBuilder(
-                        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.getDefaultInstance());
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder addSubMapsBuilder(
-                    int index) {
-                return getSubMapsFieldBuilder().addBuilder(
-                        index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.getDefaultInstance());
-            }
-
-            /**
-             * <code>repeated .pojo.Map subMaps = 16;</code>
-             */
-            public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder>
-            getSubMapsBuilderList() {
-                return getSubMapsFieldBuilder().getBuilderList();
-            }
-
-            private com.google.protobuf.RepeatedFieldBuilderV3<
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
-            getSubMapsFieldBuilder() {
-                if (subMapsBuilder_ == null) {
-                    subMapsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>(
-                            subMaps_,
-                            ((bitField0_ & 0x00008000) != 0),
-                            getParentForChildren(),
-                            isClean());
-                    subMaps_ = null;
-                }
-                return subMapsBuilder_;
             }
 
             @java.lang.Override
@@ -16908,75 +18375,318 @@ public final class ProtoFeature {
 
     }
 
-    public interface FeatureOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:pojo.Feature)
+    public interface ListOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:pojo.List)
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>.pojo.Geometry geometry = 1;</code>
+         * <pre>
+         * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+         * </pre>
          *
-         * @return Whether the geometry field is set.
-         */
-        boolean hasGeometry();
-
-        /**
-         * <code>.pojo.Geometry geometry = 1;</code>
+         * <code>repeated int32 indexes = 1;</code>
          *
-         * @return The geometry.
+         * @return A list containing the indexes.
          */
-        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry getGeometry();
+        java.util.List<java.lang.Integer> getIndexesList();
 
         /**
-         * <code>.pojo.Geometry geometry = 1;</code>
-         */
-        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryOrBuilder getGeometryOrBuilder();
-
-        /**
-         * <code>.pojo.Map properties = 2;</code>
+         * <pre>
+         * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+         * </pre>
          *
-         * @return Whether the properties field is set.
-         */
-        boolean hasProperties();
-
-        /**
-         * <code>.pojo.Map properties = 2;</code>
+         * <code>repeated int32 indexes = 1;</code>
          *
-         * @return The properties.
+         * @return The count of indexes.
          */
-        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getProperties();
+        int getIndexesCount();
 
         /**
-         * <code>.pojo.Map properties = 2;</code>
+         * <pre>
+         * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+         * </pre>
+         *
+         * <code>repeated int32 indexes = 1;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The indexes at the given index.
          */
-        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getPropertiesOrBuilder();
+        int getIndexes(int index);
+
+        /**
+         * <pre>
+         * 数组值id，按数组先后顺序填入
+         * valueId/value
+         * </pre>
+         *
+         * <code>repeated int32 doubleKeyIds = 2;</code>
+         *
+         * @return A list containing the doubleKeyIds.
+         */
+        java.util.List<java.lang.Integer> getDoubleKeyIdsList();
+
+        /**
+         * <pre>
+         * 数组值id，按数组先后顺序填入
+         * valueId/value
+         * </pre>
+         *
+         * <code>repeated int32 doubleKeyIds = 2;</code>
+         *
+         * @return The count of doubleKeyIds.
+         */
+        int getDoubleKeyIdsCount();
+
+        /**
+         * <pre>
+         * 数组值id，按数组先后顺序填入
+         * valueId/value
+         * </pre>
+         *
+         * <code>repeated int32 doubleKeyIds = 2;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The doubleKeyIds at the given index.
+         */
+        int getDoubleKeyIds(int index);
+
+        /**
+         * <code>repeated int32 floatKeyIds = 3;</code>
+         *
+         * @return A list containing the floatKeyIds.
+         */
+        java.util.List<java.lang.Integer> getFloatKeyIdsList();
+
+        /**
+         * <code>repeated int32 floatKeyIds = 3;</code>
+         *
+         * @return The count of floatKeyIds.
+         */
+        int getFloatKeyIdsCount();
+
+        /**
+         * <code>repeated int32 floatKeyIds = 3;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The floatKeyIds at the given index.
+         */
+        int getFloatKeyIds(int index);
+
+        /**
+         * <code>repeated int32 sint32KeyIds = 4;</code>
+         *
+         * @return A list containing the sint32KeyIds.
+         */
+        java.util.List<java.lang.Integer> getSint32KeyIdsList();
+
+        /**
+         * <code>repeated int32 sint32KeyIds = 4;</code>
+         *
+         * @return The count of sint32KeyIds.
+         */
+        int getSint32KeyIdsCount();
+
+        /**
+         * <code>repeated int32 sint32KeyIds = 4;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The sint32KeyIds at the given index.
+         */
+        int getSint32KeyIds(int index);
+
+        /**
+         * <code>repeated int32 sint64KeyIds = 5;</code>
+         *
+         * @return A list containing the sint64KeyIds.
+         */
+        java.util.List<java.lang.Integer> getSint64KeyIdsList();
+
+        /**
+         * <code>repeated int32 sint64KeyIds = 5;</code>
+         *
+         * @return The count of sint64KeyIds.
+         */
+        int getSint64KeyIdsCount();
+
+        /**
+         * <code>repeated int32 sint64KeyIds = 5;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The sint64KeyIds at the given index.
+         */
+        int getSint64KeyIds(int index);
+
+        /**
+         * <code>repeated bool boolValues = 6;</code>
+         *
+         * @return A list containing the boolValues.
+         */
+        java.util.List<java.lang.Boolean> getBoolValuesList();
+
+        /**
+         * <code>repeated bool boolValues = 6;</code>
+         *
+         * @return The count of boolValues.
+         */
+        int getBoolValuesCount();
+
+        /**
+         * <code>repeated bool boolValues = 6;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The boolValues at the given index.
+         */
+        boolean getBoolValues(int index);
+
+        /**
+         * <code>repeated int32 stringValueIds = 7;</code>
+         *
+         * @return A list containing the stringValueIds.
+         */
+        java.util.List<java.lang.Integer> getStringValueIdsList();
+
+        /**
+         * <code>repeated int32 stringValueIds = 7;</code>
+         *
+         * @return The count of stringValueIds.
+         */
+        int getStringValueIdsCount();
+
+        /**
+         * <code>repeated int32 stringValueIds = 7;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The stringValueIds at the given index.
+         */
+        int getStringValueIds(int index);
+
+        /**
+         * <code>repeated int32 bytesValueIds = 8;</code>
+         *
+         * @return A list containing the bytesValueIds.
+         */
+        java.util.List<java.lang.Integer> getBytesValueIdsList();
+
+        /**
+         * <code>repeated int32 bytesValueIds = 8;</code>
+         *
+         * @return The count of bytesValueIds.
+         */
+        int getBytesValueIdsCount();
+
+        /**
+         * <code>repeated int32 bytesValueIds = 8;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The bytesValueIds at the given index.
+         */
+        int getBytesValueIds(int index);
+
+        /**
+         * <pre>
+         * mapId
+         * </pre>
+         *
+         * <code>repeated int32 mapKeyIds = 9;</code>
+         *
+         * @return A list containing the mapKeyIds.
+         */
+        java.util.List<java.lang.Integer> getMapKeyIdsList();
+
+        /**
+         * <pre>
+         * mapId
+         * </pre>
+         *
+         * <code>repeated int32 mapKeyIds = 9;</code>
+         *
+         * @return The count of mapKeyIds.
+         */
+        int getMapKeyIdsCount();
+
+        /**
+         * <pre>
+         * mapId
+         * </pre>
+         *
+         * <code>repeated int32 mapKeyIds = 9;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The mapKeyIds at the given index.
+         */
+        int getMapKeyIds(int index);
+
+        /**
+         * <pre>
+         * children id
+         * </pre>
+         *
+         * <code>repeated int32 subKeyIds = 10;</code>
+         *
+         * @return A list containing the subKeyIds.
+         */
+        java.util.List<java.lang.Integer> getSubKeyIdsList();
+
+        /**
+         * <pre>
+         * children id
+         * </pre>
+         *
+         * <code>repeated int32 subKeyIds = 10;</code>
+         *
+         * @return The count of subKeyIds.
+         */
+        int getSubKeyIdsCount();
+
+        /**
+         * <pre>
+         * children id
+         * </pre>
+         *
+         * <code>repeated int32 subKeyIds = 10;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The subKeyIds at the given index.
+         */
+        int getSubKeyIds(int index);
     }
 
     /**
      * <pre>
-     * Feature 由于properties存放的是key id、value id，所以对其序列化/反序列化没有实际意义,故这个对象仅作保留而不会使用
+     * list 属性
      * </pre>
      * <p>
-     * Protobuf type {@code pojo.Feature}
+     * Protobuf type {@code pojo.List}
      */
-    public static final class Feature extends
+    public static final class List extends
             com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:pojo.Feature)
-            FeatureOrBuilder {
+            // @@protoc_insertion_point(message_implements:pojo.List)
+            ListOrBuilder {
         private static final long serialVersionUID = 0L;
 
-        // Use Feature.newBuilder() to construct.
-        private Feature(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        // Use List.newBuilder() to construct.
+        private List(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
             super(builder);
         }
 
-        private Feature() {
+        private List() {
+            indexes_ = emptyIntList();
+            doubleKeyIds_ = emptyIntList();
+            floatKeyIds_ = emptyIntList();
+            sint32KeyIds_ = emptyIntList();
+            sint64KeyIds_ = emptyIntList();
+            boolValues_ = emptyBooleanList();
+            stringValueIds_ = emptyIntList();
+            bytesValueIds_ = emptyIntList();
+            mapKeyIds_ = emptyIntList();
+            subKeyIds_ = emptyIntList();
         }
 
         @java.lang.Override
         @SuppressWarnings({"unused"})
         protected java.lang.Object newInstance(
                 UnusedPrivateParameter unused) {
-            return new Feature();
+            return new List();
         }
 
         @java.lang.Override
@@ -16985,7 +18695,7 @@ public final class ProtoFeature {
             return this.unknownFields;
         }
 
-        private Feature(
+        private List(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
@@ -16993,6 +18703,7 @@ public final class ProtoFeature {
             if (extensionRegistry == null) {
                 throw new java.lang.NullPointerException();
             }
+            int mutable_bitField0_ = 0;
             com.google.protobuf.UnknownFieldSet.Builder unknownFields =
                     com.google.protobuf.UnknownFieldSet.newBuilder();
             try {
@@ -17003,30 +18714,214 @@ public final class ProtoFeature {
                         case 0:
                             done = true;
                             break;
+                        case 8: {
+                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                                indexes_ = newIntList();
+                                mutable_bitField0_ |= 0x00000001;
+                            }
+                            indexes_.addInt(input.readInt32());
+                            break;
+                        }
                         case 10: {
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.Builder subBuilder = null;
-                            if (geometry_ != null) {
-                                subBuilder = geometry_.toBuilder();
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                                indexes_ = newIntList();
+                                mutable_bitField0_ |= 0x00000001;
                             }
-                            geometry_ = input.readMessage(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.parser(), extensionRegistry);
-                            if (subBuilder != null) {
-                                subBuilder.mergeFrom(geometry_);
-                                geometry_ = subBuilder.buildPartial();
+                            while (input.getBytesUntilLimit() > 0) {
+                                indexes_.addInt(input.readInt32());
                             }
-
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 16: {
+                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                                doubleKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000002;
+                            }
+                            doubleKeyIds_.addInt(input.readInt32());
                             break;
                         }
                         case 18: {
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder subBuilder = null;
-                            if (properties_ != null) {
-                                subBuilder = properties_.toBuilder();
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                                doubleKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000002;
                             }
-                            properties_ = input.readMessage(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.parser(), extensionRegistry);
-                            if (subBuilder != null) {
-                                subBuilder.mergeFrom(properties_);
-                                properties_ = subBuilder.buildPartial();
+                            while (input.getBytesUntilLimit() > 0) {
+                                doubleKeyIds_.addInt(input.readInt32());
                             }
-
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 24: {
+                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                                floatKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000004;
+                            }
+                            floatKeyIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 26: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                                floatKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000004;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                floatKeyIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 32: {
+                            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                                sint32KeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000008;
+                            }
+                            sint32KeyIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 34: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000008) != 0) && input.getBytesUntilLimit() > 0) {
+                                sint32KeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000008;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                sint32KeyIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 40: {
+                            if (!((mutable_bitField0_ & 0x00000010) != 0)) {
+                                sint64KeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000010;
+                            }
+                            sint64KeyIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 42: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000010) != 0) && input.getBytesUntilLimit() > 0) {
+                                sint64KeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000010;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                sint64KeyIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 48: {
+                            if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+                                boolValues_ = newBooleanList();
+                                mutable_bitField0_ |= 0x00000020;
+                            }
+                            boolValues_.addBoolean(input.readBool());
+                            break;
+                        }
+                        case 50: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000020) != 0) && input.getBytesUntilLimit() > 0) {
+                                boolValues_ = newBooleanList();
+                                mutable_bitField0_ |= 0x00000020;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                boolValues_.addBoolean(input.readBool());
+                            }
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 56: {
+                            if (!((mutable_bitField0_ & 0x00000040) != 0)) {
+                                stringValueIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000040;
+                            }
+                            stringValueIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 58: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000040) != 0) && input.getBytesUntilLimit() > 0) {
+                                stringValueIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000040;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                stringValueIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 64: {
+                            if (!((mutable_bitField0_ & 0x00000080) != 0)) {
+                                bytesValueIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000080;
+                            }
+                            bytesValueIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 66: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000080) != 0) && input.getBytesUntilLimit() > 0) {
+                                bytesValueIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000080;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                bytesValueIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 72: {
+                            if (!((mutable_bitField0_ & 0x00000100) != 0)) {
+                                mapKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000100;
+                            }
+                            mapKeyIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 74: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000100) != 0) && input.getBytesUntilLimit() > 0) {
+                                mapKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000100;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                mapKeyIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
+                            break;
+                        }
+                        case 80: {
+                            if (!((mutable_bitField0_ & 0x00000200) != 0)) {
+                                subKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000200;
+                            }
+                            subKeyIds_.addInt(input.readInt32());
+                            break;
+                        }
+                        case 82: {
+                            int length = input.readRawVarint32();
+                            int limit = input.pushLimit(length);
+                            if (!((mutable_bitField0_ & 0x00000200) != 0) && input.getBytesUntilLimit() > 0) {
+                                subKeyIds_ = newIntList();
+                                mutable_bitField0_ |= 0x00000200;
+                            }
+                            while (input.getBytesUntilLimit() > 0) {
+                                subKeyIds_.addInt(input.readInt32());
+                            }
+                            input.popLimit(limit);
                             break;
                         }
                         default: {
@@ -17046,6 +18941,36 @@ public final class ProtoFeature {
                 throw new com.google.protobuf.InvalidProtocolBufferException(
                         e).setUnfinishedMessage(this);
             } finally {
+                if (((mutable_bitField0_ & 0x00000001) != 0)) {
+                    indexes_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00000002) != 0)) {
+                    doubleKeyIds_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00000004) != 0)) {
+                    floatKeyIds_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00000008) != 0)) {
+                    sint32KeyIds_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00000010) != 0)) {
+                    sint64KeyIds_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00000020) != 0)) {
+                    boolValues_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00000040) != 0)) {
+                    stringValueIds_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00000080) != 0)) {
+                    bytesValueIds_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00000100) != 0)) {
+                    mapKeyIds_.makeImmutable(); // C
+                }
+                if (((mutable_bitField0_ & 0x00000200) != 0)) {
+                    subKeyIds_.makeImmutable(); // C
+                }
                 this.unknownFields = unknownFields.build();
                 makeExtensionsImmutable();
             }
@@ -17053,78 +18978,417 @@ public final class ProtoFeature {
 
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-            return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_descriptor;
+            return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_List_descriptor;
         }
 
         @java.lang.Override
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-            return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_fieldAccessorTable
+            return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_List_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.class, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.Builder.class);
+                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.class, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder.class);
         }
 
-        public static final int GEOMETRY_FIELD_NUMBER = 1;
-        private org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry geometry_;
+        public static final int INDEXES_FIELD_NUMBER = 1;
+        private com.google.protobuf.Internal.IntList indexes_;
 
         /**
-         * <code>.pojo.Geometry geometry = 1;</code>
+         * <pre>
+         * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+         * </pre>
          *
-         * @return Whether the geometry field is set.
-         */
-        @java.lang.Override
-        public boolean hasGeometry() {
-            return geometry_ != null;
-        }
-
-        /**
-         * <code>.pojo.Geometry geometry = 1;</code>
+         * <code>repeated int32 indexes = 1;</code>
          *
-         * @return The geometry.
+         * @return A list containing the indexes.
          */
         @java.lang.Override
-        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry getGeometry() {
-            return geometry_ == null ? org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.getDefaultInstance() : geometry_;
+        public java.util.List<java.lang.Integer>
+        getIndexesList() {
+            return indexes_;
         }
 
         /**
-         * <code>.pojo.Geometry geometry = 1;</code>
-         */
-        @java.lang.Override
-        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryOrBuilder getGeometryOrBuilder() {
-            return getGeometry();
-        }
-
-        public static final int PROPERTIES_FIELD_NUMBER = 2;
-        private org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map properties_;
-
-        /**
-         * <code>.pojo.Map properties = 2;</code>
+         * <pre>
+         * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+         * </pre>
          *
-         * @return Whether the properties field is set.
-         */
-        @java.lang.Override
-        public boolean hasProperties() {
-            return properties_ != null;
-        }
-
-        /**
-         * <code>.pojo.Map properties = 2;</code>
+         * <code>repeated int32 indexes = 1;</code>
          *
-         * @return The properties.
+         * @return The count of indexes.
          */
-        @java.lang.Override
-        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getProperties() {
-            return properties_ == null ? org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.getDefaultInstance() : properties_;
+        public int getIndexesCount() {
+            return indexes_.size();
         }
 
         /**
-         * <code>.pojo.Map properties = 2;</code>
+         * <pre>
+         * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+         * </pre>
+         *
+         * <code>repeated int32 indexes = 1;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The indexes at the given index.
+         */
+        public int getIndexes(int index) {
+            return indexes_.getInt(index);
+        }
+
+        private int indexesMemoizedSerializedSize = -1;
+
+        public static final int DOUBLEKEYIDS_FIELD_NUMBER = 2;
+        private com.google.protobuf.Internal.IntList doubleKeyIds_;
+
+        /**
+         * <pre>
+         * 数组值id，按数组先后顺序填入
+         * valueId/value
+         * </pre>
+         *
+         * <code>repeated int32 doubleKeyIds = 2;</code>
+         *
+         * @return A list containing the doubleKeyIds.
          */
         @java.lang.Override
-        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getPropertiesOrBuilder() {
-            return getProperties();
+        public java.util.List<java.lang.Integer>
+        getDoubleKeyIdsList() {
+            return doubleKeyIds_;
         }
+
+        /**
+         * <pre>
+         * 数组值id，按数组先后顺序填入
+         * valueId/value
+         * </pre>
+         *
+         * <code>repeated int32 doubleKeyIds = 2;</code>
+         *
+         * @return The count of doubleKeyIds.
+         */
+        public int getDoubleKeyIdsCount() {
+            return doubleKeyIds_.size();
+        }
+
+        /**
+         * <pre>
+         * 数组值id，按数组先后顺序填入
+         * valueId/value
+         * </pre>
+         *
+         * <code>repeated int32 doubleKeyIds = 2;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The doubleKeyIds at the given index.
+         */
+        public int getDoubleKeyIds(int index) {
+            return doubleKeyIds_.getInt(index);
+        }
+
+        private int doubleKeyIdsMemoizedSerializedSize = -1;
+
+        public static final int FLOATKEYIDS_FIELD_NUMBER = 3;
+        private com.google.protobuf.Internal.IntList floatKeyIds_;
+
+        /**
+         * <code>repeated int32 floatKeyIds = 3;</code>
+         *
+         * @return A list containing the floatKeyIds.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Integer>
+        getFloatKeyIdsList() {
+            return floatKeyIds_;
+        }
+
+        /**
+         * <code>repeated int32 floatKeyIds = 3;</code>
+         *
+         * @return The count of floatKeyIds.
+         */
+        public int getFloatKeyIdsCount() {
+            return floatKeyIds_.size();
+        }
+
+        /**
+         * <code>repeated int32 floatKeyIds = 3;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The floatKeyIds at the given index.
+         */
+        public int getFloatKeyIds(int index) {
+            return floatKeyIds_.getInt(index);
+        }
+
+        private int floatKeyIdsMemoizedSerializedSize = -1;
+
+        public static final int SINT32KEYIDS_FIELD_NUMBER = 4;
+        private com.google.protobuf.Internal.IntList sint32KeyIds_;
+
+        /**
+         * <code>repeated int32 sint32KeyIds = 4;</code>
+         *
+         * @return A list containing the sint32KeyIds.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Integer>
+        getSint32KeyIdsList() {
+            return sint32KeyIds_;
+        }
+
+        /**
+         * <code>repeated int32 sint32KeyIds = 4;</code>
+         *
+         * @return The count of sint32KeyIds.
+         */
+        public int getSint32KeyIdsCount() {
+            return sint32KeyIds_.size();
+        }
+
+        /**
+         * <code>repeated int32 sint32KeyIds = 4;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The sint32KeyIds at the given index.
+         */
+        public int getSint32KeyIds(int index) {
+            return sint32KeyIds_.getInt(index);
+        }
+
+        private int sint32KeyIdsMemoizedSerializedSize = -1;
+
+        public static final int SINT64KEYIDS_FIELD_NUMBER = 5;
+        private com.google.protobuf.Internal.IntList sint64KeyIds_;
+
+        /**
+         * <code>repeated int32 sint64KeyIds = 5;</code>
+         *
+         * @return A list containing the sint64KeyIds.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Integer>
+        getSint64KeyIdsList() {
+            return sint64KeyIds_;
+        }
+
+        /**
+         * <code>repeated int32 sint64KeyIds = 5;</code>
+         *
+         * @return The count of sint64KeyIds.
+         */
+        public int getSint64KeyIdsCount() {
+            return sint64KeyIds_.size();
+        }
+
+        /**
+         * <code>repeated int32 sint64KeyIds = 5;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The sint64KeyIds at the given index.
+         */
+        public int getSint64KeyIds(int index) {
+            return sint64KeyIds_.getInt(index);
+        }
+
+        private int sint64KeyIdsMemoizedSerializedSize = -1;
+
+        public static final int BOOLVALUES_FIELD_NUMBER = 6;
+        private com.google.protobuf.Internal.BooleanList boolValues_;
+
+        /**
+         * <code>repeated bool boolValues = 6;</code>
+         *
+         * @return A list containing the boolValues.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Boolean>
+        getBoolValuesList() {
+            return boolValues_;
+        }
+
+        /**
+         * <code>repeated bool boolValues = 6;</code>
+         *
+         * @return The count of boolValues.
+         */
+        public int getBoolValuesCount() {
+            return boolValues_.size();
+        }
+
+        /**
+         * <code>repeated bool boolValues = 6;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The boolValues at the given index.
+         */
+        public boolean getBoolValues(int index) {
+            return boolValues_.getBoolean(index);
+        }
+
+        private int boolValuesMemoizedSerializedSize = -1;
+
+        public static final int STRINGVALUEIDS_FIELD_NUMBER = 7;
+        private com.google.protobuf.Internal.IntList stringValueIds_;
+
+        /**
+         * <code>repeated int32 stringValueIds = 7;</code>
+         *
+         * @return A list containing the stringValueIds.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Integer>
+        getStringValueIdsList() {
+            return stringValueIds_;
+        }
+
+        /**
+         * <code>repeated int32 stringValueIds = 7;</code>
+         *
+         * @return The count of stringValueIds.
+         */
+        public int getStringValueIdsCount() {
+            return stringValueIds_.size();
+        }
+
+        /**
+         * <code>repeated int32 stringValueIds = 7;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The stringValueIds at the given index.
+         */
+        public int getStringValueIds(int index) {
+            return stringValueIds_.getInt(index);
+        }
+
+        private int stringValueIdsMemoizedSerializedSize = -1;
+
+        public static final int BYTESVALUEIDS_FIELD_NUMBER = 8;
+        private com.google.protobuf.Internal.IntList bytesValueIds_;
+
+        /**
+         * <code>repeated int32 bytesValueIds = 8;</code>
+         *
+         * @return A list containing the bytesValueIds.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Integer>
+        getBytesValueIdsList() {
+            return bytesValueIds_;
+        }
+
+        /**
+         * <code>repeated int32 bytesValueIds = 8;</code>
+         *
+         * @return The count of bytesValueIds.
+         */
+        public int getBytesValueIdsCount() {
+            return bytesValueIds_.size();
+        }
+
+        /**
+         * <code>repeated int32 bytesValueIds = 8;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The bytesValueIds at the given index.
+         */
+        public int getBytesValueIds(int index) {
+            return bytesValueIds_.getInt(index);
+        }
+
+        private int bytesValueIdsMemoizedSerializedSize = -1;
+
+        public static final int MAPKEYIDS_FIELD_NUMBER = 9;
+        private com.google.protobuf.Internal.IntList mapKeyIds_;
+
+        /**
+         * <pre>
+         * mapId
+         * </pre>
+         *
+         * <code>repeated int32 mapKeyIds = 9;</code>
+         *
+         * @return A list containing the mapKeyIds.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Integer>
+        getMapKeyIdsList() {
+            return mapKeyIds_;
+        }
+
+        /**
+         * <pre>
+         * mapId
+         * </pre>
+         *
+         * <code>repeated int32 mapKeyIds = 9;</code>
+         *
+         * @return The count of mapKeyIds.
+         */
+        public int getMapKeyIdsCount() {
+            return mapKeyIds_.size();
+        }
+
+        /**
+         * <pre>
+         * mapId
+         * </pre>
+         *
+         * <code>repeated int32 mapKeyIds = 9;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The mapKeyIds at the given index.
+         */
+        public int getMapKeyIds(int index) {
+            return mapKeyIds_.getInt(index);
+        }
+
+        private int mapKeyIdsMemoizedSerializedSize = -1;
+
+        public static final int SUBKEYIDS_FIELD_NUMBER = 10;
+        private com.google.protobuf.Internal.IntList subKeyIds_;
+
+        /**
+         * <pre>
+         * children id
+         * </pre>
+         *
+         * <code>repeated int32 subKeyIds = 10;</code>
+         *
+         * @return A list containing the subKeyIds.
+         */
+        @java.lang.Override
+        public java.util.List<java.lang.Integer>
+        getSubKeyIdsList() {
+            return subKeyIds_;
+        }
+
+        /**
+         * <pre>
+         * children id
+         * </pre>
+         *
+         * <code>repeated int32 subKeyIds = 10;</code>
+         *
+         * @return The count of subKeyIds.
+         */
+        public int getSubKeyIdsCount() {
+            return subKeyIds_.size();
+        }
+
+        /**
+         * <pre>
+         * children id
+         * </pre>
+         *
+         * <code>repeated int32 subKeyIds = 10;</code>
+         *
+         * @param index The index of the element to return.
+         * @return The subKeyIds at the given index.
+         */
+        public int getSubKeyIds(int index) {
+            return subKeyIds_.getInt(index);
+        }
+
+        private int subKeyIdsMemoizedSerializedSize = -1;
 
         private byte memoizedIsInitialized = -1;
 
@@ -17141,11 +19405,76 @@ public final class ProtoFeature {
         @java.lang.Override
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
-            if (geometry_ != null) {
-                output.writeMessage(1, getGeometry());
+            getSerializedSize();
+            if (getIndexesList().size() > 0) {
+                output.writeUInt32NoTag(10);
+                output.writeUInt32NoTag(indexesMemoizedSerializedSize);
             }
-            if (properties_ != null) {
-                output.writeMessage(2, getProperties());
+            for (int i = 0; i < indexes_.size(); i++) {
+                output.writeInt32NoTag(indexes_.getInt(i));
+            }
+            if (getDoubleKeyIdsList().size() > 0) {
+                output.writeUInt32NoTag(18);
+                output.writeUInt32NoTag(doubleKeyIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < doubleKeyIds_.size(); i++) {
+                output.writeInt32NoTag(doubleKeyIds_.getInt(i));
+            }
+            if (getFloatKeyIdsList().size() > 0) {
+                output.writeUInt32NoTag(26);
+                output.writeUInt32NoTag(floatKeyIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < floatKeyIds_.size(); i++) {
+                output.writeInt32NoTag(floatKeyIds_.getInt(i));
+            }
+            if (getSint32KeyIdsList().size() > 0) {
+                output.writeUInt32NoTag(34);
+                output.writeUInt32NoTag(sint32KeyIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < sint32KeyIds_.size(); i++) {
+                output.writeInt32NoTag(sint32KeyIds_.getInt(i));
+            }
+            if (getSint64KeyIdsList().size() > 0) {
+                output.writeUInt32NoTag(42);
+                output.writeUInt32NoTag(sint64KeyIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < sint64KeyIds_.size(); i++) {
+                output.writeInt32NoTag(sint64KeyIds_.getInt(i));
+            }
+            if (getBoolValuesList().size() > 0) {
+                output.writeUInt32NoTag(50);
+                output.writeUInt32NoTag(boolValuesMemoizedSerializedSize);
+            }
+            for (int i = 0; i < boolValues_.size(); i++) {
+                output.writeBoolNoTag(boolValues_.getBoolean(i));
+            }
+            if (getStringValueIdsList().size() > 0) {
+                output.writeUInt32NoTag(58);
+                output.writeUInt32NoTag(stringValueIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < stringValueIds_.size(); i++) {
+                output.writeInt32NoTag(stringValueIds_.getInt(i));
+            }
+            if (getBytesValueIdsList().size() > 0) {
+                output.writeUInt32NoTag(66);
+                output.writeUInt32NoTag(bytesValueIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < bytesValueIds_.size(); i++) {
+                output.writeInt32NoTag(bytesValueIds_.getInt(i));
+            }
+            if (getMapKeyIdsList().size() > 0) {
+                output.writeUInt32NoTag(74);
+                output.writeUInt32NoTag(mapKeyIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < mapKeyIds_.size(); i++) {
+                output.writeInt32NoTag(mapKeyIds_.getInt(i));
+            }
+            if (getSubKeyIdsList().size() > 0) {
+                output.writeUInt32NoTag(82);
+                output.writeUInt32NoTag(subKeyIdsMemoizedSerializedSize);
+            }
+            for (int i = 0; i < subKeyIds_.size(); i++) {
+                output.writeInt32NoTag(subKeyIds_.getInt(i));
             }
             unknownFields.writeTo(output);
         }
@@ -17156,13 +19485,142 @@ public final class ProtoFeature {
             if (size != -1) return size;
 
             size = 0;
-            if (geometry_ != null) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(1, getGeometry());
+            {
+                int dataSize = 0;
+                for (int i = 0; i < indexes_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(indexes_.getInt(i));
+                }
+                size += dataSize;
+                if (!getIndexesList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                indexesMemoizedSerializedSize = dataSize;
             }
-            if (properties_ != null) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(2, getProperties());
+            {
+                int dataSize = 0;
+                for (int i = 0; i < doubleKeyIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(doubleKeyIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getDoubleKeyIdsList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                doubleKeyIdsMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
+                for (int i = 0; i < floatKeyIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(floatKeyIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getFloatKeyIdsList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                floatKeyIdsMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
+                for (int i = 0; i < sint32KeyIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(sint32KeyIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getSint32KeyIdsList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                sint32KeyIdsMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
+                for (int i = 0; i < sint64KeyIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(sint64KeyIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getSint64KeyIdsList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                sint64KeyIdsMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
+                dataSize = 1 * getBoolValuesList().size();
+                size += dataSize;
+                if (!getBoolValuesList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                boolValuesMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
+                for (int i = 0; i < stringValueIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(stringValueIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getStringValueIdsList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                stringValueIdsMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
+                for (int i = 0; i < bytesValueIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(bytesValueIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getBytesValueIdsList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                bytesValueIdsMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
+                for (int i = 0; i < mapKeyIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(mapKeyIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getMapKeyIdsList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                mapKeyIdsMemoizedSerializedSize = dataSize;
+            }
+            {
+                int dataSize = 0;
+                for (int i = 0; i < subKeyIds_.size(); i++) {
+                    dataSize += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(subKeyIds_.getInt(i));
+                }
+                size += dataSize;
+                if (!getSubKeyIdsList().isEmpty()) {
+                    size += 1;
+                    size += com.google.protobuf.CodedOutputStream
+                            .computeInt32SizeNoTag(dataSize);
+                }
+                subKeyIdsMemoizedSerializedSize = dataSize;
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -17174,21 +19632,31 @@ public final class ProtoFeature {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature)) {
+            if (!(obj instanceof org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List)) {
                 return super.equals(obj);
             }
-            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature other = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature) obj;
+            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List other = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List) obj;
 
-            if (hasGeometry() != other.hasGeometry()) return false;
-            if (hasGeometry()) {
-                if (!getGeometry()
-                        .equals(other.getGeometry())) return false;
-            }
-            if (hasProperties() != other.hasProperties()) return false;
-            if (hasProperties()) {
-                if (!getProperties()
-                        .equals(other.getProperties())) return false;
-            }
+            if (!getIndexesList()
+                    .equals(other.getIndexesList())) return false;
+            if (!getDoubleKeyIdsList()
+                    .equals(other.getDoubleKeyIdsList())) return false;
+            if (!getFloatKeyIdsList()
+                    .equals(other.getFloatKeyIdsList())) return false;
+            if (!getSint32KeyIdsList()
+                    .equals(other.getSint32KeyIdsList())) return false;
+            if (!getSint64KeyIdsList()
+                    .equals(other.getSint64KeyIdsList())) return false;
+            if (!getBoolValuesList()
+                    .equals(other.getBoolValuesList())) return false;
+            if (!getStringValueIdsList()
+                    .equals(other.getStringValueIdsList())) return false;
+            if (!getBytesValueIdsList()
+                    .equals(other.getBytesValueIdsList())) return false;
+            if (!getMapKeyIdsList()
+                    .equals(other.getMapKeyIdsList())) return false;
+            if (!getSubKeyIdsList()
+                    .equals(other.getSubKeyIdsList())) return false;
             if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
         }
@@ -17200,64 +19668,96 @@ public final class ProtoFeature {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
-            if (hasGeometry()) {
-                hash = (37 * hash) + GEOMETRY_FIELD_NUMBER;
-                hash = (53 * hash) + getGeometry().hashCode();
+            if (getIndexesCount() > 0) {
+                hash = (37 * hash) + INDEXES_FIELD_NUMBER;
+                hash = (53 * hash) + getIndexesList().hashCode();
             }
-            if (hasProperties()) {
-                hash = (37 * hash) + PROPERTIES_FIELD_NUMBER;
-                hash = (53 * hash) + getProperties().hashCode();
+            if (getDoubleKeyIdsCount() > 0) {
+                hash = (37 * hash) + DOUBLEKEYIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getDoubleKeyIdsList().hashCode();
+            }
+            if (getFloatKeyIdsCount() > 0) {
+                hash = (37 * hash) + FLOATKEYIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getFloatKeyIdsList().hashCode();
+            }
+            if (getSint32KeyIdsCount() > 0) {
+                hash = (37 * hash) + SINT32KEYIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getSint32KeyIdsList().hashCode();
+            }
+            if (getSint64KeyIdsCount() > 0) {
+                hash = (37 * hash) + SINT64KEYIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getSint64KeyIdsList().hashCode();
+            }
+            if (getBoolValuesCount() > 0) {
+                hash = (37 * hash) + BOOLVALUES_FIELD_NUMBER;
+                hash = (53 * hash) + getBoolValuesList().hashCode();
+            }
+            if (getStringValueIdsCount() > 0) {
+                hash = (37 * hash) + STRINGVALUEIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getStringValueIdsList().hashCode();
+            }
+            if (getBytesValueIdsCount() > 0) {
+                hash = (37 * hash) + BYTESVALUEIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getBytesValueIdsList().hashCode();
+            }
+            if (getMapKeyIdsCount() > 0) {
+                hash = (37 * hash) + MAPKEYIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getMapKeyIdsList().hashCode();
+            }
+            if (getSubKeyIdsCount() > 0) {
+                hash = (37 * hash) + SUBKEYIDS_FIELD_NUMBER;
+                hash = (53 * hash) + getSubKeyIdsList().hashCode();
             }
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
             return hash;
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(
                 java.nio.ByteBuffer data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(
                 java.nio.ByteBuffer data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(
                 com.google.protobuf.ByteString data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(
                 com.google.protobuf.ByteString data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(byte[] data)
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(byte[] data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(
                 byte[] data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(java.io.InputStream input)
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -17265,13 +19765,13 @@ public final class ProtoFeature {
                     .parseWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseDelimitedFrom(java.io.InputStream input)
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseDelimitedFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseDelimitedWithIOException(PARSER, input);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseDelimitedFrom(
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseDelimitedFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -17279,14 +19779,14 @@ public final class ProtoFeature {
                     .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(
                 com.google.protobuf.CodedInputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parseFrom(
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parseFrom(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -17303,7 +19803,7 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature prototype) {
+        public static Builder newBuilder(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
@@ -17316,34 +19816,35 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
          * <pre>
-         * Feature 由于properties存放的是key id、value id，所以对其序列化/反序列化没有实际意义,故这个对象仅作保留而不会使用
+         * list 属性
          * </pre>
          * <p>
-         * Protobuf type {@code pojo.Feature}
+         * Protobuf type {@code pojo.List}
          */
         public static final class Builder extends
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:pojo.Feature)
-                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.FeatureOrBuilder {
+                // @@protoc_insertion_point(builder_implements:pojo.List)
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder {
             public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_descriptor;
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_List_descriptor;
             }
 
             @java.lang.Override
             protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
-                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_fieldAccessorTable
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_List_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
-                                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.class, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.Builder.class);
+                                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.class, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder.class);
             }
 
-            // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.newBuilder()
+            // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.newBuilder()
             private Builder() {
                 maybeForceBuilderInitialization();
             }
@@ -17363,35 +19864,43 @@ public final class ProtoFeature {
             @java.lang.Override
             public Builder clear() {
                 super.clear();
-                if (geometryBuilder_ == null) {
-                    geometry_ = null;
-                } else {
-                    geometry_ = null;
-                    geometryBuilder_ = null;
-                }
-                if (propertiesBuilder_ == null) {
-                    properties_ = null;
-                } else {
-                    properties_ = null;
-                    propertiesBuilder_ = null;
-                }
+                indexes_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000001);
+                doubleKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000002);
+                floatKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000004);
+                sint32KeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000008);
+                sint64KeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000010);
+                boolValues_ = emptyBooleanList();
+                bitField0_ = (bitField0_ & ~0x00000020);
+                stringValueIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000040);
+                bytesValueIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000080);
+                mapKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000100);
+                subKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000200);
                 return this;
             }
 
             @java.lang.Override
             public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_descriptor;
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_List_descriptor;
             }
 
             @java.lang.Override
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature getDefaultInstanceForType() {
-                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.getDefaultInstance();
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List getDefaultInstanceForType() {
+                return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.getDefaultInstance();
             }
 
             @java.lang.Override
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature build() {
-                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature result = buildPartial();
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List build() {
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
                 }
@@ -17399,18 +19908,59 @@ public final class ProtoFeature {
             }
 
             @java.lang.Override
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature buildPartial() {
-                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature result = new org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature(this);
-                if (geometryBuilder_ == null) {
-                    result.geometry_ = geometry_;
-                } else {
-                    result.geometry_ = geometryBuilder_.build();
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List buildPartial() {
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List result = new org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List(this);
+                int from_bitField0_ = bitField0_;
+                if (((bitField0_ & 0x00000001) != 0)) {
+                    indexes_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000001);
                 }
-                if (propertiesBuilder_ == null) {
-                    result.properties_ = properties_;
-                } else {
-                    result.properties_ = propertiesBuilder_.build();
+                result.indexes_ = indexes_;
+                if (((bitField0_ & 0x00000002) != 0)) {
+                    doubleKeyIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000002);
                 }
+                result.doubleKeyIds_ = doubleKeyIds_;
+                if (((bitField0_ & 0x00000004) != 0)) {
+                    floatKeyIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000004);
+                }
+                result.floatKeyIds_ = floatKeyIds_;
+                if (((bitField0_ & 0x00000008) != 0)) {
+                    sint32KeyIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000008);
+                }
+                result.sint32KeyIds_ = sint32KeyIds_;
+                if (((bitField0_ & 0x00000010) != 0)) {
+                    sint64KeyIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000010);
+                }
+                result.sint64KeyIds_ = sint64KeyIds_;
+                if (((bitField0_ & 0x00000020) != 0)) {
+                    boolValues_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000020);
+                }
+                result.boolValues_ = boolValues_;
+                if (((bitField0_ & 0x00000040) != 0)) {
+                    stringValueIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000040);
+                }
+                result.stringValueIds_ = stringValueIds_;
+                if (((bitField0_ & 0x00000080) != 0)) {
+                    bytesValueIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000080);
+                }
+                result.bytesValueIds_ = bytesValueIds_;
+                if (((bitField0_ & 0x00000100) != 0)) {
+                    mapKeyIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000100);
+                }
+                result.mapKeyIds_ = mapKeyIds_;
+                if (((bitField0_ & 0x00000200) != 0)) {
+                    subKeyIds_.makeImmutable();
+                    bitField0_ = (bitField0_ & ~0x00000200);
+                }
+                result.subKeyIds_ = subKeyIds_;
                 onBuilt();
                 return result;
             }
@@ -17455,22 +20005,115 @@ public final class ProtoFeature {
 
             @java.lang.Override
             public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature) {
-                    return mergeFrom((org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature) other);
+                if (other instanceof org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List) {
+                    return mergeFrom((org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List) other);
                 } else {
                     super.mergeFrom(other);
                     return this;
                 }
             }
 
-            public Builder mergeFrom(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature other) {
-                if (other == org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.getDefaultInstance())
-                    return this;
-                if (other.hasGeometry()) {
-                    mergeGeometry(other.getGeometry());
+            public Builder mergeFrom(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List other) {
+                if (other == org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.getDefaultInstance()) return this;
+                if (!other.indexes_.isEmpty()) {
+                    if (indexes_.isEmpty()) {
+                        indexes_ = other.indexes_;
+                        bitField0_ = (bitField0_ & ~0x00000001);
+                    } else {
+                        ensureIndexesIsMutable();
+                        indexes_.addAll(other.indexes_);
+                    }
+                    onChanged();
                 }
-                if (other.hasProperties()) {
-                    mergeProperties(other.getProperties());
+                if (!other.doubleKeyIds_.isEmpty()) {
+                    if (doubleKeyIds_.isEmpty()) {
+                        doubleKeyIds_ = other.doubleKeyIds_;
+                        bitField0_ = (bitField0_ & ~0x00000002);
+                    } else {
+                        ensureDoubleKeyIdsIsMutable();
+                        doubleKeyIds_.addAll(other.doubleKeyIds_);
+                    }
+                    onChanged();
+                }
+                if (!other.floatKeyIds_.isEmpty()) {
+                    if (floatKeyIds_.isEmpty()) {
+                        floatKeyIds_ = other.floatKeyIds_;
+                        bitField0_ = (bitField0_ & ~0x00000004);
+                    } else {
+                        ensureFloatKeyIdsIsMutable();
+                        floatKeyIds_.addAll(other.floatKeyIds_);
+                    }
+                    onChanged();
+                }
+                if (!other.sint32KeyIds_.isEmpty()) {
+                    if (sint32KeyIds_.isEmpty()) {
+                        sint32KeyIds_ = other.sint32KeyIds_;
+                        bitField0_ = (bitField0_ & ~0x00000008);
+                    } else {
+                        ensureSint32KeyIdsIsMutable();
+                        sint32KeyIds_.addAll(other.sint32KeyIds_);
+                    }
+                    onChanged();
+                }
+                if (!other.sint64KeyIds_.isEmpty()) {
+                    if (sint64KeyIds_.isEmpty()) {
+                        sint64KeyIds_ = other.sint64KeyIds_;
+                        bitField0_ = (bitField0_ & ~0x00000010);
+                    } else {
+                        ensureSint64KeyIdsIsMutable();
+                        sint64KeyIds_.addAll(other.sint64KeyIds_);
+                    }
+                    onChanged();
+                }
+                if (!other.boolValues_.isEmpty()) {
+                    if (boolValues_.isEmpty()) {
+                        boolValues_ = other.boolValues_;
+                        bitField0_ = (bitField0_ & ~0x00000020);
+                    } else {
+                        ensureBoolValuesIsMutable();
+                        boolValues_.addAll(other.boolValues_);
+                    }
+                    onChanged();
+                }
+                if (!other.stringValueIds_.isEmpty()) {
+                    if (stringValueIds_.isEmpty()) {
+                        stringValueIds_ = other.stringValueIds_;
+                        bitField0_ = (bitField0_ & ~0x00000040);
+                    } else {
+                        ensureStringValueIdsIsMutable();
+                        stringValueIds_.addAll(other.stringValueIds_);
+                    }
+                    onChanged();
+                }
+                if (!other.bytesValueIds_.isEmpty()) {
+                    if (bytesValueIds_.isEmpty()) {
+                        bytesValueIds_ = other.bytesValueIds_;
+                        bitField0_ = (bitField0_ & ~0x00000080);
+                    } else {
+                        ensureBytesValueIdsIsMutable();
+                        bytesValueIds_.addAll(other.bytesValueIds_);
+                    }
+                    onChanged();
+                }
+                if (!other.mapKeyIds_.isEmpty()) {
+                    if (mapKeyIds_.isEmpty()) {
+                        mapKeyIds_ = other.mapKeyIds_;
+                        bitField0_ = (bitField0_ & ~0x00000100);
+                    } else {
+                        ensureMapKeyIdsIsMutable();
+                        mapKeyIds_.addAll(other.mapKeyIds_);
+                    }
+                    onChanged();
+                }
+                if (!other.subKeyIds_.isEmpty()) {
+                    if (subKeyIds_.isEmpty()) {
+                        subKeyIds_ = other.subKeyIds_;
+                        bitField0_ = (bitField0_ & ~0x00000200);
+                    } else {
+                        ensureSubKeyIdsIsMutable();
+                        subKeyIds_.addAll(other.subKeyIds_);
+                    }
+                    onChanged();
                 }
                 this.mergeUnknownFields(other.unknownFields);
                 onChanged();
@@ -17487,11 +20130,11 @@ public final class ProtoFeature {
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
-                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature parsedMessage = null;
+                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature) e.getUnfinishedMessage();
+                    parsedMessage = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List) e.getUnfinishedMessage();
                     throw e.unwrapIOException();
                 } finally {
                     if (parsedMessage != null) {
@@ -17501,264 +20144,1065 @@ public final class ProtoFeature {
                 return this;
             }
 
-            private org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry geometry_;
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryOrBuilder> geometryBuilder_;
+            private int bitField0_;
+
+            private com.google.protobuf.Internal.IntList indexes_ = emptyIntList();
+
+            private void ensureIndexesIsMutable() {
+                if (!((bitField0_ & 0x00000001) != 0)) {
+                    indexes_ = mutableCopy(indexes_);
+                    bitField0_ |= 0x00000001;
+                }
+            }
 
             /**
-             * <code>.pojo.Geometry geometry = 1;</code>
+             * <pre>
+             * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+             * </pre>
              *
-             * @return Whether the geometry field is set.
-             */
-            public boolean hasGeometry() {
-                return geometryBuilder_ != null || geometry_ != null;
-            }
-
-            /**
-             * <code>.pojo.Geometry geometry = 1;</code>
+             * <code>repeated int32 indexes = 1;</code>
              *
-             * @return The geometry.
+             * @return A list containing the indexes.
              */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry getGeometry() {
-                if (geometryBuilder_ == null) {
-                    return geometry_ == null ? org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.getDefaultInstance() : geometry_;
-                } else {
-                    return geometryBuilder_.getMessage();
-                }
+            public java.util.List<java.lang.Integer>
+            getIndexesList() {
+                return ((bitField0_ & 0x00000001) != 0) ?
+                        java.util.Collections.unmodifiableList(indexes_) : indexes_;
             }
 
             /**
-             * <code>.pojo.Geometry geometry = 1;</code>
+             * <pre>
+             * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+             * </pre>
+             *
+             * <code>repeated int32 indexes = 1;</code>
+             *
+             * @return The count of indexes.
              */
-            public Builder setGeometry(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry value) {
-                if (geometryBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    geometry_ = value;
-                    onChanged();
-                } else {
-                    geometryBuilder_.setMessage(value);
-                }
-
-                return this;
+            public int getIndexesCount() {
+                return indexes_.size();
             }
 
             /**
-             * <code>.pojo.Geometry geometry = 1;</code>
+             * <pre>
+             * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+             * </pre>
+             *
+             * <code>repeated int32 indexes = 1;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The indexes at the given index.
              */
-            public Builder setGeometry(
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.Builder builderForValue) {
-                if (geometryBuilder_ == null) {
-                    geometry_ = builderForValue.build();
-                    onChanged();
-                } else {
-                    geometryBuilder_.setMessage(builderForValue.build());
-                }
-
-                return this;
+            public int getIndexes(int index) {
+                return indexes_.getInt(index);
             }
 
             /**
-             * <code>.pojo.Geometry geometry = 1;</code>
+             * <pre>
+             * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+             * </pre>
+             *
+             * <code>repeated int32 indexes = 1;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The indexes to set.
+             * @return This builder for chaining.
              */
-            public Builder mergeGeometry(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry value) {
-                if (geometryBuilder_ == null) {
-                    if (geometry_ != null) {
-                        geometry_ =
-                                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.newBuilder(geometry_).mergeFrom(value).buildPartial();
-                    } else {
-                        geometry_ = value;
-                    }
-                    onChanged();
-                } else {
-                    geometryBuilder_.mergeFrom(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.pojo.Geometry geometry = 1;</code>
-             */
-            public Builder clearGeometry() {
-                if (geometryBuilder_ == null) {
-                    geometry_ = null;
-                    onChanged();
-                } else {
-                    geometry_ = null;
-                    geometryBuilder_ = null;
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.pojo.Geometry geometry = 1;</code>
-             */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.Builder getGeometryBuilder() {
-
+            public Builder setIndexes(
+                    int index, int value) {
+                ensureIndexesIsMutable();
+                indexes_.setInt(index, value);
                 onChanged();
-                return getGeometryFieldBuilder().getBuilder();
+                return this;
             }
 
             /**
-             * <code>.pojo.Geometry geometry = 1;</code>
-             */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryOrBuilder getGeometryOrBuilder() {
-                if (geometryBuilder_ != null) {
-                    return geometryBuilder_.getMessageOrBuilder();
-                } else {
-                    return geometry_ == null ?
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.getDefaultInstance() : geometry_;
-                }
-            }
-
-            /**
-             * <code>.pojo.Geometry geometry = 1;</code>
-             */
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryOrBuilder>
-            getGeometryFieldBuilder() {
-                if (geometryBuilder_ == null) {
-                    geometryBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryOrBuilder>(
-                            getGeometry(),
-                            getParentForChildren(),
-                            isClean());
-                    geometry_ = null;
-                }
-                return geometryBuilder_;
-            }
-
-            private org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map properties_;
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder> propertiesBuilder_;
-
-            /**
-             * <code>.pojo.Map properties = 2;</code>
+             * <pre>
+             * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+             * </pre>
              *
-             * @return Whether the properties field is set.
-             */
-            public boolean hasProperties() {
-                return propertiesBuilder_ != null || properties_ != null;
-            }
-
-            /**
-             * <code>.pojo.Map properties = 2;</code>
+             * <code>repeated int32 indexes = 1;</code>
              *
-             * @return The properties.
+             * @param value The indexes to add.
+             * @return This builder for chaining.
              */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getProperties() {
-                if (propertiesBuilder_ == null) {
-                    return properties_ == null ? org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.getDefaultInstance() : properties_;
-                } else {
-                    return propertiesBuilder_.getMessage();
-                }
-            }
-
-            /**
-             * <code>.pojo.Map properties = 2;</code>
-             */
-            public Builder setProperties(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map value) {
-                if (propertiesBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    properties_ = value;
-                    onChanged();
-                } else {
-                    propertiesBuilder_.setMessage(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.pojo.Map properties = 2;</code>
-             */
-            public Builder setProperties(
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder builderForValue) {
-                if (propertiesBuilder_ == null) {
-                    properties_ = builderForValue.build();
-                    onChanged();
-                } else {
-                    propertiesBuilder_.setMessage(builderForValue.build());
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.pojo.Map properties = 2;</code>
-             */
-            public Builder mergeProperties(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map value) {
-                if (propertiesBuilder_ == null) {
-                    if (properties_ != null) {
-                        properties_ =
-                                org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.newBuilder(properties_).mergeFrom(value).buildPartial();
-                    } else {
-                        properties_ = value;
-                    }
-                    onChanged();
-                } else {
-                    propertiesBuilder_.mergeFrom(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.pojo.Map properties = 2;</code>
-             */
-            public Builder clearProperties() {
-                if (propertiesBuilder_ == null) {
-                    properties_ = null;
-                    onChanged();
-                } else {
-                    properties_ = null;
-                    propertiesBuilder_ = null;
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.pojo.Map properties = 2;</code>
-             */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder getPropertiesBuilder() {
-
+            public Builder addIndexes(int value) {
+                ensureIndexesIsMutable();
+                indexes_.addInt(value);
                 onChanged();
-                return getPropertiesFieldBuilder().getBuilder();
+                return this;
             }
 
             /**
-             * <code>.pojo.Map properties = 2;</code>
+             * <pre>
+             * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+             * </pre>
+             *
+             * <code>repeated int32 indexes = 1;</code>
+             *
+             * @param values The indexes to add.
+             * @return This builder for chaining.
              */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getPropertiesOrBuilder() {
-                if (propertiesBuilder_ != null) {
-                    return propertiesBuilder_.getMessageOrBuilder();
-                } else {
-                    return properties_ == null ?
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.getDefaultInstance() : properties_;
+            public Builder addAllIndexes(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureIndexesIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, indexes_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+             * </pre>
+             *
+             * <code>repeated int32 indexes = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearIndexes() {
+                indexes_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000001);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList doubleKeyIds_ = emptyIntList();
+
+            private void ensureDoubleKeyIdsIsMutable() {
+                if (!((bitField0_ & 0x00000002) != 0)) {
+                    doubleKeyIds_ = mutableCopy(doubleKeyIds_);
+                    bitField0_ |= 0x00000002;
                 }
             }
 
             /**
-             * <code>.pojo.Map properties = 2;</code>
+             * <pre>
+             * 数组值id，按数组先后顺序填入
+             * valueId/value
+             * </pre>
+             *
+             * <code>repeated int32 doubleKeyIds = 2;</code>
+             *
+             * @return A list containing the doubleKeyIds.
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
-            getPropertiesFieldBuilder() {
-                if (propertiesBuilder_ == null) {
-                    propertiesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>(
-                            getProperties(),
-                            getParentForChildren(),
-                            isClean());
-                    properties_ = null;
+            public java.util.List<java.lang.Integer>
+            getDoubleKeyIdsList() {
+                return ((bitField0_ & 0x00000002) != 0) ?
+                        java.util.Collections.unmodifiableList(doubleKeyIds_) : doubleKeyIds_;
+            }
+
+            /**
+             * <pre>
+             * 数组值id，按数组先后顺序填入
+             * valueId/value
+             * </pre>
+             *
+             * <code>repeated int32 doubleKeyIds = 2;</code>
+             *
+             * @return The count of doubleKeyIds.
+             */
+            public int getDoubleKeyIdsCount() {
+                return doubleKeyIds_.size();
+            }
+
+            /**
+             * <pre>
+             * 数组值id，按数组先后顺序填入
+             * valueId/value
+             * </pre>
+             *
+             * <code>repeated int32 doubleKeyIds = 2;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The doubleKeyIds at the given index.
+             */
+            public int getDoubleKeyIds(int index) {
+                return doubleKeyIds_.getInt(index);
+            }
+
+            /**
+             * <pre>
+             * 数组值id，按数组先后顺序填入
+             * valueId/value
+             * </pre>
+             *
+             * <code>repeated int32 doubleKeyIds = 2;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The doubleKeyIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setDoubleKeyIds(
+                    int index, int value) {
+                ensureDoubleKeyIdsIsMutable();
+                doubleKeyIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数组值id，按数组先后顺序填入
+             * valueId/value
+             * </pre>
+             *
+             * <code>repeated int32 doubleKeyIds = 2;</code>
+             *
+             * @param value The doubleKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addDoubleKeyIds(int value) {
+                ensureDoubleKeyIdsIsMutable();
+                doubleKeyIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数组值id，按数组先后顺序填入
+             * valueId/value
+             * </pre>
+             *
+             * <code>repeated int32 doubleKeyIds = 2;</code>
+             *
+             * @param values The doubleKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllDoubleKeyIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureDoubleKeyIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, doubleKeyIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 数组值id，按数组先后顺序填入
+             * valueId/value
+             * </pre>
+             *
+             * <code>repeated int32 doubleKeyIds = 2;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearDoubleKeyIds() {
+                doubleKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000002);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList floatKeyIds_ = emptyIntList();
+
+            private void ensureFloatKeyIdsIsMutable() {
+                if (!((bitField0_ & 0x00000004) != 0)) {
+                    floatKeyIds_ = mutableCopy(floatKeyIds_);
+                    bitField0_ |= 0x00000004;
                 }
-                return propertiesBuilder_;
+            }
+
+            /**
+             * <code>repeated int32 floatKeyIds = 3;</code>
+             *
+             * @return A list containing the floatKeyIds.
+             */
+            public java.util.List<java.lang.Integer>
+            getFloatKeyIdsList() {
+                return ((bitField0_ & 0x00000004) != 0) ?
+                        java.util.Collections.unmodifiableList(floatKeyIds_) : floatKeyIds_;
+            }
+
+            /**
+             * <code>repeated int32 floatKeyIds = 3;</code>
+             *
+             * @return The count of floatKeyIds.
+             */
+            public int getFloatKeyIdsCount() {
+                return floatKeyIds_.size();
+            }
+
+            /**
+             * <code>repeated int32 floatKeyIds = 3;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The floatKeyIds at the given index.
+             */
+            public int getFloatKeyIds(int index) {
+                return floatKeyIds_.getInt(index);
+            }
+
+            /**
+             * <code>repeated int32 floatKeyIds = 3;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The floatKeyIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setFloatKeyIds(
+                    int index, int value) {
+                ensureFloatKeyIdsIsMutable();
+                floatKeyIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 floatKeyIds = 3;</code>
+             *
+             * @param value The floatKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addFloatKeyIds(int value) {
+                ensureFloatKeyIdsIsMutable();
+                floatKeyIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 floatKeyIds = 3;</code>
+             *
+             * @param values The floatKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllFloatKeyIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureFloatKeyIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, floatKeyIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 floatKeyIds = 3;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearFloatKeyIds() {
+                floatKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000004);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList sint32KeyIds_ = emptyIntList();
+
+            private void ensureSint32KeyIdsIsMutable() {
+                if (!((bitField0_ & 0x00000008) != 0)) {
+                    sint32KeyIds_ = mutableCopy(sint32KeyIds_);
+                    bitField0_ |= 0x00000008;
+                }
+            }
+
+            /**
+             * <code>repeated int32 sint32KeyIds = 4;</code>
+             *
+             * @return A list containing the sint32KeyIds.
+             */
+            public java.util.List<java.lang.Integer>
+            getSint32KeyIdsList() {
+                return ((bitField0_ & 0x00000008) != 0) ?
+                        java.util.Collections.unmodifiableList(sint32KeyIds_) : sint32KeyIds_;
+            }
+
+            /**
+             * <code>repeated int32 sint32KeyIds = 4;</code>
+             *
+             * @return The count of sint32KeyIds.
+             */
+            public int getSint32KeyIdsCount() {
+                return sint32KeyIds_.size();
+            }
+
+            /**
+             * <code>repeated int32 sint32KeyIds = 4;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The sint32KeyIds at the given index.
+             */
+            public int getSint32KeyIds(int index) {
+                return sint32KeyIds_.getInt(index);
+            }
+
+            /**
+             * <code>repeated int32 sint32KeyIds = 4;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The sint32KeyIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setSint32KeyIds(
+                    int index, int value) {
+                ensureSint32KeyIdsIsMutable();
+                sint32KeyIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 sint32KeyIds = 4;</code>
+             *
+             * @param value The sint32KeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addSint32KeyIds(int value) {
+                ensureSint32KeyIdsIsMutable();
+                sint32KeyIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 sint32KeyIds = 4;</code>
+             *
+             * @param values The sint32KeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllSint32KeyIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureSint32KeyIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, sint32KeyIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 sint32KeyIds = 4;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearSint32KeyIds() {
+                sint32KeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000008);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList sint64KeyIds_ = emptyIntList();
+
+            private void ensureSint64KeyIdsIsMutable() {
+                if (!((bitField0_ & 0x00000010) != 0)) {
+                    sint64KeyIds_ = mutableCopy(sint64KeyIds_);
+                    bitField0_ |= 0x00000010;
+                }
+            }
+
+            /**
+             * <code>repeated int32 sint64KeyIds = 5;</code>
+             *
+             * @return A list containing the sint64KeyIds.
+             */
+            public java.util.List<java.lang.Integer>
+            getSint64KeyIdsList() {
+                return ((bitField0_ & 0x00000010) != 0) ?
+                        java.util.Collections.unmodifiableList(sint64KeyIds_) : sint64KeyIds_;
+            }
+
+            /**
+             * <code>repeated int32 sint64KeyIds = 5;</code>
+             *
+             * @return The count of sint64KeyIds.
+             */
+            public int getSint64KeyIdsCount() {
+                return sint64KeyIds_.size();
+            }
+
+            /**
+             * <code>repeated int32 sint64KeyIds = 5;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The sint64KeyIds at the given index.
+             */
+            public int getSint64KeyIds(int index) {
+                return sint64KeyIds_.getInt(index);
+            }
+
+            /**
+             * <code>repeated int32 sint64KeyIds = 5;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The sint64KeyIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setSint64KeyIds(
+                    int index, int value) {
+                ensureSint64KeyIdsIsMutable();
+                sint64KeyIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 sint64KeyIds = 5;</code>
+             *
+             * @param value The sint64KeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addSint64KeyIds(int value) {
+                ensureSint64KeyIdsIsMutable();
+                sint64KeyIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 sint64KeyIds = 5;</code>
+             *
+             * @param values The sint64KeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllSint64KeyIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureSint64KeyIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, sint64KeyIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 sint64KeyIds = 5;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearSint64KeyIds() {
+                sint64KeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000010);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.BooleanList boolValues_ = emptyBooleanList();
+
+            private void ensureBoolValuesIsMutable() {
+                if (!((bitField0_ & 0x00000020) != 0)) {
+                    boolValues_ = mutableCopy(boolValues_);
+                    bitField0_ |= 0x00000020;
+                }
+            }
+
+            /**
+             * <code>repeated bool boolValues = 6;</code>
+             *
+             * @return A list containing the boolValues.
+             */
+            public java.util.List<java.lang.Boolean>
+            getBoolValuesList() {
+                return ((bitField0_ & 0x00000020) != 0) ?
+                        java.util.Collections.unmodifiableList(boolValues_) : boolValues_;
+            }
+
+            /**
+             * <code>repeated bool boolValues = 6;</code>
+             *
+             * @return The count of boolValues.
+             */
+            public int getBoolValuesCount() {
+                return boolValues_.size();
+            }
+
+            /**
+             * <code>repeated bool boolValues = 6;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The boolValues at the given index.
+             */
+            public boolean getBoolValues(int index) {
+                return boolValues_.getBoolean(index);
+            }
+
+            /**
+             * <code>repeated bool boolValues = 6;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The boolValues to set.
+             * @return This builder for chaining.
+             */
+            public Builder setBoolValues(
+                    int index, boolean value) {
+                ensureBoolValuesIsMutable();
+                boolValues_.setBoolean(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated bool boolValues = 6;</code>
+             *
+             * @param value The boolValues to add.
+             * @return This builder for chaining.
+             */
+            public Builder addBoolValues(boolean value) {
+                ensureBoolValuesIsMutable();
+                boolValues_.addBoolean(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated bool boolValues = 6;</code>
+             *
+             * @param values The boolValues to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllBoolValues(
+                    java.lang.Iterable<? extends java.lang.Boolean> values) {
+                ensureBoolValuesIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, boolValues_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated bool boolValues = 6;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearBoolValues() {
+                boolValues_ = emptyBooleanList();
+                bitField0_ = (bitField0_ & ~0x00000020);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList stringValueIds_ = emptyIntList();
+
+            private void ensureStringValueIdsIsMutable() {
+                if (!((bitField0_ & 0x00000040) != 0)) {
+                    stringValueIds_ = mutableCopy(stringValueIds_);
+                    bitField0_ |= 0x00000040;
+                }
+            }
+
+            /**
+             * <code>repeated int32 stringValueIds = 7;</code>
+             *
+             * @return A list containing the stringValueIds.
+             */
+            public java.util.List<java.lang.Integer>
+            getStringValueIdsList() {
+                return ((bitField0_ & 0x00000040) != 0) ?
+                        java.util.Collections.unmodifiableList(stringValueIds_) : stringValueIds_;
+            }
+
+            /**
+             * <code>repeated int32 stringValueIds = 7;</code>
+             *
+             * @return The count of stringValueIds.
+             */
+            public int getStringValueIdsCount() {
+                return stringValueIds_.size();
+            }
+
+            /**
+             * <code>repeated int32 stringValueIds = 7;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The stringValueIds at the given index.
+             */
+            public int getStringValueIds(int index) {
+                return stringValueIds_.getInt(index);
+            }
+
+            /**
+             * <code>repeated int32 stringValueIds = 7;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The stringValueIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setStringValueIds(
+                    int index, int value) {
+                ensureStringValueIdsIsMutable();
+                stringValueIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 stringValueIds = 7;</code>
+             *
+             * @param value The stringValueIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addStringValueIds(int value) {
+                ensureStringValueIdsIsMutable();
+                stringValueIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 stringValueIds = 7;</code>
+             *
+             * @param values The stringValueIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllStringValueIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureStringValueIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, stringValueIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 stringValueIds = 7;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearStringValueIds() {
+                stringValueIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000040);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList bytesValueIds_ = emptyIntList();
+
+            private void ensureBytesValueIdsIsMutable() {
+                if (!((bitField0_ & 0x00000080) != 0)) {
+                    bytesValueIds_ = mutableCopy(bytesValueIds_);
+                    bitField0_ |= 0x00000080;
+                }
+            }
+
+            /**
+             * <code>repeated int32 bytesValueIds = 8;</code>
+             *
+             * @return A list containing the bytesValueIds.
+             */
+            public java.util.List<java.lang.Integer>
+            getBytesValueIdsList() {
+                return ((bitField0_ & 0x00000080) != 0) ?
+                        java.util.Collections.unmodifiableList(bytesValueIds_) : bytesValueIds_;
+            }
+
+            /**
+             * <code>repeated int32 bytesValueIds = 8;</code>
+             *
+             * @return The count of bytesValueIds.
+             */
+            public int getBytesValueIdsCount() {
+                return bytesValueIds_.size();
+            }
+
+            /**
+             * <code>repeated int32 bytesValueIds = 8;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The bytesValueIds at the given index.
+             */
+            public int getBytesValueIds(int index) {
+                return bytesValueIds_.getInt(index);
+            }
+
+            /**
+             * <code>repeated int32 bytesValueIds = 8;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The bytesValueIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setBytesValueIds(
+                    int index, int value) {
+                ensureBytesValueIdsIsMutable();
+                bytesValueIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 bytesValueIds = 8;</code>
+             *
+             * @param value The bytesValueIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addBytesValueIds(int value) {
+                ensureBytesValueIdsIsMutable();
+                bytesValueIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 bytesValueIds = 8;</code>
+             *
+             * @param values The bytesValueIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllBytesValueIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureBytesValueIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, bytesValueIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>repeated int32 bytesValueIds = 8;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearBytesValueIds() {
+                bytesValueIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000080);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList mapKeyIds_ = emptyIntList();
+
+            private void ensureMapKeyIdsIsMutable() {
+                if (!((bitField0_ & 0x00000100) != 0)) {
+                    mapKeyIds_ = mutableCopy(mapKeyIds_);
+                    bitField0_ |= 0x00000100;
+                }
+            }
+
+            /**
+             * <pre>
+             * mapId
+             * </pre>
+             *
+             * <code>repeated int32 mapKeyIds = 9;</code>
+             *
+             * @return A list containing the mapKeyIds.
+             */
+            public java.util.List<java.lang.Integer>
+            getMapKeyIdsList() {
+                return ((bitField0_ & 0x00000100) != 0) ?
+                        java.util.Collections.unmodifiableList(mapKeyIds_) : mapKeyIds_;
+            }
+
+            /**
+             * <pre>
+             * mapId
+             * </pre>
+             *
+             * <code>repeated int32 mapKeyIds = 9;</code>
+             *
+             * @return The count of mapKeyIds.
+             */
+            public int getMapKeyIdsCount() {
+                return mapKeyIds_.size();
+            }
+
+            /**
+             * <pre>
+             * mapId
+             * </pre>
+             *
+             * <code>repeated int32 mapKeyIds = 9;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The mapKeyIds at the given index.
+             */
+            public int getMapKeyIds(int index) {
+                return mapKeyIds_.getInt(index);
+            }
+
+            /**
+             * <pre>
+             * mapId
+             * </pre>
+             *
+             * <code>repeated int32 mapKeyIds = 9;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The mapKeyIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setMapKeyIds(
+                    int index, int value) {
+                ensureMapKeyIdsIsMutable();
+                mapKeyIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * mapId
+             * </pre>
+             *
+             * <code>repeated int32 mapKeyIds = 9;</code>
+             *
+             * @param value The mapKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addMapKeyIds(int value) {
+                ensureMapKeyIdsIsMutable();
+                mapKeyIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * mapId
+             * </pre>
+             *
+             * <code>repeated int32 mapKeyIds = 9;</code>
+             *
+             * @param values The mapKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllMapKeyIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureMapKeyIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, mapKeyIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * mapId
+             * </pre>
+             *
+             * <code>repeated int32 mapKeyIds = 9;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearMapKeyIds() {
+                mapKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000100);
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.Internal.IntList subKeyIds_ = emptyIntList();
+
+            private void ensureSubKeyIdsIsMutable() {
+                if (!((bitField0_ & 0x00000200) != 0)) {
+                    subKeyIds_ = mutableCopy(subKeyIds_);
+                    bitField0_ |= 0x00000200;
+                }
+            }
+
+            /**
+             * <pre>
+             * children id
+             * </pre>
+             *
+             * <code>repeated int32 subKeyIds = 10;</code>
+             *
+             * @return A list containing the subKeyIds.
+             */
+            public java.util.List<java.lang.Integer>
+            getSubKeyIdsList() {
+                return ((bitField0_ & 0x00000200) != 0) ?
+                        java.util.Collections.unmodifiableList(subKeyIds_) : subKeyIds_;
+            }
+
+            /**
+             * <pre>
+             * children id
+             * </pre>
+             *
+             * <code>repeated int32 subKeyIds = 10;</code>
+             *
+             * @return The count of subKeyIds.
+             */
+            public int getSubKeyIdsCount() {
+                return subKeyIds_.size();
+            }
+
+            /**
+             * <pre>
+             * children id
+             * </pre>
+             *
+             * <code>repeated int32 subKeyIds = 10;</code>
+             *
+             * @param index The index of the element to return.
+             * @return The subKeyIds at the given index.
+             */
+            public int getSubKeyIds(int index) {
+                return subKeyIds_.getInt(index);
+            }
+
+            /**
+             * <pre>
+             * children id
+             * </pre>
+             *
+             * <code>repeated int32 subKeyIds = 10;</code>
+             *
+             * @param index The index to set the value at.
+             * @param value The subKeyIds to set.
+             * @return This builder for chaining.
+             */
+            public Builder setSubKeyIds(
+                    int index, int value) {
+                ensureSubKeyIdsIsMutable();
+                subKeyIds_.setInt(index, value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * children id
+             * </pre>
+             *
+             * <code>repeated int32 subKeyIds = 10;</code>
+             *
+             * @param value The subKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addSubKeyIds(int value) {
+                ensureSubKeyIdsIsMutable();
+                subKeyIds_.addInt(value);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * children id
+             * </pre>
+             *
+             * <code>repeated int32 subKeyIds = 10;</code>
+             *
+             * @param values The subKeyIds to add.
+             * @return This builder for chaining.
+             */
+            public Builder addAllSubKeyIds(
+                    java.lang.Iterable<? extends java.lang.Integer> values) {
+                ensureSubKeyIdsIsMutable();
+                com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                        values, subKeyIds_);
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * children id
+             * </pre>
+             *
+             * <code>repeated int32 subKeyIds = 10;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearSubKeyIds() {
+                subKeyIds_ = emptyIntList();
+                bitField0_ = (bitField0_ & ~0x00000200);
+                onChanged();
+                return this;
             }
 
             @java.lang.Override
@@ -17774,42 +21218,42 @@ public final class ProtoFeature {
             }
 
 
-            // @@protoc_insertion_point(builder_scope:pojo.Feature)
+            // @@protoc_insertion_point(builder_scope:pojo.List)
         }
 
-        // @@protoc_insertion_point(class_scope:pojo.Feature)
-        private static final org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature DEFAULT_INSTANCE;
+        // @@protoc_insertion_point(class_scope:pojo.List)
+        private static final org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List DEFAULT_INSTANCE;
 
         static {
-            DEFAULT_INSTANCE = new org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature();
+            DEFAULT_INSTANCE = new org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List();
         }
 
-        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature getDefaultInstance() {
+        public static org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List getDefaultInstance() {
             return DEFAULT_INSTANCE;
         }
 
-        private static final com.google.protobuf.Parser<Feature>
-                PARSER = new com.google.protobuf.AbstractParser<Feature>() {
+        private static final com.google.protobuf.Parser<List>
+                PARSER = new com.google.protobuf.AbstractParser<List>() {
             @java.lang.Override
-            public Feature parsePartialFrom(
+            public List parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
-                return new Feature(input, extensionRegistry);
+                return new List(input, extensionRegistry);
             }
         };
 
-        public static com.google.protobuf.Parser<Feature> parser() {
+        public static com.google.protobuf.Parser<List> parser() {
             return PARSER;
         }
 
         @java.lang.Override
-        public com.google.protobuf.Parser<Feature> getParserForType() {
+        public com.google.protobuf.Parser<List> getParserForType() {
             return PARSER;
         }
 
         @java.lang.Override
-        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature getDefaultInstanceForType() {
+        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
 
@@ -18058,31 +21502,59 @@ public final class ProtoFeature {
                 int index);
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
         java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>
-        getPropertiessList();
+        getMapsList();
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
-        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getPropertiess(int index);
+        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getMaps(int index);
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
-        int getPropertiessCount();
+        int getMapsCount();
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
         java.util.List<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
-        getPropertiessOrBuilderList();
+        getMapsOrBuilderList();
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
-        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getPropertiessOrBuilder(
+        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getMapsOrBuilder(
+                int index);
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List>
+        getListsList();
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List getLists(int index);
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        int getListsCount();
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        java.util.List<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder>
+        getListsOrBuilderList();
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder getListsOrBuilder(
                 int index);
     }
 
@@ -18113,7 +21585,8 @@ public final class ProtoFeature {
             stringValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
             bytesValues_ = java.util.Collections.emptyList();
             geometries_ = java.util.Collections.emptyList();
-            propertiess_ = java.util.Collections.emptyList();
+            maps_ = java.util.Collections.emptyList();
+            lists_ = java.util.Collections.emptyList();
         }
 
         @java.lang.Override
@@ -18269,11 +21742,20 @@ public final class ProtoFeature {
                         }
                         case 74: {
                             if (!((mutable_bitField0_ & 0x00000100) != 0)) {
-                                propertiess_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>();
+                                maps_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>();
                                 mutable_bitField0_ |= 0x00000100;
                             }
-                            propertiess_.add(
+                            maps_.add(
                                     input.readMessage(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.parser(), extensionRegistry));
+                            break;
+                        }
+                        case 82: {
+                            if (!((mutable_bitField0_ & 0x00000200) != 0)) {
+                                lists_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List>();
+                                mutable_bitField0_ |= 0x00000200;
+                            }
+                            lists_.add(
+                                    input.readMessage(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.parser(), extensionRegistry));
                             break;
                         }
                         default: {
@@ -18318,7 +21800,10 @@ public final class ProtoFeature {
                     geometries_ = java.util.Collections.unmodifiableList(geometries_);
                 }
                 if (((mutable_bitField0_ & 0x00000100) != 0)) {
-                    propertiess_ = java.util.Collections.unmodifiableList(propertiess_);
+                    maps_ = java.util.Collections.unmodifiableList(maps_);
+                }
+                if (((mutable_bitField0_ & 0x00000200) != 0)) {
+                    lists_ = java.util.Collections.unmodifiableList(lists_);
                 }
                 this.unknownFields = unknownFields.build();
                 makeExtensionsImmutable();
@@ -18678,49 +22163,94 @@ public final class ProtoFeature {
             return geometries_.get(index);
         }
 
-        public static final int PROPERTIESS_FIELD_NUMBER = 9;
-        private java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> propertiess_;
+        public static final int MAPS_FIELD_NUMBER = 9;
+        private java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> maps_;
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
         @java.lang.Override
-        public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> getPropertiessList() {
-            return propertiess_;
+        public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> getMapsList() {
+            return maps_;
         }
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
         @java.lang.Override
         public java.util.List<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
-        getPropertiessOrBuilderList() {
-            return propertiess_;
+        getMapsOrBuilderList() {
+            return maps_;
         }
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
         @java.lang.Override
-        public int getPropertiessCount() {
-            return propertiess_.size();
+        public int getMapsCount() {
+            return maps_.size();
         }
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
         @java.lang.Override
-        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getPropertiess(int index) {
-            return propertiess_.get(index);
+        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getMaps(int index) {
+            return maps_.get(index);
         }
 
         /**
-         * <code>repeated .pojo.Map propertiess = 9;</code>
+         * <code>repeated .pojo.Map maps = 9;</code>
          */
         @java.lang.Override
-        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getPropertiessOrBuilder(
+        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getMapsOrBuilder(
                 int index) {
-            return propertiess_.get(index);
+            return maps_.get(index);
+        }
+
+        public static final int LISTS_FIELD_NUMBER = 10;
+        private java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List> lists_;
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        @java.lang.Override
+        public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List> getListsList() {
+            return lists_;
+        }
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        @java.lang.Override
+        public java.util.List<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder>
+        getListsOrBuilderList() {
+            return lists_;
+        }
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        @java.lang.Override
+        public int getListsCount() {
+            return lists_.size();
+        }
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        @java.lang.Override
+        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List getLists(int index) {
+            return lists_.get(index);
+        }
+
+        /**
+         * <code>repeated .pojo.List lists = 10;</code>
+         */
+        @java.lang.Override
+        public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder getListsOrBuilder(
+                int index) {
+            return lists_.get(index);
         }
 
         private byte memoizedIsInitialized = -1;
@@ -18779,8 +22309,11 @@ public final class ProtoFeature {
             for (int i = 0; i < geometries_.size(); i++) {
                 output.writeMessage(8, geometries_.get(i));
             }
-            for (int i = 0; i < propertiess_.size(); i++) {
-                output.writeMessage(9, propertiess_.get(i));
+            for (int i = 0; i < maps_.size(); i++) {
+                output.writeMessage(9, maps_.get(i));
+            }
+            for (int i = 0; i < lists_.size(); i++) {
+                output.writeMessage(10, lists_.get(i));
             }
             unknownFields.writeTo(output);
         }
@@ -18870,9 +22403,13 @@ public final class ProtoFeature {
                 size += com.google.protobuf.CodedOutputStream
                         .computeMessageSize(8, geometries_.get(i));
             }
-            for (int i = 0; i < propertiess_.size(); i++) {
+            for (int i = 0; i < maps_.size(); i++) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(9, propertiess_.get(i));
+                        .computeMessageSize(9, maps_.get(i));
+            }
+            for (int i = 0; i < lists_.size(); i++) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(10, lists_.get(i));
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -18905,8 +22442,10 @@ public final class ProtoFeature {
                     .equals(other.getBytesValuesList())) return false;
             if (!getGeometriesList()
                     .equals(other.getGeometriesList())) return false;
-            if (!getPropertiessList()
-                    .equals(other.getPropertiessList())) return false;
+            if (!getMapsList()
+                    .equals(other.getMapsList())) return false;
+            if (!getListsList()
+                    .equals(other.getListsList())) return false;
             if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
         }
@@ -18950,9 +22489,13 @@ public final class ProtoFeature {
                 hash = (37 * hash) + GEOMETRIES_FIELD_NUMBER;
                 hash = (53 * hash) + getGeometriesList().hashCode();
             }
-            if (getPropertiessCount() > 0) {
-                hash = (37 * hash) + PROPERTIESS_FIELD_NUMBER;
-                hash = (53 * hash) + getPropertiessList().hashCode();
+            if (getMapsCount() > 0) {
+                hash = (37 * hash) + MAPS_FIELD_NUMBER;
+                hash = (53 * hash) + getMapsList().hashCode();
+            }
+            if (getListsCount() > 0) {
+                hash = (37 * hash) + LISTS_FIELD_NUMBER;
+                hash = (53 * hash) + getListsList().hashCode();
             }
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
@@ -19062,7 +22605,8 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            return new Builder(parent);
+            Builder builder = new Builder(parent);
+            return builder;
         }
 
         /**
@@ -19104,7 +22648,8 @@ public final class ProtoFeature {
                 if (com.google.protobuf.GeneratedMessageV3
                         .alwaysUseFieldBuilders) {
                     getGeometriesFieldBuilder();
-                    getPropertiessFieldBuilder();
+                    getMapsFieldBuilder();
+                    getListsFieldBuilder();
                 }
             }
 
@@ -19131,11 +22676,17 @@ public final class ProtoFeature {
                 } else {
                     geometriesBuilder_.clear();
                 }
-                if (propertiessBuilder_ == null) {
-                    propertiess_ = java.util.Collections.emptyList();
+                if (mapsBuilder_ == null) {
+                    maps_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000100);
                 } else {
-                    propertiessBuilder_.clear();
+                    mapsBuilder_.clear();
+                }
+                if (listsBuilder_ == null) {
+                    lists_ = java.util.Collections.emptyList();
+                    bitField0_ = (bitField0_ & ~0x00000200);
+                } else {
+                    listsBuilder_.clear();
                 }
                 return this;
             }
@@ -19208,14 +22759,23 @@ public final class ProtoFeature {
                 } else {
                     result.geometries_ = geometriesBuilder_.build();
                 }
-                if (propertiessBuilder_ == null) {
+                if (mapsBuilder_ == null) {
                     if (((bitField0_ & 0x00000100) != 0)) {
-                        propertiess_ = java.util.Collections.unmodifiableList(propertiess_);
+                        maps_ = java.util.Collections.unmodifiableList(maps_);
                         bitField0_ = (bitField0_ & ~0x00000100);
                     }
-                    result.propertiess_ = propertiess_;
+                    result.maps_ = maps_;
                 } else {
-                    result.propertiess_ = propertiessBuilder_.build();
+                    result.maps_ = mapsBuilder_.build();
+                }
+                if (listsBuilder_ == null) {
+                    if (((bitField0_ & 0x00000200) != 0)) {
+                        lists_ = java.util.Collections.unmodifiableList(lists_);
+                        bitField0_ = (bitField0_ & ~0x00000200);
+                    }
+                    result.lists_ = lists_;
+                } else {
+                    result.lists_ = listsBuilder_.build();
                 }
                 onBuilt();
                 return result;
@@ -19368,29 +22928,55 @@ public final class ProtoFeature {
                         }
                     }
                 }
-                if (propertiessBuilder_ == null) {
-                    if (!other.propertiess_.isEmpty()) {
-                        if (propertiess_.isEmpty()) {
-                            propertiess_ = other.propertiess_;
+                if (mapsBuilder_ == null) {
+                    if (!other.maps_.isEmpty()) {
+                        if (maps_.isEmpty()) {
+                            maps_ = other.maps_;
                             bitField0_ = (bitField0_ & ~0x00000100);
                         } else {
-                            ensurePropertiessIsMutable();
-                            propertiess_.addAll(other.propertiess_);
+                            ensureMapsIsMutable();
+                            maps_.addAll(other.maps_);
                         }
                         onChanged();
                     }
                 } else {
-                    if (!other.propertiess_.isEmpty()) {
-                        if (propertiessBuilder_.isEmpty()) {
-                            propertiessBuilder_.dispose();
-                            propertiessBuilder_ = null;
-                            propertiess_ = other.propertiess_;
+                    if (!other.maps_.isEmpty()) {
+                        if (mapsBuilder_.isEmpty()) {
+                            mapsBuilder_.dispose();
+                            mapsBuilder_ = null;
+                            maps_ = other.maps_;
                             bitField0_ = (bitField0_ & ~0x00000100);
-                            propertiessBuilder_ =
+                            mapsBuilder_ =
                                     com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                                            getPropertiessFieldBuilder() : null;
+                                            getMapsFieldBuilder() : null;
                         } else {
-                            propertiessBuilder_.addAllMessages(other.propertiess_);
+                            mapsBuilder_.addAllMessages(other.maps_);
+                        }
+                    }
+                }
+                if (listsBuilder_ == null) {
+                    if (!other.lists_.isEmpty()) {
+                        if (lists_.isEmpty()) {
+                            lists_ = other.lists_;
+                            bitField0_ = (bitField0_ & ~0x00000200);
+                        } else {
+                            ensureListsIsMutable();
+                            lists_.addAll(other.lists_);
+                        }
+                        onChanged();
+                    }
+                } else {
+                    if (!other.lists_.isEmpty()) {
+                        if (listsBuilder_.isEmpty()) {
+                            listsBuilder_.dispose();
+                            listsBuilder_ = null;
+                            lists_ = other.lists_;
+                            bitField0_ = (bitField0_ & ~0x00000200);
+                            listsBuilder_ =
+                                    com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                                            getListsFieldBuilder() : null;
+                        } else {
+                            listsBuilder_.addAllMessages(other.lists_);
                         }
                     }
                 }
@@ -20527,264 +24113,524 @@ public final class ProtoFeature {
                 return geometriesBuilder_;
             }
 
-            private java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> propertiess_ =
+            private java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> maps_ =
                     java.util.Collections.emptyList();
 
-            private void ensurePropertiessIsMutable() {
+            private void ensureMapsIsMutable() {
                 if (!((bitField0_ & 0x00000100) != 0)) {
-                    propertiess_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>(propertiess_);
+                    maps_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>(maps_);
                     bitField0_ |= 0x00000100;
                 }
             }
 
             private com.google.protobuf.RepeatedFieldBuilderV3<
-                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder> propertiessBuilder_;
+                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder> mapsBuilder_;
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> getPropertiessList() {
-                if (propertiessBuilder_ == null) {
-                    return java.util.Collections.unmodifiableList(propertiess_);
+            public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> getMapsList() {
+                if (mapsBuilder_ == null) {
+                    return java.util.Collections.unmodifiableList(maps_);
                 } else {
-                    return propertiessBuilder_.getMessageList();
+                    return mapsBuilder_.getMessageList();
                 }
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public int getPropertiessCount() {
-                if (propertiessBuilder_ == null) {
-                    return propertiess_.size();
+            public int getMapsCount() {
+                if (mapsBuilder_ == null) {
+                    return maps_.size();
                 } else {
-                    return propertiessBuilder_.getCount();
+                    return mapsBuilder_.getCount();
                 }
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getPropertiess(int index) {
-                if (propertiessBuilder_ == null) {
-                    return propertiess_.get(index);
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map getMaps(int index) {
+                if (mapsBuilder_ == null) {
+                    return maps_.get(index);
                 } else {
-                    return propertiessBuilder_.getMessage(index);
+                    return mapsBuilder_.getMessage(index);
                 }
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public Builder setPropertiess(
+            public Builder setMaps(
                     int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map value) {
-                if (propertiessBuilder_ == null) {
+                if (mapsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
                     }
-                    ensurePropertiessIsMutable();
-                    propertiess_.set(index, value);
+                    ensureMapsIsMutable();
+                    maps_.set(index, value);
                     onChanged();
                 } else {
-                    propertiessBuilder_.setMessage(index, value);
+                    mapsBuilder_.setMessage(index, value);
                 }
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public Builder setPropertiess(
+            public Builder setMaps(
                     int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder builderForValue) {
-                if (propertiessBuilder_ == null) {
-                    ensurePropertiessIsMutable();
-                    propertiess_.set(index, builderForValue.build());
+                if (mapsBuilder_ == null) {
+                    ensureMapsIsMutable();
+                    maps_.set(index, builderForValue.build());
                     onChanged();
                 } else {
-                    propertiessBuilder_.setMessage(index, builderForValue.build());
+                    mapsBuilder_.setMessage(index, builderForValue.build());
                 }
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public Builder addPropertiess(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map value) {
-                if (propertiessBuilder_ == null) {
+            public Builder addMaps(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map value) {
+                if (mapsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
                     }
-                    ensurePropertiessIsMutable();
-                    propertiess_.add(value);
+                    ensureMapsIsMutable();
+                    maps_.add(value);
                     onChanged();
                 } else {
-                    propertiessBuilder_.addMessage(value);
+                    mapsBuilder_.addMessage(value);
                 }
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public Builder addPropertiess(
+            public Builder addMaps(
                     int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map value) {
-                if (propertiessBuilder_ == null) {
+                if (mapsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
                     }
-                    ensurePropertiessIsMutable();
-                    propertiess_.add(index, value);
+                    ensureMapsIsMutable();
+                    maps_.add(index, value);
                     onChanged();
                 } else {
-                    propertiessBuilder_.addMessage(index, value);
+                    mapsBuilder_.addMessage(index, value);
                 }
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public Builder addPropertiess(
+            public Builder addMaps(
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder builderForValue) {
-                if (propertiessBuilder_ == null) {
-                    ensurePropertiessIsMutable();
-                    propertiess_.add(builderForValue.build());
+                if (mapsBuilder_ == null) {
+                    ensureMapsIsMutable();
+                    maps_.add(builderForValue.build());
                     onChanged();
                 } else {
-                    propertiessBuilder_.addMessage(builderForValue.build());
+                    mapsBuilder_.addMessage(builderForValue.build());
                 }
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public Builder addPropertiess(
+            public Builder addMaps(
                     int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder builderForValue) {
-                if (propertiessBuilder_ == null) {
-                    ensurePropertiessIsMutable();
-                    propertiess_.add(index, builderForValue.build());
+                if (mapsBuilder_ == null) {
+                    ensureMapsIsMutable();
+                    maps_.add(index, builderForValue.build());
                     onChanged();
                 } else {
-                    propertiessBuilder_.addMessage(index, builderForValue.build());
+                    mapsBuilder_.addMessage(index, builderForValue.build());
                 }
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public Builder addAllPropertiess(
+            public Builder addAllMaps(
                     java.lang.Iterable<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map> values) {
-                if (propertiessBuilder_ == null) {
-                    ensurePropertiessIsMutable();
+                if (mapsBuilder_ == null) {
+                    ensureMapsIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                            values, propertiess_);
+                            values, maps_);
                     onChanged();
                 } else {
-                    propertiessBuilder_.addAllMessages(values);
+                    mapsBuilder_.addAllMessages(values);
                 }
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public Builder clearPropertiess() {
-                if (propertiessBuilder_ == null) {
-                    propertiess_ = java.util.Collections.emptyList();
+            public Builder clearMaps() {
+                if (mapsBuilder_ == null) {
+                    maps_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000100);
                     onChanged();
                 } else {
-                    propertiessBuilder_.clear();
+                    mapsBuilder_.clear();
                 }
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public Builder removePropertiess(int index) {
-                if (propertiessBuilder_ == null) {
-                    ensurePropertiessIsMutable();
-                    propertiess_.remove(index);
+            public Builder removeMaps(int index) {
+                if (mapsBuilder_ == null) {
+                    ensureMapsIsMutable();
+                    maps_.remove(index);
                     onChanged();
                 } else {
-                    propertiessBuilder_.remove(index);
+                    mapsBuilder_.remove(index);
                 }
                 return this;
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder getPropertiessBuilder(
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder getMapsBuilder(
                     int index) {
-                return getPropertiessFieldBuilder().getBuilder(index);
+                return getMapsFieldBuilder().getBuilder(index);
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getPropertiessOrBuilder(
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder getMapsOrBuilder(
                     int index) {
-                if (propertiessBuilder_ == null) {
-                    return propertiess_.get(index);
+                if (mapsBuilder_ == null) {
+                    return maps_.get(index);
                 } else {
-                    return propertiessBuilder_.getMessageOrBuilder(index);
+                    return mapsBuilder_.getMessageOrBuilder(index);
                 }
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
             public java.util.List<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
-            getPropertiessOrBuilderList() {
-                if (propertiessBuilder_ != null) {
-                    return propertiessBuilder_.getMessageOrBuilderList();
+            getMapsOrBuilderList() {
+                if (mapsBuilder_ != null) {
+                    return mapsBuilder_.getMessageOrBuilderList();
                 } else {
-                    return java.util.Collections.unmodifiableList(propertiess_);
+                    return java.util.Collections.unmodifiableList(maps_);
                 }
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder addPropertiessBuilder() {
-                return getPropertiessFieldBuilder().addBuilder(
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder addMapsBuilder() {
+                return getMapsFieldBuilder().addBuilder(
                         org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.getDefaultInstance());
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
-            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder addPropertiessBuilder(
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder addMapsBuilder(
                     int index) {
-                return getPropertiessFieldBuilder().addBuilder(
+                return getMapsFieldBuilder().addBuilder(
                         index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.getDefaultInstance());
             }
 
             /**
-             * <code>repeated .pojo.Map propertiess = 9;</code>
+             * <code>repeated .pojo.Map maps = 9;</code>
              */
             public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder>
-            getPropertiessBuilderList() {
-                return getPropertiessFieldBuilder().getBuilderList();
+            getMapsBuilderList() {
+                return getMapsFieldBuilder().getBuilderList();
             }
 
             private com.google.protobuf.RepeatedFieldBuilderV3<
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
-            getPropertiessFieldBuilder() {
-                if (propertiessBuilder_ == null) {
-                    propertiessBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            getMapsFieldBuilder() {
+                if (mapsBuilder_ == null) {
+                    mapsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
                             org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>(
-                            propertiess_,
+                            maps_,
                             ((bitField0_ & 0x00000100) != 0),
                             getParentForChildren(),
                             isClean());
-                    propertiess_ = null;
+                    maps_ = null;
                 }
-                return propertiessBuilder_;
+                return mapsBuilder_;
+            }
+
+            private java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List> lists_ =
+                    java.util.Collections.emptyList();
+
+            private void ensureListsIsMutable() {
+                if (!((bitField0_ & 0x00000200) != 0)) {
+                    lists_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List>(lists_);
+                    bitField0_ |= 0x00000200;
+                }
+            }
+
+            private com.google.protobuf.RepeatedFieldBuilderV3<
+                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder> listsBuilder_;
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List> getListsList() {
+                if (listsBuilder_ == null) {
+                    return java.util.Collections.unmodifiableList(lists_);
+                } else {
+                    return listsBuilder_.getMessageList();
+                }
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public int getListsCount() {
+                if (listsBuilder_ == null) {
+                    return lists_.size();
+                } else {
+                    return listsBuilder_.getCount();
+                }
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List getLists(int index) {
+                if (listsBuilder_ == null) {
+                    return lists_.get(index);
+                } else {
+                    return listsBuilder_.getMessage(index);
+                }
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public Builder setLists(
+                    int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List value) {
+                if (listsBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    ensureListsIsMutable();
+                    lists_.set(index, value);
+                    onChanged();
+                } else {
+                    listsBuilder_.setMessage(index, value);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public Builder setLists(
+                    int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder builderForValue) {
+                if (listsBuilder_ == null) {
+                    ensureListsIsMutable();
+                    lists_.set(index, builderForValue.build());
+                    onChanged();
+                } else {
+                    listsBuilder_.setMessage(index, builderForValue.build());
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public Builder addLists(org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List value) {
+                if (listsBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    ensureListsIsMutable();
+                    lists_.add(value);
+                    onChanged();
+                } else {
+                    listsBuilder_.addMessage(value);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public Builder addLists(
+                    int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List value) {
+                if (listsBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    ensureListsIsMutable();
+                    lists_.add(index, value);
+                    onChanged();
+                } else {
+                    listsBuilder_.addMessage(index, value);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public Builder addLists(
+                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder builderForValue) {
+                if (listsBuilder_ == null) {
+                    ensureListsIsMutable();
+                    lists_.add(builderForValue.build());
+                    onChanged();
+                } else {
+                    listsBuilder_.addMessage(builderForValue.build());
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public Builder addLists(
+                    int index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder builderForValue) {
+                if (listsBuilder_ == null) {
+                    ensureListsIsMutable();
+                    lists_.add(index, builderForValue.build());
+                    onChanged();
+                } else {
+                    listsBuilder_.addMessage(index, builderForValue.build());
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public Builder addAllLists(
+                    java.lang.Iterable<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List> values) {
+                if (listsBuilder_ == null) {
+                    ensureListsIsMutable();
+                    com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                            values, lists_);
+                    onChanged();
+                } else {
+                    listsBuilder_.addAllMessages(values);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public Builder clearLists() {
+                if (listsBuilder_ == null) {
+                    lists_ = java.util.Collections.emptyList();
+                    bitField0_ = (bitField0_ & ~0x00000200);
+                    onChanged();
+                } else {
+                    listsBuilder_.clear();
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public Builder removeLists(int index) {
+                if (listsBuilder_ == null) {
+                    ensureListsIsMutable();
+                    lists_.remove(index);
+                    onChanged();
+                } else {
+                    listsBuilder_.remove(index);
+                }
+                return this;
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder getListsBuilder(
+                    int index) {
+                return getListsFieldBuilder().getBuilder(index);
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder getListsOrBuilder(
+                    int index) {
+                if (listsBuilder_ == null) {
+                    return lists_.get(index);
+                } else {
+                    return listsBuilder_.getMessageOrBuilder(index);
+                }
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public java.util.List<? extends org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder>
+            getListsOrBuilderList() {
+                if (listsBuilder_ != null) {
+                    return listsBuilder_.getMessageOrBuilderList();
+                } else {
+                    return java.util.Collections.unmodifiableList(lists_);
+                }
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder addListsBuilder() {
+                return getListsFieldBuilder().addBuilder(
+                        org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.getDefaultInstance());
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder addListsBuilder(
+                    int index) {
+                return getListsFieldBuilder().addBuilder(
+                        index, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.getDefaultInstance());
+            }
+
+            /**
+             * <code>repeated .pojo.List lists = 10;</code>
+             */
+            public java.util.List<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder>
+            getListsBuilderList() {
+                return getListsFieldBuilder().getBuilderList();
+            }
+
+            private com.google.protobuf.RepeatedFieldBuilderV3<
+                    org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder>
+            getListsFieldBuilder() {
+                if (listsBuilder_ == null) {
+                    listsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder>(
+                            lists_,
+                            ((bitField0_ & 0x00000200) != 0),
+                            getParentForChildren(),
+                            isClean());
+                    lists_ = null;
+                }
+                return listsBuilder_;
             }
 
             @java.lang.Override
@@ -20842,6 +24688,11 @@ public final class ProtoFeature {
     }
 
     private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_pojo_NullGeometry_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_pojo_NullGeometry_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_Point_descriptor;
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -20882,15 +24733,20 @@ public final class ProtoFeature {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_pojo_Geometry_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_pojo_Feature_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_pojo_Feature_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_Map_descriptor;
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_pojo_Map_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_pojo_Feature_descriptor;
+            internal_static_pojo_List_descriptor;
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_pojo_Feature_fieldAccessorTable;
+            internal_static_pojo_List_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_FeatureCollection_descriptor;
     private static final
@@ -20907,122 +24763,140 @@ public final class ProtoFeature {
 
     static {
         java.lang.String[] descriptorData = {
-                "\n\035definition/ProtoFeature.proto\022\004pojo\"(\n" +
-                        "\005Point\022\t\n\001x\030\001 \001(\001\022\t\n\001y\030\002 \001(\001\022\t\n\001z\030\003 \001(\001\"" +
-                        "0\n\nLineString\022\n\n\002xs\030\001 \003(\001\022\n\n\002ys\030\002 \003(\001\022\n\n" +
-                        "\002zs\030\003 \003(\001\"A\n\007Polygon\022\n\n\002xs\030\001 \003(\001\022\n\n\002ys\030\002" +
-                        " \003(\001\022\n\n\002zs\030\003 \003(\001\022\022\n\nseparators\030\004 \003(\005\"0\n\n" +
-                        "MultiPoint\022\n\n\002xs\030\001 \003(\001\022\n\n\002ys\030\002 \003(\001\022\n\n\002zs" +
-                        "\030\003 \003(\001\"I\n\017MultiLineString\022\n\n\002xs\030\001 \003(\001\022\n\n" +
-                        "\002ys\030\002 \003(\001\022\n\n\002zs\030\003 \003(\001\022\022\n\nseparators\030\004 \003(" +
-                        "\005\"f\n\014MultiPolygon\022\n\n\002xs\030\001 \003(\001\022\n\n\002ys\030\002 \003(" +
-                        "\001\022\n\n\002zs\030\003 \003(\001\022\027\n\017coordSeparators\030\004 \003(\005\022\031" +
-                        "\n\021polygonSeparators\030\005 \003(\005\"\263\002\n\022GeometryCo" +
-                        "llection\022\033\n\006points\030\001 \003(\0132\013.pojo.Point\022%\n" +
-                        "\013lineStrings\030\002 \003(\0132\020.pojo.LineString\022\037\n\010" +
-                        "polygons\030\003 \003(\0132\r.pojo.Polygon\022%\n\013multiPo" +
-                        "ints\030\004 \003(\0132\020.pojo.MultiPoint\022/\n\020multiLin" +
-                        "eStrings\030\005 \003(\0132\025.pojo.MultiLineString\022)\n" +
-                        "\rmultiPolygons\030\006 \003(\0132\022.pojo.MultiPolygon" +
-                        "\0225\n\023geometryCollections\030\007 \003(\0132\030.pojo.Geo" +
-                        "metryCollection\"\242\002\n\010Geometry\022\032\n\005point\030\001 " +
-                        "\001(\0132\013.pojo.Point\022$\n\nlineString\030\002 \001(\0132\020.p" +
-                        "ojo.LineString\022\036\n\007polygon\030\003 \001(\0132\r.pojo.P" +
-                        "olygon\022$\n\nmultiPoint\030\004 \001(\0132\020.pojo.MultiP" +
-                        "oint\022.\n\017multiLineString\030\005 \001(\0132\025.pojo.Mul" +
-                        "tiLineString\022(\n\014multiPolygon\030\006 \001(\0132\022.poj" +
-                        "o.MultiPolygon\0224\n\022geometryCollection\030\007 \001" +
-                        "(\0132\030.pojo.GeometryCollection\"\354\002\n\003Map\022\024\n\014" +
-                        "doubleKeyIds\030\001 \003(\005\022\026\n\016doubleValueIds\030\002 \003" +
-                        "(\005\022\023\n\013floatKeyIds\030\003 \003(\005\022\025\n\rfloatValueIds" +
-                        "\030\004 \003(\005\022\024\n\014sint32KeyIds\030\005 \003(\005\022\026\n\016sint32Va" +
-                        "lueIds\030\006 \003(\005\022\024\n\014sint64KeyIds\030\007 \003(\005\022\026\n\016si" +
-                        "nt64ValueIds\030\010 \003(\005\022\022\n\nboolKeyIds\030\t \003(\005\022\022" +
-                        "\n\nboolValues\030\n \003(\010\022\024\n\014stringKeyIds\030\013 \003(\005" +
-                        "\022\026\n\016stringValueIds\030\014 \003(\005\022\023\n\013bytesKeyIds\030" +
-                        "\r \003(\005\022\025\n\rbytesValueIds\030\016 \003(\005\022\021\n\tsubKeyId" +
-                        "s\030\017 \003(\005\022\032\n\007subMaps\030\020 \003(\0132\t.pojo.Map\"J\n\007F" +
-                        "eature\022 \n\010geometry\030\001 \001(\0132\016.pojo.Geometry" +
-                        "\022\035\n\nproperties\030\002 \001(\0132\t.pojo.Map\"\347\001\n\021Feat" +
-                        "ureCollection\022\014\n\004keys\030\001 \003(\t\022\024\n\014doubleVal" +
-                        "ues\030\002 \003(\001\022\023\n\013floatValues\030\003 \003(\002\022\024\n\014sint32" +
-                        "Values\030\004 \003(\021\022\024\n\014sint64Values\030\005 \003(\022\022\024\n\014st" +
-                        "ringValues\030\006 \003(\t\022\023\n\013bytesValues\030\007 \003(\014\022\"\n" +
-                        "\ngeometries\030\010 \003(\0132\016.pojo.Geometry\022\036\n\013pro" +
-                        "pertiess\030\t \003(\0132\t.pojo.MapB5\n%org.wowtool" +
-                        "s.giscat.vector.pojo.protoB\014ProtoFeature" +
-                        "b\006proto3"
+                "\n\035definition/ProtoFeature.proto\022\004pojo\"\016\n" +
+                        "\014NullGeometry\"(\n\005Point\022\t\n\001x\030\001 \001(\001\022\t\n\001y\030\002" +
+                        " \001(\001\022\t\n\001z\030\003 \001(\001\"0\n\nLineString\022\n\n\002xs\030\001 \003(" +
+                        "\001\022\n\n\002ys\030\002 \003(\001\022\n\n\002zs\030\003 \003(\001\"A\n\007Polygon\022\n\n\002" +
+                        "xs\030\001 \003(\001\022\n\n\002ys\030\002 \003(\001\022\n\n\002zs\030\003 \003(\001\022\022\n\nsepa" +
+                        "rators\030\004 \003(\005\"0\n\nMultiPoint\022\n\n\002xs\030\001 \003(\001\022\n" +
+                        "\n\002ys\030\002 \003(\001\022\n\n\002zs\030\003 \003(\001\"I\n\017MultiLineStrin" +
+                        "g\022\n\n\002xs\030\001 \003(\001\022\n\n\002ys\030\002 \003(\001\022\n\n\002zs\030\003 \003(\001\022\022\n" +
+                        "\nseparators\030\004 \003(\005\"f\n\014MultiPolygon\022\n\n\002xs\030" +
+                        "\001 \003(\001\022\n\n\002ys\030\002 \003(\001\022\n\n\002zs\030\003 \003(\001\022\027\n\017coordSe" +
+                        "parators\030\004 \003(\005\022\031\n\021polygonSeparators\030\005 \003(" +
+                        "\005\"\263\002\n\022GeometryCollection\022\033\n\006points\030\001 \003(\013" +
+                        "2\013.pojo.Point\022%\n\013lineStrings\030\002 \003(\0132\020.poj" +
+                        "o.LineString\022\037\n\010polygons\030\003 \003(\0132\r.pojo.Po" +
+                        "lygon\022%\n\013multiPoints\030\004 \003(\0132\020.pojo.MultiP" +
+                        "oint\022/\n\020multiLineStrings\030\005 \003(\0132\025.pojo.Mu" +
+                        "ltiLineString\022)\n\rmultiPolygons\030\006 \003(\0132\022.p" +
+                        "ojo.MultiPolygon\0225\n\023geometryCollections\030" +
+                        "\007 \003(\0132\030.pojo.GeometryCollection\"\314\002\n\010Geom" +
+                        "etry\022\032\n\005point\030\001 \001(\0132\013.pojo.Point\022$\n\nline" +
+                        "String\030\002 \001(\0132\020.pojo.LineString\022\036\n\007polygo" +
+                        "n\030\003 \001(\0132\r.pojo.Polygon\022$\n\nmultiPoint\030\004 \001" +
+                        "(\0132\020.pojo.MultiPoint\022.\n\017multiLineString\030" +
+                        "\005 \001(\0132\025.pojo.MultiLineString\022(\n\014multiPol" +
+                        "ygon\030\006 \001(\0132\022.pojo.MultiPolygon\0224\n\022geomet" +
+                        "ryCollection\030\007 \001(\0132\030.pojo.GeometryCollec" +
+                        "tion\022(\n\014nullGeometry\030\010 \001(\0132\022.pojo.NullGe" +
+                        "ometry\"\t\n\007Feature\"\222\003\n\003Map\022\024\n\014doubleKeyId" +
+                        "s\030\001 \003(\005\022\026\n\016doubleValueIds\030\002 \003(\005\022\023\n\013float" +
+                        "KeyIds\030\003 \003(\005\022\025\n\rfloatValueIds\030\004 \003(\005\022\024\n\014s" +
+                        "int32KeyIds\030\005 \003(\005\022\026\n\016sint32ValueIds\030\006 \003(" +
+                        "\005\022\024\n\014sint64KeyIds\030\007 \003(\005\022\026\n\016sint64ValueId" +
+                        "s\030\010 \003(\005\022\022\n\nboolKeyIds\030\t \003(\005\022\022\n\nboolValue" +
+                        "s\030\n \003(\010\022\024\n\014stringKeyIds\030\013 \003(\005\022\026\n\016stringV" +
+                        "alueIds\030\014 \003(\005\022\023\n\013bytesKeyIds\030\r \003(\005\022\025\n\rby" +
+                        "tesValueIds\030\016 \003(\005\022\022\n\nlistKeyIds\030\017 \003(\005\022\024\n" +
+                        "\014listValueIds\030\020 \003(\005\022\021\n\tsubKeyIds\030\021 \003(\005\022\026" +
+                        "\n\016subMapValueIds\030\022 \003(\005\"\327\001\n\004List\022\017\n\007index" +
+                        "es\030\001 \003(\005\022\024\n\014doubleKeyIds\030\002 \003(\005\022\023\n\013floatK" +
+                        "eyIds\030\003 \003(\005\022\024\n\014sint32KeyIds\030\004 \003(\005\022\024\n\014sin" +
+                        "t64KeyIds\030\005 \003(\005\022\022\n\nboolValues\030\006 \003(\010\022\026\n\016s" +
+                        "tringValueIds\030\007 \003(\005\022\025\n\rbytesValueIds\030\010 \003" +
+                        "(\005\022\021\n\tmapKeyIds\030\t \003(\005\022\021\n\tsubKeyIds\030\n \003(\005" +
+                        "\"\373\001\n\021FeatureCollection\022\014\n\004keys\030\001 \003(\t\022\024\n\014" +
+                        "doubleValues\030\002 \003(\001\022\023\n\013floatValues\030\003 \003(\002\022" +
+                        "\024\n\014sint32Values\030\004 \003(\021\022\024\n\014sint64Values\030\005 " +
+                        "\003(\022\022\024\n\014stringValues\030\006 \003(\t\022\023\n\013bytesValues" +
+                        "\030\007 \003(\014\022\"\n\ngeometries\030\010 \003(\0132\016.pojo.Geomet" +
+                        "ry\022\027\n\004maps\030\t \003(\0132\t.pojo.Map\022\031\n\005lists\030\n \003" +
+                        "(\0132\n.pojo.ListB5\n%org.wowtools.giscat.ve" +
+                        "ctor.pojo.protoB\014ProtoFeatureb\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
                         new com.google.protobuf.Descriptors.FileDescriptor[]{
                         });
-        internal_static_pojo_Point_descriptor =
+        internal_static_pojo_NullGeometry_descriptor =
                 getDescriptor().getMessageTypes().get(0);
+        internal_static_pojo_NullGeometry_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_pojo_NullGeometry_descriptor,
+                new java.lang.String[]{});
+        internal_static_pojo_Point_descriptor =
+                getDescriptor().getMessageTypes().get(1);
         internal_static_pojo_Point_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_Point_descriptor,
                 new java.lang.String[]{"X", "Y", "Z",});
         internal_static_pojo_LineString_descriptor =
-                getDescriptor().getMessageTypes().get(1);
+                getDescriptor().getMessageTypes().get(2);
         internal_static_pojo_LineString_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_LineString_descriptor,
                 new java.lang.String[]{"Xs", "Ys", "Zs",});
         internal_static_pojo_Polygon_descriptor =
-                getDescriptor().getMessageTypes().get(2);
+                getDescriptor().getMessageTypes().get(3);
         internal_static_pojo_Polygon_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_Polygon_descriptor,
                 new java.lang.String[]{"Xs", "Ys", "Zs", "Separators",});
         internal_static_pojo_MultiPoint_descriptor =
-                getDescriptor().getMessageTypes().get(3);
+                getDescriptor().getMessageTypes().get(4);
         internal_static_pojo_MultiPoint_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_MultiPoint_descriptor,
                 new java.lang.String[]{"Xs", "Ys", "Zs",});
         internal_static_pojo_MultiLineString_descriptor =
-                getDescriptor().getMessageTypes().get(4);
+                getDescriptor().getMessageTypes().get(5);
         internal_static_pojo_MultiLineString_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_MultiLineString_descriptor,
                 new java.lang.String[]{"Xs", "Ys", "Zs", "Separators",});
         internal_static_pojo_MultiPolygon_descriptor =
-                getDescriptor().getMessageTypes().get(5);
+                getDescriptor().getMessageTypes().get(6);
         internal_static_pojo_MultiPolygon_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_MultiPolygon_descriptor,
                 new java.lang.String[]{"Xs", "Ys", "Zs", "CoordSeparators", "PolygonSeparators",});
         internal_static_pojo_GeometryCollection_descriptor =
-                getDescriptor().getMessageTypes().get(6);
+                getDescriptor().getMessageTypes().get(7);
         internal_static_pojo_GeometryCollection_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_GeometryCollection_descriptor,
                 new java.lang.String[]{"Points", "LineStrings", "Polygons", "MultiPoints", "MultiLineStrings", "MultiPolygons", "GeometryCollections",});
         internal_static_pojo_Geometry_descriptor =
-                getDescriptor().getMessageTypes().get(7);
+                getDescriptor().getMessageTypes().get(8);
         internal_static_pojo_Geometry_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_Geometry_descriptor,
-                new java.lang.String[]{"Point", "LineString", "Polygon", "MultiPoint", "MultiLineString", "MultiPolygon", "GeometryCollection",});
-        internal_static_pojo_Map_descriptor =
-                getDescriptor().getMessageTypes().get(8);
-        internal_static_pojo_Map_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_pojo_Map_descriptor,
-                new java.lang.String[]{"DoubleKeyIds", "DoubleValueIds", "FloatKeyIds", "FloatValueIds", "Sint32KeyIds", "Sint32ValueIds", "Sint64KeyIds", "Sint64ValueIds", "BoolKeyIds", "BoolValues", "StringKeyIds", "StringValueIds", "BytesKeyIds", "BytesValueIds", "SubKeyIds", "SubMaps",});
+                new java.lang.String[]{"Point", "LineString", "Polygon", "MultiPoint", "MultiLineString", "MultiPolygon", "GeometryCollection", "NullGeometry",});
         internal_static_pojo_Feature_descriptor =
                 getDescriptor().getMessageTypes().get(9);
         internal_static_pojo_Feature_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_Feature_descriptor,
-                new java.lang.String[]{"Geometry", "Properties",});
-        internal_static_pojo_FeatureCollection_descriptor =
+                new java.lang.String[]{});
+        internal_static_pojo_Map_descriptor =
                 getDescriptor().getMessageTypes().get(10);
+        internal_static_pojo_Map_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_pojo_Map_descriptor,
+                new java.lang.String[]{"DoubleKeyIds", "DoubleValueIds", "FloatKeyIds", "FloatValueIds", "Sint32KeyIds", "Sint32ValueIds", "Sint64KeyIds", "Sint64ValueIds", "BoolKeyIds", "BoolValues", "StringKeyIds", "StringValueIds", "BytesKeyIds", "BytesValueIds", "ListKeyIds", "ListValueIds", "SubKeyIds", "SubMapValueIds",});
+        internal_static_pojo_List_descriptor =
+                getDescriptor().getMessageTypes().get(11);
+        internal_static_pojo_List_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_pojo_List_descriptor,
+                new java.lang.String[]{"Indexes", "DoubleKeyIds", "FloatKeyIds", "Sint32KeyIds", "Sint64KeyIds", "BoolValues", "StringValueIds", "BytesValueIds", "MapKeyIds", "SubKeyIds",});
+        internal_static_pojo_FeatureCollection_descriptor =
+                getDescriptor().getMessageTypes().get(12);
         internal_static_pojo_FeatureCollection_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_pojo_FeatureCollection_descriptor,
-                new java.lang.String[]{"Keys", "DoubleValues", "FloatValues", "Sint32Values", "Sint64Values", "StringValues", "BytesValues", "Geometries", "Propertiess",});
+                new java.lang.String[]{"Keys", "DoubleValues", "FloatValues", "Sint32Values", "Sint64Values", "StringValues", "BytesValues", "Geometries", "Maps", "Lists",});
     }
 
     // @@protoc_insertion_point(outer_class_scope)

@@ -94,7 +94,7 @@ public class ProtoFeatureConverterTest {
         ArrayList<Feature> features = new ArrayList<>(propertiesArr.length);
         for (Map<String, Object> properties : propertiesArr) {
             Feature feature = new Feature();
-            feature.setGeometry(SampleData.point);
+            feature.setGeometry(propertiesArr.length / 2 == 0 ? null : SampleData.point);
             feature.setProperties(properties);
             features.add(feature);
         }

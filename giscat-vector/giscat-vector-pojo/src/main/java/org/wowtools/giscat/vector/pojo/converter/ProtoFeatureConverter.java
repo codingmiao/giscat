@@ -37,6 +37,8 @@ import java.util.*;
  */
 public class ProtoFeatureConverter {
 
+    private static final ProtoFeature.NullGeometry nullGeometry = ProtoFeature.NullGeometry.getDefaultInstance();
+
     /**
      * geometry 转 ProtoFeature bytes
      *
@@ -49,7 +51,9 @@ public class ProtoFeatureConverter {
 
     private static ProtoFeature.Geometry.Builder geometry2ProtoBuilder(Geometry geometry) {
         ProtoFeature.Geometry.Builder geometryBuilder = ProtoFeature.Geometry.newBuilder();
-        if (geometry instanceof Point) {
+        if (null == geometry) {
+            geometryBuilder.setNullGeometry(nullGeometry);
+        } else if (geometry instanceof Point) {
             geometryBuilder.setPoint(point2Proto((Point) geometry));
         } else if (geometry instanceof LineString) {
             geometryBuilder.setLineString(lineString2Proto((LineString) geometry));
@@ -262,6 +266,10 @@ public class ProtoFeatureConverter {
         ProtoFeature.GeometryCollection.Builder builder = ProtoFeature.GeometryCollection.newBuilder();
         for (int i = 0; i < geometryCollection.getNumGeometries(); i++) {
             Geometry geometry = geometryCollection.getGeometryN(i);
+            // geometryCollection中不允许null，所以这个检查可以跳过
+//            if (null == geometry) {
+//                continue;
+//            }
             if (geometry instanceof Point) {
                 builder.addPoints(point2Proto((Point) geometry));
             } else if (geometry instanceof LineString) {
@@ -332,6 +340,9 @@ public class ProtoFeatureConverter {
         if (pGeometry.hasGeometryCollection()) {
             ProtoFeature.GeometryCollection pGeometryCollection = pGeometry.getGeometryCollection();
             return proto2GeometryCollection(pGeometryCollection, geometryFactory);
+        }
+        if (pGeometry.hasNullGeometry()) {
+            return null;
         }
         throw new RuntimeException("解析pGeometry逻辑错误");
     }
@@ -517,6 +528,24 @@ public class ProtoFeatureConverter {
     }
 
     /**
+     * Feature 转 ProtoFeature bytes
+     *
+     * @param feature
+     * @return ProtoFeature bytes
+     */
+    public static byte[] feature2Proto(Feature feature) {
+        ProtoFeature.Feature.Builder builder = ProtoFeature.Feature.newBuilder();
+        builder.setGeometry(geometry2ProtoBuilder(feature.getGeometry()));
+
+        List<ProtoFeature.KeyValue.Builder> keyValueBuilders = new ArrayList<>(feature.getProperties().size());
+        feature.getProperties().forEach((k, v) -> {
+
+        });
+
+        return builder.build().toByteArray();
+    }
+
+    /**
      * FeatureCollection 转 ProtoFeature bytes
      *
      * @param featureCollection FeatureCollection
@@ -538,11 +567,9 @@ public class ProtoFeatureConverter {
             }
             //geometry转换
             Geometry geometry = feature.getGeometry();
-            if (null == geometry) {
-                throw new RuntimeException("geometry不能为空");
-            }
             ProtoFeature.Geometry.Builder geometryBuilder = geometry2ProtoBuilder(geometry);
             builder.addGeometries(geometryBuilder);
+
         }
         keyValueCell.toProto(builder);
         return builder.build().toByteArray();

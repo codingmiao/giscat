@@ -80,6 +80,16 @@ public class ExpressionTest {
         Assert.assertEquals(false,
                 getValue(feature, "[\"any\", false,false,false]")
         );
+        //case
+        Assert.assertEquals(1,
+                getValue(feature, "[\"case\", true,1,0]")
+        );
+        Assert.assertEquals(2,
+                getValue(feature, "[\"case\", false,1,true,2,0]")
+        );
+        Assert.assertEquals(0,
+                getValue(feature, "[\"case\", false,1,false,2,0]")
+        );
         //==
         Assert.assertEquals(true,
                 getValue(feature, "[\"==\", 1.0,1.0]")
