@@ -42,6 +42,10 @@ public class Feature {
         this.geometry = geometry;
     }
 
+    public Feature(Map<String, Object> properties) {
+        this.properties = properties;
+    }
+
     public Feature() {
     }
 

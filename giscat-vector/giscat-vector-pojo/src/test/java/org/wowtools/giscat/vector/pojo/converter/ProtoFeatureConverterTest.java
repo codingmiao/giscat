@@ -1,5 +1,7 @@
 package org.wowtools.giscat.vector.pojo.converter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
@@ -9,7 +11,9 @@ import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
 import org.wowtools.giscat.vector.pojo.util.SampleData;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -69,6 +73,7 @@ public class ProtoFeatureConverterTest {
 
     @org.junit.Test
     public void testPropertiess() throws Exception {
+        testProperties(Map.of("name", "hello", "id", "100"));
         testProperties(Map.of("name", "hello", "id", 1, "bytes", new byte[]{1, 2, 3}));
         testProperties(Map.of(
                 "double", 1.5d,
@@ -82,46 +87,51 @@ public class ProtoFeatureConverterTest {
         testProperties(
                 Map.of("k1", 1, "k2", "sss", "k3", 1L),
                 Map.of("k1", "hello", "k2", 1, "k3", Map.of("subK1", "sub1")),
-                null,
+                Map.of(),
                 Map.of(),
                 Map.of("k1", Long.MAX_VALUE, "k2", "测试", "k4", Double.MAX_VALUE)
         );
+        testProperties(Map.of("a", Map.of("a", Map.of("a", Map.of("a", Map.of("a", "a"))))));
+        testProperties(Map.of("a", List.of("1", 2, true,"x",Map.of("xx",111)), "b", "xxx"));
     }
 
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     private void testProperties(Map<String, Object>... propertiesArr) {
         FeatureCollection featureCollection = new FeatureCollection();
         ArrayList<Feature> features = new ArrayList<>(propertiesArr.length);
         for (Map<String, Object> properties : propertiesArr) {
             Feature feature = new Feature();
-            feature.setGeometry(propertiesArr.length / 2 == 0 ? null : SampleData.point);
+            feature.setGeometry(null);
             feature.setProperties(properties);
             features.add(feature);
         }
         featureCollection.setFeatures(features);
         byte[] bytes = ProtoFeatureConverter.featureCollection2Proto(featureCollection);
-        System.out.println(bytes.length);
+        byte[] bytesJson;
+        try {
+            bytesJson = mapper.writeValueAsString(featureCollection).getBytes(StandardCharsets.UTF_8);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("pbf size:" + bytes.length + "\t json size:" + bytesJson.length);
         FeatureCollection featureCollection1 = ProtoFeatureConverter.proto2featureCollection(bytes, SampleData.geometryFactory);
 
         for (int i = 0; i < features.size(); i++) {
             Map<String, Object> properties = features.get(i).getProperties();
             Map<String, Object> properties1 = featureCollection1.getFeatures().get(i).getProperties();
-            if (null == properties) {
-                Assert.assertEquals(null, properties1);
-            } else {
-                for (String key : properties.keySet()) {
-                    testPropertiesEquals(key, properties.get(key), properties1.get(key));
-                }
+            for (String key : properties.keySet()) {
+                testMapEquals(key, properties.get(key), properties1.get(key));
             }
         }
     }
 
-    private static void testPropertiesEquals(String key, Object p1, Object p2) {
+    private static void testMapEquals(String key, Object p1, Object p2) {
         if (p1 instanceof Map) {
             Map<String, Object> map1 = (Map<String, Object>) p1;
             Map<String, Object> map2 = (Map<String, Object>) p2;
             for (String subKey : map2.keySet()) {
-                testPropertiesEquals(subKey, map1.get(subKey), map2.get(subKey));
+                testMapEquals(subKey, map1.get(subKey), map2.get(subKey));
             }
         } else if (p1 instanceof byte[]) {
             byte[] bts1 = (byte[]) p1;
@@ -130,6 +140,12 @@ public class ProtoFeatureConverterTest {
                 if (bts1[i] != bts2[i]) {
                     throw new RuntimeException(key + " not equals: " + p1 + "\t" + p2);
                 }
+            }
+        } else if (p1 instanceof List) {
+            List<Object> list1 = (List<Object>) p1;
+            List<Object> list2 = (List<Object>) p2;
+            for (int i = 0; i < list1.size(); i++) {
+                testMapEquals("list", list1.get(i), list2.get(i));
             }
         } else {
             if (!p1.equals(p2)) {

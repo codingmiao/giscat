@@ -67,7 +67,7 @@ message MultiPolygon{
 }
 
 // GeometryCollection
-// 注意 GeometryCollection允许嵌套
+// GeometryCollection允许嵌套
 message GeometryCollection{
 	repeated Point points = 1;
 	repeated LineString lineStrings = 2;
@@ -96,9 +96,8 @@ message Geometry{
 	NullGeometry nullGeometry = 8;
 }
 
-// Feature 仅作保留，不用这个进行序列化和反序列化
+// Feature 仅作保留，单个Feature没有压缩优势，若确实需要，放入FeatureCollection中
 message Feature{
-
 }
 
 // 属性映射 支持的属性类型 double float sint32 sint64 bool string bytes subProperty
@@ -140,11 +139,11 @@ message Map{
 
     // list keyId、valueId
 	repeated int32 listKeyIds = 15;
-	repeated int32 listValueIds = 16;
+	repeated List listValues = 16;
 
 	// children keyId、valueId
-	repeated int32 subKeyIds = 17;
-	repeated int32 subMapValueIds = 18;
+	repeated int32 subMapKeyIds = 17;
+	repeated Map subMapValues = 18;
 
 }
 
@@ -154,17 +153,17 @@ message List{
     repeated int32 indexes = 1;
     // 数组值id，按数组先后顺序填入
 	// valueId/value
-	repeated int32 doubleKeyIds = 2;
-	repeated int32 floatKeyIds = 3;
-	repeated int32 sint32KeyIds = 4;
-	repeated int32 sint64KeyIds = 5;
+	repeated int32 doubleValueIds = 2;
+	repeated int32 floatValueIds = 3;
+	repeated int32 sint32ValueIds = 4;
+	repeated int32 sint64ValueIds = 5;
 	repeated bool boolValues = 6;
 	repeated int32 stringValueIds = 7;
 	repeated int32 bytesValueIds = 8;
-    // mapId
-    repeated int32 mapKeyIds = 9;
-    // children id
-	repeated int32 subKeyIds = 10;
+    // map
+    repeated Map mapValues = 9;
+    // children
+	repeated List subListValues = 10;
 
 }
 
@@ -179,8 +178,7 @@ message FeatureCollection{
 	repeated string stringValues = 6;
 	repeated bytes bytesValues = 7;
 
-	// features 为了最大限度压缩数据，这里单独列了geometry property，而未使用Feature对象
+	// features 为了最大限度压缩数据，这里单独列了geometry properties，而未使用Feature对象
 	repeated Geometry geometries = 8;
-	repeated Map maps = 9;
-    repeated List lists = 10;
+    repeated Map propertiess = 9;
 }

@@ -36,8 +36,19 @@ import java.util.*;
  * @date 2022/3/25
  */
 public class ProtoFeatureConverter {
+    // List.indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+    private static final int doubleValueIdsIndex = 2;
+    private static final int floatValueIdsIndex = 3;
+    private static final int sint32ValueIdsIndex = 4;
+    private static final int sint64ValueIdsIndex = 5;
+    private static final int boolValuesIndex = 6;
+    private static final int stringValueIdsIndex = 7;
+    private static final int bytesValueIdsIndex = 8;
+    private static final int mapValuesIndex = 9;
+    private static final int subListValuesIndex = 10;
 
     private static final ProtoFeature.NullGeometry nullGeometry = ProtoFeature.NullGeometry.getDefaultInstance();
+    private static final ProtoFeature.Map nullMap = ProtoFeature.Map.newBuilder().build();
 
     /**
      * geometry 转 ProtoFeature bytes
@@ -534,15 +545,9 @@ public class ProtoFeatureConverter {
      * @return ProtoFeature bytes
      */
     public static byte[] feature2Proto(Feature feature) {
-        ProtoFeature.Feature.Builder builder = ProtoFeature.Feature.newBuilder();
-        builder.setGeometry(geometry2ProtoBuilder(feature.getGeometry()));
-
-        List<ProtoFeature.KeyValue.Builder> keyValueBuilders = new ArrayList<>(feature.getProperties().size());
-        feature.getProperties().forEach((k, v) -> {
-
-        });
-
-        return builder.build().toByteArray();
+        FeatureCollection fc = new FeatureCollection();
+        fc.setFeatures(List.of(feature));
+        return featureCollection2Proto(fc);
     }
 
     /**
@@ -559,11 +564,17 @@ public class ProtoFeatureConverter {
             Map<String, Object> properties = feature.getProperties();
             if (null != properties) {
                 ProtoFeature.Map.Builder propertiesBuilder = ProtoFeature.Map.newBuilder();
-                properties2ProtoBuilder(properties, propertiesBuilder, keyValueCell);
+                properties.forEach((k, v) -> {
+                    if (null == v) {
+                        return;
+                    }
+                    PropertiesSetter setter = getPropertiesSetter(v);
+                    setter.setKey(propertiesBuilder, keyValueCell, k);
+                    setter.setValue(propertiesBuilder, keyValueCell, v);
+                });
                 builder.addPropertiess(propertiesBuilder);
             } else {
-                ProtoFeature.Map.Builder propertiesBuilder = ProtoFeature.Map.newBuilder();
-                builder.addPropertiess(propertiesBuilder);
+                builder.addPropertiess(nullMap);
             }
             //geometry转换
             Geometry geometry = feature.getGeometry();
@@ -575,48 +586,49 @@ public class ProtoFeatureConverter {
         return builder.build().toByteArray();
     }
 
-    private static void properties2ProtoBuilder(Map<String, Object> properties, ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell) {
-        properties.forEach((key, value) -> {
-            if (null == value) {
-                return;
-            }
-            PropertiesSetter propertiesSetter = propertiesSetterMap.get(value.getClass());
-            if (propertiesSetter != null) {
-                //基本数据类型 按类型直接设置
-                propertiesSetter.set(propertiesBuilder, keyValueCell, key, value);
-            } else {
-                if (!(value instanceof Map)) {
-                    throw new UnsupportedOperationException("未实现的 value 类型:" + value.getClass());
-                }
-                //嵌套子properties 递归
-                Map<String, Object> subProperties = (Map<String, Object>) value;
-                ProtoFeature.Map.Builder subMap = ProtoFeature.Map.newBuilder();
-                properties2ProtoBuilder(subProperties, subMap, keyValueCell);
-                propertiesBuilder.addSubKeyIds(keyValueCell.keys.getId(key));
-                propertiesBuilder.addSubMaps(subMap);
-            }
-        });
-    }
-
-    @FunctionalInterface
     private interface PropertiesSetter {
-        void set(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key, Object value);
+        /**
+         * 向一个mapBuilder中添加key
+         *
+         * @param propertiesBuilder propertiesBuilder
+         * @param keyValueCell      keyValueCell
+         * @param key               key
+         */
+        void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key);
+
+        /**
+         * 向一个mapBuilder中添加T vaule
+         *
+         * @param propertiesBuilder propertiesBuilder
+         * @param keyValueCell      keyValueCell
+         * @param value             T vaule
+         */
+        void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value);
+
+        /**
+         * 向一个listBuilder中添加<T> vaule
+         *
+         * @param propertiesBuilder propertiesBuilder
+         * @param keyValueCell      keyValueCell
+         * @param value             <T> vaule
+         */
+        void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value);
     }
 
     /**
      * properties存放的是key id、value id,KeyValueCell对象存放id和实际值的映射关系
      */
     private static final class ToProtoKeyValueCell {
-        private static final class Index<T> {
+        private static final class ReusableIndex<T> {
             //自增id
             private int index = 0;
             //实际值-id对应关系
             private final HashMap<T, Integer> indexMap = new HashMap<>();
 
             public Integer getId(T t) {
-                if (index < 0) {
-                    throw new RuntimeException("值数量超过上限 " + Integer.MAX_VALUE);
-                }
+//                if (index < 0) {
+//                    throw new RuntimeException("值数量超过上限 " + Integer.MAX_VALUE);
+//                }
                 Integer id = indexMap.get(t);
                 if (id != null) {
                     return id;
@@ -638,6 +650,32 @@ public class ProtoFeatureConverter {
                 }
                 return res;
             }
+
+            public int size() {
+                return index;
+            }
+        }
+
+        private static final class NoReusableIndex<T> {
+            //实际值-id对应关系
+            private final List<T> list = new LinkedList<>();
+
+            public Integer getId(T t) {
+                int id = list.size();
+                list.add(t);
+                return id;
+            }
+
+            //输出一个按id顺序的t list
+            public ArrayList<T> toList() {
+                ArrayList<T> res = new ArrayList<>(list.size());
+                res.addAll(list);
+                return res;
+            }
+
+            public int size() {
+                return list.size();
+            }
         }
 
         private static final class SortT<T> {
@@ -651,24 +689,37 @@ public class ProtoFeatureConverter {
         }
 
 
-        private final Index<String> keys = new Index();
-        private final Index<Double> doubleValues = new Index();
-        private final Index<Float> floatValues = new Index();
-        private final Index<Integer> sint32Values = new Index();
-        private final Index<Long> sint64Values = new Index();
-        private final Index<String> stringValues = new Index();
-        private final Index<byte[]> bytesValues = new Index();
-
+        private final ReusableIndex<String> keys = new ReusableIndex<>();
+        private final ReusableIndex<Double> doubleValues = new ReusableIndex<>();
+        private final ReusableIndex<Float> floatValues = new ReusableIndex<>();
+        private final ReusableIndex<Integer> sint32Values = new ReusableIndex<>();
+        private final ReusableIndex<Long> sint64Values = new ReusableIndex<>();
+        private final ReusableIndex<String> stringValues = new ReusableIndex<>();
+        private final ReusableIndex<byte[]> bytesValues = new ReusableIndex<>();
 
         public void toProto(ProtoFeature.FeatureCollection.Builder builder) {
+            if (keys.size() == 0) {
+                return;
+            }
             builder.addAllKeys(keys.toList());
-            builder.addAllDoubleValues(doubleValues.toList());
-            builder.addAllFloatValues(floatValues.toList());
-            builder.addAllSint32Values(sint32Values.toList());
-            builder.addAllSint64Values(sint64Values.toList());
-            builder.addAllStringValues(stringValues.toList());
-            {
-                ArrayList<SortT<byte[]>> sortList = new ArrayList<>(bytesValues.indexMap.size());
+            if (doubleValues.size() > 0) {
+                builder.addAllDoubleValues(doubleValues.toList());
+            }
+            if (floatValues.size() > 0) {
+                builder.addAllFloatValues(floatValues.toList());
+            }
+            if (sint32Values.size() > 0) {
+                builder.addAllSint32Values(sint32Values.toList());
+            }
+            if (sint64Values.size() > 0) {
+                builder.addAllSint64Values(sint64Values.toList());
+            }
+            if (stringValues.size() > 0) {
+                builder.addAllStringValues(stringValues.toList());
+            }
+            if (bytesValues.size() > 0) {
+                // bytes比较特殊,需要转成ByteString，所以不用toList单独写一下
+                ArrayList<SortT<byte[]>> sortList = new ArrayList<>(bytesValues.size());
                 bytesValues.indexMap.forEach((t, id) -> sortList.add(new SortT(t, id)));
                 sortList.sort(Comparator.comparingInt((c) -> c.id));
                 ArrayList<ByteString> res = new ArrayList<>(bytesValues.indexMap.size());
@@ -683,41 +734,200 @@ public class ProtoFeatureConverter {
 
 
     private static final Map<Class, PropertiesSetter> propertiesSetterMap;
-
+    private static final PropertiesSetter listPropertiesSetter;
+    private static final PropertiesSetter mapPropertiesSetter;
     static {
-        PropertiesSetter doublePropertiesSetter = (propertiesBuilder, keyValueCell, key, value) -> {
-            propertiesBuilder.addDoubleKeyIds(keyValueCell.keys.getId(key));
-            propertiesBuilder.addDoubleValueIds(keyValueCell.doubleValues.getId((Double) value));
+        PropertiesSetter doublePropertiesSetter = new PropertiesSetter() {
+            @Override
+            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+                propertiesBuilder.addDoubleKeyIds(keyValueCell.keys.getId(key));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addDoubleValueIds(keyValueCell.doubleValues.getId((Double) value));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addIndexes(doubleValueIdsIndex);
+                propertiesBuilder.addDoubleValueIds(keyValueCell.doubleValues.getId((Double) value));
+            }
         };
 
-        PropertiesSetter floatPropertiesSetter = (propertiesBuilder, keyValueCell, key, value) -> {
-            propertiesBuilder.addFloatKeyIds(keyValueCell.keys.getId(key));
-            propertiesBuilder.addFloatValueIds(keyValueCell.floatValues.getId((Float) value));
+        PropertiesSetter floatPropertiesSetter = new PropertiesSetter() {
+            @Override
+            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+                propertiesBuilder.addFloatKeyIds(keyValueCell.keys.getId(key));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addFloatValueIds(keyValueCell.floatValues.getId((Float) value));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addIndexes(floatValueIdsIndex);
+                propertiesBuilder.addFloatValueIds(keyValueCell.floatValues.getId((Float) value));
+            }
         };
 
-        PropertiesSetter sint32PropertiesSetter = (propertiesBuilder, keyValueCell, key, value) -> {
-            propertiesBuilder.addSint32KeyIds(keyValueCell.keys.getId(key));
-            propertiesBuilder.addSint32ValueIds(keyValueCell.sint32Values.getId((Integer) value));
+        PropertiesSetter sint32PropertiesSetter = new PropertiesSetter() {
+            @Override
+            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+                propertiesBuilder.addSint32KeyIds(keyValueCell.keys.getId(key));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addSint32ValueIds(keyValueCell.sint32Values.getId((Integer) value));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addIndexes(sint32ValueIdsIndex);
+                propertiesBuilder.addSint32ValueIds(keyValueCell.sint32Values.getId((Integer) value));
+            }
         };
 
-        PropertiesSetter sint64PropertiesSetter = (propertiesBuilder, keyValueCell, key, value) -> {
-            propertiesBuilder.addSint64KeyIds(keyValueCell.keys.getId(key));
-            propertiesBuilder.addSint64ValueIds(keyValueCell.sint64Values.getId((Long) value));
+        PropertiesSetter sint64PropertiesSetter = new PropertiesSetter() {
+            @Override
+            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+                propertiesBuilder.addSint64KeyIds(keyValueCell.keys.getId(key));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addSint64ValueIds(keyValueCell.sint64Values.getId((Long) value));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addIndexes(sint64ValueIdsIndex);
+                propertiesBuilder.addSint64ValueIds(keyValueCell.sint64Values.getId((Long) value));
+            }
         };
 
-        PropertiesSetter boolPropertiesSetter = (propertiesBuilder, keyValueCell, key, value) -> {
-            propertiesBuilder.addBoolKeyIds(keyValueCell.keys.getId(key));
-            propertiesBuilder.addBoolValues((Boolean) value);
+        PropertiesSetter boolPropertiesSetter = new PropertiesSetter() {
+            @Override
+            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+                propertiesBuilder.addBoolKeyIds(keyValueCell.keys.getId(key));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addBoolValues((Boolean) value);
+            }
+
+            @Override
+            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addIndexes(boolValuesIndex);
+                propertiesBuilder.addBoolValues((Boolean) value);
+            }
         };
 
-        PropertiesSetter stringPropertiesSetter = (propertiesBuilder, keyValueCell, key, value) -> {
-            propertiesBuilder.addStringKeyIds(keyValueCell.keys.getId(key));
-            propertiesBuilder.addStringValueIds(keyValueCell.stringValues.getId((String) value));
+        PropertiesSetter stringPropertiesSetter = new PropertiesSetter() {
+            @Override
+            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+                propertiesBuilder.addStringKeyIds(keyValueCell.keys.getId(key));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addStringValueIds(keyValueCell.stringValues.getId((String) value));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addIndexes(stringValueIdsIndex);
+                propertiesBuilder.addStringValueIds(keyValueCell.stringValues.getId((String) value));
+            }
         };
 
-        PropertiesSetter bytesPropertiesSetter = (propertiesBuilder, keyValueCell, key, value) -> {
-            propertiesBuilder.addBytesKeyIds(keyValueCell.keys.getId(key));
-            propertiesBuilder.addBytesValueIds(keyValueCell.bytesValues.getId((byte[]) value));
+        PropertiesSetter bytesPropertiesSetter = new PropertiesSetter() {
+            @Override
+            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+                propertiesBuilder.addBytesKeyIds(keyValueCell.keys.getId(key));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addBytesValueIds(keyValueCell.bytesValues.getId((byte[]) value));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addIndexes(bytesValueIdsIndex);
+                propertiesBuilder.addBytesValueIds(keyValueCell.bytesValues.getId((byte[]) value));
+            }
+        };
+
+        mapPropertiesSetter = new PropertiesSetter() {
+            @Override
+            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+                propertiesBuilder.addSubMapKeyIds(keyValueCell.keys.getId(key));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                ProtoFeature.Map.Builder subBuilder = createMapBuilder(keyValueCell, value);
+                propertiesBuilder.addSubMapValues(subBuilder);
+            }
+
+            @Override
+            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addIndexes(mapValuesIndex);
+                ProtoFeature.Map.Builder subBuilder = createMapBuilder(keyValueCell, value);
+                propertiesBuilder.addMapValues(subBuilder);
+            }
+
+            private ProtoFeature.Map.Builder createMapBuilder(ToProtoKeyValueCell keyValueCell, Object value) {
+                Map<String, Object> subProperties = (Map<String, Object>) value;
+                ProtoFeature.Map.Builder subBuilder = ProtoFeature.Map.newBuilder();
+                subProperties.forEach((k, v) -> {
+                    if (null == v) {
+                        return;
+                    }
+                    PropertiesSetter setter = getPropertiesSetter(v);
+                    setter.setKey(subBuilder, keyValueCell, k);
+                    setter.setValue(subBuilder, keyValueCell, v);
+                });
+                return subBuilder;
+            }
+        };
+
+         listPropertiesSetter = new PropertiesSetter() {
+            @Override
+            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+                propertiesBuilder.addListKeyIds(keyValueCell.keys.getId(key));
+            }
+
+            @Override
+            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                ProtoFeature.List.Builder listBuilder = createListBuilder(keyValueCell, value);
+                propertiesBuilder.addListValues(listBuilder);
+            }
+
+            @Override
+            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+                propertiesBuilder.addIndexes(subListValuesIndex);
+                ProtoFeature.List.Builder listBuilder = createListBuilder(keyValueCell, value);
+                propertiesBuilder.addSubListValues(listBuilder);
+            }
+
+            private ProtoFeature.List.Builder createListBuilder(ToProtoKeyValueCell keyValueCell, Object value) {
+                ProtoFeature.List.Builder builder = ProtoFeature.List.newBuilder();
+                List<Object> listProperties = (List<Object>) value;
+                for (Object v : listProperties) {
+                    if (null == v) {
+                        continue;
+                    }
+                    PropertiesSetter setter = getPropertiesSetter(v);
+                    setter.setValue(builder, keyValueCell, v);
+                }
+                return builder;
+            }
         };
         Map.Entry<Class, PropertiesSetter>[] entries = new Map.Entry[]{
                 new AbstractMap.SimpleEntry(double.class, doublePropertiesSetter),
@@ -732,10 +942,39 @@ public class ProtoFeatureConverter {
                 new AbstractMap.SimpleEntry(Boolean.class, boolPropertiesSetter),
                 new AbstractMap.SimpleEntry(String.class, stringPropertiesSetter),
                 new AbstractMap.SimpleEntry(byte[].class, bytesPropertiesSetter),
+                new AbstractMap.SimpleEntry(HashMap.class, mapPropertiesSetter),
+                new AbstractMap.SimpleEntry(ArrayList.class, listPropertiesSetter),
+                new AbstractMap.SimpleEntry(LinkedList.class, listPropertiesSetter),
         };
         propertiesSetterMap = Map.ofEntries(entries);
     }
 
+    private static PropertiesSetter getPropertiesSetter(Object value) {
+        PropertiesSetter setter = propertiesSetterMap.get(value.getClass());
+        if (null == setter) {
+            if (value instanceof Map){
+                setter = mapPropertiesSetter;
+            } else if (value instanceof List) {
+                setter = listPropertiesSetter;
+            }else {
+                throw new RuntimeException("未知对象类型 " + value.getClass());
+            }
+        }
+        return setter;
+    }
+
+
+    /**
+     * ProtoFeature bytes 转 Feature
+     *
+     * @param bytes           ProtoFeature bytes
+     * @param geometryFactory jts GeometryFactory
+     * @return Feature
+     */
+    public static Feature proto2feature(byte[] bytes, GeometryFactory geometryFactory) {
+        FeatureCollection fc = proto2featureCollection(bytes, geometryFactory);
+        return fc.getFeatures().get(0);
+    }
 
     /**
      * ProtoFeature bytes 转 FeatureCollection
@@ -786,7 +1025,7 @@ public class ProtoFeatureConverter {
         private final HashMap<Integer, Integer> sint32ValueMap;
         private final HashMap<Integer, Long> sint64ValueMap;
         private final HashMap<Integer, String> stringValueMap;
-        private final HashMap<Integer, byte[]> bytesMap;
+        private final HashMap<Integer, byte[]> bytesValueMap;
 
         public FromProtoKeyValueCell(ProtoFeature.FeatureCollection pFeatureCollection) {
             int n;
@@ -828,77 +1067,159 @@ public class ProtoFeatureConverter {
             }
 
             n = pFeatureCollection.getBytesValuesCount();
-            bytesMap = new HashMap<>(n);
+            bytesValueMap = new HashMap<>(n);
             for (int i = 0; i < n; i++) {
-                bytesMap.put(i, pFeatureCollection.getBytesValues(i).toByteArray());
+                bytesValueMap.put(i, pFeatureCollection.getBytesValues(i).toByteArray());
             }
         }
 
+        private static void putValueToMap(HashMap<String, Object> map, List<Integer> keyIdList, List<Integer> valueIdList
+                , HashMap<Integer, String> keyMap, Map<Integer, ?> valueMap) {
+            if (null == keyIdList || keyIdList.size() == 0) {
+                return;
+            }
+            Iterator<Integer> keyIdIterator = keyIdList.iterator();
+            Iterator<Integer> valueIdIterator = valueIdList.iterator();
+            while (keyIdIterator.hasNext()) {
+                Integer keyId = keyIdIterator.next();
+                Integer valueId = valueIdIterator.next();
+                String key = keyMap.get(keyId);
+                Object value = valueMap.get(valueId);
+                map.put(key, value);
+            }
+        }
+
+        private HashMap<String, Object> parseMap(ProtoFeature.Map pMap) {
+            HashMap<String, Object> map = new HashMap<>();
+            //基本值
+            putValueToMap(map, pMap.getDoubleKeyIdsList(), pMap.getDoubleValueIdsList(), keyMap, doubleValueMap);
+            putValueToMap(map, pMap.getFloatKeyIdsList(), pMap.getFloatValueIdsList(), keyMap, floatValueMap);
+            putValueToMap(map, pMap.getSint32KeyIdsList(), pMap.getSint32ValueIdsList(), keyMap, sint32ValueMap);
+            putValueToMap(map, pMap.getSint64KeyIdsList(), pMap.getSint64ValueIdsList(), keyMap, sint64ValueMap);
+            {
+                // bool直接存值，所以单独处理
+                Iterator<Integer> keyIdIterator = pMap.getBoolKeyIdsList().iterator();
+                Iterator<Boolean> valueIterator = pMap.getBoolValuesList().stream().iterator();
+                while (keyIdIterator.hasNext()) {
+                    Integer keyId = keyIdIterator.next();
+                    boolean value = valueIterator.next();
+                    String key = keyMap.get(keyId);
+                    map.put(key, value);
+                }
+            }
+            putValueToMap(map, pMap.getStringKeyIdsList(), pMap.getStringValueIdsList(), keyMap, stringValueMap);
+            putValueToMap(map, pMap.getBytesKeyIdsList(), pMap.getBytesValueIdsList(), keyMap, bytesValueMap);
+            {
+                //subMap
+                List<Integer> keyIdList = pMap.getSubMapKeyIdsList();
+                if (null != keyIdList && keyIdList.size() > 0) {
+                    Iterator<Integer> keyIdIterator = keyIdList.iterator();
+                    Iterator<ProtoFeature.Map> valueIdIterator = pMap.getSubMapValuesList().iterator();
+                    while (keyIdIterator.hasNext()) {
+                        Integer keyId = keyIdIterator.next();
+                        String key = keyMap.get(keyId);
+                        ProtoFeature.Map subPMap = valueIdIterator.next();
+                        HashMap<String, Object> subMap = parseMap(subPMap);
+                        map.put(key, subMap);
+                    }
+                }
+            }
+            {
+                //list
+                List<Integer> keyIdList = pMap.getListKeyIdsList();
+                if (null != keyIdList && keyIdList.size() > 0) {
+                    Iterator<Integer> keyIdIterator = keyIdList.iterator();
+                    Iterator<ProtoFeature.List> valueIdIterator = pMap.getListValuesList().iterator();
+                    while (keyIdIterator.hasNext()) {
+                        Integer keyId = keyIdIterator.next();
+                        String key = keyMap.get(keyId);
+                        ProtoFeature.List pList = valueIdIterator.next();
+                        ArrayList<Object> list = parseList(pList);
+                        map.put(key, list);
+                    }
+                }
+            }
+            return map;
+        }
+
+        private ArrayList<Object> parseList(ProtoFeature.List pList) {
+            // indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
+            /*
+            	// valueId/value
+                repeated int32 doubleValueIds = 2;
+                repeated int32 floatValueIds = 3;
+                repeated int32 sint32ValueIds = 4;
+                repeated int32 sint64ValueIds = 5;
+                repeated bool boolValues = 6;
+                repeated int32 stringValueIds = 7;
+                repeated int32 bytesValueIds = 8;
+                // map
+                repeated Map mapValues = 9;
+                // children
+                repeated List subListValues = 10;
+            * */
+            List<Integer> indexes = pList.getIndexesList();
+            Iterator<Integer> doubleValueIdsIterator = pList.getDoubleValueIdsList().iterator();
+            Iterator<Integer> floatValueIdsIterator = pList.getFloatValueIdsList().iterator();
+            Iterator<Integer> sint32ValueIdsIterator = pList.getSint32ValueIdsList().iterator();
+            Iterator<Integer> sint64ValueIdsIterator = pList.getSint64ValueIdsList().iterator();
+            Iterator<Boolean> boolValuesIterator = pList.getBoolValuesList().iterator();
+            Iterator<Integer> stringValueIdsIterator = pList.getStringValueIdsList().iterator();
+            Iterator<Integer> bytesValueIdsIterator = pList.getBytesValueIdsList().iterator();
+            Iterator<ProtoFeature.Map> mapValuesIterator = pList.getMapValuesList().iterator();
+            Iterator<ProtoFeature.List> subListValuesIterator = pList.getSubListValuesList().iterator();
+
+            ArrayList<Object> list = new ArrayList<>(indexes.size());
+
+            for (Integer index : indexes) {
+                Object value;
+                Integer valueId;
+                switch (index) {
+                    case doubleValueIdsIndex:
+                        valueId = doubleValueIdsIterator.next();
+                        value = doubleValueMap.get(valueId);
+                        break;
+                    case floatValueIdsIndex:
+                        valueId = floatValueIdsIterator.next();
+                        value = floatValueMap.get(valueId);
+                        break;
+                    case sint32ValueIdsIndex:
+                        valueId = sint32ValueIdsIterator.next();
+                        value = sint32ValueMap.get(valueId);
+                        break;
+                    case sint64ValueIdsIndex:
+                        valueId = sint64ValueIdsIterator.next();
+                        value = sint64ValueMap.get(valueId);
+                        break;
+                    case boolValuesIndex:
+                        value = boolValuesIterator.next();
+                        break;
+                    case stringValueIdsIndex:
+                        valueId = stringValueIdsIterator.next();
+                        value = stringValueMap.get(valueId);
+                        break;
+                    case bytesValueIdsIndex:
+                        valueId = bytesValueIdsIterator.next();
+                        value = bytesValueMap.get(valueId);
+                        break;
+                    case mapValuesIndex:
+                        ProtoFeature.Map pMap = mapValuesIterator.next();
+                        value = parseMap(pMap);
+                        break;
+                    case subListValuesIndex:
+                        ProtoFeature.List subList = subListValuesIterator.next();
+                        value = parseList(subList);
+                        break;
+                    default:
+                        throw new RuntimeException("未知index类型 " + index);
+                }
+                list.add(value);
+            }
+            return list;
+        }
+
         public Map<String, Object> parseProperties(ProtoFeature.Map pProperties) {
-            int doubleKeyNum = pProperties.getDoubleKeyIdsCount();
-            int floatKeyNum = pProperties.getFloatKeyIdsCount();
-            int sint32KeyNum = pProperties.getSint32KeyIdsCount();
-            int sint64KeyNum = pProperties.getSint64KeyIdsCount();
-            int boolKeyNum = pProperties.getBoolKeyIdsCount();
-            int stringKeyNum = pProperties.getStringKeyIdsCount();
-            int bytesKeyNum = pProperties.getBytesKeyIdsCount();
-            int subKeyNum = pProperties.getSubKeyIdsCount();
-            int keyNum = doubleKeyNum + floatKeyNum + sint32KeyNum + sint64KeyNum + boolKeyNum + stringKeyNum + bytesKeyNum + subKeyNum;
-            if (keyNum == 0) {
-                return null;
-            }
-            Map<String, Object> properties = new HashMap<>(keyNum);
-
-            for (int i = 0; i < doubleKeyNum; i++) {
-                String key = keyMap.get(pProperties.getDoubleKeyIds(i));
-                Double value = doubleValueMap.get(pProperties.getDoubleValueIds(i));
-                properties.put(key, value);
-            }
-
-            for (int i = 0; i < floatKeyNum; i++) {
-                String key = keyMap.get(pProperties.getFloatKeyIds(i));
-                Float value = floatValueMap.get(pProperties.getFloatValueIds(i));
-                properties.put(key, value);
-            }
-
-            for (int i = 0; i < sint32KeyNum; i++) {
-                String key = keyMap.get(pProperties.getSint32KeyIds(i));
-                Integer value = sint32ValueMap.get(pProperties.getSint32ValueIds(i));
-                properties.put(key, value);
-            }
-
-            for (int i = 0; i < sint64KeyNum; i++) {
-                String key = keyMap.get(pProperties.getSint64KeyIds(i));
-                Long value = sint64ValueMap.get(pProperties.getSint64ValueIds(i));
-                properties.put(key, value);
-            }
-
-            for (int i = 0; i < stringKeyNum; i++) {
-                String key = keyMap.get(pProperties.getStringKeyIds(i));
-                String value = stringValueMap.get(pProperties.getStringValueIds(i));
-                properties.put(key, value);
-            }
-
-            for (int i = 0; i < bytesKeyNum; i++) {
-                String key = keyMap.get(pProperties.getBytesKeyIds(i));
-                byte[] value = bytesMap.get(pProperties.getBytesValueIds(i));
-                properties.put(key, value);
-            }
-
-            for (int i = 0; i < boolKeyNum; i++) {
-                String key = keyMap.get(pProperties.getBoolKeyIds(i));
-                boolean value = pProperties.getBoolValues(i);
-                properties.put(key, value);
-            }
-
-            for (int i = 0; i < subKeyNum; i++) {
-                ProtoFeature.Map subMap = pProperties.getSubMaps(i);
-                Map<String, Object> sub = parseProperties(subMap);
-                String key = keyMap.get(pProperties.getSubKeyIds(i));
-                properties.put(key, sub);
-            }
-
-            return properties;
+            return parseMap(pProperties);
         }
     }
 }
