@@ -5,12 +5,12 @@
     <parent>
         <artifactId>giscat-vector</artifactId>
         <groupId>org.wowtools</groupId>
-        <version>g1.5.0</version>
+        <version>g1.5.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>giscat-vector-mbexpression</artifactId>
-    <version>g1.5.0</version>
+    <version>g1.5.1</version>
     <description>mapbox expressions表达式解析为java对象，用以支持数据过滤等场景</description>
 
     <dependencies>

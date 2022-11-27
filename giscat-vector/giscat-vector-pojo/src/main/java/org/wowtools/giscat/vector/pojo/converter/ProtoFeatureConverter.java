@@ -62,7 +62,7 @@ public class ProtoFeatureConverter {
 
     private static ProtoFeature.Geometry.Builder geometry2ProtoBuilder(Geometry geometry) {
         ProtoFeature.Geometry.Builder geometryBuilder = ProtoFeature.Geometry.newBuilder();
-        if (null == geometry) {
+        if (null == geometry || geometry.isEmpty()) {
             geometryBuilder.setNullGeometry(nullGeometry);
         } else if (geometry instanceof Point) {
             geometryBuilder.setPoint(point2Proto((Point) geometry));

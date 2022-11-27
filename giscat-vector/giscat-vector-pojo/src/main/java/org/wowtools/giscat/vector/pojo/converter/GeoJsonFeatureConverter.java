@@ -60,7 +60,7 @@ public class GeoJsonFeatureConverter {
      * @return geojson
      */
     public static GeoJsonObject.Geometry geometry2GeoJson(Geometry geometry) {
-        if (null == geometry) {
+        if (null == geometry || geometry.isEmpty()) {
             return null;
         }
         if (geometry instanceof org.locationtech.jts.geom.Point) {

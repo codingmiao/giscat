@@ -3,8 +3,10 @@ package org.wowtools.giscat.vector.mvt;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.io.WKTReader;
+import org.wowtools.common.utils.ResourcesReader;
 import org.wowtools.giscat.vector.pojo.Feature;
 
+import java.nio.ByteBuffer;
 import java.util.Map;
 
 /**
@@ -23,6 +25,21 @@ public class Test1 {
         Geometry geo = wktReader.read(s);
         Feature feature = new Feature(geo, Map.of());
         layer.addFeature(feature);
-        mvtBuilder.toBytes();
+        byte[] byte0 = mvtBuilder.toBytes();
+        byte[] bytes = ResourcesReader.readStream("D:\\_test\\vts3-7-2.pbf").readAllBytes();
+//        byte[] bytes = ResourcesReader.readStream("D:\\_test\\vts8-209-96.pbf").readAllBytes();
+        byte[] s = bytes;
+        int[] c = new int[]{1, 2, 3, 4, 99};
+        for (int u = 0; u < c.length; u++) {
+            int l = c[u];
+            if (l >= 0 && l < s.length) {
+                s[l] = (byte) ~s[l];
+            }
+        }
+        MvtParser.MvtFeatureLayer[] layers = MvtParser.parse2Wgs84Coords(3, 7, 2, s, geometryFactory);
+        for (MvtParser.MvtFeatureLayer mvtFeatureLayer : layers) {
+            System.out.println(mvtFeatureLayer.getLayerName());
+        }
+
     }
 }
