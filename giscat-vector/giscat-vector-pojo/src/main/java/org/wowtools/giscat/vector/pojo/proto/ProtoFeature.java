@@ -70,16 +70,12 @@ public final class ProtoFeature {
                 boolean done = false;
                 while (!done) {
                     int tag = input.readTag();
-                    switch (tag) {
-                        case 0:
+                    if (tag == 0) {
+                        done = true;
+                    } else {
+                        if (!parseUnknownField(
+                                input, unknownFields, extensionRegistry, tag)) {
                             done = true;
-                            break;
-                        default: {
-                            if (!parseUnknownField(
-                                    input, unknownFields, extensionRegistry, tag)) {
-                                done = true;
-                            }
-                            break;
                         }
                     }
                 }
@@ -96,7 +92,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_NullGeometry_descriptor;
         }
@@ -148,8 +144,7 @@ public final class ProtoFeature {
             }
             org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry other = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry) obj;
 
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -267,8 +262,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -282,7 +276,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.NullGeometry)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_NullGeometry_descriptor;
             }
@@ -297,20 +291,13 @@ public final class ProtoFeature {
 
             // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.newBuilder()
             private Builder() {
-                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
-                maybeForceBuilderInitialization();
             }
 
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
 
             @java.lang.Override
             public Builder clear() {
@@ -453,7 +440,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<NullGeometry>
-                PARSER = new com.google.protobuf.AbstractParser<NullGeometry>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public NullGeometry parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -594,7 +581,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Point_descriptor;
         }
@@ -715,8 +702,7 @@ public final class ProtoFeature {
             if (java.lang.Double.doubleToLongBits(getZ())
                     != java.lang.Double.doubleToLongBits(
                     other.getZ())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -843,8 +829,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -858,7 +843,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.Point)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PointOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Point_descriptor;
             }
@@ -873,20 +858,13 @@ public final class ProtoFeature {
 
             // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point.newBuilder()
             private Builder() {
-                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
-                maybeForceBuilderInitialization();
             }
 
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
 
             @java.lang.Override
             public Builder clear() {
@@ -1157,7 +1135,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<Point>
-                PARSER = new com.google.protobuf.AbstractParser<Point>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public Point parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -1311,7 +1289,7 @@ public final class ProtoFeature {
                             done = true;
                             break;
                         case 9: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -1321,7 +1299,7 @@ public final class ProtoFeature {
                         case 10: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0 && input.getBytesUntilLimit() > 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -1332,7 +1310,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 17: {
-                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -1342,7 +1320,7 @@ public final class ProtoFeature {
                         case 18: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0 && input.getBytesUntilLimit() > 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -1353,7 +1331,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 25: {
-                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -1363,7 +1341,7 @@ public final class ProtoFeature {
                         case 26: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0 && input.getBytesUntilLimit() > 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -1404,7 +1382,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_LineString_descriptor;
         }
@@ -1622,8 +1600,7 @@ public final class ProtoFeature {
                     .equals(other.getYsList())) return false;
             if (!getZsList()
                     .equals(other.getZsList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -1753,8 +1730,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -1768,7 +1744,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.LineString)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineStringOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_LineString_descriptor;
             }
@@ -1783,20 +1759,13 @@ public final class ProtoFeature {
 
             // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString.newBuilder()
             private Builder() {
-                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
-                maybeForceBuilderInitialization();
             }
 
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
 
             @java.lang.Override
             public Builder clear() {
@@ -1968,7 +1937,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList xs_ = emptyDoubleList();
 
             private void ensureXsIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
+                if ((bitField0_ & 0x00000001) == 0) {
                     xs_ = mutableCopy(xs_);
                     bitField0_ |= 0x00000001;
                 }
@@ -2062,7 +2031,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList ys_ = emptyDoubleList();
 
             private void ensureYsIsMutable() {
-                if (!((bitField0_ & 0x00000002) != 0)) {
+                if ((bitField0_ & 0x00000002) == 0) {
                     ys_ = mutableCopy(ys_);
                     bitField0_ |= 0x00000002;
                 }
@@ -2156,7 +2125,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList zs_ = emptyDoubleList();
 
             private void ensureZsIsMutable() {
-                if (!((bitField0_ & 0x00000004) != 0)) {
+                if ((bitField0_ & 0x00000004) == 0) {
                     zs_ = mutableCopy(zs_);
                     bitField0_ |= 0x00000004;
                 }
@@ -2275,7 +2244,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<LineString>
-                PARSER = new com.google.protobuf.AbstractParser<LineString>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public LineString parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -2456,7 +2425,7 @@ public final class ProtoFeature {
                             done = true;
                             break;
                         case 9: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -2466,7 +2435,7 @@ public final class ProtoFeature {
                         case 10: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0 && input.getBytesUntilLimit() > 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -2477,7 +2446,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 17: {
-                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -2487,7 +2456,7 @@ public final class ProtoFeature {
                         case 18: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0 && input.getBytesUntilLimit() > 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -2498,7 +2467,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 25: {
-                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -2508,7 +2477,7 @@ public final class ProtoFeature {
                         case 26: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0 && input.getBytesUntilLimit() > 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -2519,7 +2488,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 32: {
-                            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0) {
                                 separators_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -2529,7 +2498,7 @@ public final class ProtoFeature {
                         case 34: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000008) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0 && input.getBytesUntilLimit() > 0) {
                                 separators_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -2573,7 +2542,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Polygon_descriptor;
         }
@@ -2849,8 +2818,7 @@ public final class ProtoFeature {
                     .equals(other.getZsList())) return false;
             if (!getSeparatorsList()
                     .equals(other.getSeparatorsList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -2984,8 +2952,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -3003,7 +2970,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.Polygon)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PolygonOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Polygon_descriptor;
             }
@@ -3018,19 +2985,11 @@ public final class ProtoFeature {
 
             // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon.newBuilder()
             private Builder() {
-                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
-                maybeForceBuilderInitialization();
-            }
-
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
             }
 
             @java.lang.Override
@@ -3220,7 +3179,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList xs_ = emptyDoubleList();
 
             private void ensureXsIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
+                if ((bitField0_ & 0x00000001) == 0) {
                     xs_ = mutableCopy(xs_);
                     bitField0_ |= 0x00000001;
                 }
@@ -3314,7 +3273,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList ys_ = emptyDoubleList();
 
             private void ensureYsIsMutable() {
-                if (!((bitField0_ & 0x00000002) != 0)) {
+                if ((bitField0_ & 0x00000002) == 0) {
                     ys_ = mutableCopy(ys_);
                     bitField0_ |= 0x00000002;
                 }
@@ -3408,7 +3367,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList zs_ = emptyDoubleList();
 
             private void ensureZsIsMutable() {
-                if (!((bitField0_ & 0x00000004) != 0)) {
+                if ((bitField0_ & 0x00000004) == 0) {
                     zs_ = mutableCopy(zs_);
                     bitField0_ |= 0x00000004;
                 }
@@ -3502,7 +3461,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList separators_ = emptyIntList();
 
             private void ensureSeparatorsIsMutable() {
-                if (!((bitField0_ & 0x00000008) != 0)) {
+                if ((bitField0_ & 0x00000008) == 0) {
                     separators_ = mutableCopy(separators_);
                     bitField0_ |= 0x00000008;
                 }
@@ -3621,7 +3580,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<Polygon>
-                PARSER = new com.google.protobuf.AbstractParser<Polygon>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public Polygon parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -3775,7 +3734,7 @@ public final class ProtoFeature {
                             done = true;
                             break;
                         case 9: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -3785,7 +3744,7 @@ public final class ProtoFeature {
                         case 10: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0 && input.getBytesUntilLimit() > 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -3796,7 +3755,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 17: {
-                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -3806,7 +3765,7 @@ public final class ProtoFeature {
                         case 18: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0 && input.getBytesUntilLimit() > 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -3817,7 +3776,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 25: {
-                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -3827,7 +3786,7 @@ public final class ProtoFeature {
                         case 26: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0 && input.getBytesUntilLimit() > 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -3868,7 +3827,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_MultiPoint_descriptor;
         }
@@ -4086,8 +4045,7 @@ public final class ProtoFeature {
                     .equals(other.getYsList())) return false;
             if (!getZsList()
                     .equals(other.getZsList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -4217,8 +4175,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -4232,7 +4189,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.MultiPoint)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPointOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_MultiPoint_descriptor;
             }
@@ -4247,20 +4204,13 @@ public final class ProtoFeature {
 
             // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint.newBuilder()
             private Builder() {
-                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
-                maybeForceBuilderInitialization();
             }
 
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
 
             @java.lang.Override
             public Builder clear() {
@@ -4432,7 +4382,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList xs_ = emptyDoubleList();
 
             private void ensureXsIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
+                if ((bitField0_ & 0x00000001) == 0) {
                     xs_ = mutableCopy(xs_);
                     bitField0_ |= 0x00000001;
                 }
@@ -4526,7 +4476,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList ys_ = emptyDoubleList();
 
             private void ensureYsIsMutable() {
-                if (!((bitField0_ & 0x00000002) != 0)) {
+                if ((bitField0_ & 0x00000002) == 0) {
                     ys_ = mutableCopy(ys_);
                     bitField0_ |= 0x00000002;
                 }
@@ -4620,7 +4570,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList zs_ = emptyDoubleList();
 
             private void ensureZsIsMutable() {
-                if (!((bitField0_ & 0x00000004) != 0)) {
+                if ((bitField0_ & 0x00000004) == 0) {
                     zs_ = mutableCopy(zs_);
                     bitField0_ |= 0x00000004;
                 }
@@ -4739,7 +4689,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<MultiPoint>
-                PARSER = new com.google.protobuf.AbstractParser<MultiPoint>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public MultiPoint parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -4919,7 +4869,7 @@ public final class ProtoFeature {
                             done = true;
                             break;
                         case 9: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -4929,7 +4879,7 @@ public final class ProtoFeature {
                         case 10: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0 && input.getBytesUntilLimit() > 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -4940,7 +4890,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 17: {
-                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -4950,7 +4900,7 @@ public final class ProtoFeature {
                         case 18: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0 && input.getBytesUntilLimit() > 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -4961,7 +4911,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 25: {
-                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -4971,7 +4921,7 @@ public final class ProtoFeature {
                         case 26: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0 && input.getBytesUntilLimit() > 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -4982,7 +4932,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 32: {
-                            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0) {
                                 separators_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -4992,7 +4942,7 @@ public final class ProtoFeature {
                         case 34: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000008) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0 && input.getBytesUntilLimit() > 0) {
                                 separators_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -5036,7 +4986,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_MultiLineString_descriptor;
         }
@@ -5312,8 +5262,7 @@ public final class ProtoFeature {
                     .equals(other.getZsList())) return false;
             if (!getSeparatorsList()
                     .equals(other.getSeparatorsList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -5447,8 +5396,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -5465,7 +5413,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.MultiLineString)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineStringOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_MultiLineString_descriptor;
             }
@@ -5480,20 +5428,13 @@ public final class ProtoFeature {
 
             // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString.newBuilder()
             private Builder() {
-                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
-                maybeForceBuilderInitialization();
             }
 
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
 
             @java.lang.Override
             public Builder clear() {
@@ -5682,7 +5623,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList xs_ = emptyDoubleList();
 
             private void ensureXsIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
+                if ((bitField0_ & 0x00000001) == 0) {
                     xs_ = mutableCopy(xs_);
                     bitField0_ |= 0x00000001;
                 }
@@ -5776,7 +5717,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList ys_ = emptyDoubleList();
 
             private void ensureYsIsMutable() {
-                if (!((bitField0_ & 0x00000002) != 0)) {
+                if ((bitField0_ & 0x00000002) == 0) {
                     ys_ = mutableCopy(ys_);
                     bitField0_ |= 0x00000002;
                 }
@@ -5870,7 +5811,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList zs_ = emptyDoubleList();
 
             private void ensureZsIsMutable() {
-                if (!((bitField0_ & 0x00000004) != 0)) {
+                if ((bitField0_ & 0x00000004) == 0) {
                     zs_ = mutableCopy(zs_);
                     bitField0_ |= 0x00000004;
                 }
@@ -5964,7 +5905,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList separators_ = emptyIntList();
 
             private void ensureSeparatorsIsMutable() {
-                if (!((bitField0_ & 0x00000008) != 0)) {
+                if ((bitField0_ & 0x00000008) == 0) {
                     separators_ = mutableCopy(separators_);
                     bitField0_ |= 0x00000008;
                 }
@@ -6083,7 +6024,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<MultiLineString>
-                PARSER = new com.google.protobuf.AbstractParser<MultiLineString>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public MultiLineString parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -6287,7 +6228,7 @@ public final class ProtoFeature {
                             done = true;
                             break;
                         case 9: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -6297,7 +6238,7 @@ public final class ProtoFeature {
                         case 10: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0 && input.getBytesUntilLimit() > 0) {
                                 xs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -6308,7 +6249,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 17: {
-                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -6318,7 +6259,7 @@ public final class ProtoFeature {
                         case 18: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0 && input.getBytesUntilLimit() > 0) {
                                 ys_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -6329,7 +6270,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 25: {
-                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -6339,7 +6280,7 @@ public final class ProtoFeature {
                         case 26: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0 && input.getBytesUntilLimit() > 0) {
                                 zs_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -6350,7 +6291,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 32: {
-                            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0) {
                                 coordSeparators_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -6360,7 +6301,7 @@ public final class ProtoFeature {
                         case 34: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000008) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0 && input.getBytesUntilLimit() > 0) {
                                 coordSeparators_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -6371,7 +6312,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 40: {
-                            if (!((mutable_bitField0_ & 0x00000010) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000010) == 0) {
                                 polygonSeparators_ = newIntList();
                                 mutable_bitField0_ |= 0x00000010;
                             }
@@ -6381,7 +6322,7 @@ public final class ProtoFeature {
                         case 42: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000010) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000010) == 0 && input.getBytesUntilLimit() > 0) {
                                 polygonSeparators_ = newIntList();
                                 mutable_bitField0_ |= 0x00000010;
                             }
@@ -6428,7 +6369,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_MultiPolygon_descriptor;
         }
@@ -6762,8 +6703,7 @@ public final class ProtoFeature {
                     .equals(other.getCoordSeparatorsList())) return false;
             if (!getPolygonSeparatorsList()
                     .equals(other.getPolygonSeparatorsList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -6901,8 +6841,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -6920,7 +6859,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.MultiPolygon)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygonOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_MultiPolygon_descriptor;
             }
@@ -6935,20 +6874,13 @@ public final class ProtoFeature {
 
             // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon.newBuilder()
             private Builder() {
-                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
-                maybeForceBuilderInitialization();
             }
 
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
 
             @java.lang.Override
             public Builder clear() {
@@ -7154,7 +7086,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList xs_ = emptyDoubleList();
 
             private void ensureXsIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
+                if ((bitField0_ & 0x00000001) == 0) {
                     xs_ = mutableCopy(xs_);
                     bitField0_ |= 0x00000001;
                 }
@@ -7248,7 +7180,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList ys_ = emptyDoubleList();
 
             private void ensureYsIsMutable() {
-                if (!((bitField0_ & 0x00000002) != 0)) {
+                if ((bitField0_ & 0x00000002) == 0) {
                     ys_ = mutableCopy(ys_);
                     bitField0_ |= 0x00000002;
                 }
@@ -7342,7 +7274,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList zs_ = emptyDoubleList();
 
             private void ensureZsIsMutable() {
-                if (!((bitField0_ & 0x00000004) != 0)) {
+                if ((bitField0_ & 0x00000004) == 0) {
                     zs_ = mutableCopy(zs_);
                     bitField0_ |= 0x00000004;
                 }
@@ -7436,7 +7368,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList coordSeparators_ = emptyIntList();
 
             private void ensureCoordSeparatorsIsMutable() {
-                if (!((bitField0_ & 0x00000008) != 0)) {
+                if ((bitField0_ & 0x00000008) == 0) {
                     coordSeparators_ = mutableCopy(coordSeparators_);
                     bitField0_ |= 0x00000008;
                 }
@@ -7530,7 +7462,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList polygonSeparators_ = emptyIntList();
 
             private void ensurePolygonSeparatorsIsMutable() {
-                if (!((bitField0_ & 0x00000010) != 0)) {
+                if ((bitField0_ & 0x00000010) == 0) {
                     polygonSeparators_ = mutableCopy(polygonSeparators_);
                     bitField0_ |= 0x00000010;
                 }
@@ -7649,7 +7581,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<MultiPolygon>
-                PARSER = new com.google.protobuf.AbstractParser<MultiPolygon>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public MultiPolygon parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -7958,8 +7890,8 @@ public final class ProtoFeature {
                             done = true;
                             break;
                         case 10: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                                points_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point>();
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
+                                points_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000001;
                             }
                             points_.add(
@@ -7967,8 +7899,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 18: {
-                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                                lineStrings_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString>();
+                            if ((mutable_bitField0_ & 0x00000002) == 0) {
+                                lineStrings_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000002;
                             }
                             lineStrings_.add(
@@ -7976,8 +7908,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 26: {
-                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
-                                polygons_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon>();
+                            if ((mutable_bitField0_ & 0x00000004) == 0) {
+                                polygons_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000004;
                             }
                             polygons_.add(
@@ -7985,8 +7917,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 34: {
-                            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
-                                multiPoints_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint>();
+                            if ((mutable_bitField0_ & 0x00000008) == 0) {
+                                multiPoints_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000008;
                             }
                             multiPoints_.add(
@@ -7994,8 +7926,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 42: {
-                            if (!((mutable_bitField0_ & 0x00000010) != 0)) {
-                                multiLineStrings_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString>();
+                            if ((mutable_bitField0_ & 0x00000010) == 0) {
+                                multiLineStrings_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000010;
                             }
                             multiLineStrings_.add(
@@ -8003,8 +7935,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 50: {
-                            if (!((mutable_bitField0_ & 0x00000020) != 0)) {
-                                multiPolygons_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon>();
+                            if ((mutable_bitField0_ & 0x00000020) == 0) {
+                                multiPolygons_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000020;
                             }
                             multiPolygons_.add(
@@ -8012,8 +7944,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 58: {
-                            if (!((mutable_bitField0_ & 0x00000040) != 0)) {
-                                geometryCollections_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection>();
+                            if ((mutable_bitField0_ & 0x00000040) == 0) {
+                                geometryCollections_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000040;
                             }
                             geometryCollections_.add(
@@ -8063,7 +7995,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_GeometryCollection_descriptor;
         }
@@ -8426,26 +8358,26 @@ public final class ProtoFeature {
         @java.lang.Override
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
-            for (int i = 0; i < points_.size(); i++) {
-                output.writeMessage(1, points_.get(i));
+            for (Point point : points_) {
+                output.writeMessage(1, point);
             }
-            for (int i = 0; i < lineStrings_.size(); i++) {
-                output.writeMessage(2, lineStrings_.get(i));
+            for (LineString lineString : lineStrings_) {
+                output.writeMessage(2, lineString);
             }
-            for (int i = 0; i < polygons_.size(); i++) {
-                output.writeMessage(3, polygons_.get(i));
+            for (Polygon polygon : polygons_) {
+                output.writeMessage(3, polygon);
             }
-            for (int i = 0; i < multiPoints_.size(); i++) {
-                output.writeMessage(4, multiPoints_.get(i));
+            for (MultiPoint multiPoint : multiPoints_) {
+                output.writeMessage(4, multiPoint);
             }
-            for (int i = 0; i < multiLineStrings_.size(); i++) {
-                output.writeMessage(5, multiLineStrings_.get(i));
+            for (MultiLineString multiLineString : multiLineStrings_) {
+                output.writeMessage(5, multiLineString);
             }
-            for (int i = 0; i < multiPolygons_.size(); i++) {
-                output.writeMessage(6, multiPolygons_.get(i));
+            for (MultiPolygon multiPolygon : multiPolygons_) {
+                output.writeMessage(6, multiPolygon);
             }
-            for (int i = 0; i < geometryCollections_.size(); i++) {
-                output.writeMessage(7, geometryCollections_.get(i));
+            for (GeometryCollection geometryCollection : geometryCollections_) {
+                output.writeMessage(7, geometryCollection);
             }
             unknownFields.writeTo(output);
         }
@@ -8456,33 +8388,33 @@ public final class ProtoFeature {
             if (size != -1) return size;
 
             size = 0;
-            for (int i = 0; i < points_.size(); i++) {
+            for (Point point : points_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(1, points_.get(i));
+                        .computeMessageSize(1, point);
             }
-            for (int i = 0; i < lineStrings_.size(); i++) {
+            for (LineString lineString : lineStrings_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(2, lineStrings_.get(i));
+                        .computeMessageSize(2, lineString);
             }
-            for (int i = 0; i < polygons_.size(); i++) {
+            for (Polygon polygon : polygons_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(3, polygons_.get(i));
+                        .computeMessageSize(3, polygon);
             }
-            for (int i = 0; i < multiPoints_.size(); i++) {
+            for (MultiPoint multiPoint : multiPoints_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(4, multiPoints_.get(i));
+                        .computeMessageSize(4, multiPoint);
             }
-            for (int i = 0; i < multiLineStrings_.size(); i++) {
+            for (MultiLineString multiLineString : multiLineStrings_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(5, multiLineStrings_.get(i));
+                        .computeMessageSize(5, multiLineString);
             }
-            for (int i = 0; i < multiPolygons_.size(); i++) {
+            for (MultiPolygon multiPolygon : multiPolygons_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(6, multiPolygons_.get(i));
+                        .computeMessageSize(6, multiPolygon);
             }
-            for (int i = 0; i < geometryCollections_.size(); i++) {
+            for (GeometryCollection geometryCollection : geometryCollections_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(7, geometryCollections_.get(i));
+                        .computeMessageSize(7, geometryCollection);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -8513,8 +8445,7 @@ public final class ProtoFeature {
                     .equals(other.getMultiPolygonsList())) return false;
             if (!getGeometryCollectionsList()
                     .equals(other.getGeometryCollectionsList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -8660,8 +8591,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -8676,7 +8606,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.GeometryCollection)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollectionOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_GeometryCollection_descriptor;
             }
@@ -9120,8 +9050,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensurePointsIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
-                    points_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point>(points_);
+                if ((bitField0_ & 0x00000001) == 0) {
+                    points_ = new java.util.ArrayList<>(points_);
                     bitField0_ |= 0x00000001;
                 }
             }
@@ -9365,8 +9295,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PointOrBuilder>
             getPointsFieldBuilder() {
                 if (pointsBuilder_ == null) {
-                    pointsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PointOrBuilder>(
+                    pointsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             points_,
                             ((bitField0_ & 0x00000001) != 0),
                             getParentForChildren(),
@@ -9380,8 +9309,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureLineStringsIsMutable() {
-                if (!((bitField0_ & 0x00000002) != 0)) {
-                    lineStrings_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString>(lineStrings_);
+                if ((bitField0_ & 0x00000002) == 0) {
+                    lineStrings_ = new java.util.ArrayList<>(lineStrings_);
                     bitField0_ |= 0x00000002;
                 }
             }
@@ -9625,8 +9554,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineStringOrBuilder>
             getLineStringsFieldBuilder() {
                 if (lineStringsBuilder_ == null) {
-                    lineStringsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineStringOrBuilder>(
+                    lineStringsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             lineStrings_,
                             ((bitField0_ & 0x00000002) != 0),
                             getParentForChildren(),
@@ -9640,8 +9568,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensurePolygonsIsMutable() {
-                if (!((bitField0_ & 0x00000004) != 0)) {
-                    polygons_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon>(polygons_);
+                if ((bitField0_ & 0x00000004) == 0) {
+                    polygons_ = new java.util.ArrayList<>(polygons_);
                     bitField0_ |= 0x00000004;
                 }
             }
@@ -9885,8 +9813,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PolygonOrBuilder>
             getPolygonsFieldBuilder() {
                 if (polygonsBuilder_ == null) {
-                    polygonsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PolygonOrBuilder>(
+                    polygonsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             polygons_,
                             ((bitField0_ & 0x00000004) != 0),
                             getParentForChildren(),
@@ -9900,8 +9827,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureMultiPointsIsMutable() {
-                if (!((bitField0_ & 0x00000008) != 0)) {
-                    multiPoints_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint>(multiPoints_);
+                if ((bitField0_ & 0x00000008) == 0) {
+                    multiPoints_ = new java.util.ArrayList<>(multiPoints_);
                     bitField0_ |= 0x00000008;
                 }
             }
@@ -10145,8 +10072,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPointOrBuilder>
             getMultiPointsFieldBuilder() {
                 if (multiPointsBuilder_ == null) {
-                    multiPointsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPointOrBuilder>(
+                    multiPointsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             multiPoints_,
                             ((bitField0_ & 0x00000008) != 0),
                             getParentForChildren(),
@@ -10160,8 +10086,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureMultiLineStringsIsMutable() {
-                if (!((bitField0_ & 0x00000010) != 0)) {
-                    multiLineStrings_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString>(multiLineStrings_);
+                if ((bitField0_ & 0x00000010) == 0) {
+                    multiLineStrings_ = new java.util.ArrayList<>(multiLineStrings_);
                     bitField0_ |= 0x00000010;
                 }
             }
@@ -10405,8 +10331,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineStringOrBuilder>
             getMultiLineStringsFieldBuilder() {
                 if (multiLineStringsBuilder_ == null) {
-                    multiLineStringsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineStringOrBuilder>(
+                    multiLineStringsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             multiLineStrings_,
                             ((bitField0_ & 0x00000010) != 0),
                             getParentForChildren(),
@@ -10420,8 +10345,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureMultiPolygonsIsMutable() {
-                if (!((bitField0_ & 0x00000020) != 0)) {
-                    multiPolygons_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon>(multiPolygons_);
+                if ((bitField0_ & 0x00000020) == 0) {
+                    multiPolygons_ = new java.util.ArrayList<>(multiPolygons_);
                     bitField0_ |= 0x00000020;
                 }
             }
@@ -10665,8 +10590,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygonOrBuilder>
             getMultiPolygonsFieldBuilder() {
                 if (multiPolygonsBuilder_ == null) {
-                    multiPolygonsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygonOrBuilder>(
+                    multiPolygonsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             multiPolygons_,
                             ((bitField0_ & 0x00000020) != 0),
                             getParentForChildren(),
@@ -10680,8 +10604,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureGeometryCollectionsIsMutable() {
-                if (!((bitField0_ & 0x00000040) != 0)) {
-                    geometryCollections_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection>(geometryCollections_);
+                if ((bitField0_ & 0x00000040) == 0) {
+                    geometryCollections_ = new java.util.ArrayList<>(geometryCollections_);
                     bitField0_ |= 0x00000040;
                 }
             }
@@ -10997,8 +10921,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollectionOrBuilder>
             getGeometryCollectionsFieldBuilder() {
                 if (geometryCollectionsBuilder_ == null) {
-                    geometryCollectionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollectionOrBuilder>(
+                    geometryCollectionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             geometryCollections_,
                             ((bitField0_ & 0x00000040) != 0),
                             getParentForChildren(),
@@ -11036,7 +10959,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<GeometryCollection>
-                PARSER = new com.google.protobuf.AbstractParser<GeometryCollection>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public GeometryCollection parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -11397,7 +11320,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Geometry_descriptor;
         }
@@ -11793,8 +11716,7 @@ public final class ProtoFeature {
                 if (!getNullGeometry()
                         .equals(other.getNullGeometry())) return false;
             }
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -11944,8 +11866,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -11959,7 +11880,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.Geometry)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Geometry_descriptor;
             }
@@ -11974,19 +11895,11 @@ public final class ProtoFeature {
 
             // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.newBuilder()
             private Builder() {
-                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
-                maybeForceBuilderInitialization();
-            }
-
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
             }
 
             @java.lang.Override
@@ -12334,8 +12247,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PointOrBuilder>
             getPointFieldBuilder() {
                 if (pointBuilder_ == null) {
-                    pointBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Point.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PointOrBuilder>(
+                    pointBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<>(
                             getPoint(),
                             getParentForChildren(),
                             isClean());
@@ -12464,8 +12376,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineStringOrBuilder>
             getLineStringFieldBuilder() {
                 if (lineStringBuilder_ == null) {
-                    lineStringBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineString.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.LineStringOrBuilder>(
+                    lineStringBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<>(
                             getLineString(),
                             getParentForChildren(),
                             isClean());
@@ -12594,8 +12505,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PolygonOrBuilder>
             getPolygonFieldBuilder() {
                 if (polygonBuilder_ == null) {
-                    polygonBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Polygon.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.PolygonOrBuilder>(
+                    polygonBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<>(
                             getPolygon(),
                             getParentForChildren(),
                             isClean());
@@ -12724,8 +12634,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPointOrBuilder>
             getMultiPointFieldBuilder() {
                 if (multiPointBuilder_ == null) {
-                    multiPointBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPoint.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPointOrBuilder>(
+                    multiPointBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<>(
                             getMultiPoint(),
                             getParentForChildren(),
                             isClean());
@@ -12854,8 +12763,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineStringOrBuilder>
             getMultiLineStringFieldBuilder() {
                 if (multiLineStringBuilder_ == null) {
-                    multiLineStringBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineString.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiLineStringOrBuilder>(
+                    multiLineStringBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<>(
                             getMultiLineString(),
                             getParentForChildren(),
                             isClean());
@@ -12984,8 +12892,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygonOrBuilder>
             getMultiPolygonFieldBuilder() {
                 if (multiPolygonBuilder_ == null) {
-                    multiPolygonBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygon.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MultiPolygonOrBuilder>(
+                    multiPolygonBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<>(
                             getMultiPolygon(),
                             getParentForChildren(),
                             isClean());
@@ -13114,8 +13021,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollectionOrBuilder>
             getGeometryCollectionFieldBuilder() {
                 if (geometryCollectionBuilder_ == null) {
-                    geometryCollectionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollection.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryCollectionOrBuilder>(
+                    geometryCollectionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<>(
                             getGeometryCollection(),
                             getParentForChildren(),
                             isClean());
@@ -13244,8 +13150,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder>
             getNullGeometryFieldBuilder() {
                 if (nullGeometryBuilder_ == null) {
-                    nullGeometryBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.NullGeometryOrBuilder>(
+                    nullGeometryBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<>(
                             getNullGeometry(),
                             getParentForChildren(),
                             isClean());
@@ -13282,7 +13187,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<Geometry>
-                PARSER = new com.google.protobuf.AbstractParser<Geometry>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public Geometry parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -13361,16 +13266,12 @@ public final class ProtoFeature {
                 boolean done = false;
                 while (!done) {
                     int tag = input.readTag();
-                    switch (tag) {
-                        case 0:
+                    if (tag == 0) {
+                        done = true;
+                    } else {
+                        if (!parseUnknownField(
+                                input, unknownFields, extensionRegistry, tag)) {
                             done = true;
-                            break;
-                        default: {
-                            if (!parseUnknownField(
-                                    input, unknownFields, extensionRegistry, tag)) {
-                                done = true;
-                            }
-                            break;
                         }
                     }
                 }
@@ -13387,7 +13288,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_descriptor;
         }
@@ -13439,8 +13340,7 @@ public final class ProtoFeature {
             }
             org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature other = (org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature) obj;
 
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -13558,8 +13458,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -13573,7 +13472,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.Feature)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.FeatureOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Feature_descriptor;
             }
@@ -13588,19 +13487,11 @@ public final class ProtoFeature {
 
             // Construct using org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Feature.newBuilder()
             private Builder() {
-                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
-                maybeForceBuilderInitialization();
-            }
-
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
             }
 
             @java.lang.Override
@@ -13744,7 +13635,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<Feature>
-                PARSER = new com.google.protobuf.AbstractParser<Feature>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public Feature parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -14304,7 +14195,7 @@ public final class ProtoFeature {
                             done = true;
                             break;
                         case 8: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
                                 doubleKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -14314,7 +14205,7 @@ public final class ProtoFeature {
                         case 10: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0 && input.getBytesUntilLimit() > 0) {
                                 doubleKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -14325,7 +14216,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 16: {
-                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0) {
                                 doubleValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -14335,7 +14226,7 @@ public final class ProtoFeature {
                         case 18: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0 && input.getBytesUntilLimit() > 0) {
                                 doubleValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -14346,7 +14237,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 24: {
-                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0) {
                                 floatKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -14356,7 +14247,7 @@ public final class ProtoFeature {
                         case 26: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0 && input.getBytesUntilLimit() > 0) {
                                 floatKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -14367,7 +14258,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 32: {
-                            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0) {
                                 floatValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -14377,7 +14268,7 @@ public final class ProtoFeature {
                         case 34: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000008) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0 && input.getBytesUntilLimit() > 0) {
                                 floatValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -14388,7 +14279,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 40: {
-                            if (!((mutable_bitField0_ & 0x00000010) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000010) == 0) {
                                 sint32KeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000010;
                             }
@@ -14398,7 +14289,7 @@ public final class ProtoFeature {
                         case 42: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000010) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000010) == 0 && input.getBytesUntilLimit() > 0) {
                                 sint32KeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000010;
                             }
@@ -14409,7 +14300,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 48: {
-                            if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000020) == 0) {
                                 sint32ValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000020;
                             }
@@ -14419,7 +14310,7 @@ public final class ProtoFeature {
                         case 50: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000020) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000020) == 0 && input.getBytesUntilLimit() > 0) {
                                 sint32ValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000020;
                             }
@@ -14430,7 +14321,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 56: {
-                            if (!((mutable_bitField0_ & 0x00000040) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000040) == 0) {
                                 sint64KeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000040;
                             }
@@ -14440,7 +14331,7 @@ public final class ProtoFeature {
                         case 58: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000040) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000040) == 0 && input.getBytesUntilLimit() > 0) {
                                 sint64KeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000040;
                             }
@@ -14451,7 +14342,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 64: {
-                            if (!((mutable_bitField0_ & 0x00000080) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000080) == 0) {
                                 sint64ValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000080;
                             }
@@ -14461,7 +14352,7 @@ public final class ProtoFeature {
                         case 66: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000080) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000080) == 0 && input.getBytesUntilLimit() > 0) {
                                 sint64ValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000080;
                             }
@@ -14472,7 +14363,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 72: {
-                            if (!((mutable_bitField0_ & 0x00000100) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000100) == 0) {
                                 boolKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000100;
                             }
@@ -14482,7 +14373,7 @@ public final class ProtoFeature {
                         case 74: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000100) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000100) == 0 && input.getBytesUntilLimit() > 0) {
                                 boolKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000100;
                             }
@@ -14493,7 +14384,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 80: {
-                            if (!((mutable_bitField0_ & 0x00000200) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000200) == 0) {
                                 boolValues_ = newBooleanList();
                                 mutable_bitField0_ |= 0x00000200;
                             }
@@ -14503,7 +14394,7 @@ public final class ProtoFeature {
                         case 82: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000200) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000200) == 0 && input.getBytesUntilLimit() > 0) {
                                 boolValues_ = newBooleanList();
                                 mutable_bitField0_ |= 0x00000200;
                             }
@@ -14514,7 +14405,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 88: {
-                            if (!((mutable_bitField0_ & 0x00000400) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000400) == 0) {
                                 stringKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000400;
                             }
@@ -14524,7 +14415,7 @@ public final class ProtoFeature {
                         case 90: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000400) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000400) == 0 && input.getBytesUntilLimit() > 0) {
                                 stringKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000400;
                             }
@@ -14535,7 +14426,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 96: {
-                            if (!((mutable_bitField0_ & 0x00000800) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000800) == 0) {
                                 stringValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000800;
                             }
@@ -14545,7 +14436,7 @@ public final class ProtoFeature {
                         case 98: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000800) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000800) == 0 && input.getBytesUntilLimit() > 0) {
                                 stringValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000800;
                             }
@@ -14556,7 +14447,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 104: {
-                            if (!((mutable_bitField0_ & 0x00001000) != 0)) {
+                            if ((mutable_bitField0_ & 0x00001000) == 0) {
                                 bytesKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00001000;
                             }
@@ -14566,7 +14457,7 @@ public final class ProtoFeature {
                         case 106: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00001000) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00001000) == 0 && input.getBytesUntilLimit() > 0) {
                                 bytesKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00001000;
                             }
@@ -14577,7 +14468,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 112: {
-                            if (!((mutable_bitField0_ & 0x00002000) != 0)) {
+                            if ((mutable_bitField0_ & 0x00002000) == 0) {
                                 bytesValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00002000;
                             }
@@ -14587,7 +14478,7 @@ public final class ProtoFeature {
                         case 114: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00002000) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00002000) == 0 && input.getBytesUntilLimit() > 0) {
                                 bytesValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00002000;
                             }
@@ -14598,7 +14489,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 120: {
-                            if (!((mutable_bitField0_ & 0x00004000) != 0)) {
+                            if ((mutable_bitField0_ & 0x00004000) == 0) {
                                 listKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00004000;
                             }
@@ -14608,7 +14499,7 @@ public final class ProtoFeature {
                         case 122: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00004000) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00004000) == 0 && input.getBytesUntilLimit() > 0) {
                                 listKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00004000;
                             }
@@ -14619,8 +14510,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 130: {
-                            if (!((mutable_bitField0_ & 0x00008000) != 0)) {
-                                listValues_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List>();
+                            if ((mutable_bitField0_ & 0x00008000) == 0) {
+                                listValues_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00008000;
                             }
                             listValues_.add(
@@ -14628,7 +14519,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 136: {
-                            if (!((mutable_bitField0_ & 0x00010000) != 0)) {
+                            if ((mutable_bitField0_ & 0x00010000) == 0) {
                                 subMapKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00010000;
                             }
@@ -14638,7 +14529,7 @@ public final class ProtoFeature {
                         case 138: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00010000) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00010000) == 0 && input.getBytesUntilLimit() > 0) {
                                 subMapKeyIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00010000;
                             }
@@ -14649,8 +14540,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 146: {
-                            if (!((mutable_bitField0_ & 0x00020000) != 0)) {
-                                subMapValues_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>();
+                            if ((mutable_bitField0_ & 0x00020000) == 0) {
+                                subMapValues_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00020000;
                             }
                             subMapValues_.add(
@@ -14733,7 +14624,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Map_descriptor;
         }
@@ -15553,8 +15444,8 @@ public final class ProtoFeature {
             for (int i = 0; i < listKeyIds_.size(); i++) {
                 output.writeInt32NoTag(listKeyIds_.getInt(i));
             }
-            for (int i = 0; i < listValues_.size(); i++) {
-                output.writeMessage(16, listValues_.get(i));
+            for (List list : listValues_) {
+                output.writeMessage(16, list);
             }
             if (getSubMapKeyIdsList().size() > 0) {
                 output.writeUInt32NoTag(138);
@@ -15563,8 +15454,8 @@ public final class ProtoFeature {
             for (int i = 0; i < subMapKeyIds_.size(); i++) {
                 output.writeInt32NoTag(subMapKeyIds_.getInt(i));
             }
-            for (int i = 0; i < subMapValues_.size(); i++) {
-                output.writeMessage(18, subMapValues_.get(i));
+            for (Map map : subMapValues_) {
+                output.writeMessage(18, map);
             }
             unknownFields.writeTo(output);
         }
@@ -15703,7 +15594,7 @@ public final class ProtoFeature {
             }
             {
                 int dataSize = 0;
-                dataSize = 1 * getBoolValuesList().size();
+                dataSize = getBoolValuesList().size();
                 size += dataSize;
                 if (!getBoolValuesList().isEmpty()) {
                     size += 1;
@@ -15782,9 +15673,9 @@ public final class ProtoFeature {
                 }
                 listKeyIdsMemoizedSerializedSize = dataSize;
             }
-            for (int i = 0; i < listValues_.size(); i++) {
+            for (List list : listValues_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(16, listValues_.get(i));
+                        .computeMessageSize(16, list);
             }
             {
                 int dataSize = 0;
@@ -15800,9 +15691,9 @@ public final class ProtoFeature {
                 }
                 subMapKeyIdsMemoizedSerializedSize = dataSize;
             }
-            for (int i = 0; i < subMapValues_.size(); i++) {
+            for (Map map : subMapValues_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(18, subMapValues_.get(i));
+                        .computeMessageSize(18, map);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -15855,8 +15746,7 @@ public final class ProtoFeature {
                     .equals(other.getSubMapKeyIdsList())) return false;
             if (!getSubMapValuesList()
                     .equals(other.getSubMapValuesList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -16046,8 +15936,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -16074,7 +15963,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.Map)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_Map_descriptor;
             }
@@ -16578,7 +16467,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList doubleKeyIds_ = emptyIntList();
 
             private void ensureDoubleKeyIdsIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
+                if ((bitField0_ & 0x00000001) == 0) {
                     doubleKeyIds_ = mutableCopy(doubleKeyIds_);
                     bitField0_ |= 0x00000001;
                 }
@@ -16700,7 +16589,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList doubleValueIds_ = emptyIntList();
 
             private void ensureDoubleValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000002) != 0)) {
+                if ((bitField0_ & 0x00000002) == 0) {
                     doubleValueIds_ = mutableCopy(doubleValueIds_);
                     bitField0_ |= 0x00000002;
                 }
@@ -16794,7 +16683,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList floatKeyIds_ = emptyIntList();
 
             private void ensureFloatKeyIdsIsMutable() {
-                if (!((bitField0_ & 0x00000004) != 0)) {
+                if ((bitField0_ & 0x00000004) == 0) {
                     floatKeyIds_ = mutableCopy(floatKeyIds_);
                     bitField0_ |= 0x00000004;
                 }
@@ -16888,7 +16777,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList floatValueIds_ = emptyIntList();
 
             private void ensureFloatValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000008) != 0)) {
+                if ((bitField0_ & 0x00000008) == 0) {
                     floatValueIds_ = mutableCopy(floatValueIds_);
                     bitField0_ |= 0x00000008;
                 }
@@ -16982,7 +16871,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList sint32KeyIds_ = emptyIntList();
 
             private void ensureSint32KeyIdsIsMutable() {
-                if (!((bitField0_ & 0x00000010) != 0)) {
+                if ((bitField0_ & 0x00000010) == 0) {
                     sint32KeyIds_ = mutableCopy(sint32KeyIds_);
                     bitField0_ |= 0x00000010;
                 }
@@ -17076,7 +16965,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList sint32ValueIds_ = emptyIntList();
 
             private void ensureSint32ValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000020) != 0)) {
+                if ((bitField0_ & 0x00000020) == 0) {
                     sint32ValueIds_ = mutableCopy(sint32ValueIds_);
                     bitField0_ |= 0x00000020;
                 }
@@ -17170,7 +17059,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList sint64KeyIds_ = emptyIntList();
 
             private void ensureSint64KeyIdsIsMutable() {
-                if (!((bitField0_ & 0x00000040) != 0)) {
+                if ((bitField0_ & 0x00000040) == 0) {
                     sint64KeyIds_ = mutableCopy(sint64KeyIds_);
                     bitField0_ |= 0x00000040;
                 }
@@ -17264,7 +17153,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList sint64ValueIds_ = emptyIntList();
 
             private void ensureSint64ValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000080) != 0)) {
+                if ((bitField0_ & 0x00000080) == 0) {
                     sint64ValueIds_ = mutableCopy(sint64ValueIds_);
                     bitField0_ |= 0x00000080;
                 }
@@ -17358,7 +17247,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList boolKeyIds_ = emptyIntList();
 
             private void ensureBoolKeyIdsIsMutable() {
-                if (!((bitField0_ & 0x00000100) != 0)) {
+                if ((bitField0_ & 0x00000100) == 0) {
                     boolKeyIds_ = mutableCopy(boolKeyIds_);
                     bitField0_ |= 0x00000100;
                 }
@@ -17452,7 +17341,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.BooleanList boolValues_ = emptyBooleanList();
 
             private void ensureBoolValuesIsMutable() {
-                if (!((bitField0_ & 0x00000200) != 0)) {
+                if ((bitField0_ & 0x00000200) == 0) {
                     boolValues_ = mutableCopy(boolValues_);
                     bitField0_ |= 0x00000200;
                 }
@@ -17546,7 +17435,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList stringKeyIds_ = emptyIntList();
 
             private void ensureStringKeyIdsIsMutable() {
-                if (!((bitField0_ & 0x00000400) != 0)) {
+                if ((bitField0_ & 0x00000400) == 0) {
                     stringKeyIds_ = mutableCopy(stringKeyIds_);
                     bitField0_ |= 0x00000400;
                 }
@@ -17640,7 +17529,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList stringValueIds_ = emptyIntList();
 
             private void ensureStringValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000800) != 0)) {
+                if ((bitField0_ & 0x00000800) == 0) {
                     stringValueIds_ = mutableCopy(stringValueIds_);
                     bitField0_ |= 0x00000800;
                 }
@@ -17734,7 +17623,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList bytesKeyIds_ = emptyIntList();
 
             private void ensureBytesKeyIdsIsMutable() {
-                if (!((bitField0_ & 0x00001000) != 0)) {
+                if ((bitField0_ & 0x00001000) == 0) {
                     bytesKeyIds_ = mutableCopy(bytesKeyIds_);
                     bitField0_ |= 0x00001000;
                 }
@@ -17828,7 +17717,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList bytesValueIds_ = emptyIntList();
 
             private void ensureBytesValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00002000) != 0)) {
+                if ((bitField0_ & 0x00002000) == 0) {
                     bytesValueIds_ = mutableCopy(bytesValueIds_);
                     bitField0_ |= 0x00002000;
                 }
@@ -17922,7 +17811,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList listKeyIds_ = emptyIntList();
 
             private void ensureListKeyIdsIsMutable() {
-                if (!((bitField0_ & 0x00004000) != 0)) {
+                if ((bitField0_ & 0x00004000) == 0) {
                     listKeyIds_ = mutableCopy(listKeyIds_);
                     bitField0_ |= 0x00004000;
                 }
@@ -18045,8 +17934,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureListValuesIsMutable() {
-                if (!((bitField0_ & 0x00008000) != 0)) {
-                    listValues_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List>(listValues_);
+                if ((bitField0_ & 0x00008000) == 0) {
+                    listValues_ = new java.util.ArrayList<>(listValues_);
                     bitField0_ |= 0x00008000;
                 }
             }
@@ -18290,8 +18179,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder>
             getListValuesFieldBuilder() {
                 if (listValuesBuilder_ == null) {
-                    listValuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder>(
+                    listValuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             listValues_,
                             ((bitField0_ & 0x00008000) != 0),
                             getParentForChildren(),
@@ -18304,7 +18192,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList subMapKeyIds_ = emptyIntList();
 
             private void ensureSubMapKeyIdsIsMutable() {
-                if (!((bitField0_ & 0x00010000) != 0)) {
+                if ((bitField0_ & 0x00010000) == 0) {
                     subMapKeyIds_ = mutableCopy(subMapKeyIds_);
                     bitField0_ |= 0x00010000;
                 }
@@ -18427,8 +18315,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureSubMapValuesIsMutable() {
-                if (!((bitField0_ & 0x00020000) != 0)) {
-                    subMapValues_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>(subMapValues_);
+                if ((bitField0_ & 0x00020000) == 0) {
+                    subMapValues_ = new java.util.ArrayList<>(subMapValues_);
                     bitField0_ |= 0x00020000;
                 }
             }
@@ -18672,8 +18560,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
             getSubMapValuesFieldBuilder() {
                 if (subMapValuesBuilder_ == null) {
-                    subMapValuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>(
+                    subMapValuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             subMapValues_,
                             ((bitField0_ & 0x00020000) != 0),
                             getParentForChildren(),
@@ -18711,7 +18598,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<Map>
-                PARSER = new com.google.protobuf.AbstractParser<Map>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public Map parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -19105,7 +18992,7 @@ public final class ProtoFeature {
                             done = true;
                             break;
                         case 8: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
                                 indexes_ = newIntList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -19115,7 +19002,7 @@ public final class ProtoFeature {
                         case 10: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0 && input.getBytesUntilLimit() > 0) {
                                 indexes_ = newIntList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -19126,7 +19013,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 16: {
-                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0) {
                                 doubleValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -19136,7 +19023,7 @@ public final class ProtoFeature {
                         case 18: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0 && input.getBytesUntilLimit() > 0) {
                                 doubleValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -19147,7 +19034,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 24: {
-                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0) {
                                 floatValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -19157,7 +19044,7 @@ public final class ProtoFeature {
                         case 26: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0 && input.getBytesUntilLimit() > 0) {
                                 floatValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -19168,7 +19055,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 32: {
-                            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0) {
                                 sint32ValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -19178,7 +19065,7 @@ public final class ProtoFeature {
                         case 34: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000008) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0 && input.getBytesUntilLimit() > 0) {
                                 sint32ValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -19189,7 +19076,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 40: {
-                            if (!((mutable_bitField0_ & 0x00000010) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000010) == 0) {
                                 sint64ValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000010;
                             }
@@ -19199,7 +19086,7 @@ public final class ProtoFeature {
                         case 42: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000010) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000010) == 0 && input.getBytesUntilLimit() > 0) {
                                 sint64ValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000010;
                             }
@@ -19210,7 +19097,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 48: {
-                            if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000020) == 0) {
                                 boolValues_ = newBooleanList();
                                 mutable_bitField0_ |= 0x00000020;
                             }
@@ -19220,7 +19107,7 @@ public final class ProtoFeature {
                         case 50: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000020) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000020) == 0 && input.getBytesUntilLimit() > 0) {
                                 boolValues_ = newBooleanList();
                                 mutable_bitField0_ |= 0x00000020;
                             }
@@ -19231,7 +19118,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 56: {
-                            if (!((mutable_bitField0_ & 0x00000040) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000040) == 0) {
                                 stringValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000040;
                             }
@@ -19241,7 +19128,7 @@ public final class ProtoFeature {
                         case 58: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000040) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000040) == 0 && input.getBytesUntilLimit() > 0) {
                                 stringValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000040;
                             }
@@ -19252,7 +19139,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 64: {
-                            if (!((mutable_bitField0_ & 0x00000080) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000080) == 0) {
                                 bytesValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000080;
                             }
@@ -19262,7 +19149,7 @@ public final class ProtoFeature {
                         case 66: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000080) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000080) == 0 && input.getBytesUntilLimit() > 0) {
                                 bytesValueIds_ = newIntList();
                                 mutable_bitField0_ |= 0x00000080;
                             }
@@ -19273,8 +19160,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 74: {
-                            if (!((mutable_bitField0_ & 0x00000100) != 0)) {
-                                mapValues_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>();
+                            if ((mutable_bitField0_ & 0x00000100) == 0) {
+                                mapValues_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000100;
                             }
                             mapValues_.add(
@@ -19282,8 +19169,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 82: {
-                            if (!((mutable_bitField0_ & 0x00000200) != 0)) {
-                                subListValues_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List>();
+                            if ((mutable_bitField0_ & 0x00000200) == 0) {
+                                subListValues_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000200;
                             }
                             subListValues_.add(
@@ -19342,7 +19229,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_List_descriptor;
         }
@@ -19864,11 +19751,11 @@ public final class ProtoFeature {
             for (int i = 0; i < bytesValueIds_.size(); i++) {
                 output.writeInt32NoTag(bytesValueIds_.getInt(i));
             }
-            for (int i = 0; i < mapValues_.size(); i++) {
-                output.writeMessage(9, mapValues_.get(i));
+            for (Map map : mapValues_) {
+                output.writeMessage(9, map);
             }
-            for (int i = 0; i < subListValues_.size(); i++) {
-                output.writeMessage(10, subListValues_.get(i));
+            for (List list : subListValues_) {
+                output.writeMessage(10, list);
             }
             unknownFields.writeTo(output);
         }
@@ -19951,7 +19838,7 @@ public final class ProtoFeature {
             }
             {
                 int dataSize = 0;
-                dataSize = 1 * getBoolValuesList().size();
+                dataSize = getBoolValuesList().size();
                 size += dataSize;
                 if (!getBoolValuesList().isEmpty()) {
                     size += 1;
@@ -19988,13 +19875,13 @@ public final class ProtoFeature {
                 }
                 bytesValueIdsMemoizedSerializedSize = dataSize;
             }
-            for (int i = 0; i < mapValues_.size(); i++) {
+            for (Map map : mapValues_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(9, mapValues_.get(i));
+                        .computeMessageSize(9, map);
             }
-            for (int i = 0; i < subListValues_.size(); i++) {
+            for (List list : subListValues_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(10, subListValues_.get(i));
+                        .computeMessageSize(10, list);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -20031,8 +19918,7 @@ public final class ProtoFeature {
                     .equals(other.getMapValuesList())) return false;
             if (!getSubListValuesList()
                     .equals(other.getSubListValuesList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -20190,8 +20076,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -20205,7 +20090,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.List)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_List_descriptor;
             }
@@ -20573,7 +20458,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList indexes_ = emptyIntList();
 
             private void ensureIndexesIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
+                if ((bitField0_ & 0x00000001) == 0) {
                     indexes_ = mutableCopy(indexes_);
                     bitField0_ |= 0x00000001;
                 }
@@ -20695,7 +20580,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList doubleValueIds_ = emptyIntList();
 
             private void ensureDoubleValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000002) != 0)) {
+                if ((bitField0_ & 0x00000002) == 0) {
                     doubleValueIds_ = mutableCopy(doubleValueIds_);
                     bitField0_ |= 0x00000002;
                 }
@@ -20824,7 +20709,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList floatValueIds_ = emptyIntList();
 
             private void ensureFloatValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000004) != 0)) {
+                if ((bitField0_ & 0x00000004) == 0) {
                     floatValueIds_ = mutableCopy(floatValueIds_);
                     bitField0_ |= 0x00000004;
                 }
@@ -20918,7 +20803,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList sint32ValueIds_ = emptyIntList();
 
             private void ensureSint32ValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000008) != 0)) {
+                if ((bitField0_ & 0x00000008) == 0) {
                     sint32ValueIds_ = mutableCopy(sint32ValueIds_);
                     bitField0_ |= 0x00000008;
                 }
@@ -21012,7 +20897,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList sint64ValueIds_ = emptyIntList();
 
             private void ensureSint64ValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000010) != 0)) {
+                if ((bitField0_ & 0x00000010) == 0) {
                     sint64ValueIds_ = mutableCopy(sint64ValueIds_);
                     bitField0_ |= 0x00000010;
                 }
@@ -21106,7 +20991,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.BooleanList boolValues_ = emptyBooleanList();
 
             private void ensureBoolValuesIsMutable() {
-                if (!((bitField0_ & 0x00000020) != 0)) {
+                if ((bitField0_ & 0x00000020) == 0) {
                     boolValues_ = mutableCopy(boolValues_);
                     bitField0_ |= 0x00000020;
                 }
@@ -21200,7 +21085,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList stringValueIds_ = emptyIntList();
 
             private void ensureStringValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000040) != 0)) {
+                if ((bitField0_ & 0x00000040) == 0) {
                     stringValueIds_ = mutableCopy(stringValueIds_);
                     bitField0_ |= 0x00000040;
                 }
@@ -21294,7 +21179,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList bytesValueIds_ = emptyIntList();
 
             private void ensureBytesValueIdsIsMutable() {
-                if (!((bitField0_ & 0x00000080) != 0)) {
+                if ((bitField0_ & 0x00000080) == 0) {
                     bytesValueIds_ = mutableCopy(bytesValueIds_);
                     bitField0_ |= 0x00000080;
                 }
@@ -21389,8 +21274,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureMapValuesIsMutable() {
-                if (!((bitField0_ & 0x00000100) != 0)) {
-                    mapValues_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>(mapValues_);
+                if ((bitField0_ & 0x00000100) == 0) {
+                    mapValues_ = new java.util.ArrayList<>(mapValues_);
                     bitField0_ |= 0x00000100;
                 }
             }
@@ -21706,8 +21591,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
             getMapValuesFieldBuilder() {
                 if (mapValuesBuilder_ == null) {
-                    mapValuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>(
+                    mapValuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             mapValues_,
                             ((bitField0_ & 0x00000100) != 0),
                             getParentForChildren(),
@@ -21721,8 +21605,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureSubListValuesIsMutable() {
-                if (!((bitField0_ & 0x00000200) != 0)) {
-                    subListValues_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List>(subListValues_);
+                if ((bitField0_ & 0x00000200) == 0) {
+                    subListValues_ = new java.util.ArrayList<>(subListValues_);
                     bitField0_ |= 0x00000200;
                 }
             }
@@ -22038,8 +21922,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder>
             getSubListValuesFieldBuilder() {
                 if (subListValuesBuilder_ == null) {
-                    subListValuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.List.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.ListOrBuilder>(
+                    subListValuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             subListValues_,
                             ((bitField0_ & 0x00000200) != 0),
                             getParentForChildren(),
@@ -22077,7 +21960,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<List>
-                PARSER = new com.google.protobuf.AbstractParser<List>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public List parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -22438,7 +22321,7 @@ public final class ProtoFeature {
                             break;
                         case 10: {
                             java.lang.String s = input.readStringRequireUtf8();
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
                                 keys_ = new com.google.protobuf.LazyStringArrayList();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -22446,7 +22329,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 17: {
-                            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0) {
                                 doubleValues_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -22456,7 +22339,7 @@ public final class ProtoFeature {
                         case 18: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000002) == 0 && input.getBytesUntilLimit() > 0) {
                                 doubleValues_ = newDoubleList();
                                 mutable_bitField0_ |= 0x00000002;
                             }
@@ -22467,7 +22350,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 29: {
-                            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0) {
                                 floatValues_ = newFloatList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -22477,7 +22360,7 @@ public final class ProtoFeature {
                         case 26: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000004) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000004) == 0 && input.getBytesUntilLimit() > 0) {
                                 floatValues_ = newFloatList();
                                 mutable_bitField0_ |= 0x00000004;
                             }
@@ -22488,7 +22371,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 32: {
-                            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0) {
                                 sint32Values_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -22498,7 +22381,7 @@ public final class ProtoFeature {
                         case 34: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000008) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000008) == 0 && input.getBytesUntilLimit() > 0) {
                                 sint32Values_ = newIntList();
                                 mutable_bitField0_ |= 0x00000008;
                             }
@@ -22509,7 +22392,7 @@ public final class ProtoFeature {
                             break;
                         }
                         case 40: {
-                            if (!((mutable_bitField0_ & 0x00000010) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000010) == 0) {
                                 sint64Values_ = newLongList();
                                 mutable_bitField0_ |= 0x00000010;
                             }
@@ -22519,7 +22402,7 @@ public final class ProtoFeature {
                         case 42: {
                             int length = input.readRawVarint32();
                             int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000010) != 0) && input.getBytesUntilLimit() > 0) {
+                            if ((mutable_bitField0_ & 0x00000010) == 0 && input.getBytesUntilLimit() > 0) {
                                 sint64Values_ = newLongList();
                                 mutable_bitField0_ |= 0x00000010;
                             }
@@ -22531,7 +22414,7 @@ public final class ProtoFeature {
                         }
                         case 50: {
                             java.lang.String s = input.readStringRequireUtf8();
-                            if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000020) == 0) {
                                 stringValues_ = new com.google.protobuf.LazyStringArrayList();
                                 mutable_bitField0_ |= 0x00000020;
                             }
@@ -22539,16 +22422,16 @@ public final class ProtoFeature {
                             break;
                         }
                         case 58: {
-                            if (!((mutable_bitField0_ & 0x00000040) != 0)) {
-                                bytesValues_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
+                            if ((mutable_bitField0_ & 0x00000040) == 0) {
+                                bytesValues_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000040;
                             }
                             bytesValues_.add(input.readBytes());
                             break;
                         }
                         case 66: {
-                            if (!((mutable_bitField0_ & 0x00000080) != 0)) {
-                                geometries_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry>();
+                            if ((mutable_bitField0_ & 0x00000080) == 0) {
+                                geometries_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000080;
                             }
                             geometries_.add(
@@ -22556,8 +22439,8 @@ public final class ProtoFeature {
                             break;
                         }
                         case 74: {
-                            if (!((mutable_bitField0_ & 0x00000100) != 0)) {
-                                propertiess_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>();
+                            if ((mutable_bitField0_ & 0x00000100) == 0) {
+                                propertiess_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000100;
                             }
                             propertiess_.add(
@@ -22613,7 +22496,7 @@ public final class ProtoFeature {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_FeatureCollection_descriptor;
         }
@@ -23061,14 +22944,14 @@ public final class ProtoFeature {
             for (int i = 0; i < stringValues_.size(); i++) {
                 com.google.protobuf.GeneratedMessageV3.writeString(output, 6, stringValues_.getRaw(i));
             }
-            for (int i = 0; i < bytesValues_.size(); i++) {
-                output.writeBytes(7, bytesValues_.get(i));
+            for (com.google.protobuf.ByteString bytes : bytesValues_) {
+                output.writeBytes(7, bytes);
             }
-            for (int i = 0; i < geometries_.size(); i++) {
-                output.writeMessage(8, geometries_.get(i));
+            for (Geometry geometry : geometries_) {
+                output.writeMessage(8, geometry);
             }
-            for (int i = 0; i < propertiess_.size(); i++) {
-                output.writeMessage(9, propertiess_.get(i));
+            for (Map map : propertiess_) {
+                output.writeMessage(9, map);
             }
             unknownFields.writeTo(output);
         }
@@ -23085,7 +22968,7 @@ public final class ProtoFeature {
                     dataSize += computeStringSizeNoTag(keys_.getRaw(i));
                 }
                 size += dataSize;
-                size += 1 * getKeysList().size();
+                size += getKeysList().size();
             }
             {
                 int dataSize = 0;
@@ -23143,24 +23026,24 @@ public final class ProtoFeature {
                     dataSize += computeStringSizeNoTag(stringValues_.getRaw(i));
                 }
                 size += dataSize;
-                size += 1 * getStringValuesList().size();
+                size += getStringValuesList().size();
             }
             {
                 int dataSize = 0;
-                for (int i = 0; i < bytesValues_.size(); i++) {
+                for (com.google.protobuf.ByteString bytes : bytesValues_) {
                     dataSize += com.google.protobuf.CodedOutputStream
-                            .computeBytesSizeNoTag(bytesValues_.get(i));
+                            .computeBytesSizeNoTag(bytes);
                 }
                 size += dataSize;
-                size += 1 * getBytesValuesList().size();
+                size += getBytesValuesList().size();
             }
-            for (int i = 0; i < geometries_.size(); i++) {
+            for (Geometry geometry : geometries_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(8, geometries_.get(i));
+                        .computeMessageSize(8, geometry);
             }
-            for (int i = 0; i < propertiess_.size(); i++) {
+            for (Map map : propertiess_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(9, propertiess_.get(i));
+                        .computeMessageSize(9, map);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -23195,8 +23078,7 @@ public final class ProtoFeature {
                     .equals(other.getGeometriesList())) return false;
             if (!getPropertiessList()
                     .equals(other.getPropertiessList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
+            return unknownFields.equals(other.unknownFields);
         }
 
         @java.lang.Override
@@ -23350,8 +23232,7 @@ public final class ProtoFeature {
         @java.lang.Override
         protected Builder newBuilderForType(
                 com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -23365,7 +23246,7 @@ public final class ProtoFeature {
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:pojo.FeatureCollection)
                 org.wowtools.giscat.vector.pojo.proto.ProtoFeature.FeatureCollectionOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return org.wowtools.giscat.vector.pojo.proto.ProtoFeature.internal_static_pojo_FeatureCollection_descriptor;
             }
@@ -23717,7 +23598,7 @@ public final class ProtoFeature {
             private com.google.protobuf.LazyStringList keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
 
             private void ensureKeysIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
+                if ((bitField0_ & 0x00000001) == 0) {
                     keys_ = new com.google.protobuf.LazyStringArrayList(keys_);
                     bitField0_ |= 0x00000001;
                 }
@@ -23882,7 +23763,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.DoubleList doubleValues_ = emptyDoubleList();
 
             private void ensureDoubleValuesIsMutable() {
-                if (!((bitField0_ & 0x00000002) != 0)) {
+                if ((bitField0_ & 0x00000002) == 0) {
                     doubleValues_ = mutableCopy(doubleValues_);
                     bitField0_ |= 0x00000002;
                 }
@@ -23976,7 +23857,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.FloatList floatValues_ = emptyFloatList();
 
             private void ensureFloatValuesIsMutable() {
-                if (!((bitField0_ & 0x00000004) != 0)) {
+                if ((bitField0_ & 0x00000004) == 0) {
                     floatValues_ = mutableCopy(floatValues_);
                     bitField0_ |= 0x00000004;
                 }
@@ -24070,7 +23951,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.IntList sint32Values_ = emptyIntList();
 
             private void ensureSint32ValuesIsMutable() {
-                if (!((bitField0_ & 0x00000008) != 0)) {
+                if ((bitField0_ & 0x00000008) == 0) {
                     sint32Values_ = mutableCopy(sint32Values_);
                     bitField0_ |= 0x00000008;
                 }
@@ -24164,7 +24045,7 @@ public final class ProtoFeature {
             private com.google.protobuf.Internal.LongList sint64Values_ = emptyLongList();
 
             private void ensureSint64ValuesIsMutable() {
-                if (!((bitField0_ & 0x00000010) != 0)) {
+                if ((bitField0_ & 0x00000010) == 0) {
                     sint64Values_ = mutableCopy(sint64Values_);
                     bitField0_ |= 0x00000010;
                 }
@@ -24258,7 +24139,7 @@ public final class ProtoFeature {
             private com.google.protobuf.LazyStringList stringValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
 
             private void ensureStringValuesIsMutable() {
-                if (!((bitField0_ & 0x00000020) != 0)) {
+                if ((bitField0_ & 0x00000020) == 0) {
                     stringValues_ = new com.google.protobuf.LazyStringArrayList(stringValues_);
                     bitField0_ |= 0x00000020;
                 }
@@ -24387,8 +24268,8 @@ public final class ProtoFeature {
             private java.util.List<com.google.protobuf.ByteString> bytesValues_ = java.util.Collections.emptyList();
 
             private void ensureBytesValuesIsMutable() {
-                if (!((bitField0_ & 0x00000040) != 0)) {
-                    bytesValues_ = new java.util.ArrayList<com.google.protobuf.ByteString>(bytesValues_);
+                if ((bitField0_ & 0x00000040) == 0) {
+                    bytesValues_ = new java.util.ArrayList<>(bytesValues_);
                     bitField0_ |= 0x00000040;
                 }
             }
@@ -24488,8 +24369,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensureGeometriesIsMutable() {
-                if (!((bitField0_ & 0x00000080) != 0)) {
-                    geometries_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry>(geometries_);
+                if ((bitField0_ & 0x00000080) == 0) {
+                    geometries_ = new java.util.ArrayList<>(geometries_);
                     bitField0_ |= 0x00000080;
                 }
             }
@@ -24805,8 +24686,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryOrBuilder>
             getGeometriesFieldBuilder() {
                 if (geometriesBuilder_ == null) {
-                    geometriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Geometry.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.GeometryOrBuilder>(
+                    geometriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             geometries_,
                             ((bitField0_ & 0x00000080) != 0),
                             getParentForChildren(),
@@ -24820,8 +24700,8 @@ public final class ProtoFeature {
                     java.util.Collections.emptyList();
 
             private void ensurePropertiessIsMutable() {
-                if (!((bitField0_ & 0x00000100) != 0)) {
-                    propertiess_ = new java.util.ArrayList<org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map>(propertiess_);
+                if ((bitField0_ & 0x00000100) == 0) {
+                    propertiess_ = new java.util.ArrayList<>(propertiess_);
                     bitField0_ |= 0x00000100;
                 }
             }
@@ -25065,8 +24945,7 @@ public final class ProtoFeature {
                     org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>
             getPropertiessFieldBuilder() {
                 if (propertiessBuilder_ == null) {
-                    propertiessBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.Map.Builder, org.wowtools.giscat.vector.pojo.proto.ProtoFeature.MapOrBuilder>(
+                    propertiessBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<>(
                             propertiess_,
                             ((bitField0_ & 0x00000100) != 0),
                             getParentForChildren(),
@@ -25104,7 +24983,7 @@ public final class ProtoFeature {
         }
 
         private static final com.google.protobuf.Parser<FeatureCollection>
-                PARSER = new com.google.protobuf.AbstractParser<FeatureCollection>() {
+                PARSER = new com.google.protobuf.AbstractParser<>() {
             @java.lang.Override
             public FeatureCollection parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
@@ -25201,7 +25080,7 @@ public final class ProtoFeature {
         return descriptor;
     }
 
-    private static com.google.protobuf.Descriptors.FileDescriptor
+    private static final com.google.protobuf.Descriptors.FileDescriptor
             descriptor;
 
     static {

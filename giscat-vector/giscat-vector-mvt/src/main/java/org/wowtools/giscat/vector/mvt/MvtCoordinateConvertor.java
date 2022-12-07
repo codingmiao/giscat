@@ -103,8 +103,7 @@ class MvtCoordinateConvertor {
         double mp = (0.5d - ppy / zoomMultiple) * (4d * Math.PI);
         double exp = Math.exp(mp);
         double sinLatitude = (exp - 1d) / (exp + 1d);
-        double y = Math.asin(sinLatitude) * 180d / Math.PI;
-        return y;
+        return Math.asin(sinLatitude) * 180d / Math.PI;
     }
 
 }

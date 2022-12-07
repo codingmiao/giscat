@@ -21,7 +21,7 @@ class Read {
     private static final WKTReader wktReader = new WKTReader();
 
 
-    public static Geometry readGeometry(Feature feature,Object value, ExpressionParams expressionParams) {
+    public static Geometry readGeometry(Feature feature, Object value, ExpressionParams expressionParams) {
         if (null == value) {
             return null;
         }

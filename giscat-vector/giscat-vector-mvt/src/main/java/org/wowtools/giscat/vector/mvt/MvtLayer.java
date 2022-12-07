@@ -140,12 +140,7 @@ public final class MvtLayer {
     }
 
     private Integer key(String key) {
-        Integer i = keys.get(key);
-        if (i == null) {
-            i = keys.size();
-            keys.put(key, i);
-        }
-        return i;
+        return keys.computeIfAbsent(key, k -> keys.size());
     }
 
     protected List<String> keys() {
@@ -153,12 +148,7 @@ public final class MvtLayer {
     }
 
     private Integer value(Object value) {
-        Integer i = values.get(value);
-        if (i == null) {
-            i = values.size();
-            values.put(value, i);
-        }
-        return i;
+        return values.computeIfAbsent(value, k -> values.size());
     }
 
     protected List<Object> values() {

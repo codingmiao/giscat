@@ -121,10 +121,7 @@ public class Bbox {
         if (this.ymin > ymax) {
             return false;
         }
-        if (this.ymax < ymin) {
-            return false;
-        }
-        return true;
+        return !(this.ymax < ymin);
     }
 
     /**

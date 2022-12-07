@@ -101,7 +101,7 @@ final class VectorTile {
                             done = true;
                             break;
                         case 26: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                            if ((mutable_bitField0_ & 0x00000001) == 0) {
                                 layers_ = new java.util.ArrayList<>();
                                 mutable_bitField0_ |= 0x00000001;
                             }
@@ -134,7 +134,7 @@ final class VectorTile {
             }
         }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
+        public static com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return VectorTile.internal_static_Tile_descriptor;
         }
@@ -232,11 +232,7 @@ final class VectorTile {
 
             private static final com.google.protobuf.Internal.EnumLiteMap<
                     GeomType> internalValueMap =
-                    new com.google.protobuf.Internal.EnumLiteMap<>() {
-                        public GeomType findValueByNumber(int number) {
-                            return GeomType.forNumber(number);
-                        }
-                    };
+                    number -> GeomType.forNumber(number);
 
             public final com.google.protobuf.Descriptors.EnumValueDescriptor
             getValueDescriptor() {
@@ -248,7 +244,7 @@ final class VectorTile {
                 return getDescriptor();
             }
 
-            public static final com.google.protobuf.Descriptors.EnumDescriptor
+            public static com.google.protobuf.Descriptors.EnumDescriptor
             getDescriptor() {
                 return Tile.getDescriptor().getEnumTypes().get(0);
             }
@@ -266,7 +262,7 @@ final class VectorTile {
 
             private final int value;
 
-            private GeomType(int value) {
+            GeomType(int value) {
                 this.value = value;
             }
 
@@ -510,7 +506,7 @@ final class VectorTile {
                 }
             }
 
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return VectorTile.internal_static_Tile_Value_descriptor;
             }
@@ -861,9 +857,7 @@ final class VectorTile {
                             != other.getBoolValue()) return false;
                 }
                 if (!unknownFields.equals(other.unknownFields)) return false;
-                if (!getExtensionFields().equals(other.getExtensionFields()))
-                    return false;
-                return true;
+                return getExtensionFields().equals(other.getExtensionFields());
             }
 
             @Override
@@ -1016,8 +1010,7 @@ final class VectorTile {
             @Override
             protected Builder newBuilderForType(
                     BuilderParent parent) {
-                Builder builder = new Builder(parent);
-                return builder;
+                return new Builder(parent);
             }
 
             /**
@@ -1033,7 +1026,7 @@ final class VectorTile {
                             Value, Builder> implements
                     // @@protoc_insertion_point(builder_implements:Tile.Value)
                     ValueOrBuilder {
-                public static final com.google.protobuf.Descriptors.Descriptor
+                public static com.google.protobuf.Descriptors.Descriptor
                 getDescriptor() {
                     return VectorTile.internal_static_Tile_Value_descriptor;
                 }
@@ -1048,20 +1041,13 @@ final class VectorTile {
 
                 // Construct using VectorTile.Tile.Value.newBuilder()
                 private Builder() {
-                    maybeForceBuilderInitialization();
                 }
 
                 private Builder(
                         BuilderParent parent) {
                     super(parent);
-                    maybeForceBuilderInitialization();
                 }
 
-                private void maybeForceBuilderInitialization() {
-                    if (com.google.protobuf.GeneratedMessageV3
-                            .alwaysUseFieldBuilders) {
-                    }
-                }
 
                 @Override
                 public Builder clear() {
@@ -1253,10 +1239,7 @@ final class VectorTile {
 
                 @Override
                 public final boolean isInitialized() {
-                    if (!extensionsAreInitialized()) {
-                        return false;
-                    }
-                    return true;
+                    return extensionsAreInitialized();
                 }
 
                 @Override
@@ -1923,7 +1906,7 @@ final class VectorTile {
                                 break;
                             }
                             case 16: {
-                                if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                                if ((mutable_bitField0_ & 0x00000002) == 0) {
                                     tags_ = newIntList();
                                     mutable_bitField0_ |= 0x00000002;
                                 }
@@ -1933,7 +1916,7 @@ final class VectorTile {
                             case 18: {
                                 int length = input.readRawVarint32();
                                 int limit = input.pushLimit(length);
-                                if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                                if ((mutable_bitField0_ & 0x00000002) == 0 && input.getBytesUntilLimit() > 0) {
                                     tags_ = newIntList();
                                     mutable_bitField0_ |= 0x00000002;
                                 }
@@ -1956,7 +1939,7 @@ final class VectorTile {
                                 break;
                             }
                             case 32: {
-                                if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                                if ((mutable_bitField0_ & 0x00000008) == 0) {
                                     geometry_ = newIntList();
                                     mutable_bitField0_ |= 0x00000008;
                                 }
@@ -1966,7 +1949,7 @@ final class VectorTile {
                             case 34: {
                                 int length = input.readRawVarint32();
                                 int limit = input.pushLimit(length);
-                                if (!((mutable_bitField0_ & 0x00000008) != 0) && input.getBytesUntilLimit() > 0) {
+                                if ((mutable_bitField0_ & 0x00000008) == 0 && input.getBytesUntilLimit() > 0) {
                                     geometry_ = newIntList();
                                     mutable_bitField0_ |= 0x00000008;
                                 }
@@ -2004,7 +1987,7 @@ final class VectorTile {
                 }
             }
 
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return VectorTile.internal_static_Tile_Feature_descriptor;
             }
@@ -2292,8 +2275,7 @@ final class VectorTile {
                 }
                 if (!getGeometryList()
                         .equals(other.getGeometryList())) return false;
-                if (!unknownFields.equals(other.unknownFields)) return false;
-                return true;
+                return unknownFields.equals(other.unknownFields);
             }
 
             @Override
@@ -2428,8 +2410,7 @@ final class VectorTile {
             @Override
             protected Builder newBuilderForType(
                     BuilderParent parent) {
-                Builder builder = new Builder(parent);
-                return builder;
+                return new Builder(parent);
             }
 
             /**
@@ -2443,7 +2424,7 @@ final class VectorTile {
                     com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                     // @@protoc_insertion_point(builder_implements:Tile.Feature)
                     FeatureOrBuilder {
-                public static final com.google.protobuf.Descriptors.Descriptor
+                public static com.google.protobuf.Descriptors.Descriptor
                 getDescriptor() {
                     return VectorTile.internal_static_Tile_Feature_descriptor;
                 }
@@ -2458,20 +2439,13 @@ final class VectorTile {
 
                 // Construct using VectorTile.Tile.Feature.newBuilder()
                 private Builder() {
-                    maybeForceBuilderInitialization();
                 }
 
                 private Builder(
                         BuilderParent parent) {
                     super(parent);
-                    maybeForceBuilderInitialization();
                 }
 
-                private void maybeForceBuilderInitialization() {
-                    if (com.google.protobuf.GeneratedMessageV3
-                            .alwaysUseFieldBuilders) {
-                    }
-                }
 
                 @Override
                 public Builder clear() {
@@ -2692,7 +2666,7 @@ final class VectorTile {
                 private com.google.protobuf.Internal.IntList tags_ = emptyIntList();
 
                 private void ensureTagsIsMutable() {
-                    if (!((bitField0_ & 0x00000002) != 0)) {
+                    if ((bitField0_ & 0x00000002) == 0) {
                         tags_ = mutableCopy(tags_);
                         bitField0_ |= 0x00000002;
                     }
@@ -2903,7 +2877,7 @@ final class VectorTile {
                 private com.google.protobuf.Internal.IntList geometry_ = emptyIntList();
 
                 private void ensureGeometryIsMutable() {
-                    if (!((bitField0_ & 0x00000008) != 0)) {
+                    if ((bitField0_ & 0x00000008) == 0) {
                         geometry_ = mutableCopy(geometry_);
                         bitField0_ |= 0x00000008;
                     }
@@ -3292,7 +3266,7 @@ final class VectorTile {
             /**
              * <pre>
              * Although this is an "optional" field it is required by the specification.
-             * See https://github.com/mapbox/vector-tile-spec/issues/47
+             * See <a href="https://github.com/mapbox/vector-tile-spec/issues/47">...</a>
              * </pre>
              *
              * <code>optional uint32 extent = 5 [default = 4096];</code>
@@ -3304,7 +3278,7 @@ final class VectorTile {
             /**
              * <pre>
              * Although this is an "optional" field it is required by the specification.
-             * See https://github.com/mapbox/vector-tile-spec/issues/47
+             * See <a href="https://github.com/mapbox/vector-tile-spec/issues/47">...</a>
              * </pre>
              *
              * <code>optional uint32 extent = 5 [default = 4096];</code>
@@ -3381,7 +3355,7 @@ final class VectorTile {
                                 break;
                             }
                             case 18: {
-                                if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                                if ((mutable_bitField0_ & 0x00000004) == 0) {
                                     features_ = new java.util.ArrayList<>();
                                     mutable_bitField0_ |= 0x00000004;
                                 }
@@ -3391,7 +3365,7 @@ final class VectorTile {
                             }
                             case 26: {
                                 com.google.protobuf.ByteString bs = input.readBytes();
-                                if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                                if ((mutable_bitField0_ & 0x00000008) == 0) {
                                     keys_ = new com.google.protobuf.LazyStringArrayList();
                                     mutable_bitField0_ |= 0x00000008;
                                 }
@@ -3399,7 +3373,7 @@ final class VectorTile {
                                 break;
                             }
                             case 34: {
-                                if (!((mutable_bitField0_ & 0x00000010) != 0)) {
+                                if ((mutable_bitField0_ & 0x00000010) == 0) {
                                     values_ = new java.util.ArrayList<>();
                                     mutable_bitField0_ |= 0x00000010;
                                 }
@@ -3448,7 +3422,7 @@ final class VectorTile {
                 }
             }
 
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return VectorTile.internal_static_Tile_Layer_descriptor;
             }
@@ -3748,7 +3722,7 @@ final class VectorTile {
             /**
              * <pre>
              * Although this is an "optional" field it is required by the specification.
-             * See https://github.com/mapbox/vector-tile-spec/issues/47
+             * See <a href="https://github.com/mapbox/vector-tile-spec/issues/47">...</a>
              * </pre>
              *
              * <code>optional uint32 extent = 5 [default = 4096];</code>
@@ -3763,7 +3737,7 @@ final class VectorTile {
             /**
              * <pre>
              * Although this is an "optional" field it is required by the specification.
-             * See https://github.com/mapbox/vector-tile-spec/issues/47
+             * See <a href="https://github.com/mapbox/vector-tile-spec/issues/47">...</a>
              * </pre>
              *
              * <code>optional uint32 extent = 5 [default = 4096];</code>
@@ -3813,14 +3787,14 @@ final class VectorTile {
                 if (((bitField0_ & 0x00000002) != 0)) {
                     com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
                 }
-                for (int i = 0; i < features_.size(); i++) {
-                    output.writeMessage(2, features_.get(i));
+                for (Feature feature : features_) {
+                    output.writeMessage(2, feature);
                 }
                 for (int i = 0; i < keys_.size(); i++) {
                     com.google.protobuf.GeneratedMessageV3.writeString(output, 3, keys_.getRaw(i));
                 }
-                for (int i = 0; i < values_.size(); i++) {
-                    output.writeMessage(4, values_.get(i));
+                for (Value value : values_) {
+                    output.writeMessage(4, value);
                 }
                 if (((bitField0_ & 0x00000004) != 0)) {
                     output.writeUInt32(5, extent_);
@@ -3841,9 +3815,9 @@ final class VectorTile {
                 if (((bitField0_ & 0x00000002) != 0)) {
                     size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
                 }
-                for (int i = 0; i < features_.size(); i++) {
+                for (Feature feature : features_) {
                     size += com.google.protobuf.CodedOutputStream
-                            .computeMessageSize(2, features_.get(i));
+                            .computeMessageSize(2, feature);
                 }
                 {
                     int dataSize = 0;
@@ -3851,11 +3825,11 @@ final class VectorTile {
                         dataSize += computeStringSizeNoTag(keys_.getRaw(i));
                     }
                     size += dataSize;
-                    size += 1 * getKeysList().size();
+                    size += getKeysList().size();
                 }
-                for (int i = 0; i < values_.size(); i++) {
+                for (Value value : values_) {
                     size += com.google.protobuf.CodedOutputStream
-                            .computeMessageSize(4, values_.get(i));
+                            .computeMessageSize(4, value);
                 }
                 if (((bitField0_ & 0x00000004) != 0)) {
                     size += com.google.protobuf.CodedOutputStream
@@ -3903,9 +3877,7 @@ final class VectorTile {
                             != other.getExtent()) return false;
                 }
                 if (!unknownFields.equals(other.unknownFields)) return false;
-                if (!getExtensionFields().equals(other.getExtensionFields()))
-                    return false;
-                return true;
+                return getExtensionFields().equals(other.getExtensionFields());
             }
 
             @Override
@@ -4048,8 +4020,7 @@ final class VectorTile {
             @Override
             protected Builder newBuilderForType(
                     BuilderParent parent) {
-                Builder builder = new Builder(parent);
-                return builder;
+                return new Builder(parent);
             }
 
             /**
@@ -4064,7 +4035,7 @@ final class VectorTile {
                             Layer, Builder> implements
                     // @@protoc_insertion_point(builder_implements:Tile.Layer)
                     LayerOrBuilder {
-                public static final com.google.protobuf.Descriptors.Descriptor
+                public static com.google.protobuf.Descriptors.Descriptor
                 getDescriptor() {
                     return VectorTile.internal_static_Tile_Layer_descriptor;
                 }
@@ -4360,10 +4331,7 @@ final class VectorTile {
                             return false;
                         }
                     }
-                    if (!extensionsAreInitialized()) {
-                        return false;
-                    }
-                    return true;
+                    return extensionsAreInitialized();
                 }
 
                 @Override
@@ -4562,7 +4530,7 @@ final class VectorTile {
                         java.util.Collections.emptyList();
 
                 private void ensureFeaturesIsMutable() {
-                    if (!((bitField0_ & 0x00000004) != 0)) {
+                    if ((bitField0_ & 0x00000004) == 0) {
                         features_ = new java.util.ArrayList<>(features_);
                         bitField0_ |= 0x00000004;
                     }
@@ -4892,7 +4860,7 @@ final class VectorTile {
                 private com.google.protobuf.LazyStringList keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
 
                 private void ensureKeysIsMutable() {
-                    if (!((bitField0_ & 0x00000008) != 0)) {
+                    if ((bitField0_ & 0x00000008) == 0) {
                         keys_ = new com.google.protobuf.LazyStringArrayList(keys_);
                         bitField0_ |= 0x00000008;
                     }
@@ -5057,7 +5025,7 @@ final class VectorTile {
                         java.util.Collections.emptyList();
 
                 private void ensureValuesIsMutable() {
-                    if (!((bitField0_ & 0x00000010) != 0)) {
+                    if ((bitField0_ & 0x00000010) == 0) {
                         values_ = new java.util.ArrayList<>(values_);
                         bitField0_ |= 0x00000010;
                     }
@@ -5389,7 +5357,7 @@ final class VectorTile {
                 /**
                  * <pre>
                  * Although this is an "optional" field it is required by the specification.
-                 * See https://github.com/mapbox/vector-tile-spec/issues/47
+                 * See <a href="https://github.com/mapbox/vector-tile-spec/issues/47">...</a>
                  * </pre>
                  *
                  * <code>optional uint32 extent = 5 [default = 4096];</code>
@@ -5404,7 +5372,7 @@ final class VectorTile {
                 /**
                  * <pre>
                  * Although this is an "optional" field it is required by the specification.
-                 * See https://github.com/mapbox/vector-tile-spec/issues/47
+                 * See <a href="https://github.com/mapbox/vector-tile-spec/issues/47">...</a>
                  * </pre>
                  *
                  * <code>optional uint32 extent = 5 [default = 4096];</code>
@@ -5419,7 +5387,7 @@ final class VectorTile {
                 /**
                  * <pre>
                  * Although this is an "optional" field it is required by the specification.
-                 * See https://github.com/mapbox/vector-tile-spec/issues/47
+                 * See <a href="https://github.com/mapbox/vector-tile-spec/issues/47">...</a>
                  * </pre>
                  *
                  * <code>optional uint32 extent = 5 [default = 4096];</code>
@@ -5437,7 +5405,7 @@ final class VectorTile {
                 /**
                  * <pre>
                  * Although this is an "optional" field it is required by the specification.
-                 * See https://github.com/mapbox/vector-tile-spec/issues/47
+                 * See <a href="https://github.com/mapbox/vector-tile-spec/issues/47">...</a>
                  * </pre>
                  *
                  * <code>optional uint32 extent = 5 [default = 4096];</code>
@@ -5578,8 +5546,8 @@ final class VectorTile {
                 throws java.io.IOException {
             ExtendableMessage<Tile>.ExtensionWriter
                     extensionWriter = newExtensionWriter();
-            for (int i = 0; i < layers_.size(); i++) {
-                output.writeMessage(3, layers_.get(i));
+            for (Layer layer : layers_) {
+                output.writeMessage(3, layer);
             }
             extensionWriter.writeUntil(8192, output);
             unknownFields.writeTo(output);
@@ -5591,9 +5559,9 @@ final class VectorTile {
             if (size != -1) return size;
 
             size = 0;
-            for (int i = 0; i < layers_.size(); i++) {
+            for (Layer layer : layers_) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(3, layers_.get(i));
+                        .computeMessageSize(3, layer);
             }
             size += extensionsSerializedSize();
             size += unknownFields.getSerializedSize();
@@ -5614,9 +5582,7 @@ final class VectorTile {
             if (!getLayersList()
                     .equals(other.getLayersList())) return false;
             if (!unknownFields.equals(other.unknownFields)) return false;
-            if (!getExtensionFields().equals(other.getExtensionFields()))
-                return false;
-            return true;
+            return getExtensionFields().equals(other.getExtensionFields());
         }
 
         @Override
@@ -5739,8 +5705,7 @@ final class VectorTile {
         @Override
         protected Builder newBuilderForType(
                 BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
+            return new Builder(parent);
         }
 
         /**
@@ -5751,7 +5716,7 @@ final class VectorTile {
                         Tile, Builder> implements
                 // @@protoc_insertion_point(builder_implements:Tile)
                 TileOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
+            public static com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return VectorTile.internal_static_Tile_descriptor;
             }
@@ -5951,10 +5916,7 @@ final class VectorTile {
                         return false;
                     }
                 }
-                if (!extensionsAreInitialized()) {
-                    return false;
-                }
-                return true;
+                return extensionsAreInitialized();
             }
 
             @Override
@@ -5982,7 +5944,7 @@ final class VectorTile {
                     java.util.Collections.emptyList();
 
             private void ensureLayersIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
+                if ((bitField0_ & 0x00000001) == 0) {
                     layers_ = new java.util.ArrayList<>(layers_);
                     bitField0_ |= 0x00000001;
                 }
@@ -6318,7 +6280,7 @@ final class VectorTile {
         return descriptor;
     }
 
-    private static com.google.protobuf.Descriptors.FileDescriptor
+    private static final com.google.protobuf.Descriptors.FileDescriptor
             descriptor;
 
     static {

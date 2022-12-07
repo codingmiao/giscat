@@ -41,6 +41,7 @@ public class TileClip {
     private final double ymin;
     private final double xmax;
     private final double ymax;
+
     public TileClip(double xmin, double ymin, double xmax, double ymax, GeometryFactory gf) {
         this.gf = gf;
         this.xmin = xmin;
@@ -355,15 +356,14 @@ public class TileClip {
             }
             if (xUp < xmax && xUp > xmin) {//与上边界相交
                 c1 = new Coordinate(xUp, ymax);
-                c2 = new Coordinate(xmax, yRight);
             } else {//与下边界相交
                 double xDown = getLineX(x1, y1, x2, y2, ymin);
                 if (xDown < xmin || xDown > xmax) {//无交集
                     return null;
                 }
                 c1 = new Coordinate(xDown, ymin);
-                c2 = new Coordinate(xmax, yRight);
             }
+            c2 = new Coordinate(xmax, yRight);
             if (x1 < x2) {
                 return new Coordinate[]{c1, c2};
             } else {
@@ -389,8 +389,7 @@ public class TileClip {
         }
         double k = (y1 - y2) / (x1 - x2);
         double b = y1 - k * x1;
-        double x = (y - b) / k;
-        return x;
+        return (y - b) / k;
     }
 
     /**
@@ -410,8 +409,7 @@ public class TileClip {
         }
         double k = (y1 - y2) / (x1 - x2);
         double b = y1 - k * x1;
-        double y = k * x + b;
-        return y;
+        return k * x + b;
     }
 
     /**
@@ -452,10 +450,7 @@ public class TileClip {
         if (this.ymin > ymax) {
             return false;
         }
-        if (this.ymax < ymin) {
-            return false;
-        }
-        return true;
+        return !(this.ymax < ymin);
     }
 
 }

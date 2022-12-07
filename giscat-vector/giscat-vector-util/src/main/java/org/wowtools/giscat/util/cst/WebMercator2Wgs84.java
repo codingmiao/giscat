@@ -61,7 +61,7 @@ public class WebMercator2Wgs84 {
      * @param lat wgs84 y
      * @return web墨卡托 y
      */
-    public static double lat2WebMercator(double lat) {
+    public static double lat2WebMercatorY(double lat) {
         double y = Math.log(Math.tan((90D + lat) * Math.PI / 360D)) / (Math.PI / 180D);
         y = y * d / 180D;
         return y;

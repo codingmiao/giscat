@@ -6,7 +6,6 @@ import org.locationtech.jts.io.WKTReader;
 import org.wowtools.common.utils.ResourcesReader;
 import org.wowtools.giscat.vector.pojo.Feature;
 
-import java.nio.ByteBuffer;
 import java.util.Map;
 
 /**

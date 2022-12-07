@@ -541,7 +541,7 @@ public class ProtoFeatureConverter {
     /**
      * Feature 转 ProtoFeature bytes
      *
-     * @param feature
+     * @param feature Feature
      * @return ProtoFeature bytes
      */
     public static byte[] feature2Proto(Feature feature) {
@@ -736,6 +736,7 @@ public class ProtoFeatureConverter {
     private static final Map<Class, PropertiesSetter> propertiesSetterMap;
     private static final PropertiesSetter listPropertiesSetter;
     private static final PropertiesSetter mapPropertiesSetter;
+
     static {
         PropertiesSetter doublePropertiesSetter = new PropertiesSetter() {
             @Override
@@ -897,7 +898,7 @@ public class ProtoFeatureConverter {
             }
         };
 
-         listPropertiesSetter = new PropertiesSetter() {
+        listPropertiesSetter = new PropertiesSetter() {
             @Override
             public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addListKeyIds(keyValueCell.keys.getId(key));
@@ -952,11 +953,11 @@ public class ProtoFeatureConverter {
     private static PropertiesSetter getPropertiesSetter(Object value) {
         PropertiesSetter setter = propertiesSetterMap.get(value.getClass());
         if (null == setter) {
-            if (value instanceof Map){
+            if (value instanceof Map) {
                 setter = mapPropertiesSetter;
             } else if (value instanceof List) {
                 setter = listPropertiesSetter;
-            }else {
+            } else {
                 throw new RuntimeException("未知对象类型 " + value.getClass());
             }
         }
@@ -1112,7 +1113,7 @@ public class ProtoFeatureConverter {
             {
                 //subMap
                 List<Integer> keyIdList = pMap.getSubMapKeyIdsList();
-                if (null != keyIdList && keyIdList.size() > 0) {
+                if (keyIdList.size() > 0) {
                     Iterator<Integer> keyIdIterator = keyIdList.iterator();
                     Iterator<ProtoFeature.Map> valueIdIterator = pMap.getSubMapValuesList().iterator();
                     while (keyIdIterator.hasNext()) {
@@ -1127,7 +1128,7 @@ public class ProtoFeatureConverter {
             {
                 //list
                 List<Integer> keyIdList = pMap.getListKeyIdsList();
-                if (null != keyIdList && keyIdList.size() > 0) {
+                if (keyIdList.size() > 0) {
                     Iterator<Integer> keyIdIterator = keyIdList.iterator();
                     Iterator<ProtoFeature.List> valueIdIterator = pMap.getListValuesList().iterator();
                     while (keyIdIterator.hasNext()) {

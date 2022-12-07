@@ -4,8 +4,6 @@ import org.locationtech.jts.geom.*;
 import org.wowtools.giscat.vector.pojo.GeoJsonObject;
 import org.wowtools.giscat.vector.pojo.converter.GeoJsonFeatureConverter;
 
-import java.util.Map;
-
 /**
  * 样例数据
  * 来自 https://en.wikipedia.org/wiki/GeoJSON

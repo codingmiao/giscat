@@ -1,14 +1,10 @@
 package org.wowtools.giscat.vector.pojo.converter;
 
-import org.junit.Assert;
-import org.locationtech.jts.geom.GeometryFactory;
 import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
-import org.wowtools.giscat.vector.pojo.GeoJsonObject;
 import org.wowtools.giscat.vector.pojo.util.SampleData;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -36,14 +32,14 @@ public class Test1 {
         features.add(new Feature(SampleData.multiPolygon2, p));
         features.add(new Feature(SampleData.geometryCollection, p));
         byte[] bytes = ProtoFeatureConverter.featureCollection2Proto(fc);
-        save2File("D:\\_test\\1\\testbytes.pbf",bytes);
+        save2File("D:\\_test\\1\\testbytes.pbf", bytes);
         System.out.println(GeoJsonFeatureConverter.toGeoJson(fc).toGeoJsonString());
     }
 
 
-    public static boolean save2File(String fname, byte[] msg){
+    public static boolean save2File(String fname, byte[] msg) {
         OutputStream fos = null;
-        try{
+        try {
             File file = new File(fname);
             File parent = file.getParentFile();
             boolean bool;
@@ -55,17 +51,17 @@ public class Test1 {
             fos.write(msg);
             fos.flush();
             return true;
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             return false;
-        }catch (IOException e){
+        } catch (IOException e) {
             File parent;
             return false;
-        }
-        finally{
+        } finally {
             if (fos != null) {
-                try{
+                try {
                     fos.close();
-                }catch (IOException e) {}
+                } catch (IOException e) {
+                }
             }
         }
     }

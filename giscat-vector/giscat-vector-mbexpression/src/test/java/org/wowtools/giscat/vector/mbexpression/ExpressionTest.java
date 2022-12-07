@@ -265,7 +265,7 @@ public class ExpressionTest {
 
         feature = buildTestFeature();
         feature = (Feature) getValue(feature, "[\"bboxIntersection\",\"$1\"]"
-                ,new ExpressionParams(Map.of("$1",new TileClip(15,15,16,16,new GeometryFactory()))));
+                , new ExpressionParams(Map.of("$1", new TileClip(15, 15, 16, 16, new GeometryFactory()))));
         Assert.assertEquals("LINESTRING (15 15, 16 16)", feature.getGeometry().toText());
 
         feature = buildTestFeature();
@@ -282,7 +282,7 @@ public class ExpressionTest {
 
         Assert.assertEquals(true,
                 getValue(feature, "[\"bboxIntersects\",[\"$1\",\"$2\",\"$3\",\"$4\"]]",
-                        new ExpressionParams(Map.of("$1",0,"$2",0,"$3",50,"$4",50))
+                        new ExpressionParams(Map.of("$1", 0, "$2", 0, "$3", 50, "$4", 50))
                 )
         );
 
@@ -293,13 +293,13 @@ public class ExpressionTest {
         list.add(50d);
         Assert.assertEquals(true,
                 getValue(feature, "[\"bboxIntersects\",\"$1\"]",
-                        new ExpressionParams(Map.of("$1",list))
+                        new ExpressionParams(Map.of("$1", list))
                 )
         );
 
         Assert.assertEquals(true,
                 getValue(feature, "[\"bboxIntersects\",\"$1\"]",
-                        new ExpressionParams(Map.of("$1",new Bbox(0,0,50,50)))
+                        new ExpressionParams(Map.of("$1", new Bbox(0, 0, 50, 50)))
                 )
         );
 

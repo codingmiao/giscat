@@ -92,7 +92,7 @@ public class ProtoFeatureConverterTest {
                 Map.of("k1", Long.MAX_VALUE, "k2", "测试", "k4", Double.MAX_VALUE)
         );
         testProperties(Map.of("a", Map.of("a", Map.of("a", Map.of("a", Map.of("a", "a"))))));
-        testProperties(Map.of("a", List.of("1", 2, true,"x",Map.of("xx",111)), "b", "xxx"));
+        testProperties(Map.of("a", List.of("1", 2, true, "x", Map.of("xx", 111)), "b", "xxx"));
     }
 
     private static final ObjectMapper mapper = new ObjectMapper();

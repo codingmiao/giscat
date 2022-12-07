@@ -20,8 +20,6 @@
 package org.wowtools.giscat.vector.mbexpression.spatial;
 
 import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.wowtools.giscat.util.analyse.Bbox;
 import org.wowtools.giscat.util.analyse.TileClip;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
@@ -42,8 +40,6 @@ import java.util.ArrayList;
  */
 @ExpressionName("bboxIntersection")
 public class BboxIntersection extends Expression<Feature> {
-
-    private static final GeometryFactory gf = new GeometryFactory();
 
 
     protected BboxIntersection(ArrayList expressionArray) {

@@ -11,7 +11,7 @@ import java.util.Map;
  * 换言之，所有$开头的字符串都会被认定为绑定参数，如果字符串的真实值确实以$开头，可通过绑定参数传入具体值来解决，
  * 例如，希望表达式["concat", "$a","sss"]输出结果为"$asss"，则可通过传入参数{"$a":"$a"}来解决。
  * 使用参数绑定可减少解析时的性能消耗。
- *
+ * <p>
  * 包含一个geometryFactory对象，用于geometry对象变换相关的表达式，可根据需要通过setGeometryFactory设置自定义的geometryFactory
  *
  * @author liuyu

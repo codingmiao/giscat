@@ -257,7 +257,6 @@ public class MvtBuilder {
     }
 
     List<Integer> commands(Polygon polygon) {
-        List<Integer> commands = new ArrayList<>();
 
         // According to the vector tile specification, the exterior ring of a polygon
         // must be in clockwise order, while the interior ring in counter-clockwise order.
@@ -271,7 +270,7 @@ public class MvtBuilder {
         if (!Orientation.isCCW(exteriorRing.getCoordinates())) {
             exteriorRing = (LineString) exteriorRing.reverse();
         }
-        commands.addAll(commands(exteriorRing.getCoordinates(), true));
+        List<Integer> commands = new ArrayList<>(commands(exteriorRing.getCoordinates(), true));
 
         for (int i = 0; i < polygon.getNumInteriorRing(); i++) {
             LineString interiorRing = polygon.getInteriorRingN(i);
@@ -294,8 +293,8 @@ public class MvtBuilder {
      * Vertex parameters are // also encoded as deltas to the previous position.
      * The original // position is (0,0)
      *
-     * @param cs
-     * @return
+     * @param cs cs
+     * @return list
      */
     List<Integer> commands(Coordinate[] cs, boolean closePathAtEnd) {
         return commands(cs, closePathAtEnd, false);
