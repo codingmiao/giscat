@@ -17,7 +17,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.util.cst;
+package org.wowtools.giscat.vector.util.cst;
 
 import lombok.Getter;
 import lombok.Setter;

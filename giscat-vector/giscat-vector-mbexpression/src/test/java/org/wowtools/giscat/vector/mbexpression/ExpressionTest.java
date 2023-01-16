@@ -5,8 +5,8 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.io.WKTReader;
-import org.wowtools.giscat.util.analyse.Bbox;
-import org.wowtools.giscat.util.analyse.TileClip;
+import org.wowtools.giscat.vector.util.analyse.Bbox;
+import org.wowtools.giscat.vector.util.analyse.TileClip;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.ArrayList;

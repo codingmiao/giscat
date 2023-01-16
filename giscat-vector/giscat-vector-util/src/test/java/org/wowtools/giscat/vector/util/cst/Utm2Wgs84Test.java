@@ -1,4 +1,4 @@
-package org.wowtools.giscat.util.cst;
+package org.wowtools.giscat.vector.util.cst;
 
 
 import org.junit.Assert;

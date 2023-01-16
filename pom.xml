@@ -7,7 +7,7 @@
     <groupId>org.wowtools</groupId>
     <artifactId>giscat</artifactId>
     <packaging>pom</packaging>
-    <version>g1.5.1</version>
+    <version>g1.5.2</version>
     <name>giscat</name>
     <modules>
         <module>giscat-vector</module>
@@ -27,22 +27,22 @@
             <dependency>
                 <artifactId>giscat-vector-pojo</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>g1.5.1</version>
+                <version>g1.5.2</version>
             </dependency>
             <dependency>
                 <artifactId>giscat-vector-util</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>g1.5.1</version>
+                <version>g1.5.2</version>
             </dependency>
             <dependency>
                 <artifactId>giscat-vector-mvt</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>g1.5.1</version>
+                <version>g1.5.2</version>
             </dependency>
             <dependency>
                 <artifactId>giscat-vector-mbexpression</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>g1.5.1</version>
+                <version>g1.5.2</version>
             </dependency>
 
             <dependency>

@@ -1,6 +1,6 @@
 package org.wowtools.giscat.vector.mvt;
 
-import org.wowtools.giscat.util.cst.Tile2Wgs84;
+import org.wowtools.giscat.vector.util.cst.Tile2Wgs84;
 
 import static org.junit.Assert.assertEquals;
 

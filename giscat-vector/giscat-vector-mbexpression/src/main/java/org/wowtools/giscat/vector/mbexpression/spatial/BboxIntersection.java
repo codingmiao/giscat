@@ -20,7 +20,7 @@
 package org.wowtools.giscat.vector.mbexpression.spatial;
 
 import org.locationtech.jts.geom.Geometry;
-import org.wowtools.giscat.util.analyse.TileClip;
+import org.wowtools.giscat.vector.util.analyse.TileClip;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;

@@ -23,7 +23,7 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.TopologyException;
 import org.locationtech.jts.simplify.TopologyPreservingSimplifier;
-import org.wowtools.giscat.util.analyse.Bbox;
+import org.wowtools.giscat.vector.util.analyse.Bbox;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.*;

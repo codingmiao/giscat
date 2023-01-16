@@ -1,4 +1,4 @@
-package org.wowtools.giscat.util.analyse;
+package org.wowtools.giscat.vector.util.analyse;
 
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.io.ParseException;

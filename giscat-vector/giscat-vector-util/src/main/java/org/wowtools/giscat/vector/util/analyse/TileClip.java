@@ -17,7 +17,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  ****************************************************************/
-package org.wowtools.giscat.util.analyse;
+package org.wowtools.giscat.vector.util.analyse;
 
 import org.locationtech.jts.geom.*;
 
