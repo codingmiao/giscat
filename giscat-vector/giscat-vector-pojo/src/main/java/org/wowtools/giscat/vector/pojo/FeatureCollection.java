@@ -20,6 +20,7 @@
 package org.wowtools.giscat.vector.pojo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * FeatureCollection
@@ -28,7 +29,15 @@ import java.util.List;
  * @date 2022/3/15
  */
 public class FeatureCollection {
+    /**
+     * 要素
+     */
     private List<Feature> features;
+
+    /**
+     * 头信息，可以在headers中添加一些关于FeatureCollection、features等的描述信息
+     */
+    private Map<String, Object> headers;
 
     public List<Feature> getFeatures() {
         return features;
@@ -36,5 +45,13 @@ public class FeatureCollection {
 
     public void setFeatures(List<Feature> features) {
         this.features = features;
+    }
+
+    public Map<String, Object> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Map<String, Object> headers) {
+        this.headers = headers;
     }
 }

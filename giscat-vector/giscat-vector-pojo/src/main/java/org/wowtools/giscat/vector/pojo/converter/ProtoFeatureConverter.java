@@ -550,7 +550,7 @@ public class ProtoFeatureConverter {
         return featureCollection2Proto(fc);
     }
 
-    private static ProtoFeature.Map.Builder putPropertiesToCell(Map<String, Object> properties,ToProtoKeyValueCell keyValueCell) {
+    private static ProtoFeature.Map.Builder putPropertiesToCell(Map<String, Object> properties, ToProtoKeyValueCell keyValueCell) {
         ProtoFeature.Map.Builder propertiesBuilder = ProtoFeature.Map.newBuilder();
         properties.forEach((k, v) -> {
             if (null == v) {
@@ -570,23 +570,31 @@ public class ProtoFeatureConverter {
      * @return ProtoFeature bytes
      */
     public static byte[] featureCollection2Proto(FeatureCollection featureCollection) {
-        ToProtoKeyValueCell keyValueCell = new ToProtoKeyValueCell();//收集key-value与id对应关系
         ProtoFeature.FeatureCollection.Builder builder = ProtoFeature.FeatureCollection.newBuilder();
-        for (Feature feature : featureCollection.getFeatures()) {
-            //properties转换
-            Map<String, Object> properties = feature.getProperties();
-            if (null != properties) {
-                ProtoFeature.Map.Builder propertiesBuilder = putPropertiesToCell(properties, keyValueCell);
-                builder.addPropertiess(propertiesBuilder);
-            } else {
-                builder.addPropertiess(nullMap);
-            }
-            //geometry转换
-            Geometry geometry = feature.getGeometry();
-            ProtoFeature.Geometry.Builder geometryBuilder = geometry2ProtoBuilder(geometry);
-            builder.addGeometries(geometryBuilder);
-
+        ToProtoKeyValueCell keyValueCell = new ToProtoKeyValueCell();//收集key-value与id对应关系
+        //转换头信息
+        if (null != featureCollection.getHeaders()) {
+            ProtoFeature.Map.Builder propertiesBuilder = putPropertiesToCell(featureCollection.getHeaders(), keyValueCell);
+            builder.setHeaders(propertiesBuilder);
         }
+        //转换features
+        if (null != featureCollection.getFeatures()) {
+            for (Feature feature : featureCollection.getFeatures()) {
+                //properties转换
+                Map<String, Object> properties = feature.getProperties();
+                if (null != properties) {
+                    ProtoFeature.Map.Builder propertiesBuilder = putPropertiesToCell(properties, keyValueCell);
+                    builder.addPropertiess(propertiesBuilder);
+                } else {
+                    builder.addPropertiess(nullMap);
+                }
+                //geometry转换
+                Geometry geometry = feature.getGeometry();
+                ProtoFeature.Geometry.Builder geometryBuilder = geometry2ProtoBuilder(geometry);
+                builder.addGeometries(geometryBuilder);
+            }
+        }
+
         keyValueCell.toProto(builder);
         return builder.build().toByteArray();
     }
@@ -988,8 +996,17 @@ public class ProtoFeatureConverter {
         } catch (InvalidProtocolBufferException e) {
             throw new RuntimeException(e);
         }
+        FeatureCollection featureCollection = new FeatureCollection();
+
         //构造Properties 真实值
         FromProtoKeyValueCell keyValueCell = new FromProtoKeyValueCell(pFeatureCollection);
+
+        //构造headers
+        if (pFeatureCollection.hasHeaders()) {
+            ProtoFeature.Map pHeaders = pFeatureCollection.getHeaders();
+            Map<String, Object> headers = keyValueCell.parseProperties(pHeaders);
+            featureCollection.setHeaders(headers);
+        }
 
         //构造feature
         int featureNum = pFeatureCollection.getGeometriesCount();
@@ -1007,9 +1024,8 @@ public class ProtoFeatureConverter {
 
             features.add(feature);
         }
-
-        FeatureCollection featureCollection = new FeatureCollection();
         featureCollection.setFeatures(features);
+
         return featureCollection;
     }
 

@@ -21,6 +21,17 @@ public class ProtoFeatureConverterTest {
     private static final Random random = new Random(233);
 
     @org.junit.Test
+    public void testHeaders() {
+        FeatureCollection featureCollection = new FeatureCollection();
+        featureCollection.setHeaders(Map.of("name", List.of(1, "2")));
+        byte[] bytes = ProtoFeatureConverter.featureCollection2Proto(featureCollection);
+        featureCollection = ProtoFeatureConverter.proto2featureCollection(bytes, SampleData.geometryFactory);
+        List headers = (List) featureCollection.getHeaders().get("name");
+        Assert.assertEquals(1,headers.get(0));
+        Assert.assertEquals("2",headers.get(1));
+    }
+
+    @org.junit.Test
     public void testGeometrys() throws Exception {
         testGeometry("POINT (30 10)");
         testGeometry("LINESTRING (30 10, 10 30, 40 40)");

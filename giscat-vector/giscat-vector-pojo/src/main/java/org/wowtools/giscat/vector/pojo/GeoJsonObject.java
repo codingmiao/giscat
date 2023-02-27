@@ -262,6 +262,7 @@ public class GeoJsonObject {
     public static final class FeatureCollection {
         private final String type = "FeatureCollection";
         private Feature[] features;
+        private Map<String, Object> headers;
 
         @JsonIgnore
         public String toGeoJsonString() {

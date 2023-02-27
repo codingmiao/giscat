@@ -167,6 +167,20 @@ public class GeoJsonFeatureConverterTest {
         );
     }
 
+    @org.junit.Test
+    public void testFeatureCollection2GeoJsonWithHeader() {
+        FeatureCollection featureCollection = new FeatureCollection();
+        featureCollection.setHeaders(Map.of("name", List.of(1, "2")));
+        featureCollection.setFeatures(List.of(
+                new Feature(SampleData.point, Map.of("id", 1)),
+                new Feature(SampleData.lineString, Map.of("name", "hello"))
+        ));
+        GeoJsonObject.FeatureCollection geoJson = GeoJsonFeatureConverter.toGeoJson(featureCollection);
+        Assert.assertEquals("{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[30.0,10.0]},\"properties\":{\"id\":1}},{\"type\":\"Feature\",\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[30.0,10.0],[10.0,30.0],[40.0,40.0]]},\"properties\":{\"name\":\"hello\"}}],\"headers\":{\"name\":[1,\"2\"]}}",
+                geoJson.toGeoJsonString()
+        );
+    }
+
     //将GeoJson对象转为Feature
     @org.junit.Test
     public void testGeoJson2FeatureCollection() {

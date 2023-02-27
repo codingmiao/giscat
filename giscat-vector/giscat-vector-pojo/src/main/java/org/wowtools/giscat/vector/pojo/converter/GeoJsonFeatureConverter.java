@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.pojo.converter;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,6 +46,9 @@ public class GeoJsonFeatureConverter {
      * jackson ObjectMapper
      */
     public static final ObjectMapper mapper = new ObjectMapper();
+    static {
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
 
     private static final JavaType typeGeometry = mapper.constructType(GeoJsonObject.Geometry.class);
     private static final JavaType typeFeature = mapper.constructType(GeoJsonObject.Feature.class);
@@ -102,14 +106,20 @@ public class GeoJsonFeatureConverter {
      * @return geojson
      */
     public static GeoJsonObject.FeatureCollection toGeoJson(FeatureCollection featureCollection) {
+        GeoJsonObject.FeatureCollection geoJsonFeatureCollection = new GeoJsonObject.FeatureCollection();
+
+        if (null != featureCollection.getHeaders()) {
+            geoJsonFeatureCollection.setHeaders(featureCollection.getHeaders());
+        }
+
         GeoJsonObject.Feature[] geoJsonFeatures = new GeoJsonObject.Feature[featureCollection.getFeatures().size()];
         int i = 0;
-        GeoJsonObject.FeatureCollection geoJsonFeatureCollection = new GeoJsonObject.FeatureCollection();
         for (Feature feature : featureCollection.getFeatures()) {
             geoJsonFeatures[i] = toGeoJson(feature);
             i++;
         }
         geoJsonFeatureCollection.setFeatures(geoJsonFeatures);
+
         return geoJsonFeatureCollection;
     }
 
@@ -218,13 +228,17 @@ public class GeoJsonFeatureConverter {
      * @return FeatureCollection
      */
     public static FeatureCollection fromGeoJsonFeatureCollection(GeoJsonObject.FeatureCollection geoJsonFeatureCollection, GeometryFactory geometryFactory) {
+        FeatureCollection featureCollection = new FeatureCollection();
+
+        featureCollection.setHeaders(geoJsonFeatureCollection.getHeaders());
+
         List<Feature> features = new ArrayList<>(geoJsonFeatureCollection.getFeatures().length);
         for (int i = 0; i < geoJsonFeatureCollection.getFeatures().length; i++) {
             Feature feature = fromGeoJsonFeature(geoJsonFeatureCollection.getFeatures()[i], geometryFactory);
             features.add(feature);
         }
-        FeatureCollection featureCollection = new FeatureCollection();
         featureCollection.setFeatures(features);
+
         return featureCollection;
     }
 

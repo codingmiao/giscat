@@ -181,4 +181,7 @@ message FeatureCollection{
 	// features 为了最大限度压缩数据，这里单独列了geometry properties，而未使用Feature对象
 	repeated Geometry geometries = 8;
     repeated Map propertiess = 9;
+
+    // features头信息，可以在headers中添加一些关于FeatureCollection、features等的描述信息
+    Map headers = 10;
 }
