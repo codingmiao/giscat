@@ -550,6 +550,19 @@ public class ProtoFeatureConverter {
         return featureCollection2Proto(fc);
     }
 
+    private static ProtoFeature.Map.Builder putPropertiesToCell(Map<String, Object> properties,ToProtoKeyValueCell keyValueCell) {
+        ProtoFeature.Map.Builder propertiesBuilder = ProtoFeature.Map.newBuilder();
+        properties.forEach((k, v) -> {
+            if (null == v) {
+                return;
+            }
+            PropertiesSetter setter = getPropertiesSetter(v);
+            setter.setKey(propertiesBuilder, keyValueCell, k);
+            setter.setValue(propertiesBuilder, keyValueCell, v);
+        });
+        return propertiesBuilder;
+    }
+
     /**
      * FeatureCollection 转 ProtoFeature bytes
      *
@@ -563,15 +576,7 @@ public class ProtoFeatureConverter {
             //properties转换
             Map<String, Object> properties = feature.getProperties();
             if (null != properties) {
-                ProtoFeature.Map.Builder propertiesBuilder = ProtoFeature.Map.newBuilder();
-                properties.forEach((k, v) -> {
-                    if (null == v) {
-                        return;
-                    }
-                    PropertiesSetter setter = getPropertiesSetter(v);
-                    setter.setKey(propertiesBuilder, keyValueCell, k);
-                    setter.setValue(propertiesBuilder, keyValueCell, v);
-                });
+                ProtoFeature.Map.Builder propertiesBuilder = putPropertiesToCell(properties, keyValueCell);
                 builder.addPropertiess(propertiesBuilder);
             } else {
                 builder.addPropertiess(nullMap);
@@ -885,15 +890,7 @@ public class ProtoFeatureConverter {
 
             private ProtoFeature.Map.Builder createMapBuilder(ToProtoKeyValueCell keyValueCell, Object value) {
                 Map<String, Object> subProperties = (Map<String, Object>) value;
-                ProtoFeature.Map.Builder subBuilder = ProtoFeature.Map.newBuilder();
-                subProperties.forEach((k, v) -> {
-                    if (null == v) {
-                        return;
-                    }
-                    PropertiesSetter setter = getPropertiesSetter(v);
-                    setter.setKey(subBuilder, keyValueCell, k);
-                    setter.setValue(subBuilder, keyValueCell, v);
-                });
+                ProtoFeature.Map.Builder subBuilder = putPropertiesToCell(subProperties, keyValueCell);
                 return subBuilder;
             }
         };
