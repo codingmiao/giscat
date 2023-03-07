@@ -87,6 +87,30 @@ public class WebDemo {
 
         pointFeatureCollection = new FeatureCollection();
         pointFeatureCollection.setFeatures(pointFeatures);
+
+//        StringBuilder sb = new StringBuilder();
+//        {
+//            int i = 1;
+//            for (Feature pointFeature : pointFeatures) {
+//                sb.append("insert into test_point values (" + i + ",st_geometryfromtext('" + pointFeature.getGeometry() + "',4326));\n");
+//                i++;
+//            }
+//        }
+//        {
+//            int i = 1;
+//            for (Feature lineFeature : lineFeatures) {
+//                sb.append("insert into test_line values (" + i + ",'line" + i + "',st_geometryfromtext('" + lineFeature.getGeometry() + "',4326));\n");
+//                i++;
+//            }
+//        }
+//        {
+//            int i = 1;
+//            for (Feature feature : areaFeatureCollection.getFeatures()) {
+//                sb.append("insert into test_polygon values (" + i + ",'" + feature.getProperties().get("name") + "',st_geometryfromtext('" + feature.getGeometry() + "',4326));\n");
+//                i++;
+//            }
+//        }
+//        System.out.println(sb);
     }
 
 
