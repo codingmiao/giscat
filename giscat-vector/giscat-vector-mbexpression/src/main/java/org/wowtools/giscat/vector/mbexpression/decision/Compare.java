@@ -14,7 +14,19 @@ import java.util.ArrayList;
  */
 class Compare {
 
+    /**
+     * 不成立
+     */
+    public static final int impossible = -2;
 
+    /**
+     * 比较大小
+     *
+     * @param expressionArray  expressionArray
+     * @param feature          feature
+     * @param expressionParams expressionParams
+     * @return 1 大于 0 等于 -1小于 -2 因为空值等原因不成立
+     */
     public static int compare(ArrayList expressionArray, Feature feature, ExpressionParams expressionParams) {
         Object o1 = expressionArray.get(1);
         if (o1 instanceof Expression) {
@@ -26,6 +38,13 @@ class Compare {
             Expression expression = (Expression) o2;
             o2 = expression.getValue(feature, expressionParams);
         }
+        if (o1 == null && o2 == null) {
+            return 0;
+        }
+        if (o1 == null ^ o2 == null) {
+            return impossible;
+        }
+
         if (o1 instanceof Number) {
             Number n1 = (Number) o1;
             Number n2 = (Number) o2;

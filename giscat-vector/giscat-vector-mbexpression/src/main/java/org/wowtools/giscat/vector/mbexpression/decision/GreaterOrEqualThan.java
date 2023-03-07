@@ -48,7 +48,8 @@ public class GreaterOrEqualThan extends Expression<Boolean> {
 
     @Override
     public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
-        return Compare.compare(expressionArray, feature, expressionParams) >= 0;
+        int flag = Compare.compare(expressionArray, feature, expressionParams);
+        return flag != Compare.impossible && flag >= 0;
     }
 
 }
