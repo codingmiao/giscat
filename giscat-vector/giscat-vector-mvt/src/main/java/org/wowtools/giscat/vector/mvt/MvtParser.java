@@ -229,12 +229,12 @@ public class MvtParser {
                     if (cs.size() <= 1) {
                         continue;
                     }
-                    lineStrings.add(gf.createLineString(cs.toArray(new Coordinate[0])));
+                    lineStrings.add(gf.createLineString(cs.toArray(new Coordinate[cs.size()])));
                 }
                 if (lineStrings.size() == 1) {
                     geometry = lineStrings.get(0);
                 } else if (lineStrings.size() > 1) {
-                    geometry = gf.createMultiLineString(lineStrings.toArray(new LineString[0]));
+                    geometry = gf.createMultiLineString(lineStrings.toArray(new LineString[lineStrings.size()]));
                 }
                 break;
             case POINT:
@@ -245,7 +245,7 @@ public class MvtParser {
                 if (allCoords.size() == 1) {
                     geometry = gf.createPoint(allCoords.get(0));
                 } else if (allCoords.size() > 1) {
-                    geometry = gf.createMultiPointFromCoords(allCoords.toArray(new Coordinate[0]));
+                    geometry = gf.createMultiPointFromCoords(allCoords.toArray(new Coordinate[allCoords.size()]));
                 }
                 break;
             case POLYGON:
@@ -256,7 +256,10 @@ public class MvtParser {
                     if (ringsForCurrentPolygon.size() > 0 && cs.size() < 4) {
                         continue;
                     }
-                    LinearRing ring = gf.createLinearRing(cs.toArray(new Coordinate[0]));
+                    if (cs.size() < 4) {
+                        continue;
+                    }
+                    LinearRing ring = gf.createLinearRing(cs.toArray(new Coordinate[cs.size()]));
                     if (Orientation.isCCW(ring.getCoordinates())) {
                         ringsForCurrentPolygon = new ArrayList<>();
                         polygonRings.add(ringsForCurrentPolygon);
@@ -288,5 +291,6 @@ public class MvtParser {
 
         return new Feature(geometry, Collections.unmodifiableMap(attributes));
     }
+
 
 }
