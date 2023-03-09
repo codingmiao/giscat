@@ -43,7 +43,7 @@ public class MvtParser {
      * @return MvtFeatureLayer
      */
     public static MvtFeatureLayer[] parse2TileCoords(byte[] data, GeometryFactory gf) {
-        return parse2Wgs84Coords(null, data, gf);
+        return parse(null, data, gf);
     }
 
     /**
@@ -58,10 +58,10 @@ public class MvtParser {
      */
     public static MvtFeatureLayer[] parse2Wgs84Coords(byte z, int x, int y, byte[] data, GeometryFactory gf) {
         MvtCoordinateConvertor mvtCoordinateConvertor = new MvtCoordinateConvertor(z, x, y);
-        return parse2Wgs84Coords(mvtCoordinateConvertor, data, gf);
+        return parse(mvtCoordinateConvertor, data, gf);
     }
 
-    private static MvtFeatureLayer[] parse2Wgs84Coords(MvtCoordinateConvertor mvtCoordinateConvertor, byte[] data, GeometryFactory gf) {
+    private static MvtFeatureLayer[] parse(MvtCoordinateConvertor mvtCoordinateConvertor, byte[] data, GeometryFactory gf) {
         VectorTile.Tile tile;
         try {
             tile = VectorTile.Tile.parseFrom(data);
@@ -266,17 +266,23 @@ public class MvtParser {
                     }
                     ringsForCurrentPolygon.add(ring);
                 }
-                List<Polygon> polygons = new ArrayList<>();
-                for (List<LinearRing> rings : polygonRings) {
-                    LinearRing shell = rings.get(0);
-                    LinearRing[] holes = rings.subList(1, rings.size()).toArray(new LinearRing[rings.size() - 1]);
-                    polygons.add(gf.createPolygon(shell, holes));
-                }
-                if (polygons.size() == 1) {
-                    geometry = polygons.get(0);
-                }
-                if (polygons.size() > 1) {
-                    geometry = gf.createMultiPolygon(GeometryFactory.toPolygonArray(polygons));
+                if (polygonRings.size() == 0 && ringsForCurrentPolygon.size() > 0) {
+                    // 有时候外环坐标没有严格按逆时针顺序存储，则取内环为外环
+                    LinearRing shell = ringsForCurrentPolygon.get(0);
+                    geometry = gf.createPolygon(shell);
+                } else {
+                    List<Polygon> polygons = new ArrayList<>();
+                    for (List<LinearRing> rings : polygonRings) {
+                        LinearRing shell = rings.get(0);
+                        LinearRing[] holes = rings.subList(1, rings.size()).toArray(new LinearRing[rings.size() - 1]);
+                        polygons.add(gf.createPolygon(shell, holes));
+                    }
+                    if (polygons.size() == 1) {
+                        geometry = polygons.get(0);
+                    }
+                    if (polygons.size() > 1) {
+                        geometry = gf.createMultiPolygon(GeometryFactory.toPolygonArray(polygons));
+                    }
                 }
                 break;
 //            case UNKNOWN:
