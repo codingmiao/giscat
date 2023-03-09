@@ -96,7 +96,7 @@ public class WebDemoReload {
     private static final String vtContentType = "application/octet-stream";
 
     @RequestMapping("/{z}/{x}/{y}")
-    public void getTile(@PathVariable int z, @PathVariable int x, @PathVariable int y, HttpServletResponse response) {
+    public void getTile(@PathVariable byte z, @PathVariable int x, @PathVariable int y, HttpServletResponse response) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.SECOND, 5);

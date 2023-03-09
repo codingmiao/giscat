@@ -49,7 +49,7 @@ class MvtCoordinateConvertor {
      * @param x 瓦片 x
      * @param y 瓦片 y
      */
-    public MvtCoordinateConvertor(int z, int x, int y) {
+    public MvtCoordinateConvertor(byte z, int x, int y) {
         px = x * TILE_SIZE;
         py = y * TILE_SIZE;
 

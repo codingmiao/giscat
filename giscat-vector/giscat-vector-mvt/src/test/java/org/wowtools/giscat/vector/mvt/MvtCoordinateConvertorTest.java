@@ -8,7 +8,8 @@ public class MvtCoordinateConvertorTest {
 
     @org.junit.Test
     public void testWgs842mvt() {
-        int z = 12, x = 3223, y = 1774;
+        byte z = 12;
+        int x = 3223, y = 1774;
         MvtCoordinateConvertor mvtCoordinateConvertor = new MvtCoordinateConvertor(z, x, y);
         System.out.println("瓦片wgs84范围:[" +
                 Tile2Wgs84.tileX2lon(x, z) + ", " +
@@ -35,7 +36,8 @@ public class MvtCoordinateConvertorTest {
     @org.junit.Test
     public void testMvt2Wgs84() {
 
-        int z = 12, x = 3223, y = 1774;
+        byte z = 12;
+        int x = 3223, y = 1774;
         MvtCoordinateConvertor mvtCoordinateConvertor = new MvtCoordinateConvertor(z, x, y);
 
         assertEquals(103.31, mvtCoordinateConvertor.mvtX2wgs84(1795), 0.0001);

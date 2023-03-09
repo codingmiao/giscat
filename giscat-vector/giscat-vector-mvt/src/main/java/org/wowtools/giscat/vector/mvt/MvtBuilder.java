@@ -48,7 +48,7 @@ public class MvtBuilder {
 
     private final Bbox bbox;
 
-    public MvtBuilder(int z, int x, int y, GeometryFactory geometryFactory) {
+    public MvtBuilder(byte z, int x, int y, GeometryFactory geometryFactory) {
         this(z, x, y, 4096, 8, geometryFactory);
     }
 
@@ -66,7 +66,7 @@ public class MvtBuilder {
      * @param extent     a int with extent value. 4096 is a good value.
      * @param clipBuffer a int with clip buffer size for geometries. 8 is a good value.
      */
-    public MvtBuilder(int z, int x, int y, int extent, int clipBuffer, GeometryFactory geometryFactory) {
+    public MvtBuilder(byte z, int x, int y, int extent, int clipBuffer, GeometryFactory geometryFactory) {
         this.extent = extent;
         bbox = createTileBbox(z, x, y, extent, clipBuffer);
         tileClip = new TileClip(bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax, geometryFactory);
@@ -109,7 +109,7 @@ public class MvtBuilder {
     }
 
 
-    private static Bbox createTileBbox(int z, int tileX, int tileY, int extent, int clipBuffer) {
+    private static Bbox createTileBbox(byte z, int tileX, int tileY, int extent, int clipBuffer) {
         //瓦片左上角坐标
         double x0 = Tile2Wgs84.tileX2lon(tileX, z);
         double y0 = Tile2Wgs84.tileY2lat(tileY, z);

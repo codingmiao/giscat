@@ -19,7 +19,7 @@ public class Test1 {
     public static void main(String[] args) throws Exception {
         WKTReader wktReader = new WKTReader();
         GeometryFactory geometryFactory = new GeometryFactory();
-        MvtBuilder mvtBuilder = new MvtBuilder(6, 50, 27, geometryFactory);
+        MvtBuilder mvtBuilder = new MvtBuilder((byte) 6, 50, 27, geometryFactory);
         MvtLayer layer = mvtBuilder.getOrCreateLayer("test");
         Geometry geo = wktReader.read(s);
         Feature feature = new Feature(geo, Map.of());
@@ -35,7 +35,7 @@ public class Test1 {
                 s[l] = (byte) ~s[l];
             }
         }
-        MvtParser.MvtFeatureLayer[] layers = MvtParser.parse2Wgs84Coords(3, 7, 2, s, geometryFactory);
+        MvtParser.MvtFeatureLayer[] layers = MvtParser.parse2Wgs84Coords((byte) 3, 7, 2, s, geometryFactory);
         for (MvtParser.MvtFeatureLayer mvtFeatureLayer : layers) {
             System.out.println(mvtFeatureLayer.getLayerName());
         }

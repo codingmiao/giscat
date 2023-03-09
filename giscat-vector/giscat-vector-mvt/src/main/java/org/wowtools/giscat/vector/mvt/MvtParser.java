@@ -56,7 +56,7 @@ public class MvtParser {
      * @param gf   jts GeometryFactory
      * @return MvtFeatureLayer
      */
-    public static MvtFeatureLayer[] parse2Wgs84Coords(int z, int x, int y, byte[] data, GeometryFactory gf) {
+    public static MvtFeatureLayer[] parse2Wgs84Coords(byte z, int x, int y, byte[] data, GeometryFactory gf) {
         MvtCoordinateConvertor mvtCoordinateConvertor = new MvtCoordinateConvertor(z, x, y);
         return parse2Wgs84Coords(mvtCoordinateConvertor, data, gf);
     }

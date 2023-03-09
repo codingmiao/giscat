@@ -48,7 +48,7 @@ public class Tile2Wgs84 {
      * @param z 瓦片z
      * @return 纬度
      */
-    public static double tileY2lat(int y, int z) {
+    public static double tileY2lat(int y, byte z) {
         double n = Math.PI - (2.0 * Math.PI * y) / pow2[z];
         return Math.toDegrees(Math.atan(Math.sinh(n)));
     }
@@ -60,7 +60,7 @@ public class Tile2Wgs84 {
      * @param z 瓦片z
      * @return 经度
      */
-    public static double tileX2lon(int x, int z) {
+    public static double tileX2lon(int x, byte z) {
         return x * 360d / pow2[z] - 180;
     }
 
@@ -71,7 +71,7 @@ public class Tile2Wgs84 {
      * @param z   瓦片z
      * @return 瓦片x，整数部分表示列号，小数部分表示从左边开始到处于瓦片位置的百分比
      */
-    public static double lon2tileX(double lon, int z) {
+    public static double lon2tileX(double lon, byte z) {
         return ((lon + 180.0) / 360.0 * pow2[z]);
     }
 
@@ -82,7 +82,7 @@ public class Tile2Wgs84 {
      * @param z   瓦片z
      * @return 瓦片y，整数部分表示行，小数部分表示从上边开始到处于瓦片位置的百分比
      */
-    public static double lat2tileY(double lat, int z) {
+    public static double lat2tileY(double lat, byte z) {
         return (Math.PI - FastMath.asinh(Math.tan(lat * Math.PI / 180.0))) * pow2[z] / (2 * Math.PI);
     }
 

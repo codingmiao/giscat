@@ -117,7 +117,7 @@ public class WebDemo {
     private static final String vtContentType = "application/octet-stream";
 
     @RequestMapping("/{z}/{x}/{y}")
-    public void getTile(@PathVariable int z, @PathVariable int x, @PathVariable int y, HttpServletResponse response) {
+    public void getTile(@PathVariable byte z, @PathVariable int x, @PathVariable int y, HttpServletResponse response) {
         //构造一个MvtBuilder对象
         MvtBuilder mvtBuilder = new MvtBuilder(z, x, y, geometryFactory);
 

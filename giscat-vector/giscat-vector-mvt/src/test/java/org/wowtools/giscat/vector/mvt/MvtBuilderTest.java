@@ -11,7 +11,8 @@ public class MvtBuilderTest {
     @org.junit.Test
     public void test() {
         GeometryFactory gf = new GeometryFactory();
-        int z = 12, x = 3223, y = 1774;
+        byte z = 12;
+        int x = 3223, y = 1774;
         MvtBuilder mvtBuilder = new MvtBuilder(z, x, y, gf);
         MvtLayer mvtLayer = mvtBuilder.getOrCreateLayer("testLayer");
         mvtLayer.addFeature(new Feature(
