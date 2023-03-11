@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.decision;
 
+import org.jetbrains.annotations.NotNull;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
@@ -43,7 +44,7 @@ public class Negation extends Expression<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
+    public @NotNull Boolean getValue(Feature feature, ExpressionParams expressionParams) {
         Object value = expressionArray.get(1);
         value = getRealValue(feature, value, expressionParams);
         if (value instanceof Boolean) {

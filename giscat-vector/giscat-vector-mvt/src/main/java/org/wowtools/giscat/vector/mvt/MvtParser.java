@@ -21,6 +21,8 @@
 package org.wowtools.giscat.vector.mvt;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.locationtech.jts.algorithm.Orientation;
 import org.locationtech.jts.geom.*;
 import org.wowtools.giscat.vector.pojo.Feature;
@@ -42,7 +44,7 @@ public class MvtParser {
      * @param gf   jts GeometryFactory
      * @return MvtFeatureLayer
      */
-    public static MvtFeatureLayer[] parse2TileCoords(byte[] data, GeometryFactory gf) {
+    public static MvtFeatureLayer @NotNull [] parse2TileCoords(byte[] data, @NotNull GeometryFactory gf) {
         return parse(null, data, gf);
     }
 
@@ -56,12 +58,12 @@ public class MvtParser {
      * @param gf   jts GeometryFactory
      * @return MvtFeatureLayer
      */
-    public static MvtFeatureLayer[] parse2Wgs84Coords(byte z, int x, int y, byte[] data, GeometryFactory gf) {
+    public static MvtFeatureLayer @NotNull [] parse2Wgs84Coords(byte z, int x, int y, byte[] data, @NotNull GeometryFactory gf) {
         MvtCoordinateConvertor mvtCoordinateConvertor = new MvtCoordinateConvertor(z, x, y);
         return parse(mvtCoordinateConvertor, data, gf);
     }
 
-    private static MvtFeatureLayer[] parse(MvtCoordinateConvertor mvtCoordinateConvertor, byte[] data, GeometryFactory gf) {
+    private static MvtFeatureLayer @NotNull [] parse(MvtCoordinateConvertor mvtCoordinateConvertor, byte[] data, @NotNull GeometryFactory gf) {
         VectorTile.Tile tile;
         try {
             tile = VectorTile.Tile.parseFrom(data);
@@ -84,9 +86,9 @@ public class MvtParser {
     public static final class MvtFeatureLayer {
         private final String layerName;
         private final int extent;
-        private final Feature[] features;
+        private final Feature @NotNull [] features;
 
-        private MvtFeatureLayer(VectorTile.Tile.Layer pLayer, GeometryFactory gf, final MvtCoordinateConvertor mvtCoordinateConvertor) {
+        private MvtFeatureLayer(VectorTile.Tile.@NotNull Layer pLayer, @NotNull GeometryFactory gf, final MvtCoordinateConvertor mvtCoordinateConvertor) {
             layerName = pLayer.getName();
             extent = pLayer.getExtent();
 
@@ -151,7 +153,7 @@ public class MvtParser {
         return ((n >> 1) ^ (-(n & 1)));
     }
 
-    private static Feature parseFeature(VectorTile.Tile.Feature pFeature, String[] keys, Object[] values, GeometryFactory gf, final MvtCoordinateConvertor mvtCoordinateConvertor) {
+    private static @NotNull Feature parseFeature(VectorTile.Tile.@NotNull Feature pFeature, String[] keys, Object[] values, @NotNull GeometryFactory gf, final @Nullable MvtCoordinateConvertor mvtCoordinateConvertor) {
 
         int tagsCount = pFeature.getTagsCount();
         Map<String, Object> attributes = new HashMap<>(tagsCount / 2);

@@ -21,6 +21,7 @@ package org.wowtools.giscat.vector.util.cst;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -67,7 +68,7 @@ public class Utm2Wgs84 {
             this.letter = letter;
         }
 
-        public UtmCoord(String utmStr) {
+        public UtmCoord(@NotNull String utmStr) {
             String[] parts = utmStr.split(" ");
             if (parts.length == 4) {
                 zone = Byte.parseByte(parts[0]);
@@ -115,7 +116,7 @@ public class Utm2Wgs84 {
      * @param utmStr utm坐标字符串，形如 "18 G 615471.66 4789269.78" "18 g 615471.66 4789269.78" "18G 615471.66 4789269.78" "18g 615471.66 4789269.78"
      * @return wgs84坐标
      */
-    public static LonLat utm2wgs84(String utmStr) {
+    public static @NotNull LonLat utm2wgs84(@NotNull String utmStr) {
         UtmCoord utmCoord = new UtmCoord(utmStr);
         return utm2wgs84(utmCoord);
     }
@@ -126,7 +127,7 @@ public class Utm2Wgs84 {
      * @param utmCoord utm坐标
      * @return wgs84坐标
      */
-    public static LonLat utm2wgs84(UtmCoord utmCoord) {
+    public static @NotNull LonLat utm2wgs84(@NotNull UtmCoord utmCoord) {
         byte zone = utmCoord.zone;
         char letter = utmCoord.letter;
         double Easting = utmCoord.easting;
@@ -159,7 +160,7 @@ public class Utm2Wgs84 {
         return new LonLat(longitude, latitude);
     }
 
-    public static UtmCoord wgs842utm(double lon, double lat) {
+    public static @NotNull UtmCoord wgs842utm(double lon, double lat) {
         byte Zone = (byte) Math.floor(lon / 6 + 31);
         char letter;
         if (lat < -72)

@@ -19,6 +19,8 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.spatial;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.util.analyse.TileClip;
 import org.wowtools.giscat.vector.mbexpression.Expression;
@@ -48,7 +50,7 @@ public class BboxIntersection extends Expression<Feature> {
 
 
     @Override
-    public Feature getValue(Feature feature, ExpressionParams expressionParams) {
+    public @Nullable Feature getValue(@NotNull Feature feature, @NotNull ExpressionParams expressionParams) {
         TileClip tileClip;
         {
             Object cache = expressionParams.getCache(this);

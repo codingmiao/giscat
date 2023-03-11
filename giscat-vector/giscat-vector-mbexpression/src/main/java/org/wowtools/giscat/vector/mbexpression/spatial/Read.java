@@ -1,5 +1,7 @@
 package org.wowtools.giscat.vector.mbexpression.spatial;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
@@ -21,7 +23,7 @@ class Read {
     private static final WKTReader wktReader = new WKTReader();
 
 
-    public static Geometry readGeometry(Feature feature, Object value, ExpressionParams expressionParams) {
+    public static Geometry readGeometry(Feature feature, @Nullable Object value, ExpressionParams expressionParams) {
         if (null == value) {
             return null;
         }
@@ -42,7 +44,7 @@ class Read {
         return inputGeometry;
     }
 
-    public static Bbox readBbox(Feature feature, Object value, ExpressionParams expressionParams) {
+    public static Bbox readBbox(Feature feature, @Nullable Object value, ExpressionParams expressionParams) {
         if (null == value) {
             return null;
         }
@@ -60,7 +62,7 @@ class Read {
         throw new RuntimeException("未知的Bbox数据类型 " + value);
     }
 
-    public static TileClip readTileClip(Feature feature, Object value, ExpressionParams expressionParams) {
+    public static TileClip readTileClip(Feature feature, @Nullable Object value, @NotNull ExpressionParams expressionParams) {
         if (null == value) {
             return null;
         }

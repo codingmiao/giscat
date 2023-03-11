@@ -1,5 +1,6 @@
 package org.wowtools.giscat.vector.mbexpression;
 
+import org.jetbrains.annotations.Nullable;
 import org.locationtech.jts.geom.GeometryFactory;
 
 import java.util.HashMap;
@@ -27,7 +28,7 @@ public class ExpressionParams {
     /**
      * 参数
      */
-    private final Map<String, Object> params;
+    private final @Nullable Map<String, Object> params;
 
     //取值缓存，供表达式解析用，减少重复的解析
     private final Map<Object, Object> cache = new HashMap<>();
@@ -45,14 +46,14 @@ public class ExpressionParams {
         this.params = null;
     }
 
-    public Object getValue(String paramKey) {
+    public @Nullable Object getValue(String paramKey) {
         if (null == params) {
             return null;
         }
         return params.get(paramKey);
     }
 
-    public void putCache(Object key, Object value) {
+    public void putCache(Object key, @Nullable Object value) {
         if (null == value) {
             value = empty;
         }

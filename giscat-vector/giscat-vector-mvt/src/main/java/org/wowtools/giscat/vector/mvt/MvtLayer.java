@@ -19,6 +19,8 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mvt;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.TopologyException;
@@ -50,7 +52,7 @@ public final class MvtLayer {
      * @param mvtBuilder       mvtBuilder
      * @param simplifyDistance 对geometry进行简化的长度,单位是瓦片像素，取值范围[0,extent+clipBuffer]，为0时表示不做简化
      */
-    protected MvtLayer(MvtBuilder mvtBuilder, int simplifyDistance) {
+    protected MvtLayer(@NotNull MvtBuilder mvtBuilder, int simplifyDistance) {
         this.mvtBuilder = mvtBuilder;
 
         if (simplifyDistance > 0) {
@@ -62,28 +64,28 @@ public final class MvtLayer {
         }
     }
 
-    public void addFeatures(Iterable<Feature> features) {
+    public void addFeatures(@NotNull Iterable<Feature> features) {
         for (Feature feature : features) {
             addFeature(feature);
         }
     }
 
-    public void addClipedFeatures(Iterable<Feature> features) {
+    public void addClipedFeatures(@NotNull Iterable<Feature> features) {
         for (Feature feature : features) {
             addClipedFeature(feature);
         }
     }
 
-    public void addFeature(Feature feature) {
+    public void addFeature(@NotNull Feature feature) {
         Geometry clipedGeometry = clipGeometry(feature.getGeometry());
         addCipedGeometryAndAttributes(feature.getProperties(), clipedGeometry);
     }
 
-    public void addClipedFeature(Feature feature) {
+    public void addClipedFeature(@NotNull Feature feature) {
         addCipedGeometryAndAttributes(feature.getProperties(), feature.getGeometry());
     }
 
-    public void addCipedGeometryAndAttributes(Map<String, ?> attributes, Geometry clipedGeometry) {
+    public void addCipedGeometryAndAttributes(Map<String, ?> attributes, @Nullable Geometry clipedGeometry) {
         if (null == clipedGeometry || clipedGeometry.isEmpty()) {
             return;//裁剪完没有交集则直接return
         }
@@ -100,7 +102,7 @@ public final class MvtLayer {
     }
 
     //拆出GeometryCollection中的geometry塞到list中
-    private void resolveGeometryCollection(Geometry geometry, List<Geometry> resolveGeometries) {
+    private void resolveGeometryCollection(@NotNull Geometry geometry, @NotNull List<Geometry> resolveGeometries) {
         for (int i = 0; i < geometry.getNumGeometries(); i++) {
             Geometry subGeometry = geometry.getGeometryN(i);
             if (subGeometry.getClass().equals(GeometryCollection.class)) {
@@ -123,7 +125,7 @@ public final class MvtLayer {
     }
 
     //将attributes转为tags以便加入到feature
-    private ArrayList<Integer> tags(Map<String, ?> attributes) {
+    private ArrayList<Integer> tags(@Nullable Map<String, ?> attributes) {
         if (null == attributes) {
             return null;
         }
@@ -139,15 +141,15 @@ public final class MvtLayer {
         return tags;
     }
 
-    private Integer key(String key) {
+    private @NotNull Integer key(String key) {
         return keys.computeIfAbsent(key, k -> keys.size());
     }
 
-    protected List<String> keys() {
+    protected @NotNull List<String> keys() {
         return new ArrayList<>(keys.keySet());
     }
 
-    private Integer value(Object value) {
+    private @NotNull Integer value(Object value) {
         return values.computeIfAbsent(value, k -> values.size());
     }
 

@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.decision;
 
+import org.jetbrains.annotations.Nullable;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
@@ -50,7 +51,7 @@ public class Match extends Expression<Object> {
     }
 
     @Override
-    public Object getValue(Feature feature, ExpressionParams expressionParams) {
+    public @Nullable Object getValue(Feature feature, ExpressionParams expressionParams) {
         Object input = getRealValue(feature, expressionArray.get(1), expressionParams);
         for (int i = 2; i < expressionArray.size() - 1; i += 2) {
             Object o = expressionArray.get(i);

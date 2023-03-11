@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.util.analyse;
 
+import org.jetbrains.annotations.NotNull;
 import org.locationtech.jts.geom.*;
 
 /**
@@ -37,7 +38,7 @@ public class Bbox {
         this.ymax = ymax;
     }
 
-    public Bbox(Geometry geometry) {
+    public Bbox(@NotNull Geometry geometry) {
         double xmin, ymin, xmax, ymax;
         Geometry envelope = geometry.getEnvelope();
         if (envelope instanceof LineString) {
@@ -87,7 +88,7 @@ public class Bbox {
      * @param geometry geometry
      * @return 是否相交
      */
-    public boolean envIntersects(Geometry geometry) {
+    public boolean envIntersects(@NotNull Geometry geometry) {
         Bbox bbox = new Bbox(geometry);
         return intersects(bbox);
     }
@@ -98,7 +99,7 @@ public class Bbox {
      * @param bbox bbox
      * @return 是否相交
      */
-    public boolean intersects(Bbox bbox) {
+    public boolean intersects(@NotNull Bbox bbox) {
         return intersects(bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax);
     }
 
@@ -136,7 +137,7 @@ public class Bbox {
     }
 
 
-    public Polygon toPolygon(GeometryFactory gf) {
+    public Polygon toPolygon(@NotNull GeometryFactory gf) {
         return gf.createPolygon(new Coordinate[]{
                 new Coordinate(xmin, ymin),
                 new Coordinate(xmax, ymin),

@@ -35,6 +35,12 @@
             <groupId>org.wowtools</groupId>
             <artifactId>giscat-vector-util</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>15.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

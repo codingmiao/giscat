@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.lookup;
 
+import org.jetbrains.annotations.NotNull;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
@@ -44,7 +45,7 @@ public class Has extends Expression<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
+    public @NotNull Boolean getValue(@NotNull Feature feature, ExpressionParams expressionParams) {
         String key = (String) getRealValue(feature, expressionArray.get(1), expressionParams);
         return null != feature.getProperties() && feature.getProperties().containsKey(key);
     }

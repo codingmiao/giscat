@@ -19,6 +19,8 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.spatial;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
@@ -46,7 +48,7 @@ public class GeoIntersection extends Expression<Feature> {
 
 
     @Override
-    public Feature getValue(Feature feature, ExpressionParams expressionParams) {
+    public @Nullable Feature getValue(@NotNull Feature feature, @NotNull ExpressionParams expressionParams) {
         Geometry inputGeometry;
         {
             Object cache = expressionParams.getCache(this);

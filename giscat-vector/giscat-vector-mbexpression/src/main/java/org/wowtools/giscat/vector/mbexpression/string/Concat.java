@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.string;
 
+import org.jetbrains.annotations.NotNull;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
@@ -43,7 +44,7 @@ public class Concat extends Expression<String> {
     }
 
     @Override
-    public String getValue(Feature feature, ExpressionParams expressionParams) {
+    public @NotNull String getValue(Feature feature, ExpressionParams expressionParams) {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < expressionArray.size(); i++) {
             Object o = expressionArray.get(i);

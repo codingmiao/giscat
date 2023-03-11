@@ -1,5 +1,6 @@
 package org.wowtools.giscat.vector.mbexpression.decision;
 
+import org.jetbrains.annotations.NotNull;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
 import org.wowtools.giscat.vector.pojo.Feature;
@@ -27,7 +28,7 @@ class Compare {
      * @param expressionParams expressionParams
      * @return 1 大于 0 等于 -1小于 -2 因为空值等原因不成立
      */
-    public static int compare(ArrayList expressionArray, Feature feature, ExpressionParams expressionParams) {
+    public static int compare(@NotNull ArrayList expressionArray, Feature feature, ExpressionParams expressionParams) {
         Object o1 = expressionArray.get(1);
         if (o1 instanceof Expression) {
             Expression expression = (Expression) o1;

@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.lookup;
 
+import org.jetbrains.annotations.NotNull;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
@@ -52,7 +53,7 @@ public class Slice extends Expression<Object> {
     }
 
     @Override
-    public Object getValue(Feature feature, ExpressionParams expressionParams) {
+    public @NotNull Object getValue(Feature feature, ExpressionParams expressionParams) {
         Object input = getRealValue(feature, expressionArray.get(1), expressionParams);
         int start = (int) getRealValue(feature, expressionArray.get(2), expressionParams);
         int end;

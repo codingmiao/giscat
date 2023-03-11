@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.decision;
 
+import org.jetbrains.annotations.NotNull;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
  */
 @ExpressionName(">")
 public class GreaterThan extends Expression<Boolean> {
-    protected GreaterThan(ArrayList expressionArray) {
+    protected GreaterThan(@NotNull ArrayList expressionArray) {
         super(expressionArray);
         if (expressionArray.size() == 4) {
             throw new UnsupportedOperationException("collator参数暂未实现");
@@ -47,7 +48,7 @@ public class GreaterThan extends Expression<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
+    public @NotNull Boolean getValue(Feature feature, ExpressionParams expressionParams) {
         int flag = Compare.compare(expressionArray, feature, expressionParams);
         return flag != Compare.impossible && flag > 0;
     }

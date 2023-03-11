@@ -22,6 +22,8 @@ package org.wowtools.giscat.vector.pojo.converter;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.locationtech.jts.geom.*;
 import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
@@ -60,7 +62,7 @@ public class ProtoFeatureConverter {
         return geometry2ProtoBuilder(geometry).build().toByteArray();
     }
 
-    private static ProtoFeature.Geometry.Builder geometry2ProtoBuilder(Geometry geometry) {
+    private static ProtoFeature.Geometry.@NotNull Builder geometry2ProtoBuilder(@Nullable Geometry geometry) {
         ProtoFeature.Geometry.Builder geometryBuilder = ProtoFeature.Geometry.newBuilder();
         if (null == geometry || geometry.isEmpty()) {
             geometryBuilder.setNullGeometry(nullGeometry);
@@ -94,11 +96,11 @@ public class ProtoFeatureConverter {
      * 将coordinates转换为 xs ys zs list以便放入Proto
      */
     private static final class ProtoCoordinateCell {
-        private final ArrayList<Double> xs;
-        private final ArrayList<Double> ys;
-        private final ArrayList<Double> zs;
+        private final @NotNull ArrayList<Double> xs;
+        private final @NotNull ArrayList<Double> ys;
+        private final @Nullable ArrayList<Double> zs;
 
-        public ProtoCoordinateCell(Coordinate[] coordinates) {
+        public ProtoCoordinateCell(Coordinate @NotNull [] coordinates) {
             if (Double.isNaN(coordinates[0].getZ())) {
                 xs = new ArrayList<>();
                 ys = new ArrayList<>();
@@ -120,7 +122,7 @@ public class ProtoFeatureConverter {
         }
     }
 
-    private static ProtoFeature.Point.Builder point2Proto(Point point) {
+    private static ProtoFeature.Point.@NotNull Builder point2Proto(@NotNull Point point) {
         Coordinate coordinate = point.getCoordinate();
         ProtoFeature.Point.Builder builder = ProtoFeature.Point.newBuilder();
         builder.setX(coordinate.getX());
@@ -131,7 +133,7 @@ public class ProtoFeatureConverter {
         return builder;
     }
 
-    private static ProtoFeature.LineString.Builder lineString2Proto(LineString lineString) {
+    private static ProtoFeature.LineString.@NotNull Builder lineString2Proto(@NotNull LineString lineString) {
         ProtoFeature.LineString.Builder builder = ProtoFeature.LineString.newBuilder();
         Coordinate[] coordinates = lineString.getCoordinates();
         ProtoCoordinateCell protoCoordinateCell = new ProtoCoordinateCell(coordinates);
@@ -143,7 +145,7 @@ public class ProtoFeatureConverter {
         return builder;
     }
 
-    private static ProtoFeature.Polygon.Builder polygon2Proto(Polygon polygon) {
+    private static ProtoFeature.Polygon.@NotNull Builder polygon2Proto(@NotNull Polygon polygon) {
         ProtoFeature.Polygon.Builder builder = ProtoFeature.Polygon.newBuilder();
         List<Integer> separators = new LinkedList<>();
 
@@ -179,7 +181,7 @@ public class ProtoFeatureConverter {
         return builder;
     }
 
-    private static ProtoFeature.MultiPoint.Builder multiPoint2Proto(MultiPoint multiPoint) {
+    private static ProtoFeature.MultiPoint.@NotNull Builder multiPoint2Proto(@NotNull MultiPoint multiPoint) {
         ProtoFeature.MultiPoint.Builder builder = ProtoFeature.MultiPoint.newBuilder();
         Coordinate[] coordinates = multiPoint.getCoordinates();
         ProtoCoordinateCell protoCoordinateCell = new ProtoCoordinateCell(coordinates);
@@ -191,7 +193,7 @@ public class ProtoFeatureConverter {
         return builder;
     }
 
-    private static ProtoFeature.MultiLineString.Builder multiLineString2Proto(MultiLineString multiLineString) {
+    private static ProtoFeature.MultiLineString.@NotNull Builder multiLineString2Proto(@NotNull MultiLineString multiLineString) {
         ProtoFeature.MultiLineString.Builder builder = ProtoFeature.MultiLineString.newBuilder();
         List<Integer> separators = new LinkedList<>();
         int lineNum = multiLineString.getNumGeometries();
@@ -219,7 +221,7 @@ public class ProtoFeatureConverter {
         return builder;
     }
 
-    private static ProtoFeature.MultiPolygon.Builder multiPolygon2Proto(MultiPolygon multiPolygon) {
+    private static ProtoFeature.MultiPolygon.@NotNull Builder multiPolygon2Proto(@NotNull MultiPolygon multiPolygon) {
         ProtoFeature.MultiPolygon.Builder builder = ProtoFeature.MultiPolygon.newBuilder();
         int polygonNum = multiPolygon.getNumGeometries();
         LinkedList<Integer> coordSeparators = new LinkedList<>();
@@ -273,7 +275,7 @@ public class ProtoFeatureConverter {
         return builder;
     }
 
-    private static ProtoFeature.GeometryCollection.Builder geometryCollection2Proto(GeometryCollection geometryCollection) {
+    private static ProtoFeature.GeometryCollection.Builder geometryCollection2Proto(@NotNull GeometryCollection geometryCollection) {
         ProtoFeature.GeometryCollection.Builder builder = ProtoFeature.GeometryCollection.newBuilder();
         for (int i = 0; i < geometryCollection.getNumGeometries(); i++) {
             Geometry geometry = geometryCollection.getGeometryN(i);
@@ -309,7 +311,7 @@ public class ProtoFeatureConverter {
      * @param geometryFactory jts geometryFactory
      * @return geometry
      */
-    public static Geometry proto2Geometry(byte[] bytes, GeometryFactory geometryFactory) {
+    public static Geometry proto2Geometry(byte @Nullable [] bytes, @NotNull GeometryFactory geometryFactory) {
         if (null == bytes || bytes.length == 0) {
             return null;
         }
@@ -322,7 +324,7 @@ public class ProtoFeatureConverter {
         return proto2Geometry(pGeometry, geometryFactory);
     }
 
-    private static Geometry proto2Geometry(ProtoFeature.Geometry pGeometry, GeometryFactory geometryFactory) {
+    private static @Nullable Geometry proto2Geometry(ProtoFeature.@NotNull Geometry pGeometry, @NotNull GeometryFactory geometryFactory) {
         if (pGeometry.hasPoint()) {
             ProtoFeature.Point pPoint = pGeometry.getPoint();
             return proto2Point(pPoint, geometryFactory);
@@ -362,7 +364,7 @@ public class ProtoFeatureConverter {
     private static final Descriptors.FieldDescriptor FieldDescriptor_Point_z = ProtoFeature.Point.getDescriptor().findFieldByNumber(ProtoFeature.Point.Z_FIELD_NUMBER);
 
 
-    private static Coordinate[] proto2Coordinates(List<Double> xs, List<Double> ys, List<Double> zs) {
+    private static Coordinate @NotNull [] proto2Coordinates(@NotNull List<Double> xs, @NotNull List<Double> ys, @NotNull List<Double> zs) {
         int n = xs.size();
         Coordinate[] coordinates = new Coordinate[n];
         if (zs.size() != xs.size()) {
@@ -377,7 +379,7 @@ public class ProtoFeatureConverter {
         return coordinates;
     }
 
-    private static Coordinate[][] separatorCoordinates(Coordinate[] coordinates, List<Integer> separators) {
+    private static Coordinate[] @NotNull [] separatorCoordinates(Coordinate @NotNull [] coordinates, @NotNull List<Integer> separators) {
         Coordinate[][] separatorCoordinates = new Coordinate[separators.size() + 1][];
         int idx = 0;
         int i = 0;
@@ -405,7 +407,7 @@ public class ProtoFeatureConverter {
         return separatorCoordinates;
     }
 
-    private static Point proto2Point(ProtoFeature.Point pPoint, GeometryFactory geometryFactory) {
+    private static Point proto2Point(ProtoFeature.@NotNull Point pPoint, @NotNull GeometryFactory geometryFactory) {
         double x = pPoint.getX();
         double y = pPoint.getY();
         Coordinate coordinate = new Coordinate(x, y);
@@ -415,12 +417,12 @@ public class ProtoFeatureConverter {
         return geometryFactory.createPoint(coordinate);
     }
 
-    private static LineString proto2LineString(ProtoFeature.LineString pLineString, GeometryFactory geometryFactory) {
+    private static LineString proto2LineString(ProtoFeature.@NotNull LineString pLineString, @NotNull GeometryFactory geometryFactory) {
         Coordinate[] coordinates = proto2Coordinates(pLineString.getXsList(), pLineString.getYsList(), pLineString.getZsList());
         return geometryFactory.createLineString(coordinates);
     }
 
-    private static LinearRing coordinates2LinearRing(Coordinate[] coordinates, GeometryFactory geometryFactory) {
+    private static LinearRing coordinates2LinearRing(Coordinate @NotNull [] coordinates, @NotNull GeometryFactory geometryFactory) {
         //coordinates的最后一个坐标被省略了，所以这里手工补上后才能转为环
         Coordinate[] ringCoordinates = new Coordinate[coordinates.length + 1];
         System.arraycopy(coordinates, 0, ringCoordinates, 0, coordinates.length);
@@ -428,7 +430,7 @@ public class ProtoFeatureConverter {
         return geometryFactory.createLinearRing(ringCoordinates);
     }
 
-    private static Polygon proto2Polygon(Coordinate[][] separatorCoordinates, GeometryFactory geometryFactory) {
+    private static Polygon proto2Polygon(Coordinate[] @NotNull [] separatorCoordinates, @NotNull GeometryFactory geometryFactory) {
         LinearRing shell = coordinates2LinearRing(separatorCoordinates[0], geometryFactory);
         LinearRing[] holes = new LinearRing[separatorCoordinates.length - 1];
         for (int i = 1; i < separatorCoordinates.length; i++) {
@@ -437,7 +439,7 @@ public class ProtoFeatureConverter {
         return geometryFactory.createPolygon(shell, holes);
     }
 
-    private static Polygon proto2Polygon(ProtoFeature.Polygon pPolygon, GeometryFactory geometryFactory) {
+    private static Polygon proto2Polygon(ProtoFeature.@NotNull Polygon pPolygon, @NotNull GeometryFactory geometryFactory) {
         Coordinate[] coordinates = proto2Coordinates(pPolygon.getXsList(), pPolygon.getYsList(), pPolygon.getZsList());
         List<Integer> separators = pPolygon.getSeparatorsList();
         if (separators.size() == 0) {
@@ -447,13 +449,13 @@ public class ProtoFeatureConverter {
         }
     }
 
-    private static MultiPoint proto2MultiPoint(ProtoFeature.MultiPoint pMultiPoint, GeometryFactory geometryFactory) {
+    private static MultiPoint proto2MultiPoint(ProtoFeature.@NotNull MultiPoint pMultiPoint, @NotNull GeometryFactory geometryFactory) {
         Coordinate[] coordinates = proto2Coordinates(pMultiPoint.getXsList(), pMultiPoint.getYsList(), pMultiPoint.getZsList());
         return geometryFactory.createMultiPointFromCoords(coordinates);
     }
 
 
-    private static MultiLineString proto2MultiLineString(ProtoFeature.MultiLineString pMultiLineString, GeometryFactory geometryFactory) {
+    private static MultiLineString proto2MultiLineString(ProtoFeature.@NotNull MultiLineString pMultiLineString, @NotNull GeometryFactory geometryFactory) {
         Coordinate[] coordinates = proto2Coordinates(pMultiLineString.getXsList(), pMultiLineString.getYsList(), pMultiLineString.getZsList());
         List<Integer> separators = pMultiLineString.getSeparatorsList();
         if (separators.size() == 0) {
@@ -468,7 +470,7 @@ public class ProtoFeatureConverter {
         }
     }
 
-    private static MultiPolygon proto2MultiPolygon(ProtoFeature.MultiPolygon pMultiPolygon, GeometryFactory geometryFactory) {
+    private static MultiPolygon proto2MultiPolygon(ProtoFeature.@NotNull MultiPolygon pMultiPolygon, @NotNull GeometryFactory geometryFactory) {
         Coordinate[] coordinates = proto2Coordinates(pMultiPolygon.getXsList(), pMultiPolygon.getYsList(), pMultiPolygon.getZsList());
         ArrayList<Integer> polygonSeparators;
         {
@@ -503,7 +505,7 @@ public class ProtoFeatureConverter {
         }
     }
 
-    private static GeometryCollection proto2GeometryCollection(ProtoFeature.GeometryCollection pGeometryCollection, GeometryFactory geometryFactory) {
+    private static GeometryCollection proto2GeometryCollection(ProtoFeature.@NotNull GeometryCollection pGeometryCollection, @NotNull GeometryFactory geometryFactory) {
         List<Geometry> geometryList = new LinkedList<>();
         for (ProtoFeature.Point point : pGeometryCollection.getPointsList()) {
             geometryList.add(proto2Point(point, geometryFactory));
@@ -544,13 +546,13 @@ public class ProtoFeatureConverter {
      * @param feature Feature
      * @return ProtoFeature bytes
      */
-    public static byte[] feature2Proto(Feature feature) {
+    public static byte[] feature2Proto(@NotNull Feature feature) {
         FeatureCollection fc = new FeatureCollection();
         fc.setFeatures(List.of(feature));
         return featureCollection2Proto(fc);
     }
 
-    private static ProtoFeature.Map.Builder putPropertiesToCell(Map<String, Object> properties, ToProtoKeyValueCell keyValueCell) {
+    private static ProtoFeature.Map.Builder putPropertiesToCell(@NotNull Map<String, Object> properties, ToProtoKeyValueCell keyValueCell) {
         ProtoFeature.Map.Builder propertiesBuilder = ProtoFeature.Map.newBuilder();
         properties.forEach((k, v) -> {
             if (null == v) {
@@ -569,7 +571,7 @@ public class ProtoFeatureConverter {
      * @param featureCollection FeatureCollection
      * @return ProtoFeature bytes
      */
-    public static byte[] featureCollection2Proto(FeatureCollection featureCollection) {
+    public static byte[] featureCollection2Proto(@NotNull FeatureCollection featureCollection) {
         ProtoFeature.FeatureCollection.Builder builder = ProtoFeature.FeatureCollection.newBuilder();
         ToProtoKeyValueCell keyValueCell = new ToProtoKeyValueCell();//收集key-value与id对应关系
         //转换头信息
@@ -638,7 +640,7 @@ public class ProtoFeatureConverter {
             //实际值-id对应关系
             private final HashMap<T, Integer> indexMap = new HashMap<>();
 
-            public Integer getId(T t) {
+            public @NotNull Integer getId(T t) {
 //                if (index < 0) {
 //                    throw new RuntimeException("值数量超过上限 " + Integer.MAX_VALUE);
 //                }
@@ -653,7 +655,7 @@ public class ProtoFeatureConverter {
             }
 
             //输出一个按id顺序的t list
-            public ArrayList<T> toList() {
+            public @NotNull ArrayList<T> toList() {
                 ArrayList<SortT<T>> sortList = new ArrayList<>(indexMap.size());
                 indexMap.forEach((t, id) -> sortList.add(new SortT(t, id)));
                 sortList.sort(Comparator.comparingInt((SortT c) -> c.id));
@@ -673,14 +675,14 @@ public class ProtoFeatureConverter {
             //实际值-id对应关系
             private final List<T> list = new LinkedList<>();
 
-            public Integer getId(T t) {
+            public @NotNull Integer getId(T t) {
                 int id = list.size();
                 list.add(t);
                 return id;
             }
 
             //输出一个按id顺序的t list
-            public ArrayList<T> toList() {
+            public @NotNull ArrayList<T> toList() {
                 ArrayList<T> res = new ArrayList<>(list.size());
                 res.addAll(list);
                 return res;
@@ -710,7 +712,7 @@ public class ProtoFeatureConverter {
         private final ReusableIndex<String> stringValues = new ReusableIndex<>();
         private final ReusableIndex<byte[]> bytesValues = new ReusableIndex<>();
 
-        public void toProto(ProtoFeature.FeatureCollection.Builder builder) {
+        public void toProto(ProtoFeature.FeatureCollection.@NotNull Builder builder) {
             if (keys.size() == 0) {
                 return;
             }
@@ -746,24 +748,24 @@ public class ProtoFeatureConverter {
     }
 
 
-    private static final Map<Class, PropertiesSetter> propertiesSetterMap;
-    private static final PropertiesSetter listPropertiesSetter;
-    private static final PropertiesSetter mapPropertiesSetter;
+    private static final @NotNull Map<Class, PropertiesSetter> propertiesSetterMap;
+    private static final @NotNull PropertiesSetter listPropertiesSetter;
+    private static final @NotNull PropertiesSetter mapPropertiesSetter;
 
     static {
         PropertiesSetter doublePropertiesSetter = new PropertiesSetter() {
             @Override
-            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+            public void setKey(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addDoubleKeyIds(keyValueCell.keys.getId(key));
             }
 
             @Override
-            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addDoubleValueIds(keyValueCell.doubleValues.getId((Double) value));
             }
 
             @Override
-            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.List.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addIndexes(doubleValueIdsIndex);
                 propertiesBuilder.addDoubleValueIds(keyValueCell.doubleValues.getId((Double) value));
             }
@@ -771,17 +773,17 @@ public class ProtoFeatureConverter {
 
         PropertiesSetter floatPropertiesSetter = new PropertiesSetter() {
             @Override
-            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+            public void setKey(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addFloatKeyIds(keyValueCell.keys.getId(key));
             }
 
             @Override
-            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addFloatValueIds(keyValueCell.floatValues.getId((Float) value));
             }
 
             @Override
-            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.List.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addIndexes(floatValueIdsIndex);
                 propertiesBuilder.addFloatValueIds(keyValueCell.floatValues.getId((Float) value));
             }
@@ -789,17 +791,17 @@ public class ProtoFeatureConverter {
 
         PropertiesSetter sint32PropertiesSetter = new PropertiesSetter() {
             @Override
-            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+            public void setKey(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addSint32KeyIds(keyValueCell.keys.getId(key));
             }
 
             @Override
-            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addSint32ValueIds(keyValueCell.sint32Values.getId((Integer) value));
             }
 
             @Override
-            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.List.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addIndexes(sint32ValueIdsIndex);
                 propertiesBuilder.addSint32ValueIds(keyValueCell.sint32Values.getId((Integer) value));
             }
@@ -807,17 +809,17 @@ public class ProtoFeatureConverter {
 
         PropertiesSetter sint64PropertiesSetter = new PropertiesSetter() {
             @Override
-            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+            public void setKey(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addSint64KeyIds(keyValueCell.keys.getId(key));
             }
 
             @Override
-            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addSint64ValueIds(keyValueCell.sint64Values.getId((Long) value));
             }
 
             @Override
-            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.List.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addIndexes(sint64ValueIdsIndex);
                 propertiesBuilder.addSint64ValueIds(keyValueCell.sint64Values.getId((Long) value));
             }
@@ -825,17 +827,17 @@ public class ProtoFeatureConverter {
 
         PropertiesSetter boolPropertiesSetter = new PropertiesSetter() {
             @Override
-            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+            public void setKey(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addBoolKeyIds(keyValueCell.keys.getId(key));
             }
 
             @Override
-            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.Map.@NotNull Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addBoolValues((Boolean) value);
             }
 
             @Override
-            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.List.@NotNull Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addIndexes(boolValuesIndex);
                 propertiesBuilder.addBoolValues((Boolean) value);
             }
@@ -843,17 +845,17 @@ public class ProtoFeatureConverter {
 
         PropertiesSetter stringPropertiesSetter = new PropertiesSetter() {
             @Override
-            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+            public void setKey(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addStringKeyIds(keyValueCell.keys.getId(key));
             }
 
             @Override
-            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addStringValueIds(keyValueCell.stringValues.getId((String) value));
             }
 
             @Override
-            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.List.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addIndexes(stringValueIdsIndex);
                 propertiesBuilder.addStringValueIds(keyValueCell.stringValues.getId((String) value));
             }
@@ -861,17 +863,17 @@ public class ProtoFeatureConverter {
 
         PropertiesSetter bytesPropertiesSetter = new PropertiesSetter() {
             @Override
-            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+            public void setKey(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addBytesKeyIds(keyValueCell.keys.getId(key));
             }
 
             @Override
-            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addBytesValueIds(keyValueCell.bytesValues.getId((byte[]) value));
             }
 
             @Override
-            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.List.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addIndexes(bytesValueIdsIndex);
                 propertiesBuilder.addBytesValueIds(keyValueCell.bytesValues.getId((byte[]) value));
             }
@@ -879,18 +881,18 @@ public class ProtoFeatureConverter {
 
         mapPropertiesSetter = new PropertiesSetter() {
             @Override
-            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+            public void setKey(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addSubMapKeyIds(keyValueCell.keys.getId(key));
             }
 
             @Override
-            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.Map.@NotNull Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
                 ProtoFeature.Map.Builder subBuilder = createMapBuilder(keyValueCell, value);
                 propertiesBuilder.addSubMapValues(subBuilder);
             }
 
             @Override
-            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.List.@NotNull Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addIndexes(mapValuesIndex);
                 ProtoFeature.Map.Builder subBuilder = createMapBuilder(keyValueCell, value);
                 propertiesBuilder.addMapValues(subBuilder);
@@ -905,18 +907,18 @@ public class ProtoFeatureConverter {
 
         listPropertiesSetter = new PropertiesSetter() {
             @Override
-            public void setKey(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, String key) {
+            public void setKey(ProtoFeature.Map.@NotNull Builder propertiesBuilder, @NotNull ToProtoKeyValueCell keyValueCell, String key) {
                 propertiesBuilder.addListKeyIds(keyValueCell.keys.getId(key));
             }
 
             @Override
-            public void setValue(ProtoFeature.Map.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.Map.@NotNull Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
                 ProtoFeature.List.Builder listBuilder = createListBuilder(keyValueCell, value);
                 propertiesBuilder.addListValues(listBuilder);
             }
 
             @Override
-            public void setValue(ProtoFeature.List.Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
+            public void setValue(ProtoFeature.List.@NotNull Builder propertiesBuilder, ToProtoKeyValueCell keyValueCell, Object value) {
                 propertiesBuilder.addIndexes(subListValuesIndex);
                 ProtoFeature.List.Builder listBuilder = createListBuilder(keyValueCell, value);
                 propertiesBuilder.addSubListValues(listBuilder);
@@ -955,7 +957,7 @@ public class ProtoFeatureConverter {
         propertiesSetterMap = Map.ofEntries(entries);
     }
 
-    private static PropertiesSetter getPropertiesSetter(Object value) {
+    private static PropertiesSetter getPropertiesSetter(@NotNull Object value) {
         PropertiesSetter setter = propertiesSetterMap.get(value.getClass());
         if (null == setter) {
             if (value instanceof Map) {
@@ -977,7 +979,7 @@ public class ProtoFeatureConverter {
      * @param geometryFactory jts GeometryFactory
      * @return Feature
      */
-    public static Feature proto2feature(byte[] bytes, GeometryFactory geometryFactory) {
+    public static Feature proto2feature(byte[] bytes, @NotNull GeometryFactory geometryFactory) {
         FeatureCollection fc = proto2featureCollection(bytes, geometryFactory);
         return fc.getFeatures().get(0);
     }
@@ -989,7 +991,7 @@ public class ProtoFeatureConverter {
      * @param geometryFactory jts GeometryFactory
      * @return FeatureCollection
      */
-    public static FeatureCollection proto2featureCollection(byte[] bytes, GeometryFactory geometryFactory) {
+    public static @NotNull FeatureCollection proto2featureCollection(byte[] bytes, @NotNull GeometryFactory geometryFactory) {
         ProtoFeature.FeatureCollection pFeatureCollection;
         try {
             pFeatureCollection = ProtoFeature.FeatureCollection.parseFrom(bytes);
@@ -1033,15 +1035,15 @@ public class ProtoFeatureConverter {
      * properties存放的是key id、value id,KeyValueCell对象存放id和实际值的映射关系
      */
     private static final class FromProtoKeyValueCell {
-        private final HashMap<Integer, String> keyMap;
-        private final HashMap<Integer, Double> doubleValueMap;
-        private final HashMap<Integer, Float> floatValueMap;
-        private final HashMap<Integer, Integer> sint32ValueMap;
-        private final HashMap<Integer, Long> sint64ValueMap;
-        private final HashMap<Integer, String> stringValueMap;
-        private final HashMap<Integer, byte[]> bytesValueMap;
+        private final @NotNull HashMap<Integer, String> keyMap;
+        private final @NotNull HashMap<Integer, Double> doubleValueMap;
+        private final @NotNull HashMap<Integer, Float> floatValueMap;
+        private final @NotNull HashMap<Integer, Integer> sint32ValueMap;
+        private final @NotNull HashMap<Integer, Long> sint64ValueMap;
+        private final @NotNull HashMap<Integer, String> stringValueMap;
+        private final @NotNull HashMap<Integer, byte[]> bytesValueMap;
 
-        public FromProtoKeyValueCell(ProtoFeature.FeatureCollection pFeatureCollection) {
+        public FromProtoKeyValueCell(ProtoFeature.@NotNull FeatureCollection pFeatureCollection) {
             int n;
             n = pFeatureCollection.getKeysCount();
             keyMap = new HashMap<>(n);
@@ -1087,8 +1089,8 @@ public class ProtoFeatureConverter {
             }
         }
 
-        private static void putValueToMap(HashMap<String, Object> map, List<Integer> keyIdList, List<Integer> valueIdList
-                , HashMap<Integer, String> keyMap, Map<Integer, ?> valueMap) {
+        private static void putValueToMap(@NotNull HashMap<String, Object> map, @Nullable List<Integer> keyIdList, @NotNull List<Integer> valueIdList
+                , @NotNull HashMap<Integer, String> keyMap, @NotNull Map<Integer, ?> valueMap) {
             if (null == keyIdList || keyIdList.size() == 0) {
                 return;
             }
@@ -1103,7 +1105,7 @@ public class ProtoFeatureConverter {
             }
         }
 
-        private HashMap<String, Object> parseMap(ProtoFeature.Map pMap) {
+        private @NotNull HashMap<String, Object> parseMap(ProtoFeature.@NotNull Map pMap) {
             HashMap<String, Object> map = new HashMap<>();
             //基本值
             putValueToMap(map, pMap.getDoubleKeyIdsList(), pMap.getDoubleValueIdsList(), keyMap, doubleValueMap);
@@ -1156,7 +1158,7 @@ public class ProtoFeatureConverter {
             return map;
         }
 
-        private ArrayList<Object> parseList(ProtoFeature.List pList) {
+        private @NotNull ArrayList<Object> parseList(ProtoFeature.@NotNull List pList) {
             // indexes 标注list中的第n个元素的类型是什么类型，如[1L,2D,'SSS'] 的indexes为 [5,2,7]
             /*
             	// valueId/value
@@ -1232,7 +1234,7 @@ public class ProtoFeatureConverter {
             return list;
         }
 
-        public Map<String, Object> parseProperties(ProtoFeature.Map pProperties) {
+        public @NotNull Map<String, Object> parseProperties(ProtoFeature.@NotNull Map pProperties) {
             return parseMap(pProperties);
         }
     }

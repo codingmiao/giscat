@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.locationtech.jts.geom.Coordinate;
 import org.wowtools.giscat.vector.pojo.converter.GeoJsonFeatureConverter;
 
@@ -37,7 +38,7 @@ import java.util.Map;
 public class GeoJsonObject {
 
 
-    private static double[][] jtsCoordinates2Coords(Coordinate[] coordinates) {
+    private static double[][] jtsCoordinates2Coords(Coordinate @NotNull [] coordinates) {
         double[][] coords = new double[coordinates.length][];
         for (int i = 0; i < coords.length; i++) {
             Coordinate coordinate = coordinates[i];
@@ -46,7 +47,7 @@ public class GeoJsonObject {
         return coords;
     }
 
-    private static double[][][] jtsPolygon2Coords(org.locationtech.jts.geom.Polygon jtsPolygon) {
+    private static double[][][] jtsPolygon2Coords(org.locationtech.jts.geom.@NotNull Polygon jtsPolygon) {
         int numInteriorRing = jtsPolygon.getNumInteriorRing();
         double[][][] coordinates;
         if (numInteriorRing == 0) {
@@ -97,7 +98,7 @@ public class GeoJsonObject {
         private double[] coordinates;// [x y]
 
         @Override
-        public String getType() {
+        public @NotNull String getType() {
             return "Point";
         }
 
@@ -105,7 +106,7 @@ public class GeoJsonObject {
         public Point() {
         }
 
-        public Point(org.locationtech.jts.geom.Point jtsPoint) {
+        public Point(org.locationtech.jts.geom.@NotNull Point jtsPoint) {
             this.coordinates = new double[]{jtsPoint.getX(), jtsPoint.getY()};
         }
     }
@@ -117,7 +118,7 @@ public class GeoJsonObject {
         private double[][] coordinates;//[coord][xy]
 
         @Override
-        public String getType() {
+        public @NotNull String getType() {
             return "LineString";
         }
 
@@ -125,7 +126,7 @@ public class GeoJsonObject {
         public LineString() {
         }
 
-        public LineString(org.locationtech.jts.geom.LineString jtsLineString) {
+        public LineString(org.locationtech.jts.geom.@NotNull LineString jtsLineString) {
             coordinates = jtsCoordinates2Coords(jtsLineString.getCoordinates());
         }
     }
@@ -138,12 +139,12 @@ public class GeoJsonObject {
         public Polygon() {
         }
 
-        public Polygon(org.locationtech.jts.geom.Polygon jtsPolygon) {
+        public Polygon(org.locationtech.jts.geom.@NotNull Polygon jtsPolygon) {
             coordinates = jtsPolygon2Coords(jtsPolygon);
         }
 
         @Override
-        public String getType() {
+        public @NotNull String getType() {
             return "Polygon";
         }
     }
@@ -156,12 +157,12 @@ public class GeoJsonObject {
         public MultiPoint() {
         }
 
-        public MultiPoint(org.locationtech.jts.geom.MultiPoint jtsMultiPoint) {
+        public MultiPoint(org.locationtech.jts.geom.@NotNull MultiPoint jtsMultiPoint) {
             coordinates = jtsCoordinates2Coords(jtsMultiPoint.getCoordinates());
         }
 
         @Override
-        public String getType() {
+        public @NotNull String getType() {
             return "MultiPoint";
         }
 
@@ -175,7 +176,7 @@ public class GeoJsonObject {
         public MultiLineString() {
         }
 
-        public MultiLineString(org.locationtech.jts.geom.MultiLineString jtsMultiLineString) {
+        public MultiLineString(org.locationtech.jts.geom.@NotNull MultiLineString jtsMultiLineString) {
             coordinates = new double[jtsMultiLineString.getNumGeometries()][][];
             for (int i = 0; i < coordinates.length; i++) {
                 coordinates[i] = jtsCoordinates2Coords(jtsMultiLineString.getGeometryN(i).getCoordinates());
@@ -183,7 +184,7 @@ public class GeoJsonObject {
         }
 
         @Override
-        public String getType() {
+        public @NotNull String getType() {
             return "MultiLineString";
         }
 
@@ -197,7 +198,7 @@ public class GeoJsonObject {
         public MultiPolygon() {
         }
 
-        public MultiPolygon(org.locationtech.jts.geom.MultiPolygon jtsMultiPolygon) {
+        public MultiPolygon(org.locationtech.jts.geom.@NotNull MultiPolygon jtsMultiPolygon) {
             coordinates = new double[jtsMultiPolygon.getNumGeometries()][][][];
             for (int i = 0; i < coordinates.length; i++) {
                 coordinates[i] = jtsPolygon2Coords((org.locationtech.jts.geom.Polygon) jtsMultiPolygon.getGeometryN(i));
@@ -205,7 +206,7 @@ public class GeoJsonObject {
         }
 
         @Override
-        public String getType() {
+        public @NotNull String getType() {
             return "MultiPolygon";
         }
 
@@ -219,7 +220,7 @@ public class GeoJsonObject {
         public GeometryCollection() {
         }
 
-        public GeometryCollection(org.locationtech.jts.geom.GeometryCollection jtsGeometryCollection) {
+        public GeometryCollection(org.locationtech.jts.geom.@NotNull GeometryCollection jtsGeometryCollection) {
             geometries = new Geometry[jtsGeometryCollection.getNumGeometries()];
             for (int i = 0; i < geometries.length; i++) {
                 org.locationtech.jts.geom.Geometry geometry = jtsGeometryCollection.getGeometryN(i);
@@ -229,7 +230,7 @@ public class GeoJsonObject {
         }
 
         @Override
-        public String getType() {
+        public @NotNull String getType() {
             return "GeometryCollection";
         }
 

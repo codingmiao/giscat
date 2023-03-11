@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.lookup;
 
+import org.jetbrains.annotations.Nullable;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
@@ -43,7 +44,7 @@ public class At extends Expression<Object> {
     }
 
     @Override
-    public Object getValue(Feature feature, ExpressionParams expressionParams) {
+    public @Nullable Object getValue(Feature feature, ExpressionParams expressionParams) {
         int idx = (int) expressionArray.get(1);
         ArrayList array = (ArrayList) expressionArray.get(2);
         Object value = array.get(idx);

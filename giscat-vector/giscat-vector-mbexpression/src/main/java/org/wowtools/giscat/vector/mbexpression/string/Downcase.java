@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.string;
 
+import org.jetbrains.annotations.Nullable;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
@@ -44,7 +45,7 @@ public class Downcase extends Expression<String> {
     }
 
     @Override
-    public String getValue(Feature feature, ExpressionParams expressionParams) {
+    public @Nullable String getValue(Feature feature, ExpressionParams expressionParams) {
         String s = (String) getRealValue(feature, expressionArray.get(1), expressionParams);
         if (s == null) {
             return null;

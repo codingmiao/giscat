@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.lookup;
 
+import org.jetbrains.annotations.NotNull;
 import org.wowtools.giscat.vector.mbexpression.Expression;
 import org.wowtools.giscat.vector.mbexpression.ExpressionName;
 import org.wowtools.giscat.vector.mbexpression.ExpressionParams;
@@ -43,7 +44,7 @@ public class Length extends Expression<Integer> {
     }
 
     @Override
-    public Integer getValue(Feature feature, ExpressionParams expressionParams) {
+    public @NotNull Integer getValue(Feature feature, ExpressionParams expressionParams) {
         Object input = getRealValue(feature, expressionArray.get(1), expressionParams);
         if (input instanceof String) {
             return ((String) input).length();

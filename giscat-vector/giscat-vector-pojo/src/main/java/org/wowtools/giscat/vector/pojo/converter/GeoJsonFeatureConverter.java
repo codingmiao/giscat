@@ -23,6 +23,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -63,7 +65,7 @@ public class GeoJsonFeatureConverter {
      * @param geometry geometry
      * @return geojson
      */
-    public static GeoJsonObject.Geometry geometry2GeoJson(Geometry geometry) {
+    public static GeoJsonObject.Geometry geometry2GeoJson(@Nullable Geometry geometry) {
         if (null == geometry || geometry.isEmpty()) {
             return null;
         }
@@ -92,7 +94,7 @@ public class GeoJsonFeatureConverter {
      * @param feature feature
      * @return geojson
      */
-    public static GeoJsonObject.Feature toGeoJson(Feature feature) {
+    public static GeoJsonObject.@NotNull Feature toGeoJson(@NotNull Feature feature) {
         GeoJsonObject.Feature geoJsonFeature = new GeoJsonObject.Feature();
         geoJsonFeature.setGeometry(geometry2GeoJson(feature.getGeometry()));
         geoJsonFeature.setProperties(feature.getProperties());
@@ -105,7 +107,7 @@ public class GeoJsonFeatureConverter {
      * @param featureCollection featureCollection
      * @return geojson
      */
-    public static GeoJsonObject.FeatureCollection toGeoJson(FeatureCollection featureCollection) {
+    public static GeoJsonObject.@NotNull FeatureCollection toGeoJson(@NotNull FeatureCollection featureCollection) {
         GeoJsonObject.FeatureCollection geoJsonFeatureCollection = new GeoJsonObject.FeatureCollection();
 
         if (null != featureCollection.getHeaders()) {
@@ -133,7 +135,7 @@ public class GeoJsonFeatureConverter {
      * @param geometryFactory    jts GeometryFactory
      * @return jts Geometry
      */
-    public static Geometry geoJson2Geometry(String strGeojsonGeometry, GeometryFactory geometryFactory) {
+    public static @Nullable Geometry geoJson2Geometry(String strGeojsonGeometry, @NotNull GeometryFactory geometryFactory) {
         GeoJsonObject.Geometry geojsonGeometry;
         try {
             geojsonGeometry = mapper.readValue(strGeojsonGeometry, typeGeometry);
@@ -150,7 +152,7 @@ public class GeoJsonFeatureConverter {
      * @param geometryFactory jts GeometryFactory
      * @return jts Geometry
      */
-    public static Geometry geoJson2Geometry(GeoJsonObject.Geometry geojsonGeometry, GeometryFactory geometryFactory) {
+    public static Geometry geoJson2Geometry(GeoJsonObject.@Nullable Geometry geojsonGeometry, @NotNull GeometryFactory geometryFactory) {
         if (null == geojsonGeometry) {
             return null;
         }
@@ -181,7 +183,7 @@ public class GeoJsonFeatureConverter {
      * @param geometryFactory   jts GeometryFactory
      * @return Feature
      */
-    public static Feature fromGeoJsonFeature(String strGeoJsonFeature, GeometryFactory geometryFactory) {
+    public static @NotNull Feature fromGeoJsonFeature(String strGeoJsonFeature, @NotNull GeometryFactory geometryFactory) {
         GeoJsonObject.Feature geoJsonFeature;
         try {
             geoJsonFeature = mapper.readValue(strGeoJsonFeature, typeFeature);
@@ -198,7 +200,7 @@ public class GeoJsonFeatureConverter {
      * @param geometryFactory jts GeometryFactory
      * @return Feature
      */
-    public static Feature fromGeoJsonFeature(GeoJsonObject.Feature geoJsonFeature, GeometryFactory geometryFactory) {
+    public static @NotNull Feature fromGeoJsonFeature(GeoJsonObject.@NotNull Feature geoJsonFeature, @NotNull GeometryFactory geometryFactory) {
         Geometry geometry = geoJson2Geometry(geoJsonFeature.getGeometry(), geometryFactory);
         return new Feature(geometry, geoJsonFeature.getProperties());
     }
@@ -210,7 +212,7 @@ public class GeoJsonFeatureConverter {
      * @param geometryFactory             geometryFactory
      * @return FeatureCollection
      */
-    public static FeatureCollection fromGeoJsonFeatureCollection(String strGeoJsonFeatureCollection, GeometryFactory geometryFactory) {
+    public static @NotNull FeatureCollection fromGeoJsonFeatureCollection(String strGeoJsonFeatureCollection, @NotNull GeometryFactory geometryFactory) {
         GeoJsonObject.FeatureCollection geoJsonFeatureCollection;
         try {
             geoJsonFeatureCollection = mapper.readValue(strGeoJsonFeatureCollection, typeFeatureCollection);
@@ -227,7 +229,7 @@ public class GeoJsonFeatureConverter {
      * @param geometryFactory          geometryFactory
      * @return FeatureCollection
      */
-    public static FeatureCollection fromGeoJsonFeatureCollection(GeoJsonObject.FeatureCollection geoJsonFeatureCollection, GeometryFactory geometryFactory) {
+    public static @NotNull FeatureCollection fromGeoJsonFeatureCollection(GeoJsonObject.@NotNull FeatureCollection geoJsonFeatureCollection, @NotNull GeometryFactory geometryFactory) {
         FeatureCollection featureCollection = new FeatureCollection();
 
         featureCollection.setHeaders(geoJsonFeatureCollection.getHeaders());
@@ -242,7 +244,7 @@ public class GeoJsonFeatureConverter {
         return featureCollection;
     }
 
-    private static Coordinate[] coords2Coordinates(double[][] coords) {
+    private static Coordinate @NotNull [] coords2Coordinates(double[] @NotNull [] coords) {
         Coordinate[] coordinates = new Coordinate[coords.length];
         for (int i = 0; i < coordinates.length; i++) {
             double[] xy = coords[i];
@@ -251,21 +253,21 @@ public class GeoJsonFeatureConverter {
         return coordinates;
     }
 
-    private static LinearRing coords2Ring(double[][] coords, GeometryFactory geometryFactory) {
+    private static LinearRing coords2Ring(double[] @NotNull [] coords, @NotNull GeometryFactory geometryFactory) {
         Coordinate[] coordinates = coords2Coordinates(coords);
         return geometryFactory.createLinearRing(coordinates);
     }
 
-    private static org.locationtech.jts.geom.Point coords2Point(double[] coords, GeometryFactory geometryFactory) {
+    private static org.locationtech.jts.geom.Point coords2Point(double @NotNull [] coords, @NotNull GeometryFactory geometryFactory) {
         return geometryFactory.createPoint(new Coordinate(coords[0], coords[1]));
     }
 
-    private static org.locationtech.jts.geom.LineString coords2LineString(double[][] coords, GeometryFactory geometryFactory) {
+    private static org.locationtech.jts.geom.LineString coords2LineString(double[] @NotNull [] coords, @NotNull GeometryFactory geometryFactory) {
         Coordinate[] coordinates = coords2Coordinates(coords);
         return geometryFactory.createLineString(coordinates);
     }
 
-    private static org.locationtech.jts.geom.Polygon coords2Polygon(double[][][] coords, GeometryFactory geometryFactory) {
+    private static org.locationtech.jts.geom.Polygon coords2Polygon(double[][] @NotNull [] coords, @NotNull GeometryFactory geometryFactory) {
         LinearRing ring = coords2Ring(coords[0], geometryFactory);
         if (coords.length == 1) {
             return geometryFactory.createPolygon(ring);
@@ -278,7 +280,7 @@ public class GeoJsonFeatureConverter {
         }
     }
 
-    private static org.locationtech.jts.geom.MultiPoint coords2MultiPoint(double[][] coords, GeometryFactory geometryFactory) {
+    private static org.locationtech.jts.geom.MultiPoint coords2MultiPoint(double[] @NotNull [] coords, @NotNull GeometryFactory geometryFactory) {
         org.locationtech.jts.geom.Point[] points = new org.locationtech.jts.geom.Point[coords.length];
         for (int i = 0; i < points.length; i++) {
             points[i] = coords2Point(coords[i], geometryFactory);
@@ -286,7 +288,7 @@ public class GeoJsonFeatureConverter {
         return geometryFactory.createMultiPoint(points);
     }
 
-    private static org.locationtech.jts.geom.MultiLineString coords2MultiLineString(double[][][] coords, GeometryFactory geometryFactory) {
+    private static org.locationtech.jts.geom.MultiLineString coords2MultiLineString(double[][] @NotNull [] coords, @NotNull GeometryFactory geometryFactory) {
         org.locationtech.jts.geom.LineString[] subs = new org.locationtech.jts.geom.LineString[coords.length];
         for (int i = 0; i < subs.length; i++) {
             subs[i] = coords2LineString(coords[i], geometryFactory);
@@ -294,7 +296,7 @@ public class GeoJsonFeatureConverter {
         return geometryFactory.createMultiLineString(subs);
     }
 
-    private static org.locationtech.jts.geom.MultiPolygon coords2MultiPolygon(double[][][][] coords, GeometryFactory geometryFactory) {
+    private static org.locationtech.jts.geom.MultiPolygon coords2MultiPolygon(double[][][] @NotNull [] coords, @NotNull GeometryFactory geometryFactory) {
         org.locationtech.jts.geom.Polygon[] subs = new org.locationtech.jts.geom.Polygon[coords.length];
         for (int i = 0; i < subs.length; i++) {
             subs[i] = coords2Polygon(coords[i], geometryFactory);
@@ -302,7 +304,7 @@ public class GeoJsonFeatureConverter {
         return geometryFactory.createMultiPolygon(subs);
     }
 
-    private static org.locationtech.jts.geom.GeometryCollection toGeometryCollection(GeoJsonObject.GeometryCollection geometryCollection, GeometryFactory geometryFactory) {
+    private static org.locationtech.jts.geom.GeometryCollection toGeometryCollection(GeoJsonObject.@NotNull GeometryCollection geometryCollection, @NotNull GeometryFactory geometryFactory) {
         org.locationtech.jts.geom.Geometry[] geos = new org.locationtech.jts.geom.Geometry[geometryCollection.getGeometries().length];
         for (int i = 0; i < geos.length; i++) {
             GeoJsonObject.Geometry sub = geometryCollection.getGeometries()[i];

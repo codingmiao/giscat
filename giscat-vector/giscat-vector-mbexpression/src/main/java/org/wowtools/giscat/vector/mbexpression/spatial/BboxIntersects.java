@@ -19,6 +19,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mbexpression.spatial;
 
+import org.jetbrains.annotations.NotNull;
 import org.locationtech.jts.geom.Geometry;
 import org.wowtools.giscat.vector.util.analyse.Bbox;
 import org.wowtools.giscat.vector.mbexpression.Expression;
@@ -46,7 +47,7 @@ public class BboxIntersects extends Expression<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Feature feature, ExpressionParams expressionParams) {
+    public @NotNull Boolean getValue(@NotNull Feature feature, @NotNull ExpressionParams expressionParams) {
         Bbox bbox;
         {
             Object cache = expressionParams.getCache(this);

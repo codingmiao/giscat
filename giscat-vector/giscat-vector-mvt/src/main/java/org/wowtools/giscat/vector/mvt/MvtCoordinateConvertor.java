@@ -19,6 +19,8 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mvt;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * 矢量瓦片的坐标系与wgs84坐标系互转
  *
@@ -28,7 +30,7 @@ package org.wowtools.giscat.vector.mvt;
 class MvtCoordinateConvertor {
     private static final short TILE_SIZE = 256;
 
-    private static final long[] zoomPow;
+    private static final long @NotNull [] zoomPow;
 
     static {
         int n = 30;

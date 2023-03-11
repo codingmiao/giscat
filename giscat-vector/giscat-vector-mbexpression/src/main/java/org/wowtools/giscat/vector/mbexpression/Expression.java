@@ -21,6 +21,8 @@ package org.wowtools.giscat.vector.mbexpression;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.reflections.Reflections;
 import org.wowtools.giscat.vector.pojo.Feature;
 
@@ -79,7 +81,7 @@ public abstract class Expression<R> {
      * @param expressionArray 数组
      * @return Expression
      */
-    public static Expression newInstance(ArrayList expressionArray) {
+    public static @NotNull Expression newInstance(@NotNull ArrayList expressionArray) {
         //[expression_name, argument_0, argument_1, ...]
         String expressionName = (String) expressionArray.get(0);
         Constructor<? extends Expression> constructor = implConstructors.get(expressionName);
@@ -102,7 +104,7 @@ public abstract class Expression<R> {
         }
     }
 
-    private static Object parseSub(ArrayList expressionArray) {
+    private static @Nullable Object parseSub(@NotNull ArrayList expressionArray) {
         //[expression_name, argument_0, argument_1, ...] or [obj1, obj2, ...]
         Object o0 = expressionArray.get(0);
         if (!(o0 instanceof String)) {
@@ -122,7 +124,7 @@ public abstract class Expression<R> {
      * @param expressionStr 表达式字符串
      * @return Expression
      */
-    public static Expression newInstance(String expressionStr) {
+    public static @NotNull Expression newInstance(String expressionStr) {
         ArrayList expressionArray;
         try {
             expressionArray = jsonMapper.readValue(expressionStr, ArrayList.class);
@@ -140,7 +142,7 @@ public abstract class Expression<R> {
      * @return 对应值
      * @see Feature
      */
-    public abstract R getValue(Feature feature, ExpressionParams expressionParams);
+    public abstract @Nullable R getValue(Feature feature, ExpressionParams expressionParams);
 
     /**
      * 获取此表达式的数组
@@ -152,7 +154,7 @@ public abstract class Expression<R> {
     }
 
 
-    public static Object getRealValue(Feature feature, Object o, ExpressionParams expressionParams) {
+    public static Object getRealValue(Feature feature, Object o, @NotNull ExpressionParams expressionParams) {
         //若结果不是表达式，即结果是具体值，检查是不是绑定变量，绑定变量返回绑定值，否则返回原值
         if (!(o instanceof Expression)) {
             if (o instanceof String) {

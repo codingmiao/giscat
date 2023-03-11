@@ -20,6 +20,7 @@
 package org.wowtools.giscat.vector.util.cst;
 
 import org.apache.commons.math.util.FastMath;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * wgs84经纬度坐标与瓦片index互转
@@ -29,7 +30,7 @@ import org.apache.commons.math.util.FastMath;
  */
 public class Tile2Wgs84 {
 
-    private static final int[] pow2;//2的n次方
+    private static final int @NotNull [] pow2;//2的n次方
 
     static {
         int n = 30;

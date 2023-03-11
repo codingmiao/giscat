@@ -20,6 +20,7 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mvt;
 
+import org.jetbrains.annotations.NotNull;
 import org.locationtech.jts.algorithm.Orientation;
 import org.locationtech.jts.geom.*;
 import org.wowtools.giscat.vector.util.analyse.Bbox;
@@ -40,15 +41,15 @@ import java.util.Map;
 public class MvtBuilder {
     protected final int extent;
 
-    protected final TileClip tileClip;
+    protected final @NotNull TileClip tileClip;
 
-    private final MvtCoordinateConvertor mvtCoordinateConvertor;
+    private final @NotNull MvtCoordinateConvertor mvtCoordinateConvertor;
 
     private final Map<String, MvtLayer> layers = new LinkedHashMap<>();
 
-    private final Bbox bbox;
+    private final @NotNull Bbox bbox;
 
-    public MvtBuilder(byte z, int x, int y, GeometryFactory geometryFactory) {
+    public MvtBuilder(byte z, int x, int y, @NotNull GeometryFactory geometryFactory) {
         this(z, x, y, 4096, 8, geometryFactory);
     }
 
@@ -66,7 +67,7 @@ public class MvtBuilder {
      * @param extent     a int with extent value. 4096 is a good value.
      * @param clipBuffer a int with clip buffer size for geometries. 8 is a good value.
      */
-    public MvtBuilder(byte z, int x, int y, int extent, int clipBuffer, GeometryFactory geometryFactory) {
+    public MvtBuilder(byte z, int x, int y, int extent, int clipBuffer, @NotNull GeometryFactory geometryFactory) {
         this.extent = extent;
         bbox = createTileBbox(z, x, y, extent, clipBuffer);
         tileClip = new TileClip(bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax, geometryFactory);
@@ -82,7 +83,7 @@ public class MvtBuilder {
      * @param simplifyDistance 对geometry进行简化的长度,单位是瓦片像素，取值范围[0,extent+clipBuffer]，为0时表示不做简化
      * @return 若已有同名图层则返回现有图层，否则新建一个
      */
-    public MvtLayer getOrCreateLayer(String layerName, int simplifyDistance) {
+    public @NotNull MvtLayer getOrCreateLayer(String layerName, int simplifyDistance) {
         MvtLayer layer = layers.get(layerName);
         if (layer != null) {
             return layer;
@@ -98,7 +99,7 @@ public class MvtBuilder {
      * @param layerName 图层名
      * @return 若已有同名图层则返回现有图层，否则新建一个
      */
-    public MvtLayer getOrCreateLayer(String layerName) {
+    public @NotNull MvtLayer getOrCreateLayer(String layerName) {
         MvtLayer layer = layers.get(layerName);
         if (layer != null) {
             return layer;
@@ -109,7 +110,7 @@ public class MvtBuilder {
     }
 
 
-    private static Bbox createTileBbox(byte z, int tileX, int tileY, int extent, int clipBuffer) {
+    private static @NotNull Bbox createTileBbox(byte z, int tileX, int tileY, int extent, int clipBuffer) {
         //瓦片左上角坐标
         double x0 = Tile2Wgs84.tileX2lon(tileX, z);
         double y0 = Tile2Wgs84.tileY2lat(tileY, z);
@@ -202,7 +203,7 @@ public class MvtBuilder {
         return tile.build().toByteArray();
     }
 
-    private static VectorTile.Tile.GeomType toGeomType(Geometry geometry) {
+    private static VectorTile.Tile.@NotNull GeomType toGeomType(Geometry geometry) {
         if (geometry instanceof Point) {
             return VectorTile.Tile.GeomType.POINT;
         }
@@ -239,7 +240,7 @@ public class MvtBuilder {
         return commands(geometry.getCoordinates(), shouldClosePath(geometry), geometry instanceof MultiPoint);
     }
 
-    List<Integer> commands(MultiLineString mls) {
+    @NotNull List<Integer> commands(@NotNull MultiLineString mls) {
         List<Integer> commands = new ArrayList<>();
         for (int i = 0; i < mls.getNumGeometries(); i++) {
             commands.addAll(commands(mls.getGeometryN(i).getCoordinates(), false));
@@ -247,7 +248,7 @@ public class MvtBuilder {
         return commands;
     }
 
-    List<Integer> commands(MultiPolygon mp) {
+    @NotNull List<Integer> commands(@NotNull MultiPolygon mp) {
         List<Integer> commands = new ArrayList<>();
         for (int i = 0; i < mp.getNumGeometries(); i++) {
             Polygon polygon = (Polygon) mp.getGeometryN(i);
@@ -256,7 +257,7 @@ public class MvtBuilder {
         return commands;
     }
 
-    List<Integer> commands(Polygon polygon) {
+    @NotNull List<Integer> commands(@NotNull Polygon polygon) {
 
         // According to the vector tile specification, the exterior ring of a polygon
         // must be in clockwise order, while the interior ring in counter-clockwise order.
@@ -296,11 +297,11 @@ public class MvtBuilder {
      * @param cs cs
      * @return list
      */
-    List<Integer> commands(Coordinate[] cs, boolean closePathAtEnd) {
+    List<Integer> commands(Coordinate @NotNull [] cs, boolean closePathAtEnd) {
         return commands(cs, closePathAtEnd, false);
     }
 
-    List<Integer> commands(Coordinate[] cs, boolean closePathAtEnd, boolean multiPoint) {
+    @NotNull List<Integer> commands(Coordinate @NotNull [] cs, boolean closePathAtEnd, boolean multiPoint) {
         if (cs.length == 0) {
             throw new IllegalArgumentException("empty geometry");
         }

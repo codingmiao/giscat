@@ -19,6 +19,8 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.util.analyse;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.locationtech.jts.geom.*;
 
 import java.util.LinkedList;
@@ -42,7 +44,7 @@ public class TileClip {
     private final double xmax;
     private final double ymax;
 
-    public TileClip(double xmin, double ymin, double xmax, double ymax, GeometryFactory gf) {
+    public TileClip(double xmin, double ymin, double xmax, double ymax, @NotNull GeometryFactory gf) {
         this.gf = gf;
         this.xmin = xmin;
         this.ymin = ymin;
@@ -64,7 +66,7 @@ public class TileClip {
      * @param geometry geometry
      * @return 交集
      */
-    public Geometry intersection(Geometry geometry) {
+    public @Nullable Geometry intersection(Geometry geometry) {
         if (geometry instanceof Point) {
             return intersectionPoint((Point) geometry);
         }
@@ -96,7 +98,7 @@ public class TileClip {
     }
 
     /////////////////////////点的处理
-    private Point intersectionPoint(Point point) {
+    private @Nullable Point intersectionPoint(@NotNull Point point) {
         if (inTile(point.getX(), point.getY())) {
             return point;
         }
@@ -120,12 +122,12 @@ public class TileClip {
     }
 
     private static final class IntersectionLineStringCtx {
-        LinkedList<IndexedCoordinate> coordinates = new LinkedList<>();
+        @NotNull LinkedList<IndexedCoordinate> coordinates = new LinkedList<>();
         Coordinate beforeCoord;//上一个点
         boolean beforeIn;//上一个点是否在线片内
     }
 
-    private Geometry intersectionLineString(LineString line) {
+    private @Nullable Geometry intersectionLineString(@NotNull LineString line) {
         Coordinate[] coords = line.getCoordinates();
         IntersectionLineStringCtx ctx = new IntersectionLineStringCtx();
         Coordinate coord = coords[0];
@@ -202,7 +204,7 @@ public class TileClip {
      * @param ctx
      * @param coord
      */
-    private void lineIn2In(IntersectionLineStringCtx ctx, Coordinate coord, double x, double y) {
+    private void lineIn2In(@NotNull IntersectionLineStringCtx ctx, Coordinate coord, double x, double y) {
         ctx.coordinates.add(new IndexedCoordinate(Indexed.middle, coord));
     }
 
@@ -212,7 +214,7 @@ public class TileClip {
      * @param ctx
      * @param coord
      */
-    private void lineIn2Out(IntersectionLineStringCtx ctx, Coordinate coord, double x, double y) {
+    private void lineIn2Out(@NotNull IntersectionLineStringCtx ctx, Coordinate coord, double x, double y) {
         Coordinate intersection = getLineInOutIntersection(ctx.beforeCoord.x, ctx.beforeCoord.y, x, y);
         ctx.coordinates.add(new IndexedCoordinate(Indexed.end, intersection));
     }
@@ -223,7 +225,7 @@ public class TileClip {
      * @param ctx
      * @param coord
      */
-    private void lineOut2In(IntersectionLineStringCtx ctx, Coordinate coord, double x, double y) {
+    private void lineOut2In(@NotNull IntersectionLineStringCtx ctx, Coordinate coord, double x, double y) {
         Coordinate intersection = getLineInOutIntersection(x, y, ctx.beforeCoord.x, ctx.beforeCoord.y);
         ctx.coordinates.add(new IndexedCoordinate(Indexed.start, intersection));
         ctx.coordinates.add(new IndexedCoordinate(Indexed.middle, coord));
@@ -235,7 +237,7 @@ public class TileClip {
      * @param ctx
      * @param coord
      */
-    private void lineOut2Out(IntersectionLineStringCtx ctx, Coordinate coord, double x, double y) {
+    private void lineOut2Out(@NotNull IntersectionLineStringCtx ctx, Coordinate coord, double x, double y) {
         if (!intersects(new Coordinate[]{coord, ctx.beforeCoord})) {
             return;
         }
@@ -253,7 +255,7 @@ public class TileClip {
         return x >= xmin && x <= xmax && y >= ymin && y <= ymax;
     }
 
-    private Coordinate getLineInOutIntersection(double inX, double inY, double outX, double outY) {
+    private @NotNull Coordinate getLineInOutIntersection(double inX, double inY, double outX, double outY) {
         //逐一判断和四条边中的哪条相交
         //上
         double xUp = getLineX(inX, inY, outX, outY, ymax);
@@ -279,7 +281,7 @@ public class TileClip {
         return new Coordinate(inX, inY);
     }
 
-    protected Coordinate[] getLineOutIntersection(double x1, double y1, double x2, double y2) {
+    protected Coordinate @Nullable [] getLineOutIntersection(double x1, double y1, double x2, double y2) {
         //横穿
         if (y1 == y2) {
             if (y1 > ymax || y1 < ymin) {//无交集
@@ -417,7 +419,7 @@ public class TileClip {
      *
      * @return
      */
-    private boolean intersects(Coordinate[] coords) {
+    private boolean intersects(Coordinate @NotNull [] coords) {
         double x, y;
         Coordinate coordinate = coords[0];
         x = coordinate.x;

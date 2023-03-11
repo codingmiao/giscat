@@ -3,6 +3,9 @@
 
 package org.wowtools.giscat.vector.pojo.proto;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 public final class ProtoFeature {
     private ProtoFeature() {
     }
@@ -36,7 +39,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use NullGeometry.newBuilder() to construct.
-        private NullGeometry(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private NullGeometry(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -45,7 +48,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new NullGeometry();
         }
@@ -57,8 +60,8 @@ public final class ProtoFeature {
         }
 
         private NullGeometry(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -102,7 +105,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_NullGeometry_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -254,18 +257,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(NullGeometry prototype) {
+        public static @NotNull Builder newBuilder(@NotNull NullGeometry prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -288,7 +291,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_NullGeometry_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -313,7 +316,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 return this;
             }
@@ -330,7 +333,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public NullGeometry build() {
+            public @NotNull NullGeometry build() {
                 NullGeometry result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -339,7 +342,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public NullGeometry buildPartial() {
+            public @NotNull NullGeometry buildPartial() {
                 NullGeometry result = new NullGeometry(this);
                 onBuilt();
                 return result;
@@ -384,7 +387,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof NullGeometry) {
                     return mergeFrom((NullGeometry) other);
                 } else {
@@ -393,7 +396,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(NullGeometry other) {
+            public @NotNull Builder mergeFrom(@NotNull NullGeometry other) {
                 if (other == NullGeometry.getDefaultInstance()) return this;
                 this.mergeUnknownFields(other.unknownFields);
                 onChanged();
@@ -406,7 +409,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -441,7 +444,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.NullGeometry)
-        private static final NullGeometry DEFAULT_INSTANCE;
+        private static final @NotNull NullGeometry DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new NullGeometry();
@@ -454,8 +457,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<NullGeometry>
                 PARSER = new com.google.protobuf.AbstractParser<NullGeometry>() {
             @Override
-            public NullGeometry parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull NullGeometry parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new NullGeometry(input, extensionRegistry);
@@ -518,7 +521,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use Point.newBuilder() to construct.
-        private Point(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private Point(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -527,7 +530,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new Point();
         }
@@ -539,8 +542,8 @@ public final class ProtoFeature {
         }
 
         private Point(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -599,7 +602,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_Point_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -658,7 +661,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             if (Double.doubleToRawLongBits(x_) != 0) {
                 output.writeDouble(1, x_);
@@ -829,18 +832,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(Point prototype) {
+        public static @NotNull Builder newBuilder(@NotNull Point prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -863,7 +866,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_Point_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -888,7 +891,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 x_ = 0D;
 
@@ -911,7 +914,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Point build() {
+            public @NotNull Point build() {
                 Point result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -920,7 +923,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Point buildPartial() {
+            public @NotNull Point buildPartial() {
                 Point result = new Point(this);
                 result.x_ = x_;
                 result.y_ = y_;
@@ -968,7 +971,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof Point) {
                     return mergeFrom((Point) other);
                 } else {
@@ -977,7 +980,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(Point other) {
+            public @NotNull Builder mergeFrom(@NotNull Point other) {
                 if (other == Point.getDefaultInstance()) return this;
                 if (other.getX() != 0D) {
                     setX(other.getX());
@@ -999,7 +1002,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -1035,7 +1038,7 @@ public final class ProtoFeature {
              * @param value The x to set.
              * @return This builder for chaining.
              */
-            public Builder setX(double value) {
+            public @NotNull Builder setX(double value) {
 
                 x_ = value;
                 onChanged();
@@ -1047,7 +1050,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearX() {
+            public @NotNull Builder clearX() {
 
                 x_ = 0D;
                 onChanged();
@@ -1072,7 +1075,7 @@ public final class ProtoFeature {
              * @param value The y to set.
              * @return This builder for chaining.
              */
-            public Builder setY(double value) {
+            public @NotNull Builder setY(double value) {
 
                 y_ = value;
                 onChanged();
@@ -1084,7 +1087,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearY() {
+            public @NotNull Builder clearY() {
 
                 y_ = 0D;
                 onChanged();
@@ -1109,7 +1112,7 @@ public final class ProtoFeature {
              * @param value The z to set.
              * @return This builder for chaining.
              */
-            public Builder setZ(double value) {
+            public @NotNull Builder setZ(double value) {
 
                 z_ = value;
                 onChanged();
@@ -1121,7 +1124,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearZ() {
+            public @NotNull Builder clearZ() {
 
                 z_ = 0D;
                 onChanged();
@@ -1145,7 +1148,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.Point)
-        private static final Point DEFAULT_INSTANCE;
+        private static final @NotNull Point DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new Point();
@@ -1158,8 +1161,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<Point>
                 PARSER = new com.google.protobuf.AbstractParser<Point>() {
             @Override
-            public Point parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull Point parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new Point(input, extensionRegistry);
@@ -1267,7 +1270,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use LineString.newBuilder() to construct.
-        private LineString(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private LineString(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -1279,7 +1282,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new LineString();
         }
@@ -1291,8 +1294,8 @@ public final class ProtoFeature {
         }
 
         private LineString(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -1409,7 +1412,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_LineString_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -1534,7 +1537,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             getSerializedSize();
             if (getXsList().size() > 0) {
@@ -1739,18 +1742,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(LineString prototype) {
+        public static @NotNull Builder newBuilder(@NotNull LineString prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -1773,7 +1776,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_LineString_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -1798,7 +1801,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
@@ -1821,7 +1824,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public LineString build() {
+            public @NotNull LineString build() {
                 LineString result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -1830,7 +1833,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public LineString buildPartial() {
+            public @NotNull LineString buildPartial() {
                 LineString result = new LineString(this);
                 int from_bitField0_ = bitField0_;
                 if (((bitField0_ & 0x00000001) != 0)) {
@@ -1891,7 +1894,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof LineString) {
                     return mergeFrom((LineString) other);
                 } else {
@@ -1900,7 +1903,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(LineString other) {
+            public @NotNull Builder mergeFrom(@NotNull LineString other) {
                 if (other == LineString.getDefaultInstance()) return this;
                 if (!other.xs_.isEmpty()) {
                     if (xs_.isEmpty()) {
@@ -1943,7 +1946,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -2009,7 +2012,7 @@ public final class ProtoFeature {
              * @param value The xs to set.
              * @return This builder for chaining.
              */
-            public Builder setXs(
+            public @NotNull Builder setXs(
                     int index, double value) {
                 ensureXsIsMutable();
                 xs_.setDouble(index, value);
@@ -2023,7 +2026,7 @@ public final class ProtoFeature {
              * @param value The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addXs(double value) {
+            public @NotNull Builder addXs(double value) {
                 ensureXsIsMutable();
                 xs_.addDouble(value);
                 onChanged();
@@ -2036,8 +2039,8 @@ public final class ProtoFeature {
              * @param values The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllXs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllXs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureXsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, xs_);
@@ -2050,7 +2053,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearXs() {
+            public @NotNull Builder clearXs() {
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
                 onChanged();
@@ -2103,7 +2106,7 @@ public final class ProtoFeature {
              * @param value The ys to set.
              * @return This builder for chaining.
              */
-            public Builder setYs(
+            public @NotNull Builder setYs(
                     int index, double value) {
                 ensureYsIsMutable();
                 ys_.setDouble(index, value);
@@ -2117,7 +2120,7 @@ public final class ProtoFeature {
              * @param value The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addYs(double value) {
+            public @NotNull Builder addYs(double value) {
                 ensureYsIsMutable();
                 ys_.addDouble(value);
                 onChanged();
@@ -2130,8 +2133,8 @@ public final class ProtoFeature {
              * @param values The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addAllYs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllYs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureYsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, ys_);
@@ -2144,7 +2147,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearYs() {
+            public @NotNull Builder clearYs() {
                 ys_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000002);
                 onChanged();
@@ -2197,7 +2200,7 @@ public final class ProtoFeature {
              * @param value The zs to set.
              * @return This builder for chaining.
              */
-            public Builder setZs(
+            public @NotNull Builder setZs(
                     int index, double value) {
                 ensureZsIsMutable();
                 zs_.setDouble(index, value);
@@ -2211,7 +2214,7 @@ public final class ProtoFeature {
              * @param value The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addZs(double value) {
+            public @NotNull Builder addZs(double value) {
                 ensureZsIsMutable();
                 zs_.addDouble(value);
                 onChanged();
@@ -2224,8 +2227,8 @@ public final class ProtoFeature {
              * @param values The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllZs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllZs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureZsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, zs_);
@@ -2238,7 +2241,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearZs() {
+            public @NotNull Builder clearZs() {
                 zs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000004);
                 onChanged();
@@ -2262,7 +2265,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.LineString)
-        private static final LineString DEFAULT_INSTANCE;
+        private static final @NotNull LineString DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new LineString();
@@ -2275,8 +2278,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<LineString>
                 PARSER = new com.google.protobuf.AbstractParser<LineString>() {
             @Override
-            public LineString parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull LineString parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new LineString(input, extensionRegistry);
@@ -2410,7 +2413,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use Polygon.newBuilder() to construct.
-        private Polygon(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private Polygon(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -2423,7 +2426,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new Polygon();
         }
@@ -2435,8 +2438,8 @@ public final class ProtoFeature {
         }
 
         private Polygon(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -2577,7 +2580,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_Polygon_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -2737,7 +2740,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             getSerializedSize();
             if (getXsList().size() > 0) {
@@ -2969,18 +2972,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(Polygon prototype) {
+        public static @NotNull Builder newBuilder(@NotNull Polygon prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -3007,7 +3010,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_Polygon_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -3032,7 +3035,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
@@ -3057,7 +3060,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Polygon build() {
+            public @NotNull Polygon build() {
                 Polygon result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -3066,7 +3069,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Polygon buildPartial() {
+            public @NotNull Polygon buildPartial() {
                 Polygon result = new Polygon(this);
                 int from_bitField0_ = bitField0_;
                 if (((bitField0_ & 0x00000001) != 0)) {
@@ -3132,7 +3135,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof Polygon) {
                     return mergeFrom((Polygon) other);
                 } else {
@@ -3141,7 +3144,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(Polygon other) {
+            public @NotNull Builder mergeFrom(@NotNull Polygon other) {
                 if (other == Polygon.getDefaultInstance()) return this;
                 if (!other.xs_.isEmpty()) {
                     if (xs_.isEmpty()) {
@@ -3194,7 +3197,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -3260,7 +3263,7 @@ public final class ProtoFeature {
              * @param value The xs to set.
              * @return This builder for chaining.
              */
-            public Builder setXs(
+            public @NotNull Builder setXs(
                     int index, double value) {
                 ensureXsIsMutable();
                 xs_.setDouble(index, value);
@@ -3274,7 +3277,7 @@ public final class ProtoFeature {
              * @param value The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addXs(double value) {
+            public @NotNull Builder addXs(double value) {
                 ensureXsIsMutable();
                 xs_.addDouble(value);
                 onChanged();
@@ -3287,8 +3290,8 @@ public final class ProtoFeature {
              * @param values The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllXs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllXs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureXsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, xs_);
@@ -3301,7 +3304,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearXs() {
+            public @NotNull Builder clearXs() {
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
                 onChanged();
@@ -3354,7 +3357,7 @@ public final class ProtoFeature {
              * @param value The ys to set.
              * @return This builder for chaining.
              */
-            public Builder setYs(
+            public @NotNull Builder setYs(
                     int index, double value) {
                 ensureYsIsMutable();
                 ys_.setDouble(index, value);
@@ -3368,7 +3371,7 @@ public final class ProtoFeature {
              * @param value The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addYs(double value) {
+            public @NotNull Builder addYs(double value) {
                 ensureYsIsMutable();
                 ys_.addDouble(value);
                 onChanged();
@@ -3381,8 +3384,8 @@ public final class ProtoFeature {
              * @param values The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addAllYs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllYs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureYsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, ys_);
@@ -3395,7 +3398,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearYs() {
+            public @NotNull Builder clearYs() {
                 ys_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000002);
                 onChanged();
@@ -3448,7 +3451,7 @@ public final class ProtoFeature {
              * @param value The zs to set.
              * @return This builder for chaining.
              */
-            public Builder setZs(
+            public @NotNull Builder setZs(
                     int index, double value) {
                 ensureZsIsMutable();
                 zs_.setDouble(index, value);
@@ -3462,7 +3465,7 @@ public final class ProtoFeature {
              * @param value The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addZs(double value) {
+            public @NotNull Builder addZs(double value) {
                 ensureZsIsMutable();
                 zs_.addDouble(value);
                 onChanged();
@@ -3475,8 +3478,8 @@ public final class ProtoFeature {
              * @param values The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllZs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllZs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureZsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, zs_);
@@ -3489,7 +3492,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearZs() {
+            public @NotNull Builder clearZs() {
                 zs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000004);
                 onChanged();
@@ -3542,7 +3545,7 @@ public final class ProtoFeature {
              * @param value The separators to set.
              * @return This builder for chaining.
              */
-            public Builder setSeparators(
+            public @NotNull Builder setSeparators(
                     int index, int value) {
                 ensureSeparatorsIsMutable();
                 separators_.setInt(index, value);
@@ -3556,7 +3559,7 @@ public final class ProtoFeature {
              * @param value The separators to add.
              * @return This builder for chaining.
              */
-            public Builder addSeparators(int value) {
+            public @NotNull Builder addSeparators(int value) {
                 ensureSeparatorsIsMutable();
                 separators_.addInt(value);
                 onChanged();
@@ -3569,8 +3572,8 @@ public final class ProtoFeature {
              * @param values The separators to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSeparators(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSeparators(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSeparatorsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, separators_);
@@ -3583,7 +3586,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSeparators() {
+            public @NotNull Builder clearSeparators() {
                 separators_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000008);
                 onChanged();
@@ -3607,7 +3610,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.Polygon)
-        private static final Polygon DEFAULT_INSTANCE;
+        private static final @NotNull Polygon DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new Polygon();
@@ -3620,8 +3623,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<Polygon>
                 PARSER = new com.google.protobuf.AbstractParser<Polygon>() {
             @Override
-            public Polygon parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull Polygon parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new Polygon(input, extensionRegistry);
@@ -3729,7 +3732,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use MultiPoint.newBuilder() to construct.
-        private MultiPoint(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private MultiPoint(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -3741,7 +3744,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new MultiPoint();
         }
@@ -3753,8 +3756,8 @@ public final class ProtoFeature {
         }
 
         private MultiPoint(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -3871,7 +3874,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_MultiPoint_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -3996,7 +3999,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             getSerializedSize();
             if (getXsList().size() > 0) {
@@ -4201,18 +4204,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(MultiPoint prototype) {
+        public static @NotNull Builder newBuilder(@NotNull MultiPoint prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -4235,7 +4238,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_MultiPoint_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -4260,7 +4263,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
@@ -4283,7 +4286,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public MultiPoint build() {
+            public @NotNull MultiPoint build() {
                 MultiPoint result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -4292,7 +4295,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public MultiPoint buildPartial() {
+            public @NotNull MultiPoint buildPartial() {
                 MultiPoint result = new MultiPoint(this);
                 int from_bitField0_ = bitField0_;
                 if (((bitField0_ & 0x00000001) != 0)) {
@@ -4353,7 +4356,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof MultiPoint) {
                     return mergeFrom((MultiPoint) other);
                 } else {
@@ -4362,7 +4365,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(MultiPoint other) {
+            public @NotNull Builder mergeFrom(@NotNull MultiPoint other) {
                 if (other == MultiPoint.getDefaultInstance()) return this;
                 if (!other.xs_.isEmpty()) {
                     if (xs_.isEmpty()) {
@@ -4405,7 +4408,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -4471,7 +4474,7 @@ public final class ProtoFeature {
              * @param value The xs to set.
              * @return This builder for chaining.
              */
-            public Builder setXs(
+            public @NotNull Builder setXs(
                     int index, double value) {
                 ensureXsIsMutable();
                 xs_.setDouble(index, value);
@@ -4485,7 +4488,7 @@ public final class ProtoFeature {
              * @param value The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addXs(double value) {
+            public @NotNull Builder addXs(double value) {
                 ensureXsIsMutable();
                 xs_.addDouble(value);
                 onChanged();
@@ -4498,8 +4501,8 @@ public final class ProtoFeature {
              * @param values The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllXs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllXs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureXsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, xs_);
@@ -4512,7 +4515,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearXs() {
+            public @NotNull Builder clearXs() {
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
                 onChanged();
@@ -4565,7 +4568,7 @@ public final class ProtoFeature {
              * @param value The ys to set.
              * @return This builder for chaining.
              */
-            public Builder setYs(
+            public @NotNull Builder setYs(
                     int index, double value) {
                 ensureYsIsMutable();
                 ys_.setDouble(index, value);
@@ -4579,7 +4582,7 @@ public final class ProtoFeature {
              * @param value The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addYs(double value) {
+            public @NotNull Builder addYs(double value) {
                 ensureYsIsMutable();
                 ys_.addDouble(value);
                 onChanged();
@@ -4592,8 +4595,8 @@ public final class ProtoFeature {
              * @param values The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addAllYs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllYs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureYsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, ys_);
@@ -4606,7 +4609,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearYs() {
+            public @NotNull Builder clearYs() {
                 ys_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000002);
                 onChanged();
@@ -4659,7 +4662,7 @@ public final class ProtoFeature {
              * @param value The zs to set.
              * @return This builder for chaining.
              */
-            public Builder setZs(
+            public @NotNull Builder setZs(
                     int index, double value) {
                 ensureZsIsMutable();
                 zs_.setDouble(index, value);
@@ -4673,7 +4676,7 @@ public final class ProtoFeature {
              * @param value The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addZs(double value) {
+            public @NotNull Builder addZs(double value) {
                 ensureZsIsMutable();
                 zs_.addDouble(value);
                 onChanged();
@@ -4686,8 +4689,8 @@ public final class ProtoFeature {
              * @param values The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllZs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllZs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureZsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, zs_);
@@ -4700,7 +4703,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearZs() {
+            public @NotNull Builder clearZs() {
                 zs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000004);
                 onChanged();
@@ -4724,7 +4727,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.MultiPoint)
-        private static final MultiPoint DEFAULT_INSTANCE;
+        private static final @NotNull MultiPoint DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new MultiPoint();
@@ -4737,8 +4740,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<MultiPoint>
                 PARSER = new com.google.protobuf.AbstractParser<MultiPoint>() {
             @Override
-            public MultiPoint parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull MultiPoint parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new MultiPoint(input, extensionRegistry);
@@ -4871,7 +4874,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use MultiLineString.newBuilder() to construct.
-        private MultiLineString(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private MultiLineString(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -4884,7 +4887,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new MultiLineString();
         }
@@ -4896,8 +4899,8 @@ public final class ProtoFeature {
         }
 
         private MultiLineString(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -5038,7 +5041,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_MultiLineString_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -5198,7 +5201,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             getSerializedSize();
             if (getXsList().size() > 0) {
@@ -5430,18 +5433,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(MultiLineString prototype) {
+        public static @NotNull Builder newBuilder(@NotNull MultiLineString prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -5467,7 +5470,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_MultiLineString_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -5492,7 +5495,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
@@ -5517,7 +5520,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public MultiLineString build() {
+            public @NotNull MultiLineString build() {
                 MultiLineString result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -5526,7 +5529,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public MultiLineString buildPartial() {
+            public @NotNull MultiLineString buildPartial() {
                 MultiLineString result = new MultiLineString(this);
                 int from_bitField0_ = bitField0_;
                 if (((bitField0_ & 0x00000001) != 0)) {
@@ -5592,7 +5595,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof MultiLineString) {
                     return mergeFrom((MultiLineString) other);
                 } else {
@@ -5601,7 +5604,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(MultiLineString other) {
+            public @NotNull Builder mergeFrom(@NotNull MultiLineString other) {
                 if (other == MultiLineString.getDefaultInstance()) return this;
                 if (!other.xs_.isEmpty()) {
                     if (xs_.isEmpty()) {
@@ -5654,7 +5657,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -5720,7 +5723,7 @@ public final class ProtoFeature {
              * @param value The xs to set.
              * @return This builder for chaining.
              */
-            public Builder setXs(
+            public @NotNull Builder setXs(
                     int index, double value) {
                 ensureXsIsMutable();
                 xs_.setDouble(index, value);
@@ -5734,7 +5737,7 @@ public final class ProtoFeature {
              * @param value The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addXs(double value) {
+            public @NotNull Builder addXs(double value) {
                 ensureXsIsMutable();
                 xs_.addDouble(value);
                 onChanged();
@@ -5747,8 +5750,8 @@ public final class ProtoFeature {
              * @param values The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllXs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllXs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureXsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, xs_);
@@ -5761,7 +5764,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearXs() {
+            public @NotNull Builder clearXs() {
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
                 onChanged();
@@ -5814,7 +5817,7 @@ public final class ProtoFeature {
              * @param value The ys to set.
              * @return This builder for chaining.
              */
-            public Builder setYs(
+            public @NotNull Builder setYs(
                     int index, double value) {
                 ensureYsIsMutable();
                 ys_.setDouble(index, value);
@@ -5828,7 +5831,7 @@ public final class ProtoFeature {
              * @param value The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addYs(double value) {
+            public @NotNull Builder addYs(double value) {
                 ensureYsIsMutable();
                 ys_.addDouble(value);
                 onChanged();
@@ -5841,8 +5844,8 @@ public final class ProtoFeature {
              * @param values The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addAllYs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllYs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureYsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, ys_);
@@ -5855,7 +5858,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearYs() {
+            public @NotNull Builder clearYs() {
                 ys_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000002);
                 onChanged();
@@ -5908,7 +5911,7 @@ public final class ProtoFeature {
              * @param value The zs to set.
              * @return This builder for chaining.
              */
-            public Builder setZs(
+            public @NotNull Builder setZs(
                     int index, double value) {
                 ensureZsIsMutable();
                 zs_.setDouble(index, value);
@@ -5922,7 +5925,7 @@ public final class ProtoFeature {
              * @param value The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addZs(double value) {
+            public @NotNull Builder addZs(double value) {
                 ensureZsIsMutable();
                 zs_.addDouble(value);
                 onChanged();
@@ -5935,8 +5938,8 @@ public final class ProtoFeature {
              * @param values The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllZs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllZs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureZsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, zs_);
@@ -5949,7 +5952,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearZs() {
+            public @NotNull Builder clearZs() {
                 zs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000004);
                 onChanged();
@@ -6002,7 +6005,7 @@ public final class ProtoFeature {
              * @param value The separators to set.
              * @return This builder for chaining.
              */
-            public Builder setSeparators(
+            public @NotNull Builder setSeparators(
                     int index, int value) {
                 ensureSeparatorsIsMutable();
                 separators_.setInt(index, value);
@@ -6016,7 +6019,7 @@ public final class ProtoFeature {
              * @param value The separators to add.
              * @return This builder for chaining.
              */
-            public Builder addSeparators(int value) {
+            public @NotNull Builder addSeparators(int value) {
                 ensureSeparatorsIsMutable();
                 separators_.addInt(value);
                 onChanged();
@@ -6029,8 +6032,8 @@ public final class ProtoFeature {
              * @param values The separators to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSeparators(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSeparators(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSeparatorsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, separators_);
@@ -6043,7 +6046,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSeparators() {
+            public @NotNull Builder clearSeparators() {
                 separators_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000008);
                 onChanged();
@@ -6067,7 +6070,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.MultiLineString)
-        private static final MultiLineString DEFAULT_INSTANCE;
+        private static final @NotNull MultiLineString DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new MultiLineString();
@@ -6080,8 +6083,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<MultiLineString>
                 PARSER = new com.google.protobuf.AbstractParser<MultiLineString>() {
             @Override
-            public MultiLineString parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull MultiLineString parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new MultiLineString(input, extensionRegistry);
@@ -6237,7 +6240,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use MultiPolygon.newBuilder() to construct.
-        private MultiPolygon(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private MultiPolygon(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -6251,7 +6254,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new MultiPolygon();
         }
@@ -6263,8 +6266,8 @@ public final class ProtoFeature {
         }
 
         private MultiPolygon(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -6429,7 +6432,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_MultiPolygon_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -6624,7 +6627,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             getSerializedSize();
             if (getXsList().size() > 0) {
@@ -6883,18 +6886,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(MultiPolygon prototype) {
+        public static @NotNull Builder newBuilder(@NotNull MultiPolygon prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -6921,7 +6924,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_MultiPolygon_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -6946,7 +6949,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
@@ -6973,7 +6976,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public MultiPolygon build() {
+            public @NotNull MultiPolygon build() {
                 MultiPolygon result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -6982,7 +6985,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public MultiPolygon buildPartial() {
+            public @NotNull MultiPolygon buildPartial() {
                 MultiPolygon result = new MultiPolygon(this);
                 int from_bitField0_ = bitField0_;
                 if (((bitField0_ & 0x00000001) != 0)) {
@@ -7053,7 +7056,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof MultiPolygon) {
                     return mergeFrom((MultiPolygon) other);
                 } else {
@@ -7062,7 +7065,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(MultiPolygon other) {
+            public @NotNull Builder mergeFrom(@NotNull MultiPolygon other) {
                 if (other == MultiPolygon.getDefaultInstance()) return this;
                 if (!other.xs_.isEmpty()) {
                     if (xs_.isEmpty()) {
@@ -7125,7 +7128,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -7191,7 +7194,7 @@ public final class ProtoFeature {
              * @param value The xs to set.
              * @return This builder for chaining.
              */
-            public Builder setXs(
+            public @NotNull Builder setXs(
                     int index, double value) {
                 ensureXsIsMutable();
                 xs_.setDouble(index, value);
@@ -7205,7 +7208,7 @@ public final class ProtoFeature {
              * @param value The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addXs(double value) {
+            public @NotNull Builder addXs(double value) {
                 ensureXsIsMutable();
                 xs_.addDouble(value);
                 onChanged();
@@ -7218,8 +7221,8 @@ public final class ProtoFeature {
              * @param values The xs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllXs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllXs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureXsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, xs_);
@@ -7232,7 +7235,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearXs() {
+            public @NotNull Builder clearXs() {
                 xs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000001);
                 onChanged();
@@ -7285,7 +7288,7 @@ public final class ProtoFeature {
              * @param value The ys to set.
              * @return This builder for chaining.
              */
-            public Builder setYs(
+            public @NotNull Builder setYs(
                     int index, double value) {
                 ensureYsIsMutable();
                 ys_.setDouble(index, value);
@@ -7299,7 +7302,7 @@ public final class ProtoFeature {
              * @param value The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addYs(double value) {
+            public @NotNull Builder addYs(double value) {
                 ensureYsIsMutable();
                 ys_.addDouble(value);
                 onChanged();
@@ -7312,8 +7315,8 @@ public final class ProtoFeature {
              * @param values The ys to add.
              * @return This builder for chaining.
              */
-            public Builder addAllYs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllYs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureYsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, ys_);
@@ -7326,7 +7329,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearYs() {
+            public @NotNull Builder clearYs() {
                 ys_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000002);
                 onChanged();
@@ -7379,7 +7382,7 @@ public final class ProtoFeature {
              * @param value The zs to set.
              * @return This builder for chaining.
              */
-            public Builder setZs(
+            public @NotNull Builder setZs(
                     int index, double value) {
                 ensureZsIsMutable();
                 zs_.setDouble(index, value);
@@ -7393,7 +7396,7 @@ public final class ProtoFeature {
              * @param value The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addZs(double value) {
+            public @NotNull Builder addZs(double value) {
                 ensureZsIsMutable();
                 zs_.addDouble(value);
                 onChanged();
@@ -7406,8 +7409,8 @@ public final class ProtoFeature {
              * @param values The zs to add.
              * @return This builder for chaining.
              */
-            public Builder addAllZs(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllZs(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureZsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, zs_);
@@ -7420,7 +7423,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearZs() {
+            public @NotNull Builder clearZs() {
                 zs_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000004);
                 onChanged();
@@ -7473,7 +7476,7 @@ public final class ProtoFeature {
              * @param value The coordSeparators to set.
              * @return This builder for chaining.
              */
-            public Builder setCoordSeparators(
+            public @NotNull Builder setCoordSeparators(
                     int index, int value) {
                 ensureCoordSeparatorsIsMutable();
                 coordSeparators_.setInt(index, value);
@@ -7487,7 +7490,7 @@ public final class ProtoFeature {
              * @param value The coordSeparators to add.
              * @return This builder for chaining.
              */
-            public Builder addCoordSeparators(int value) {
+            public @NotNull Builder addCoordSeparators(int value) {
                 ensureCoordSeparatorsIsMutable();
                 coordSeparators_.addInt(value);
                 onChanged();
@@ -7500,8 +7503,8 @@ public final class ProtoFeature {
              * @param values The coordSeparators to add.
              * @return This builder for chaining.
              */
-            public Builder addAllCoordSeparators(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllCoordSeparators(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureCoordSeparatorsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, coordSeparators_);
@@ -7514,7 +7517,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearCoordSeparators() {
+            public @NotNull Builder clearCoordSeparators() {
                 coordSeparators_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000008);
                 onChanged();
@@ -7567,7 +7570,7 @@ public final class ProtoFeature {
              * @param value The polygonSeparators to set.
              * @return This builder for chaining.
              */
-            public Builder setPolygonSeparators(
+            public @NotNull Builder setPolygonSeparators(
                     int index, int value) {
                 ensurePolygonSeparatorsIsMutable();
                 polygonSeparators_.setInt(index, value);
@@ -7581,7 +7584,7 @@ public final class ProtoFeature {
              * @param value The polygonSeparators to add.
              * @return This builder for chaining.
              */
-            public Builder addPolygonSeparators(int value) {
+            public @NotNull Builder addPolygonSeparators(int value) {
                 ensurePolygonSeparatorsIsMutable();
                 polygonSeparators_.addInt(value);
                 onChanged();
@@ -7594,8 +7597,8 @@ public final class ProtoFeature {
              * @param values The polygonSeparators to add.
              * @return This builder for chaining.
              */
-            public Builder addAllPolygonSeparators(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllPolygonSeparators(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensurePolygonSeparatorsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, polygonSeparators_);
@@ -7608,7 +7611,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearPolygonSeparators() {
+            public @NotNull Builder clearPolygonSeparators() {
                 polygonSeparators_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000010);
                 onChanged();
@@ -7632,7 +7635,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.MultiPolygon)
-        private static final MultiPolygon DEFAULT_INSTANCE;
+        private static final @NotNull MultiPolygon DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new MultiPolygon();
@@ -7645,8 +7648,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<MultiPolygon>
                 PARSER = new com.google.protobuf.AbstractParser<MultiPolygon>() {
             @Override
-            public MultiPolygon parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull MultiPolygon parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new MultiPolygon(input, extensionRegistry);
@@ -7905,7 +7908,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use GeometryCollection.newBuilder() to construct.
-        private GeometryCollection(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private GeometryCollection(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -7921,7 +7924,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new GeometryCollection();
         }
@@ -7933,8 +7936,8 @@ public final class ProtoFeature {
         }
 
         private GeometryCollection(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -8063,7 +8066,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_GeometryCollection_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -8418,7 +8421,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             for (int i = 0; i < points_.size(); i++) {
                 output.writeMessage(1, points_.get(i));
@@ -8641,18 +8644,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(GeometryCollection prototype) {
+        public static @NotNull Builder newBuilder(@NotNull GeometryCollection prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -8676,7 +8679,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_GeometryCollection_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -8708,7 +8711,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 if (pointsBuilder_ == null) {
                     points_ = java.util.Collections.emptyList();
@@ -8767,7 +8770,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public GeometryCollection build() {
+            public @NotNull GeometryCollection build() {
                 GeometryCollection result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -8776,7 +8779,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public GeometryCollection buildPartial() {
+            public @NotNull GeometryCollection buildPartial() {
                 GeometryCollection result = new GeometryCollection(this);
                 int from_bitField0_ = bitField0_;
                 if (pointsBuilder_ == null) {
@@ -8885,7 +8888,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof GeometryCollection) {
                     return mergeFrom((GeometryCollection) other);
                 } else {
@@ -8894,7 +8897,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(GeometryCollection other) {
+            public @NotNull Builder mergeFrom(@NotNull GeometryCollection other) {
                 if (other == GeometryCollection.getDefaultInstance()) return this;
                 if (pointsBuilder_ == null) {
                     if (!other.points_.isEmpty()) {
@@ -9089,7 +9092,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -9109,7 +9112,7 @@ public final class ProtoFeature {
 
             private int bitField0_;
 
-            private java.util.List<Point> points_ =
+            private java.util.@Nullable List<Point> points_ =
                     java.util.Collections.emptyList();
 
             private void ensurePointsIsMutable() {
@@ -9119,7 +9122,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     Point, Point.Builder, PointOrBuilder> pointsBuilder_;
 
             /**
@@ -9158,8 +9161,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Point points = 1;</code>
              */
-            public Builder setPoints(
-                    int index, Point value) {
+            public @NotNull Builder setPoints(
+                    int index, @Nullable Point value) {
                 if (pointsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9176,8 +9179,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Point points = 1;</code>
              */
-            public Builder setPoints(
-                    int index, Point.Builder builderForValue) {
+            public @NotNull Builder setPoints(
+                    int index, Point.@NotNull Builder builderForValue) {
                 if (pointsBuilder_ == null) {
                     ensurePointsIsMutable();
                     points_.set(index, builderForValue.build());
@@ -9191,7 +9194,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Point points = 1;</code>
              */
-            public Builder addPoints(Point value) {
+            public @NotNull Builder addPoints(@Nullable Point value) {
                 if (pointsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9208,8 +9211,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Point points = 1;</code>
              */
-            public Builder addPoints(
-                    int index, Point value) {
+            public @NotNull Builder addPoints(
+                    int index, @Nullable Point value) {
                 if (pointsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9226,8 +9229,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Point points = 1;</code>
              */
-            public Builder addPoints(
-                    Point.Builder builderForValue) {
+            public @NotNull Builder addPoints(
+                    Point.@NotNull Builder builderForValue) {
                 if (pointsBuilder_ == null) {
                     ensurePointsIsMutable();
                     points_.add(builderForValue.build());
@@ -9241,8 +9244,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Point points = 1;</code>
              */
-            public Builder addPoints(
-                    int index, Point.Builder builderForValue) {
+            public @NotNull Builder addPoints(
+                    int index, Point.@NotNull Builder builderForValue) {
                 if (pointsBuilder_ == null) {
                     ensurePointsIsMutable();
                     points_.add(index, builderForValue.build());
@@ -9256,8 +9259,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Point points = 1;</code>
              */
-            public Builder addAllPoints(
-                    Iterable<? extends Point> values) {
+            public @NotNull Builder addAllPoints(
+                    @NotNull Iterable<? extends Point> values) {
                 if (pointsBuilder_ == null) {
                     ensurePointsIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -9272,7 +9275,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Point points = 1;</code>
              */
-            public Builder clearPoints() {
+            public @NotNull Builder clearPoints() {
                 if (pointsBuilder_ == null) {
                     points_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000001);
@@ -9286,7 +9289,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Point points = 1;</code>
              */
-            public Builder removePoints(int index) {
+            public @NotNull Builder removePoints(int index) {
                 if (pointsBuilder_ == null) {
                     ensurePointsIsMutable();
                     points_.remove(index);
@@ -9354,7 +9357,7 @@ public final class ProtoFeature {
                 return getPointsFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     Point, Point.Builder, PointOrBuilder>
             getPointsFieldBuilder() {
                 if (pointsBuilder_ == null) {
@@ -9369,7 +9372,7 @@ public final class ProtoFeature {
                 return pointsBuilder_;
             }
 
-            private java.util.List<LineString> lineStrings_ =
+            private java.util.@Nullable List<LineString> lineStrings_ =
                     java.util.Collections.emptyList();
 
             private void ensureLineStringsIsMutable() {
@@ -9379,7 +9382,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     LineString, LineString.Builder, LineStringOrBuilder> lineStringsBuilder_;
 
             /**
@@ -9418,8 +9421,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.LineString lineStrings = 2;</code>
              */
-            public Builder setLineStrings(
-                    int index, LineString value) {
+            public @NotNull Builder setLineStrings(
+                    int index, @Nullable LineString value) {
                 if (lineStringsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9436,8 +9439,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.LineString lineStrings = 2;</code>
              */
-            public Builder setLineStrings(
-                    int index, LineString.Builder builderForValue) {
+            public @NotNull Builder setLineStrings(
+                    int index, LineString.@NotNull Builder builderForValue) {
                 if (lineStringsBuilder_ == null) {
                     ensureLineStringsIsMutable();
                     lineStrings_.set(index, builderForValue.build());
@@ -9451,7 +9454,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.LineString lineStrings = 2;</code>
              */
-            public Builder addLineStrings(LineString value) {
+            public @NotNull Builder addLineStrings(@Nullable LineString value) {
                 if (lineStringsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9468,8 +9471,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.LineString lineStrings = 2;</code>
              */
-            public Builder addLineStrings(
-                    int index, LineString value) {
+            public @NotNull Builder addLineStrings(
+                    int index, @Nullable LineString value) {
                 if (lineStringsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9486,8 +9489,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.LineString lineStrings = 2;</code>
              */
-            public Builder addLineStrings(
-                    LineString.Builder builderForValue) {
+            public @NotNull Builder addLineStrings(
+                    LineString.@NotNull Builder builderForValue) {
                 if (lineStringsBuilder_ == null) {
                     ensureLineStringsIsMutable();
                     lineStrings_.add(builderForValue.build());
@@ -9501,8 +9504,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.LineString lineStrings = 2;</code>
              */
-            public Builder addLineStrings(
-                    int index, LineString.Builder builderForValue) {
+            public @NotNull Builder addLineStrings(
+                    int index, LineString.@NotNull Builder builderForValue) {
                 if (lineStringsBuilder_ == null) {
                     ensureLineStringsIsMutable();
                     lineStrings_.add(index, builderForValue.build());
@@ -9516,8 +9519,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.LineString lineStrings = 2;</code>
              */
-            public Builder addAllLineStrings(
-                    Iterable<? extends LineString> values) {
+            public @NotNull Builder addAllLineStrings(
+                    @NotNull Iterable<? extends LineString> values) {
                 if (lineStringsBuilder_ == null) {
                     ensureLineStringsIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -9532,7 +9535,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.LineString lineStrings = 2;</code>
              */
-            public Builder clearLineStrings() {
+            public @NotNull Builder clearLineStrings() {
                 if (lineStringsBuilder_ == null) {
                     lineStrings_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000002);
@@ -9546,7 +9549,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.LineString lineStrings = 2;</code>
              */
-            public Builder removeLineStrings(int index) {
+            public @NotNull Builder removeLineStrings(int index) {
                 if (lineStringsBuilder_ == null) {
                     ensureLineStringsIsMutable();
                     lineStrings_.remove(index);
@@ -9614,7 +9617,7 @@ public final class ProtoFeature {
                 return getLineStringsFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     LineString, LineString.Builder, LineStringOrBuilder>
             getLineStringsFieldBuilder() {
                 if (lineStringsBuilder_ == null) {
@@ -9629,7 +9632,7 @@ public final class ProtoFeature {
                 return lineStringsBuilder_;
             }
 
-            private java.util.List<Polygon> polygons_ =
+            private java.util.@Nullable List<Polygon> polygons_ =
                     java.util.Collections.emptyList();
 
             private void ensurePolygonsIsMutable() {
@@ -9639,7 +9642,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     Polygon, Polygon.Builder, PolygonOrBuilder> polygonsBuilder_;
 
             /**
@@ -9678,8 +9681,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Polygon polygons = 3;</code>
              */
-            public Builder setPolygons(
-                    int index, Polygon value) {
+            public @NotNull Builder setPolygons(
+                    int index, @Nullable Polygon value) {
                 if (polygonsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9696,8 +9699,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Polygon polygons = 3;</code>
              */
-            public Builder setPolygons(
-                    int index, Polygon.Builder builderForValue) {
+            public @NotNull Builder setPolygons(
+                    int index, Polygon.@NotNull Builder builderForValue) {
                 if (polygonsBuilder_ == null) {
                     ensurePolygonsIsMutable();
                     polygons_.set(index, builderForValue.build());
@@ -9711,7 +9714,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Polygon polygons = 3;</code>
              */
-            public Builder addPolygons(Polygon value) {
+            public @NotNull Builder addPolygons(@Nullable Polygon value) {
                 if (polygonsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9728,8 +9731,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Polygon polygons = 3;</code>
              */
-            public Builder addPolygons(
-                    int index, Polygon value) {
+            public @NotNull Builder addPolygons(
+                    int index, @Nullable Polygon value) {
                 if (polygonsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9746,8 +9749,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Polygon polygons = 3;</code>
              */
-            public Builder addPolygons(
-                    Polygon.Builder builderForValue) {
+            public @NotNull Builder addPolygons(
+                    Polygon.@NotNull Builder builderForValue) {
                 if (polygonsBuilder_ == null) {
                     ensurePolygonsIsMutable();
                     polygons_.add(builderForValue.build());
@@ -9761,8 +9764,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Polygon polygons = 3;</code>
              */
-            public Builder addPolygons(
-                    int index, Polygon.Builder builderForValue) {
+            public @NotNull Builder addPolygons(
+                    int index, Polygon.@NotNull Builder builderForValue) {
                 if (polygonsBuilder_ == null) {
                     ensurePolygonsIsMutable();
                     polygons_.add(index, builderForValue.build());
@@ -9776,8 +9779,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Polygon polygons = 3;</code>
              */
-            public Builder addAllPolygons(
-                    Iterable<? extends Polygon> values) {
+            public @NotNull Builder addAllPolygons(
+                    @NotNull Iterable<? extends Polygon> values) {
                 if (polygonsBuilder_ == null) {
                     ensurePolygonsIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -9792,7 +9795,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Polygon polygons = 3;</code>
              */
-            public Builder clearPolygons() {
+            public @NotNull Builder clearPolygons() {
                 if (polygonsBuilder_ == null) {
                     polygons_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000004);
@@ -9806,7 +9809,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Polygon polygons = 3;</code>
              */
-            public Builder removePolygons(int index) {
+            public @NotNull Builder removePolygons(int index) {
                 if (polygonsBuilder_ == null) {
                     ensurePolygonsIsMutable();
                     polygons_.remove(index);
@@ -9874,7 +9877,7 @@ public final class ProtoFeature {
                 return getPolygonsFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     Polygon, Polygon.Builder, PolygonOrBuilder>
             getPolygonsFieldBuilder() {
                 if (polygonsBuilder_ == null) {
@@ -9889,7 +9892,7 @@ public final class ProtoFeature {
                 return polygonsBuilder_;
             }
 
-            private java.util.List<MultiPoint> multiPoints_ =
+            private java.util.@Nullable List<MultiPoint> multiPoints_ =
                     java.util.Collections.emptyList();
 
             private void ensureMultiPointsIsMutable() {
@@ -9899,7 +9902,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     MultiPoint, MultiPoint.Builder, MultiPointOrBuilder> multiPointsBuilder_;
 
             /**
@@ -9938,8 +9941,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPoint multiPoints = 4;</code>
              */
-            public Builder setMultiPoints(
-                    int index, MultiPoint value) {
+            public @NotNull Builder setMultiPoints(
+                    int index, @Nullable MultiPoint value) {
                 if (multiPointsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9956,8 +9959,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPoint multiPoints = 4;</code>
              */
-            public Builder setMultiPoints(
-                    int index, MultiPoint.Builder builderForValue) {
+            public @NotNull Builder setMultiPoints(
+                    int index, MultiPoint.@NotNull Builder builderForValue) {
                 if (multiPointsBuilder_ == null) {
                     ensureMultiPointsIsMutable();
                     multiPoints_.set(index, builderForValue.build());
@@ -9971,7 +9974,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPoint multiPoints = 4;</code>
              */
-            public Builder addMultiPoints(MultiPoint value) {
+            public @NotNull Builder addMultiPoints(@Nullable MultiPoint value) {
                 if (multiPointsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -9988,8 +9991,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPoint multiPoints = 4;</code>
              */
-            public Builder addMultiPoints(
-                    int index, MultiPoint value) {
+            public @NotNull Builder addMultiPoints(
+                    int index, @Nullable MultiPoint value) {
                 if (multiPointsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10006,8 +10009,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPoint multiPoints = 4;</code>
              */
-            public Builder addMultiPoints(
-                    MultiPoint.Builder builderForValue) {
+            public @NotNull Builder addMultiPoints(
+                    MultiPoint.@NotNull Builder builderForValue) {
                 if (multiPointsBuilder_ == null) {
                     ensureMultiPointsIsMutable();
                     multiPoints_.add(builderForValue.build());
@@ -10021,8 +10024,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPoint multiPoints = 4;</code>
              */
-            public Builder addMultiPoints(
-                    int index, MultiPoint.Builder builderForValue) {
+            public @NotNull Builder addMultiPoints(
+                    int index, MultiPoint.@NotNull Builder builderForValue) {
                 if (multiPointsBuilder_ == null) {
                     ensureMultiPointsIsMutable();
                     multiPoints_.add(index, builderForValue.build());
@@ -10036,8 +10039,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPoint multiPoints = 4;</code>
              */
-            public Builder addAllMultiPoints(
-                    Iterable<? extends MultiPoint> values) {
+            public @NotNull Builder addAllMultiPoints(
+                    @NotNull Iterable<? extends MultiPoint> values) {
                 if (multiPointsBuilder_ == null) {
                     ensureMultiPointsIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -10052,7 +10055,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPoint multiPoints = 4;</code>
              */
-            public Builder clearMultiPoints() {
+            public @NotNull Builder clearMultiPoints() {
                 if (multiPointsBuilder_ == null) {
                     multiPoints_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000008);
@@ -10066,7 +10069,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPoint multiPoints = 4;</code>
              */
-            public Builder removeMultiPoints(int index) {
+            public @NotNull Builder removeMultiPoints(int index) {
                 if (multiPointsBuilder_ == null) {
                     ensureMultiPointsIsMutable();
                     multiPoints_.remove(index);
@@ -10134,7 +10137,7 @@ public final class ProtoFeature {
                 return getMultiPointsFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     MultiPoint, MultiPoint.Builder, MultiPointOrBuilder>
             getMultiPointsFieldBuilder() {
                 if (multiPointsBuilder_ == null) {
@@ -10149,7 +10152,7 @@ public final class ProtoFeature {
                 return multiPointsBuilder_;
             }
 
-            private java.util.List<MultiLineString> multiLineStrings_ =
+            private java.util.@Nullable List<MultiLineString> multiLineStrings_ =
                     java.util.Collections.emptyList();
 
             private void ensureMultiLineStringsIsMutable() {
@@ -10159,7 +10162,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     MultiLineString, MultiLineString.Builder, MultiLineStringOrBuilder> multiLineStringsBuilder_;
 
             /**
@@ -10198,8 +10201,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiLineString multiLineStrings = 5;</code>
              */
-            public Builder setMultiLineStrings(
-                    int index, MultiLineString value) {
+            public @NotNull Builder setMultiLineStrings(
+                    int index, @Nullable MultiLineString value) {
                 if (multiLineStringsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10216,8 +10219,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiLineString multiLineStrings = 5;</code>
              */
-            public Builder setMultiLineStrings(
-                    int index, MultiLineString.Builder builderForValue) {
+            public @NotNull Builder setMultiLineStrings(
+                    int index, MultiLineString.@NotNull Builder builderForValue) {
                 if (multiLineStringsBuilder_ == null) {
                     ensureMultiLineStringsIsMutable();
                     multiLineStrings_.set(index, builderForValue.build());
@@ -10231,7 +10234,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiLineString multiLineStrings = 5;</code>
              */
-            public Builder addMultiLineStrings(MultiLineString value) {
+            public @NotNull Builder addMultiLineStrings(@Nullable MultiLineString value) {
                 if (multiLineStringsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10248,8 +10251,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiLineString multiLineStrings = 5;</code>
              */
-            public Builder addMultiLineStrings(
-                    int index, MultiLineString value) {
+            public @NotNull Builder addMultiLineStrings(
+                    int index, @Nullable MultiLineString value) {
                 if (multiLineStringsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10266,8 +10269,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiLineString multiLineStrings = 5;</code>
              */
-            public Builder addMultiLineStrings(
-                    MultiLineString.Builder builderForValue) {
+            public @NotNull Builder addMultiLineStrings(
+                    MultiLineString.@NotNull Builder builderForValue) {
                 if (multiLineStringsBuilder_ == null) {
                     ensureMultiLineStringsIsMutable();
                     multiLineStrings_.add(builderForValue.build());
@@ -10281,8 +10284,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiLineString multiLineStrings = 5;</code>
              */
-            public Builder addMultiLineStrings(
-                    int index, MultiLineString.Builder builderForValue) {
+            public @NotNull Builder addMultiLineStrings(
+                    int index, MultiLineString.@NotNull Builder builderForValue) {
                 if (multiLineStringsBuilder_ == null) {
                     ensureMultiLineStringsIsMutable();
                     multiLineStrings_.add(index, builderForValue.build());
@@ -10296,8 +10299,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiLineString multiLineStrings = 5;</code>
              */
-            public Builder addAllMultiLineStrings(
-                    Iterable<? extends MultiLineString> values) {
+            public @NotNull Builder addAllMultiLineStrings(
+                    @NotNull Iterable<? extends MultiLineString> values) {
                 if (multiLineStringsBuilder_ == null) {
                     ensureMultiLineStringsIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -10312,7 +10315,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiLineString multiLineStrings = 5;</code>
              */
-            public Builder clearMultiLineStrings() {
+            public @NotNull Builder clearMultiLineStrings() {
                 if (multiLineStringsBuilder_ == null) {
                     multiLineStrings_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000010);
@@ -10326,7 +10329,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiLineString multiLineStrings = 5;</code>
              */
-            public Builder removeMultiLineStrings(int index) {
+            public @NotNull Builder removeMultiLineStrings(int index) {
                 if (multiLineStringsBuilder_ == null) {
                     ensureMultiLineStringsIsMutable();
                     multiLineStrings_.remove(index);
@@ -10394,7 +10397,7 @@ public final class ProtoFeature {
                 return getMultiLineStringsFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     MultiLineString, MultiLineString.Builder, MultiLineStringOrBuilder>
             getMultiLineStringsFieldBuilder() {
                 if (multiLineStringsBuilder_ == null) {
@@ -10409,7 +10412,7 @@ public final class ProtoFeature {
                 return multiLineStringsBuilder_;
             }
 
-            private java.util.List<MultiPolygon> multiPolygons_ =
+            private java.util.@Nullable List<MultiPolygon> multiPolygons_ =
                     java.util.Collections.emptyList();
 
             private void ensureMultiPolygonsIsMutable() {
@@ -10419,7 +10422,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     MultiPolygon, MultiPolygon.Builder, MultiPolygonOrBuilder> multiPolygonsBuilder_;
 
             /**
@@ -10458,8 +10461,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPolygon multiPolygons = 6;</code>
              */
-            public Builder setMultiPolygons(
-                    int index, MultiPolygon value) {
+            public @NotNull Builder setMultiPolygons(
+                    int index, @Nullable MultiPolygon value) {
                 if (multiPolygonsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10476,8 +10479,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPolygon multiPolygons = 6;</code>
              */
-            public Builder setMultiPolygons(
-                    int index, MultiPolygon.Builder builderForValue) {
+            public @NotNull Builder setMultiPolygons(
+                    int index, MultiPolygon.@NotNull Builder builderForValue) {
                 if (multiPolygonsBuilder_ == null) {
                     ensureMultiPolygonsIsMutable();
                     multiPolygons_.set(index, builderForValue.build());
@@ -10491,7 +10494,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPolygon multiPolygons = 6;</code>
              */
-            public Builder addMultiPolygons(MultiPolygon value) {
+            public @NotNull Builder addMultiPolygons(@Nullable MultiPolygon value) {
                 if (multiPolygonsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10508,8 +10511,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPolygon multiPolygons = 6;</code>
              */
-            public Builder addMultiPolygons(
-                    int index, MultiPolygon value) {
+            public @NotNull Builder addMultiPolygons(
+                    int index, @Nullable MultiPolygon value) {
                 if (multiPolygonsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10526,8 +10529,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPolygon multiPolygons = 6;</code>
              */
-            public Builder addMultiPolygons(
-                    MultiPolygon.Builder builderForValue) {
+            public @NotNull Builder addMultiPolygons(
+                    MultiPolygon.@NotNull Builder builderForValue) {
                 if (multiPolygonsBuilder_ == null) {
                     ensureMultiPolygonsIsMutable();
                     multiPolygons_.add(builderForValue.build());
@@ -10541,8 +10544,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPolygon multiPolygons = 6;</code>
              */
-            public Builder addMultiPolygons(
-                    int index, MultiPolygon.Builder builderForValue) {
+            public @NotNull Builder addMultiPolygons(
+                    int index, MultiPolygon.@NotNull Builder builderForValue) {
                 if (multiPolygonsBuilder_ == null) {
                     ensureMultiPolygonsIsMutable();
                     multiPolygons_.add(index, builderForValue.build());
@@ -10556,8 +10559,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPolygon multiPolygons = 6;</code>
              */
-            public Builder addAllMultiPolygons(
-                    Iterable<? extends MultiPolygon> values) {
+            public @NotNull Builder addAllMultiPolygons(
+                    @NotNull Iterable<? extends MultiPolygon> values) {
                 if (multiPolygonsBuilder_ == null) {
                     ensureMultiPolygonsIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -10572,7 +10575,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPolygon multiPolygons = 6;</code>
              */
-            public Builder clearMultiPolygons() {
+            public @NotNull Builder clearMultiPolygons() {
                 if (multiPolygonsBuilder_ == null) {
                     multiPolygons_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000020);
@@ -10586,7 +10589,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.MultiPolygon multiPolygons = 6;</code>
              */
-            public Builder removeMultiPolygons(int index) {
+            public @NotNull Builder removeMultiPolygons(int index) {
                 if (multiPolygonsBuilder_ == null) {
                     ensureMultiPolygonsIsMutable();
                     multiPolygons_.remove(index);
@@ -10654,7 +10657,7 @@ public final class ProtoFeature {
                 return getMultiPolygonsFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     MultiPolygon, MultiPolygon.Builder, MultiPolygonOrBuilder>
             getMultiPolygonsFieldBuilder() {
                 if (multiPolygonsBuilder_ == null) {
@@ -10669,7 +10672,7 @@ public final class ProtoFeature {
                 return multiPolygonsBuilder_;
             }
 
-            private java.util.List<GeometryCollection> geometryCollections_ =
+            private java.util.@Nullable List<GeometryCollection> geometryCollections_ =
                     java.util.Collections.emptyList();
 
             private void ensureGeometryCollectionsIsMutable() {
@@ -10679,7 +10682,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     GeometryCollection, Builder, GeometryCollectionOrBuilder> geometryCollectionsBuilder_;
 
             /**
@@ -10734,8 +10737,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.GeometryCollection geometryCollections = 7;</code>
              */
-            public Builder setGeometryCollections(
-                    int index, GeometryCollection value) {
+            public @NotNull Builder setGeometryCollections(
+                    int index, @Nullable GeometryCollection value) {
                 if (geometryCollectionsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10756,8 +10759,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.GeometryCollection geometryCollections = 7;</code>
              */
-            public Builder setGeometryCollections(
-                    int index, Builder builderForValue) {
+            public @NotNull Builder setGeometryCollections(
+                    int index, @NotNull Builder builderForValue) {
                 if (geometryCollectionsBuilder_ == null) {
                     ensureGeometryCollectionsIsMutable();
                     geometryCollections_.set(index, builderForValue.build());
@@ -10775,7 +10778,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.GeometryCollection geometryCollections = 7;</code>
              */
-            public Builder addGeometryCollections(GeometryCollection value) {
+            public @NotNull Builder addGeometryCollections(@Nullable GeometryCollection value) {
                 if (geometryCollectionsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10796,8 +10799,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.GeometryCollection geometryCollections = 7;</code>
              */
-            public Builder addGeometryCollections(
-                    int index, GeometryCollection value) {
+            public @NotNull Builder addGeometryCollections(
+                    int index, @Nullable GeometryCollection value) {
                 if (geometryCollectionsBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -10818,8 +10821,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.GeometryCollection geometryCollections = 7;</code>
              */
-            public Builder addGeometryCollections(
-                    Builder builderForValue) {
+            public @NotNull Builder addGeometryCollections(
+                    @NotNull Builder builderForValue) {
                 if (geometryCollectionsBuilder_ == null) {
                     ensureGeometryCollectionsIsMutable();
                     geometryCollections_.add(builderForValue.build());
@@ -10837,8 +10840,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.GeometryCollection geometryCollections = 7;</code>
              */
-            public Builder addGeometryCollections(
-                    int index, Builder builderForValue) {
+            public @NotNull Builder addGeometryCollections(
+                    int index, @NotNull Builder builderForValue) {
                 if (geometryCollectionsBuilder_ == null) {
                     ensureGeometryCollectionsIsMutable();
                     geometryCollections_.add(index, builderForValue.build());
@@ -10856,8 +10859,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.GeometryCollection geometryCollections = 7;</code>
              */
-            public Builder addAllGeometryCollections(
-                    Iterable<? extends GeometryCollection> values) {
+            public @NotNull Builder addAllGeometryCollections(
+                    @NotNull Iterable<? extends GeometryCollection> values) {
                 if (geometryCollectionsBuilder_ == null) {
                     ensureGeometryCollectionsIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -10876,7 +10879,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.GeometryCollection geometryCollections = 7;</code>
              */
-            public Builder clearGeometryCollections() {
+            public @NotNull Builder clearGeometryCollections() {
                 if (geometryCollectionsBuilder_ == null) {
                     geometryCollections_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000040);
@@ -10894,7 +10897,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.GeometryCollection geometryCollections = 7;</code>
              */
-            public Builder removeGeometryCollections(int index) {
+            public @NotNull Builder removeGeometryCollections(int index) {
                 if (geometryCollectionsBuilder_ == null) {
                     ensureGeometryCollectionsIsMutable();
                     geometryCollections_.remove(index);
@@ -10986,7 +10989,7 @@ public final class ProtoFeature {
                 return getGeometryCollectionsFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     GeometryCollection, Builder, GeometryCollectionOrBuilder>
             getGeometryCollectionsFieldBuilder() {
                 if (geometryCollectionsBuilder_ == null) {
@@ -11018,7 +11021,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.GeometryCollection)
-        private static final GeometryCollection DEFAULT_INSTANCE;
+        private static final @NotNull GeometryCollection DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new GeometryCollection();
@@ -11031,8 +11034,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<GeometryCollection>
                 PARSER = new com.google.protobuf.AbstractParser<GeometryCollection>() {
             @Override
-            public GeometryCollection parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull GeometryCollection parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new GeometryCollection(input, extensionRegistry);
@@ -11226,7 +11229,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use Geometry.newBuilder() to construct.
-        private Geometry(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private Geometry(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -11235,7 +11238,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new Geometry();
         }
@@ -11247,8 +11250,8 @@ public final class ProtoFeature {
         }
 
         private Geometry(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -11396,7 +11399,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_Geometry_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -11430,7 +11433,7 @@ public final class ProtoFeature {
          * <code>.pojo.Point point = 1;</code>
          */
         @Override
-        public PointOrBuilder getPointOrBuilder() {
+        public @NotNull PointOrBuilder getPointOrBuilder() {
             return getPoint();
         }
 
@@ -11461,7 +11464,7 @@ public final class ProtoFeature {
          * <code>.pojo.LineString lineString = 2;</code>
          */
         @Override
-        public LineStringOrBuilder getLineStringOrBuilder() {
+        public @NotNull LineStringOrBuilder getLineStringOrBuilder() {
             return getLineString();
         }
 
@@ -11492,7 +11495,7 @@ public final class ProtoFeature {
          * <code>.pojo.Polygon polygon = 3;</code>
          */
         @Override
-        public PolygonOrBuilder getPolygonOrBuilder() {
+        public @NotNull PolygonOrBuilder getPolygonOrBuilder() {
             return getPolygon();
         }
 
@@ -11523,7 +11526,7 @@ public final class ProtoFeature {
          * <code>.pojo.MultiPoint multiPoint = 4;</code>
          */
         @Override
-        public MultiPointOrBuilder getMultiPointOrBuilder() {
+        public @NotNull MultiPointOrBuilder getMultiPointOrBuilder() {
             return getMultiPoint();
         }
 
@@ -11554,7 +11557,7 @@ public final class ProtoFeature {
          * <code>.pojo.MultiLineString multiLineString = 5;</code>
          */
         @Override
-        public MultiLineStringOrBuilder getMultiLineStringOrBuilder() {
+        public @NotNull MultiLineStringOrBuilder getMultiLineStringOrBuilder() {
             return getMultiLineString();
         }
 
@@ -11585,7 +11588,7 @@ public final class ProtoFeature {
          * <code>.pojo.MultiPolygon multiPolygon = 6;</code>
          */
         @Override
-        public MultiPolygonOrBuilder getMultiPolygonOrBuilder() {
+        public @NotNull MultiPolygonOrBuilder getMultiPolygonOrBuilder() {
             return getMultiPolygon();
         }
 
@@ -11616,7 +11619,7 @@ public final class ProtoFeature {
          * <code>.pojo.GeometryCollection geometryCollection = 7;</code>
          */
         @Override
-        public GeometryCollectionOrBuilder getGeometryCollectionOrBuilder() {
+        public @NotNull GeometryCollectionOrBuilder getGeometryCollectionOrBuilder() {
             return getGeometryCollection();
         }
 
@@ -11647,7 +11650,7 @@ public final class ProtoFeature {
          * <code>.pojo.NullGeometry nullGeometry = 8;</code>
          */
         @Override
-        public NullGeometryOrBuilder getNullGeometryOrBuilder() {
+        public @NotNull NullGeometryOrBuilder getNullGeometryOrBuilder() {
             return getNullGeometry();
         }
 
@@ -11664,7 +11667,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             if (point_ != null) {
                 output.writeMessage(1, getPoint());
@@ -11924,18 +11927,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(Geometry prototype) {
+        public static @NotNull Builder newBuilder(@NotNull Geometry prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -11958,7 +11961,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_Geometry_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -11983,7 +11986,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 if (pointBuilder_ == null) {
                     point_ = null;
@@ -12048,7 +12051,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Geometry build() {
+            public @NotNull Geometry build() {
                 Geometry result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -12057,7 +12060,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Geometry buildPartial() {
+            public @NotNull Geometry buildPartial() {
                 Geometry result = new Geometry(this);
                 if (pointBuilder_ == null) {
                     result.point_ = point_;
@@ -12142,7 +12145,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof Geometry) {
                     return mergeFrom((Geometry) other);
                 } else {
@@ -12151,7 +12154,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(Geometry other) {
+            public @NotNull Builder mergeFrom(@NotNull Geometry other) {
                 if (other == Geometry.getDefaultInstance()) return this;
                 if (other.hasPoint()) {
                     mergePoint(other.getPoint());
@@ -12188,7 +12191,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -12206,8 +12209,8 @@ public final class ProtoFeature {
                 return this;
             }
 
-            private Point point_;
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private @Nullable Point point_;
+            private com.google.protobuf.@Nullable SingleFieldBuilderV3<
                     Point, Point.Builder, PointOrBuilder> pointBuilder_;
 
             /**
@@ -12235,7 +12238,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Point point = 1;</code>
              */
-            public Builder setPoint(Point value) {
+            public @NotNull Builder setPoint(@Nullable Point value) {
                 if (pointBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -12252,8 +12255,8 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Point point = 1;</code>
              */
-            public Builder setPoint(
-                    Point.Builder builderForValue) {
+            public @NotNull Builder setPoint(
+                    Point.@NotNull Builder builderForValue) {
                 if (pointBuilder_ == null) {
                     point_ = builderForValue.build();
                     onChanged();
@@ -12267,7 +12270,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Point point = 1;</code>
              */
-            public Builder mergePoint(Point value) {
+            public @NotNull Builder mergePoint(@NotNull Point value) {
                 if (pointBuilder_ == null) {
                     if (point_ != null) {
                         point_ =
@@ -12286,7 +12289,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Point point = 1;</code>
              */
-            public Builder clearPoint() {
+            public @NotNull Builder clearPoint() {
                 if (pointBuilder_ == null) {
                     point_ = null;
                     onChanged();
@@ -12322,7 +12325,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Point point = 1;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private com.google.protobuf.@NotNull SingleFieldBuilderV3<
                     Point, Point.Builder, PointOrBuilder>
             getPointFieldBuilder() {
                 if (pointBuilder_ == null) {
@@ -12336,8 +12339,8 @@ public final class ProtoFeature {
                 return pointBuilder_;
             }
 
-            private LineString lineString_;
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private @Nullable LineString lineString_;
+            private com.google.protobuf.@Nullable SingleFieldBuilderV3<
                     LineString, LineString.Builder, LineStringOrBuilder> lineStringBuilder_;
 
             /**
@@ -12365,7 +12368,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.LineString lineString = 2;</code>
              */
-            public Builder setLineString(LineString value) {
+            public @NotNull Builder setLineString(@Nullable LineString value) {
                 if (lineStringBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -12382,8 +12385,8 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.LineString lineString = 2;</code>
              */
-            public Builder setLineString(
-                    LineString.Builder builderForValue) {
+            public @NotNull Builder setLineString(
+                    LineString.@NotNull Builder builderForValue) {
                 if (lineStringBuilder_ == null) {
                     lineString_ = builderForValue.build();
                     onChanged();
@@ -12397,7 +12400,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.LineString lineString = 2;</code>
              */
-            public Builder mergeLineString(LineString value) {
+            public @NotNull Builder mergeLineString(@NotNull LineString value) {
                 if (lineStringBuilder_ == null) {
                     if (lineString_ != null) {
                         lineString_ =
@@ -12416,7 +12419,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.LineString lineString = 2;</code>
              */
-            public Builder clearLineString() {
+            public @NotNull Builder clearLineString() {
                 if (lineStringBuilder_ == null) {
                     lineString_ = null;
                     onChanged();
@@ -12452,7 +12455,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.LineString lineString = 2;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private com.google.protobuf.@NotNull SingleFieldBuilderV3<
                     LineString, LineString.Builder, LineStringOrBuilder>
             getLineStringFieldBuilder() {
                 if (lineStringBuilder_ == null) {
@@ -12466,8 +12469,8 @@ public final class ProtoFeature {
                 return lineStringBuilder_;
             }
 
-            private Polygon polygon_;
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private @Nullable Polygon polygon_;
+            private com.google.protobuf.@Nullable SingleFieldBuilderV3<
                     Polygon, Polygon.Builder, PolygonOrBuilder> polygonBuilder_;
 
             /**
@@ -12495,7 +12498,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Polygon polygon = 3;</code>
              */
-            public Builder setPolygon(Polygon value) {
+            public @NotNull Builder setPolygon(@Nullable Polygon value) {
                 if (polygonBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -12512,8 +12515,8 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Polygon polygon = 3;</code>
              */
-            public Builder setPolygon(
-                    Polygon.Builder builderForValue) {
+            public @NotNull Builder setPolygon(
+                    Polygon.@NotNull Builder builderForValue) {
                 if (polygonBuilder_ == null) {
                     polygon_ = builderForValue.build();
                     onChanged();
@@ -12527,7 +12530,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Polygon polygon = 3;</code>
              */
-            public Builder mergePolygon(Polygon value) {
+            public @NotNull Builder mergePolygon(@NotNull Polygon value) {
                 if (polygonBuilder_ == null) {
                     if (polygon_ != null) {
                         polygon_ =
@@ -12546,7 +12549,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Polygon polygon = 3;</code>
              */
-            public Builder clearPolygon() {
+            public @NotNull Builder clearPolygon() {
                 if (polygonBuilder_ == null) {
                     polygon_ = null;
                     onChanged();
@@ -12582,7 +12585,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.Polygon polygon = 3;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private com.google.protobuf.@NotNull SingleFieldBuilderV3<
                     Polygon, Polygon.Builder, PolygonOrBuilder>
             getPolygonFieldBuilder() {
                 if (polygonBuilder_ == null) {
@@ -12596,8 +12599,8 @@ public final class ProtoFeature {
                 return polygonBuilder_;
             }
 
-            private MultiPoint multiPoint_;
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private @Nullable MultiPoint multiPoint_;
+            private com.google.protobuf.@Nullable SingleFieldBuilderV3<
                     MultiPoint, MultiPoint.Builder, MultiPointOrBuilder> multiPointBuilder_;
 
             /**
@@ -12625,7 +12628,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPoint multiPoint = 4;</code>
              */
-            public Builder setMultiPoint(MultiPoint value) {
+            public @NotNull Builder setMultiPoint(@Nullable MultiPoint value) {
                 if (multiPointBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -12642,8 +12645,8 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPoint multiPoint = 4;</code>
              */
-            public Builder setMultiPoint(
-                    MultiPoint.Builder builderForValue) {
+            public @NotNull Builder setMultiPoint(
+                    MultiPoint.@NotNull Builder builderForValue) {
                 if (multiPointBuilder_ == null) {
                     multiPoint_ = builderForValue.build();
                     onChanged();
@@ -12657,7 +12660,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPoint multiPoint = 4;</code>
              */
-            public Builder mergeMultiPoint(MultiPoint value) {
+            public @NotNull Builder mergeMultiPoint(@NotNull MultiPoint value) {
                 if (multiPointBuilder_ == null) {
                     if (multiPoint_ != null) {
                         multiPoint_ =
@@ -12676,7 +12679,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPoint multiPoint = 4;</code>
              */
-            public Builder clearMultiPoint() {
+            public @NotNull Builder clearMultiPoint() {
                 if (multiPointBuilder_ == null) {
                     multiPoint_ = null;
                     onChanged();
@@ -12712,7 +12715,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPoint multiPoint = 4;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private com.google.protobuf.@NotNull SingleFieldBuilderV3<
                     MultiPoint, MultiPoint.Builder, MultiPointOrBuilder>
             getMultiPointFieldBuilder() {
                 if (multiPointBuilder_ == null) {
@@ -12726,8 +12729,8 @@ public final class ProtoFeature {
                 return multiPointBuilder_;
             }
 
-            private MultiLineString multiLineString_;
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private @Nullable MultiLineString multiLineString_;
+            private com.google.protobuf.@Nullable SingleFieldBuilderV3<
                     MultiLineString, MultiLineString.Builder, MultiLineStringOrBuilder> multiLineStringBuilder_;
 
             /**
@@ -12755,7 +12758,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiLineString multiLineString = 5;</code>
              */
-            public Builder setMultiLineString(MultiLineString value) {
+            public @NotNull Builder setMultiLineString(@Nullable MultiLineString value) {
                 if (multiLineStringBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -12772,8 +12775,8 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiLineString multiLineString = 5;</code>
              */
-            public Builder setMultiLineString(
-                    MultiLineString.Builder builderForValue) {
+            public @NotNull Builder setMultiLineString(
+                    MultiLineString.@NotNull Builder builderForValue) {
                 if (multiLineStringBuilder_ == null) {
                     multiLineString_ = builderForValue.build();
                     onChanged();
@@ -12787,7 +12790,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiLineString multiLineString = 5;</code>
              */
-            public Builder mergeMultiLineString(MultiLineString value) {
+            public @NotNull Builder mergeMultiLineString(@NotNull MultiLineString value) {
                 if (multiLineStringBuilder_ == null) {
                     if (multiLineString_ != null) {
                         multiLineString_ =
@@ -12806,7 +12809,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiLineString multiLineString = 5;</code>
              */
-            public Builder clearMultiLineString() {
+            public @NotNull Builder clearMultiLineString() {
                 if (multiLineStringBuilder_ == null) {
                     multiLineString_ = null;
                     onChanged();
@@ -12842,7 +12845,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiLineString multiLineString = 5;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private com.google.protobuf.@NotNull SingleFieldBuilderV3<
                     MultiLineString, MultiLineString.Builder, MultiLineStringOrBuilder>
             getMultiLineStringFieldBuilder() {
                 if (multiLineStringBuilder_ == null) {
@@ -12856,8 +12859,8 @@ public final class ProtoFeature {
                 return multiLineStringBuilder_;
             }
 
-            private MultiPolygon multiPolygon_;
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private @Nullable MultiPolygon multiPolygon_;
+            private com.google.protobuf.@Nullable SingleFieldBuilderV3<
                     MultiPolygon, MultiPolygon.Builder, MultiPolygonOrBuilder> multiPolygonBuilder_;
 
             /**
@@ -12885,7 +12888,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPolygon multiPolygon = 6;</code>
              */
-            public Builder setMultiPolygon(MultiPolygon value) {
+            public @NotNull Builder setMultiPolygon(@Nullable MultiPolygon value) {
                 if (multiPolygonBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -12902,8 +12905,8 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPolygon multiPolygon = 6;</code>
              */
-            public Builder setMultiPolygon(
-                    MultiPolygon.Builder builderForValue) {
+            public @NotNull Builder setMultiPolygon(
+                    MultiPolygon.@NotNull Builder builderForValue) {
                 if (multiPolygonBuilder_ == null) {
                     multiPolygon_ = builderForValue.build();
                     onChanged();
@@ -12917,7 +12920,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPolygon multiPolygon = 6;</code>
              */
-            public Builder mergeMultiPolygon(MultiPolygon value) {
+            public @NotNull Builder mergeMultiPolygon(@NotNull MultiPolygon value) {
                 if (multiPolygonBuilder_ == null) {
                     if (multiPolygon_ != null) {
                         multiPolygon_ =
@@ -12936,7 +12939,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPolygon multiPolygon = 6;</code>
              */
-            public Builder clearMultiPolygon() {
+            public @NotNull Builder clearMultiPolygon() {
                 if (multiPolygonBuilder_ == null) {
                     multiPolygon_ = null;
                     onChanged();
@@ -12972,7 +12975,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.MultiPolygon multiPolygon = 6;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private com.google.protobuf.@NotNull SingleFieldBuilderV3<
                     MultiPolygon, MultiPolygon.Builder, MultiPolygonOrBuilder>
             getMultiPolygonFieldBuilder() {
                 if (multiPolygonBuilder_ == null) {
@@ -12986,8 +12989,8 @@ public final class ProtoFeature {
                 return multiPolygonBuilder_;
             }
 
-            private GeometryCollection geometryCollection_;
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private @Nullable GeometryCollection geometryCollection_;
+            private com.google.protobuf.@Nullable SingleFieldBuilderV3<
                     GeometryCollection, GeometryCollection.Builder, GeometryCollectionOrBuilder> geometryCollectionBuilder_;
 
             /**
@@ -13015,7 +13018,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.GeometryCollection geometryCollection = 7;</code>
              */
-            public Builder setGeometryCollection(GeometryCollection value) {
+            public @NotNull Builder setGeometryCollection(@Nullable GeometryCollection value) {
                 if (geometryCollectionBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -13032,8 +13035,8 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.GeometryCollection geometryCollection = 7;</code>
              */
-            public Builder setGeometryCollection(
-                    GeometryCollection.Builder builderForValue) {
+            public @NotNull Builder setGeometryCollection(
+                    GeometryCollection.@NotNull Builder builderForValue) {
                 if (geometryCollectionBuilder_ == null) {
                     geometryCollection_ = builderForValue.build();
                     onChanged();
@@ -13047,7 +13050,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.GeometryCollection geometryCollection = 7;</code>
              */
-            public Builder mergeGeometryCollection(GeometryCollection value) {
+            public @NotNull Builder mergeGeometryCollection(@NotNull GeometryCollection value) {
                 if (geometryCollectionBuilder_ == null) {
                     if (geometryCollection_ != null) {
                         geometryCollection_ =
@@ -13066,7 +13069,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.GeometryCollection geometryCollection = 7;</code>
              */
-            public Builder clearGeometryCollection() {
+            public @NotNull Builder clearGeometryCollection() {
                 if (geometryCollectionBuilder_ == null) {
                     geometryCollection_ = null;
                     onChanged();
@@ -13102,7 +13105,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.GeometryCollection geometryCollection = 7;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private com.google.protobuf.@NotNull SingleFieldBuilderV3<
                     GeometryCollection, GeometryCollection.Builder, GeometryCollectionOrBuilder>
             getGeometryCollectionFieldBuilder() {
                 if (geometryCollectionBuilder_ == null) {
@@ -13116,8 +13119,8 @@ public final class ProtoFeature {
                 return geometryCollectionBuilder_;
             }
 
-            private NullGeometry nullGeometry_;
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private @Nullable NullGeometry nullGeometry_;
+            private com.google.protobuf.@Nullable SingleFieldBuilderV3<
                     NullGeometry, NullGeometry.Builder, NullGeometryOrBuilder> nullGeometryBuilder_;
 
             /**
@@ -13145,7 +13148,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.NullGeometry nullGeometry = 8;</code>
              */
-            public Builder setNullGeometry(NullGeometry value) {
+            public @NotNull Builder setNullGeometry(@Nullable NullGeometry value) {
                 if (nullGeometryBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -13162,8 +13165,8 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.NullGeometry nullGeometry = 8;</code>
              */
-            public Builder setNullGeometry(
-                    NullGeometry.Builder builderForValue) {
+            public @NotNull Builder setNullGeometry(
+                    NullGeometry.@NotNull Builder builderForValue) {
                 if (nullGeometryBuilder_ == null) {
                     nullGeometry_ = builderForValue.build();
                     onChanged();
@@ -13177,7 +13180,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.NullGeometry nullGeometry = 8;</code>
              */
-            public Builder mergeNullGeometry(NullGeometry value) {
+            public @NotNull Builder mergeNullGeometry(@NotNull NullGeometry value) {
                 if (nullGeometryBuilder_ == null) {
                     if (nullGeometry_ != null) {
                         nullGeometry_ =
@@ -13196,7 +13199,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.NullGeometry nullGeometry = 8;</code>
              */
-            public Builder clearNullGeometry() {
+            public @NotNull Builder clearNullGeometry() {
                 if (nullGeometryBuilder_ == null) {
                     nullGeometry_ = null;
                     onChanged();
@@ -13232,7 +13235,7 @@ public final class ProtoFeature {
             /**
              * <code>.pojo.NullGeometry nullGeometry = 8;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private com.google.protobuf.@NotNull SingleFieldBuilderV3<
                     NullGeometry, NullGeometry.Builder, NullGeometryOrBuilder>
             getNullGeometryFieldBuilder() {
                 if (nullGeometryBuilder_ == null) {
@@ -13263,7 +13266,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.Geometry)
-        private static final Geometry DEFAULT_INSTANCE;
+        private static final @NotNull Geometry DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new Geometry();
@@ -13276,8 +13279,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<Geometry>
                 PARSER = new com.google.protobuf.AbstractParser<Geometry>() {
             @Override
-            public Geometry parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull Geometry parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new Geometry(input, extensionRegistry);
@@ -13319,7 +13322,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use Feature.newBuilder() to construct.
-        private Feature(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private Feature(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -13328,7 +13331,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new Feature();
         }
@@ -13340,8 +13343,8 @@ public final class ProtoFeature {
         }
 
         private Feature(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -13385,7 +13388,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_Feature_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -13537,18 +13540,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(Feature prototype) {
+        public static @NotNull Builder newBuilder(@NotNull Feature prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -13571,7 +13574,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_Feature_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -13596,7 +13599,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 return this;
             }
@@ -13613,7 +13616,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Feature build() {
+            public @NotNull Feature build() {
                 Feature result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -13622,7 +13625,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Feature buildPartial() {
+            public @NotNull Feature buildPartial() {
                 Feature result = new Feature(this);
                 onBuilt();
                 return result;
@@ -13667,7 +13670,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof Feature) {
                     return mergeFrom((Feature) other);
                 } else {
@@ -13676,7 +13679,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(Feature other) {
+            public @NotNull Builder mergeFrom(@NotNull Feature other) {
                 if (other == Feature.getDefaultInstance()) return this;
                 this.mergeUnknownFields(other.unknownFields);
                 onChanged();
@@ -13689,7 +13692,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -13724,7 +13727,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.Feature)
-        private static final Feature DEFAULT_INSTANCE;
+        private static final @NotNull Feature DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new Feature();
@@ -13737,8 +13740,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<Feature>
                 PARSER = new com.google.protobuf.AbstractParser<Feature>() {
             @Override
-            public Feature parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull Feature parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new Feature(input, extensionRegistry);
@@ -14237,7 +14240,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use Map.newBuilder() to construct.
-        private Map(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private Map(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -14264,7 +14267,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new Map();
         }
@@ -14276,8 +14279,8 @@ public final class ProtoFeature {
         }
 
         private Map(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -14730,7 +14733,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_Map_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -15436,7 +15439,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             getSerializedSize();
             if (getDoubleKeyIdsList().size() > 0) {
@@ -16024,18 +16027,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(Map prototype) {
+        public static @NotNull Builder newBuilder(@NotNull Map prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -16071,7 +16074,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_Map_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -16098,7 +16101,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 doubleKeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000001);
@@ -16159,7 +16162,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Map build() {
+            public @NotNull Map build() {
                 Map result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -16168,7 +16171,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Map buildPartial() {
+            public @NotNull Map buildPartial() {
                 Map result = new Map(this);
                 int from_bitField0_ = bitField0_;
                 if (((bitField0_ & 0x00000001) != 0)) {
@@ -16312,7 +16315,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof Map) {
                     return mergeFrom((Map) other);
                 } else {
@@ -16321,7 +16324,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(Map other) {
+            public @NotNull Builder mergeFrom(@NotNull Map other) {
                 if (other == Map.getDefaultInstance()) return this;
                 if (!other.doubleKeyIds_.isEmpty()) {
                     if (doubleKeyIds_.isEmpty()) {
@@ -16546,7 +16549,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -16628,7 +16631,7 @@ public final class ProtoFeature {
              * @param value The doubleKeyIds to set.
              * @return This builder for chaining.
              */
-            public Builder setDoubleKeyIds(
+            public @NotNull Builder setDoubleKeyIds(
                     int index, int value) {
                 ensureDoubleKeyIdsIsMutable();
                 doubleKeyIds_.setInt(index, value);
@@ -16646,7 +16649,7 @@ public final class ProtoFeature {
              * @param value The doubleKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addDoubleKeyIds(int value) {
+            public @NotNull Builder addDoubleKeyIds(int value) {
                 ensureDoubleKeyIdsIsMutable();
                 doubleKeyIds_.addInt(value);
                 onChanged();
@@ -16663,8 +16666,8 @@ public final class ProtoFeature {
              * @param values The doubleKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllDoubleKeyIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllDoubleKeyIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureDoubleKeyIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, doubleKeyIds_);
@@ -16681,7 +16684,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearDoubleKeyIds() {
+            public @NotNull Builder clearDoubleKeyIds() {
                 doubleKeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000001);
                 onChanged();
@@ -16734,7 +16737,7 @@ public final class ProtoFeature {
              * @param value The doubleValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setDoubleValueIds(
+            public @NotNull Builder setDoubleValueIds(
                     int index, int value) {
                 ensureDoubleValueIdsIsMutable();
                 doubleValueIds_.setInt(index, value);
@@ -16748,7 +16751,7 @@ public final class ProtoFeature {
              * @param value The doubleValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addDoubleValueIds(int value) {
+            public @NotNull Builder addDoubleValueIds(int value) {
                 ensureDoubleValueIdsIsMutable();
                 doubleValueIds_.addInt(value);
                 onChanged();
@@ -16761,8 +16764,8 @@ public final class ProtoFeature {
              * @param values The doubleValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllDoubleValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllDoubleValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureDoubleValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, doubleValueIds_);
@@ -16775,7 +16778,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearDoubleValueIds() {
+            public @NotNull Builder clearDoubleValueIds() {
                 doubleValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000002);
                 onChanged();
@@ -16828,7 +16831,7 @@ public final class ProtoFeature {
              * @param value The floatKeyIds to set.
              * @return This builder for chaining.
              */
-            public Builder setFloatKeyIds(
+            public @NotNull Builder setFloatKeyIds(
                     int index, int value) {
                 ensureFloatKeyIdsIsMutable();
                 floatKeyIds_.setInt(index, value);
@@ -16842,7 +16845,7 @@ public final class ProtoFeature {
              * @param value The floatKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addFloatKeyIds(int value) {
+            public @NotNull Builder addFloatKeyIds(int value) {
                 ensureFloatKeyIdsIsMutable();
                 floatKeyIds_.addInt(value);
                 onChanged();
@@ -16855,8 +16858,8 @@ public final class ProtoFeature {
              * @param values The floatKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllFloatKeyIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllFloatKeyIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureFloatKeyIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, floatKeyIds_);
@@ -16869,7 +16872,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearFloatKeyIds() {
+            public @NotNull Builder clearFloatKeyIds() {
                 floatKeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000004);
                 onChanged();
@@ -16922,7 +16925,7 @@ public final class ProtoFeature {
              * @param value The floatValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setFloatValueIds(
+            public @NotNull Builder setFloatValueIds(
                     int index, int value) {
                 ensureFloatValueIdsIsMutable();
                 floatValueIds_.setInt(index, value);
@@ -16936,7 +16939,7 @@ public final class ProtoFeature {
              * @param value The floatValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addFloatValueIds(int value) {
+            public @NotNull Builder addFloatValueIds(int value) {
                 ensureFloatValueIdsIsMutable();
                 floatValueIds_.addInt(value);
                 onChanged();
@@ -16949,8 +16952,8 @@ public final class ProtoFeature {
              * @param values The floatValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllFloatValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllFloatValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureFloatValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, floatValueIds_);
@@ -16963,7 +16966,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearFloatValueIds() {
+            public @NotNull Builder clearFloatValueIds() {
                 floatValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000008);
                 onChanged();
@@ -17016,7 +17019,7 @@ public final class ProtoFeature {
              * @param value The sint32KeyIds to set.
              * @return This builder for chaining.
              */
-            public Builder setSint32KeyIds(
+            public @NotNull Builder setSint32KeyIds(
                     int index, int value) {
                 ensureSint32KeyIdsIsMutable();
                 sint32KeyIds_.setInt(index, value);
@@ -17030,7 +17033,7 @@ public final class ProtoFeature {
              * @param value The sint32KeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addSint32KeyIds(int value) {
+            public @NotNull Builder addSint32KeyIds(int value) {
                 ensureSint32KeyIdsIsMutable();
                 sint32KeyIds_.addInt(value);
                 onChanged();
@@ -17043,8 +17046,8 @@ public final class ProtoFeature {
              * @param values The sint32KeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSint32KeyIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSint32KeyIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSint32KeyIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, sint32KeyIds_);
@@ -17057,7 +17060,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSint32KeyIds() {
+            public @NotNull Builder clearSint32KeyIds() {
                 sint32KeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000010);
                 onChanged();
@@ -17110,7 +17113,7 @@ public final class ProtoFeature {
              * @param value The sint32ValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setSint32ValueIds(
+            public @NotNull Builder setSint32ValueIds(
                     int index, int value) {
                 ensureSint32ValueIdsIsMutable();
                 sint32ValueIds_.setInt(index, value);
@@ -17124,7 +17127,7 @@ public final class ProtoFeature {
              * @param value The sint32ValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addSint32ValueIds(int value) {
+            public @NotNull Builder addSint32ValueIds(int value) {
                 ensureSint32ValueIdsIsMutable();
                 sint32ValueIds_.addInt(value);
                 onChanged();
@@ -17137,8 +17140,8 @@ public final class ProtoFeature {
              * @param values The sint32ValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSint32ValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSint32ValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSint32ValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, sint32ValueIds_);
@@ -17151,7 +17154,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSint32ValueIds() {
+            public @NotNull Builder clearSint32ValueIds() {
                 sint32ValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000020);
                 onChanged();
@@ -17204,7 +17207,7 @@ public final class ProtoFeature {
              * @param value The sint64KeyIds to set.
              * @return This builder for chaining.
              */
-            public Builder setSint64KeyIds(
+            public @NotNull Builder setSint64KeyIds(
                     int index, int value) {
                 ensureSint64KeyIdsIsMutable();
                 sint64KeyIds_.setInt(index, value);
@@ -17218,7 +17221,7 @@ public final class ProtoFeature {
              * @param value The sint64KeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addSint64KeyIds(int value) {
+            public @NotNull Builder addSint64KeyIds(int value) {
                 ensureSint64KeyIdsIsMutable();
                 sint64KeyIds_.addInt(value);
                 onChanged();
@@ -17231,8 +17234,8 @@ public final class ProtoFeature {
              * @param values The sint64KeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSint64KeyIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSint64KeyIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSint64KeyIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, sint64KeyIds_);
@@ -17245,7 +17248,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSint64KeyIds() {
+            public @NotNull Builder clearSint64KeyIds() {
                 sint64KeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000040);
                 onChanged();
@@ -17298,7 +17301,7 @@ public final class ProtoFeature {
              * @param value The sint64ValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setSint64ValueIds(
+            public @NotNull Builder setSint64ValueIds(
                     int index, int value) {
                 ensureSint64ValueIdsIsMutable();
                 sint64ValueIds_.setInt(index, value);
@@ -17312,7 +17315,7 @@ public final class ProtoFeature {
              * @param value The sint64ValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addSint64ValueIds(int value) {
+            public @NotNull Builder addSint64ValueIds(int value) {
                 ensureSint64ValueIdsIsMutable();
                 sint64ValueIds_.addInt(value);
                 onChanged();
@@ -17325,8 +17328,8 @@ public final class ProtoFeature {
              * @param values The sint64ValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSint64ValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSint64ValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSint64ValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, sint64ValueIds_);
@@ -17339,7 +17342,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSint64ValueIds() {
+            public @NotNull Builder clearSint64ValueIds() {
                 sint64ValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000080);
                 onChanged();
@@ -17392,7 +17395,7 @@ public final class ProtoFeature {
              * @param value The boolKeyIds to set.
              * @return This builder for chaining.
              */
-            public Builder setBoolKeyIds(
+            public @NotNull Builder setBoolKeyIds(
                     int index, int value) {
                 ensureBoolKeyIdsIsMutable();
                 boolKeyIds_.setInt(index, value);
@@ -17406,7 +17409,7 @@ public final class ProtoFeature {
              * @param value The boolKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addBoolKeyIds(int value) {
+            public @NotNull Builder addBoolKeyIds(int value) {
                 ensureBoolKeyIdsIsMutable();
                 boolKeyIds_.addInt(value);
                 onChanged();
@@ -17419,8 +17422,8 @@ public final class ProtoFeature {
              * @param values The boolKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllBoolKeyIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllBoolKeyIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureBoolKeyIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, boolKeyIds_);
@@ -17433,7 +17436,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearBoolKeyIds() {
+            public @NotNull Builder clearBoolKeyIds() {
                 boolKeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000100);
                 onChanged();
@@ -17486,7 +17489,7 @@ public final class ProtoFeature {
              * @param value The boolValues to set.
              * @return This builder for chaining.
              */
-            public Builder setBoolValues(
+            public @NotNull Builder setBoolValues(
                     int index, boolean value) {
                 ensureBoolValuesIsMutable();
                 boolValues_.setBoolean(index, value);
@@ -17500,7 +17503,7 @@ public final class ProtoFeature {
              * @param value The boolValues to add.
              * @return This builder for chaining.
              */
-            public Builder addBoolValues(boolean value) {
+            public @NotNull Builder addBoolValues(boolean value) {
                 ensureBoolValuesIsMutable();
                 boolValues_.addBoolean(value);
                 onChanged();
@@ -17513,8 +17516,8 @@ public final class ProtoFeature {
              * @param values The boolValues to add.
              * @return This builder for chaining.
              */
-            public Builder addAllBoolValues(
-                    Iterable<? extends Boolean> values) {
+            public @NotNull Builder addAllBoolValues(
+                    @NotNull Iterable<? extends Boolean> values) {
                 ensureBoolValuesIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, boolValues_);
@@ -17527,7 +17530,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearBoolValues() {
+            public @NotNull Builder clearBoolValues() {
                 boolValues_ = emptyBooleanList();
                 bitField0_ = (bitField0_ & ~0x00000200);
                 onChanged();
@@ -17580,7 +17583,7 @@ public final class ProtoFeature {
              * @param value The stringKeyIds to set.
              * @return This builder for chaining.
              */
-            public Builder setStringKeyIds(
+            public @NotNull Builder setStringKeyIds(
                     int index, int value) {
                 ensureStringKeyIdsIsMutable();
                 stringKeyIds_.setInt(index, value);
@@ -17594,7 +17597,7 @@ public final class ProtoFeature {
              * @param value The stringKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addStringKeyIds(int value) {
+            public @NotNull Builder addStringKeyIds(int value) {
                 ensureStringKeyIdsIsMutable();
                 stringKeyIds_.addInt(value);
                 onChanged();
@@ -17607,8 +17610,8 @@ public final class ProtoFeature {
              * @param values The stringKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllStringKeyIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllStringKeyIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureStringKeyIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, stringKeyIds_);
@@ -17621,7 +17624,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearStringKeyIds() {
+            public @NotNull Builder clearStringKeyIds() {
                 stringKeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000400);
                 onChanged();
@@ -17674,7 +17677,7 @@ public final class ProtoFeature {
              * @param value The stringValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setStringValueIds(
+            public @NotNull Builder setStringValueIds(
                     int index, int value) {
                 ensureStringValueIdsIsMutable();
                 stringValueIds_.setInt(index, value);
@@ -17688,7 +17691,7 @@ public final class ProtoFeature {
              * @param value The stringValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addStringValueIds(int value) {
+            public @NotNull Builder addStringValueIds(int value) {
                 ensureStringValueIdsIsMutable();
                 stringValueIds_.addInt(value);
                 onChanged();
@@ -17701,8 +17704,8 @@ public final class ProtoFeature {
              * @param values The stringValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllStringValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllStringValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureStringValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, stringValueIds_);
@@ -17715,7 +17718,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearStringValueIds() {
+            public @NotNull Builder clearStringValueIds() {
                 stringValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000800);
                 onChanged();
@@ -17768,7 +17771,7 @@ public final class ProtoFeature {
              * @param value The bytesKeyIds to set.
              * @return This builder for chaining.
              */
-            public Builder setBytesKeyIds(
+            public @NotNull Builder setBytesKeyIds(
                     int index, int value) {
                 ensureBytesKeyIdsIsMutable();
                 bytesKeyIds_.setInt(index, value);
@@ -17782,7 +17785,7 @@ public final class ProtoFeature {
              * @param value The bytesKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addBytesKeyIds(int value) {
+            public @NotNull Builder addBytesKeyIds(int value) {
                 ensureBytesKeyIdsIsMutable();
                 bytesKeyIds_.addInt(value);
                 onChanged();
@@ -17795,8 +17798,8 @@ public final class ProtoFeature {
              * @param values The bytesKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllBytesKeyIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllBytesKeyIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureBytesKeyIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, bytesKeyIds_);
@@ -17809,7 +17812,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearBytesKeyIds() {
+            public @NotNull Builder clearBytesKeyIds() {
                 bytesKeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00001000);
                 onChanged();
@@ -17862,7 +17865,7 @@ public final class ProtoFeature {
              * @param value The bytesValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setBytesValueIds(
+            public @NotNull Builder setBytesValueIds(
                     int index, int value) {
                 ensureBytesValueIdsIsMutable();
                 bytesValueIds_.setInt(index, value);
@@ -17876,7 +17879,7 @@ public final class ProtoFeature {
              * @param value The bytesValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addBytesValueIds(int value) {
+            public @NotNull Builder addBytesValueIds(int value) {
                 ensureBytesValueIdsIsMutable();
                 bytesValueIds_.addInt(value);
                 onChanged();
@@ -17889,8 +17892,8 @@ public final class ProtoFeature {
              * @param values The bytesValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllBytesValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllBytesValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureBytesValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, bytesValueIds_);
@@ -17903,7 +17906,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearBytesValueIds() {
+            public @NotNull Builder clearBytesValueIds() {
                 bytesValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00002000);
                 onChanged();
@@ -17972,7 +17975,7 @@ public final class ProtoFeature {
              * @param value The listKeyIds to set.
              * @return This builder for chaining.
              */
-            public Builder setListKeyIds(
+            public @NotNull Builder setListKeyIds(
                     int index, int value) {
                 ensureListKeyIdsIsMutable();
                 listKeyIds_.setInt(index, value);
@@ -17990,7 +17993,7 @@ public final class ProtoFeature {
              * @param value The listKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addListKeyIds(int value) {
+            public @NotNull Builder addListKeyIds(int value) {
                 ensureListKeyIdsIsMutable();
                 listKeyIds_.addInt(value);
                 onChanged();
@@ -18007,8 +18010,8 @@ public final class ProtoFeature {
              * @param values The listKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllListKeyIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllListKeyIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureListKeyIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, listKeyIds_);
@@ -18025,14 +18028,14 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearListKeyIds() {
+            public @NotNull Builder clearListKeyIds() {
                 listKeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00004000);
                 onChanged();
                 return this;
             }
 
-            private java.util.List<List> listValues_ =
+            private java.util.@Nullable List<List> listValues_ =
                     java.util.Collections.emptyList();
 
             private void ensureListValuesIsMutable() {
@@ -18042,7 +18045,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     List, List.Builder, ListOrBuilder> listValuesBuilder_;
 
             /**
@@ -18081,8 +18084,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.List listValues = 16;</code>
              */
-            public Builder setListValues(
-                    int index, List value) {
+            public @NotNull Builder setListValues(
+                    int index, @Nullable List value) {
                 if (listValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -18099,8 +18102,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.List listValues = 16;</code>
              */
-            public Builder setListValues(
-                    int index, List.Builder builderForValue) {
+            public @NotNull Builder setListValues(
+                    int index, List.@NotNull Builder builderForValue) {
                 if (listValuesBuilder_ == null) {
                     ensureListValuesIsMutable();
                     listValues_.set(index, builderForValue.build());
@@ -18114,7 +18117,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.List listValues = 16;</code>
              */
-            public Builder addListValues(List value) {
+            public @NotNull Builder addListValues(@Nullable List value) {
                 if (listValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -18131,8 +18134,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.List listValues = 16;</code>
              */
-            public Builder addListValues(
-                    int index, List value) {
+            public @NotNull Builder addListValues(
+                    int index, @Nullable List value) {
                 if (listValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -18149,8 +18152,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.List listValues = 16;</code>
              */
-            public Builder addListValues(
-                    List.Builder builderForValue) {
+            public @NotNull Builder addListValues(
+                    List.@NotNull Builder builderForValue) {
                 if (listValuesBuilder_ == null) {
                     ensureListValuesIsMutable();
                     listValues_.add(builderForValue.build());
@@ -18164,8 +18167,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.List listValues = 16;</code>
              */
-            public Builder addListValues(
-                    int index, List.Builder builderForValue) {
+            public @NotNull Builder addListValues(
+                    int index, List.@NotNull Builder builderForValue) {
                 if (listValuesBuilder_ == null) {
                     ensureListValuesIsMutable();
                     listValues_.add(index, builderForValue.build());
@@ -18179,8 +18182,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.List listValues = 16;</code>
              */
-            public Builder addAllListValues(
-                    Iterable<? extends List> values) {
+            public @NotNull Builder addAllListValues(
+                    @NotNull Iterable<? extends List> values) {
                 if (listValuesBuilder_ == null) {
                     ensureListValuesIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -18195,7 +18198,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.List listValues = 16;</code>
              */
-            public Builder clearListValues() {
+            public @NotNull Builder clearListValues() {
                 if (listValuesBuilder_ == null) {
                     listValues_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00008000);
@@ -18209,7 +18212,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.List listValues = 16;</code>
              */
-            public Builder removeListValues(int index) {
+            public @NotNull Builder removeListValues(int index) {
                 if (listValuesBuilder_ == null) {
                     ensureListValuesIsMutable();
                     listValues_.remove(index);
@@ -18277,7 +18280,7 @@ public final class ProtoFeature {
                 return getListValuesFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     List, List.Builder, ListOrBuilder>
             getListValuesFieldBuilder() {
                 if (listValuesBuilder_ == null) {
@@ -18354,7 +18357,7 @@ public final class ProtoFeature {
              * @param value The subMapKeyIds to set.
              * @return This builder for chaining.
              */
-            public Builder setSubMapKeyIds(
+            public @NotNull Builder setSubMapKeyIds(
                     int index, int value) {
                 ensureSubMapKeyIdsIsMutable();
                 subMapKeyIds_.setInt(index, value);
@@ -18372,7 +18375,7 @@ public final class ProtoFeature {
              * @param value The subMapKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addSubMapKeyIds(int value) {
+            public @NotNull Builder addSubMapKeyIds(int value) {
                 ensureSubMapKeyIdsIsMutable();
                 subMapKeyIds_.addInt(value);
                 onChanged();
@@ -18389,8 +18392,8 @@ public final class ProtoFeature {
              * @param values The subMapKeyIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSubMapKeyIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSubMapKeyIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSubMapKeyIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, subMapKeyIds_);
@@ -18407,14 +18410,14 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSubMapKeyIds() {
+            public @NotNull Builder clearSubMapKeyIds() {
                 subMapKeyIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00010000);
                 onChanged();
                 return this;
             }
 
-            private java.util.List<Map> subMapValues_ =
+            private java.util.@Nullable List<Map> subMapValues_ =
                     java.util.Collections.emptyList();
 
             private void ensureSubMapValuesIsMutable() {
@@ -18424,7 +18427,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     Map, Builder, MapOrBuilder> subMapValuesBuilder_;
 
             /**
@@ -18463,8 +18466,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map subMapValues = 18;</code>
              */
-            public Builder setSubMapValues(
-                    int index, Map value) {
+            public @NotNull Builder setSubMapValues(
+                    int index, @Nullable Map value) {
                 if (subMapValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -18481,8 +18484,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map subMapValues = 18;</code>
              */
-            public Builder setSubMapValues(
-                    int index, Builder builderForValue) {
+            public @NotNull Builder setSubMapValues(
+                    int index, @NotNull Builder builderForValue) {
                 if (subMapValuesBuilder_ == null) {
                     ensureSubMapValuesIsMutable();
                     subMapValues_.set(index, builderForValue.build());
@@ -18496,7 +18499,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map subMapValues = 18;</code>
              */
-            public Builder addSubMapValues(Map value) {
+            public @NotNull Builder addSubMapValues(@Nullable Map value) {
                 if (subMapValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -18513,8 +18516,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map subMapValues = 18;</code>
              */
-            public Builder addSubMapValues(
-                    int index, Map value) {
+            public @NotNull Builder addSubMapValues(
+                    int index, @Nullable Map value) {
                 if (subMapValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -18531,8 +18534,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map subMapValues = 18;</code>
              */
-            public Builder addSubMapValues(
-                    Builder builderForValue) {
+            public @NotNull Builder addSubMapValues(
+                    @NotNull Builder builderForValue) {
                 if (subMapValuesBuilder_ == null) {
                     ensureSubMapValuesIsMutable();
                     subMapValues_.add(builderForValue.build());
@@ -18546,8 +18549,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map subMapValues = 18;</code>
              */
-            public Builder addSubMapValues(
-                    int index, Builder builderForValue) {
+            public @NotNull Builder addSubMapValues(
+                    int index, @NotNull Builder builderForValue) {
                 if (subMapValuesBuilder_ == null) {
                     ensureSubMapValuesIsMutable();
                     subMapValues_.add(index, builderForValue.build());
@@ -18561,8 +18564,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map subMapValues = 18;</code>
              */
-            public Builder addAllSubMapValues(
-                    Iterable<? extends Map> values) {
+            public @NotNull Builder addAllSubMapValues(
+                    @NotNull Iterable<? extends Map> values) {
                 if (subMapValuesBuilder_ == null) {
                     ensureSubMapValuesIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -18577,7 +18580,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map subMapValues = 18;</code>
              */
-            public Builder clearSubMapValues() {
+            public @NotNull Builder clearSubMapValues() {
                 if (subMapValuesBuilder_ == null) {
                     subMapValues_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00020000);
@@ -18591,7 +18594,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map subMapValues = 18;</code>
              */
-            public Builder removeSubMapValues(int index) {
+            public @NotNull Builder removeSubMapValues(int index) {
                 if (subMapValuesBuilder_ == null) {
                     ensureSubMapValuesIsMutable();
                     subMapValues_.remove(index);
@@ -18659,7 +18662,7 @@ public final class ProtoFeature {
                 return getSubMapValuesFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     Map, Builder, MapOrBuilder>
             getSubMapValuesFieldBuilder() {
                 if (subMapValuesBuilder_ == null) {
@@ -18691,7 +18694,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.Map)
-        private static final Map DEFAULT_INSTANCE;
+        private static final @NotNull Map DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new Map();
@@ -18704,8 +18707,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<Map>
                 PARSER = new com.google.protobuf.AbstractParser<Map>() {
             @Override
-            public Map parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull Map parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new Map(input, extensionRegistry);
@@ -19046,7 +19049,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use List.newBuilder() to construct.
-        private List(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private List(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -19065,7 +19068,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new List();
         }
@@ -19077,8 +19080,8 @@ public final class ProtoFeature {
         }
 
         private List(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -19339,7 +19342,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_List_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -19796,7 +19799,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             getSerializedSize();
             if (getIndexesList().size() > 0) {
@@ -20168,18 +20171,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(List prototype) {
+        public static @NotNull Builder newBuilder(@NotNull List prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -20202,7 +20205,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_List_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -20229,7 +20232,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 indexes_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000001);
@@ -20274,7 +20277,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public List build() {
+            public @NotNull List build() {
                 List result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -20283,7 +20286,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public List buildPartial() {
+            public @NotNull List buildPartial() {
                 List result = new List(this);
                 int from_bitField0_ = bitField0_;
                 if (((bitField0_ & 0x00000001) != 0)) {
@@ -20387,7 +20390,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof List) {
                     return mergeFrom((List) other);
                 } else {
@@ -20396,7 +20399,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(List other) {
+            public @NotNull Builder mergeFrom(@NotNull List other) {
                 if (other == List.getDefaultInstance()) return this;
                 if (!other.indexes_.isEmpty()) {
                     if (indexes_.isEmpty()) {
@@ -20541,7 +20544,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -20623,7 +20626,7 @@ public final class ProtoFeature {
              * @param value The indexes to set.
              * @return This builder for chaining.
              */
-            public Builder setIndexes(
+            public @NotNull Builder setIndexes(
                     int index, int value) {
                 ensureIndexesIsMutable();
                 indexes_.setInt(index, value);
@@ -20641,7 +20644,7 @@ public final class ProtoFeature {
              * @param value The indexes to add.
              * @return This builder for chaining.
              */
-            public Builder addIndexes(int value) {
+            public @NotNull Builder addIndexes(int value) {
                 ensureIndexesIsMutable();
                 indexes_.addInt(value);
                 onChanged();
@@ -20658,8 +20661,8 @@ public final class ProtoFeature {
              * @param values The indexes to add.
              * @return This builder for chaining.
              */
-            public Builder addAllIndexes(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllIndexes(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureIndexesIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, indexes_);
@@ -20676,7 +20679,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearIndexes() {
+            public @NotNull Builder clearIndexes() {
                 indexes_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000001);
                 onChanged();
@@ -20749,7 +20752,7 @@ public final class ProtoFeature {
              * @param value The doubleValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setDoubleValueIds(
+            public @NotNull Builder setDoubleValueIds(
                     int index, int value) {
                 ensureDoubleValueIdsIsMutable();
                 doubleValueIds_.setInt(index, value);
@@ -20768,7 +20771,7 @@ public final class ProtoFeature {
              * @param value The doubleValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addDoubleValueIds(int value) {
+            public @NotNull Builder addDoubleValueIds(int value) {
                 ensureDoubleValueIdsIsMutable();
                 doubleValueIds_.addInt(value);
                 onChanged();
@@ -20786,8 +20789,8 @@ public final class ProtoFeature {
              * @param values The doubleValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllDoubleValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllDoubleValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureDoubleValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, doubleValueIds_);
@@ -20805,7 +20808,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearDoubleValueIds() {
+            public @NotNull Builder clearDoubleValueIds() {
                 doubleValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000002);
                 onChanged();
@@ -20858,7 +20861,7 @@ public final class ProtoFeature {
              * @param value The floatValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setFloatValueIds(
+            public @NotNull Builder setFloatValueIds(
                     int index, int value) {
                 ensureFloatValueIdsIsMutable();
                 floatValueIds_.setInt(index, value);
@@ -20872,7 +20875,7 @@ public final class ProtoFeature {
              * @param value The floatValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addFloatValueIds(int value) {
+            public @NotNull Builder addFloatValueIds(int value) {
                 ensureFloatValueIdsIsMutable();
                 floatValueIds_.addInt(value);
                 onChanged();
@@ -20885,8 +20888,8 @@ public final class ProtoFeature {
              * @param values The floatValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllFloatValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllFloatValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureFloatValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, floatValueIds_);
@@ -20899,7 +20902,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearFloatValueIds() {
+            public @NotNull Builder clearFloatValueIds() {
                 floatValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000004);
                 onChanged();
@@ -20952,7 +20955,7 @@ public final class ProtoFeature {
              * @param value The sint32ValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setSint32ValueIds(
+            public @NotNull Builder setSint32ValueIds(
                     int index, int value) {
                 ensureSint32ValueIdsIsMutable();
                 sint32ValueIds_.setInt(index, value);
@@ -20966,7 +20969,7 @@ public final class ProtoFeature {
              * @param value The sint32ValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addSint32ValueIds(int value) {
+            public @NotNull Builder addSint32ValueIds(int value) {
                 ensureSint32ValueIdsIsMutable();
                 sint32ValueIds_.addInt(value);
                 onChanged();
@@ -20979,8 +20982,8 @@ public final class ProtoFeature {
              * @param values The sint32ValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSint32ValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSint32ValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSint32ValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, sint32ValueIds_);
@@ -20993,7 +20996,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSint32ValueIds() {
+            public @NotNull Builder clearSint32ValueIds() {
                 sint32ValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000008);
                 onChanged();
@@ -21046,7 +21049,7 @@ public final class ProtoFeature {
              * @param value The sint64ValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setSint64ValueIds(
+            public @NotNull Builder setSint64ValueIds(
                     int index, int value) {
                 ensureSint64ValueIdsIsMutable();
                 sint64ValueIds_.setInt(index, value);
@@ -21060,7 +21063,7 @@ public final class ProtoFeature {
              * @param value The sint64ValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addSint64ValueIds(int value) {
+            public @NotNull Builder addSint64ValueIds(int value) {
                 ensureSint64ValueIdsIsMutable();
                 sint64ValueIds_.addInt(value);
                 onChanged();
@@ -21073,8 +21076,8 @@ public final class ProtoFeature {
              * @param values The sint64ValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSint64ValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSint64ValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSint64ValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, sint64ValueIds_);
@@ -21087,7 +21090,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSint64ValueIds() {
+            public @NotNull Builder clearSint64ValueIds() {
                 sint64ValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000010);
                 onChanged();
@@ -21140,7 +21143,7 @@ public final class ProtoFeature {
              * @param value The boolValues to set.
              * @return This builder for chaining.
              */
-            public Builder setBoolValues(
+            public @NotNull Builder setBoolValues(
                     int index, boolean value) {
                 ensureBoolValuesIsMutable();
                 boolValues_.setBoolean(index, value);
@@ -21154,7 +21157,7 @@ public final class ProtoFeature {
              * @param value The boolValues to add.
              * @return This builder for chaining.
              */
-            public Builder addBoolValues(boolean value) {
+            public @NotNull Builder addBoolValues(boolean value) {
                 ensureBoolValuesIsMutable();
                 boolValues_.addBoolean(value);
                 onChanged();
@@ -21167,8 +21170,8 @@ public final class ProtoFeature {
              * @param values The boolValues to add.
              * @return This builder for chaining.
              */
-            public Builder addAllBoolValues(
-                    Iterable<? extends Boolean> values) {
+            public @NotNull Builder addAllBoolValues(
+                    @NotNull Iterable<? extends Boolean> values) {
                 ensureBoolValuesIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, boolValues_);
@@ -21181,7 +21184,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearBoolValues() {
+            public @NotNull Builder clearBoolValues() {
                 boolValues_ = emptyBooleanList();
                 bitField0_ = (bitField0_ & ~0x00000020);
                 onChanged();
@@ -21234,7 +21237,7 @@ public final class ProtoFeature {
              * @param value The stringValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setStringValueIds(
+            public @NotNull Builder setStringValueIds(
                     int index, int value) {
                 ensureStringValueIdsIsMutable();
                 stringValueIds_.setInt(index, value);
@@ -21248,7 +21251,7 @@ public final class ProtoFeature {
              * @param value The stringValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addStringValueIds(int value) {
+            public @NotNull Builder addStringValueIds(int value) {
                 ensureStringValueIdsIsMutable();
                 stringValueIds_.addInt(value);
                 onChanged();
@@ -21261,8 +21264,8 @@ public final class ProtoFeature {
              * @param values The stringValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllStringValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllStringValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureStringValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, stringValueIds_);
@@ -21275,7 +21278,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearStringValueIds() {
+            public @NotNull Builder clearStringValueIds() {
                 stringValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000040);
                 onChanged();
@@ -21328,7 +21331,7 @@ public final class ProtoFeature {
              * @param value The bytesValueIds to set.
              * @return This builder for chaining.
              */
-            public Builder setBytesValueIds(
+            public @NotNull Builder setBytesValueIds(
                     int index, int value) {
                 ensureBytesValueIdsIsMutable();
                 bytesValueIds_.setInt(index, value);
@@ -21342,7 +21345,7 @@ public final class ProtoFeature {
              * @param value The bytesValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addBytesValueIds(int value) {
+            public @NotNull Builder addBytesValueIds(int value) {
                 ensureBytesValueIdsIsMutable();
                 bytesValueIds_.addInt(value);
                 onChanged();
@@ -21355,8 +21358,8 @@ public final class ProtoFeature {
              * @param values The bytesValueIds to add.
              * @return This builder for chaining.
              */
-            public Builder addAllBytesValueIds(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllBytesValueIds(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureBytesValueIdsIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, bytesValueIds_);
@@ -21369,14 +21372,14 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearBytesValueIds() {
+            public @NotNull Builder clearBytesValueIds() {
                 bytesValueIds_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000080);
                 onChanged();
                 return this;
             }
 
-            private java.util.List<Map> mapValues_ =
+            private java.util.@Nullable List<Map> mapValues_ =
                     java.util.Collections.emptyList();
 
             private void ensureMapValuesIsMutable() {
@@ -21386,7 +21389,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     Map, Map.Builder, MapOrBuilder> mapValuesBuilder_;
 
             /**
@@ -21441,8 +21444,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Map mapValues = 9;</code>
              */
-            public Builder setMapValues(
-                    int index, Map value) {
+            public @NotNull Builder setMapValues(
+                    int index, @Nullable Map value) {
                 if (mapValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -21463,8 +21466,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Map mapValues = 9;</code>
              */
-            public Builder setMapValues(
-                    int index, Map.Builder builderForValue) {
+            public @NotNull Builder setMapValues(
+                    int index, Map.@NotNull Builder builderForValue) {
                 if (mapValuesBuilder_ == null) {
                     ensureMapValuesIsMutable();
                     mapValues_.set(index, builderForValue.build());
@@ -21482,7 +21485,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Map mapValues = 9;</code>
              */
-            public Builder addMapValues(Map value) {
+            public @NotNull Builder addMapValues(@Nullable Map value) {
                 if (mapValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -21503,8 +21506,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Map mapValues = 9;</code>
              */
-            public Builder addMapValues(
-                    int index, Map value) {
+            public @NotNull Builder addMapValues(
+                    int index, @Nullable Map value) {
                 if (mapValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -21525,8 +21528,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Map mapValues = 9;</code>
              */
-            public Builder addMapValues(
-                    Map.Builder builderForValue) {
+            public @NotNull Builder addMapValues(
+                    Map.@NotNull Builder builderForValue) {
                 if (mapValuesBuilder_ == null) {
                     ensureMapValuesIsMutable();
                     mapValues_.add(builderForValue.build());
@@ -21544,8 +21547,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Map mapValues = 9;</code>
              */
-            public Builder addMapValues(
-                    int index, Map.Builder builderForValue) {
+            public @NotNull Builder addMapValues(
+                    int index, Map.@NotNull Builder builderForValue) {
                 if (mapValuesBuilder_ == null) {
                     ensureMapValuesIsMutable();
                     mapValues_.add(index, builderForValue.build());
@@ -21563,8 +21566,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Map mapValues = 9;</code>
              */
-            public Builder addAllMapValues(
-                    Iterable<? extends Map> values) {
+            public @NotNull Builder addAllMapValues(
+                    @NotNull Iterable<? extends Map> values) {
                 if (mapValuesBuilder_ == null) {
                     ensureMapValuesIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -21583,7 +21586,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Map mapValues = 9;</code>
              */
-            public Builder clearMapValues() {
+            public @NotNull Builder clearMapValues() {
                 if (mapValuesBuilder_ == null) {
                     mapValues_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000100);
@@ -21601,7 +21604,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Map mapValues = 9;</code>
              */
-            public Builder removeMapValues(int index) {
+            public @NotNull Builder removeMapValues(int index) {
                 if (mapValuesBuilder_ == null) {
                     ensureMapValuesIsMutable();
                     mapValues_.remove(index);
@@ -21693,7 +21696,7 @@ public final class ProtoFeature {
                 return getMapValuesFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     Map, Map.Builder, MapOrBuilder>
             getMapValuesFieldBuilder() {
                 if (mapValuesBuilder_ == null) {
@@ -21708,7 +21711,7 @@ public final class ProtoFeature {
                 return mapValuesBuilder_;
             }
 
-            private java.util.List<List> subListValues_ =
+            private java.util.@Nullable List<List> subListValues_ =
                     java.util.Collections.emptyList();
 
             private void ensureSubListValuesIsMutable() {
@@ -21718,7 +21721,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     List, Builder, ListOrBuilder> subListValuesBuilder_;
 
             /**
@@ -21773,8 +21776,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.List subListValues = 10;</code>
              */
-            public Builder setSubListValues(
-                    int index, List value) {
+            public @NotNull Builder setSubListValues(
+                    int index, @Nullable List value) {
                 if (subListValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -21795,8 +21798,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.List subListValues = 10;</code>
              */
-            public Builder setSubListValues(
-                    int index, Builder builderForValue) {
+            public @NotNull Builder setSubListValues(
+                    int index, @NotNull Builder builderForValue) {
                 if (subListValuesBuilder_ == null) {
                     ensureSubListValuesIsMutable();
                     subListValues_.set(index, builderForValue.build());
@@ -21814,7 +21817,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.List subListValues = 10;</code>
              */
-            public Builder addSubListValues(List value) {
+            public @NotNull Builder addSubListValues(@Nullable List value) {
                 if (subListValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -21835,8 +21838,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.List subListValues = 10;</code>
              */
-            public Builder addSubListValues(
-                    int index, List value) {
+            public @NotNull Builder addSubListValues(
+                    int index, @Nullable List value) {
                 if (subListValuesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -21857,8 +21860,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.List subListValues = 10;</code>
              */
-            public Builder addSubListValues(
-                    Builder builderForValue) {
+            public @NotNull Builder addSubListValues(
+                    @NotNull Builder builderForValue) {
                 if (subListValuesBuilder_ == null) {
                     ensureSubListValuesIsMutable();
                     subListValues_.add(builderForValue.build());
@@ -21876,8 +21879,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.List subListValues = 10;</code>
              */
-            public Builder addSubListValues(
-                    int index, Builder builderForValue) {
+            public @NotNull Builder addSubListValues(
+                    int index, @NotNull Builder builderForValue) {
                 if (subListValuesBuilder_ == null) {
                     ensureSubListValuesIsMutable();
                     subListValues_.add(index, builderForValue.build());
@@ -21895,8 +21898,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.List subListValues = 10;</code>
              */
-            public Builder addAllSubListValues(
-                    Iterable<? extends List> values) {
+            public @NotNull Builder addAllSubListValues(
+                    @NotNull Iterable<? extends List> values) {
                 if (subListValuesBuilder_ == null) {
                     ensureSubListValuesIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -21915,7 +21918,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.List subListValues = 10;</code>
              */
-            public Builder clearSubListValues() {
+            public @NotNull Builder clearSubListValues() {
                 if (subListValuesBuilder_ == null) {
                     subListValues_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000200);
@@ -21933,7 +21936,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.List subListValues = 10;</code>
              */
-            public Builder removeSubListValues(int index) {
+            public @NotNull Builder removeSubListValues(int index) {
                 if (subListValuesBuilder_ == null) {
                     ensureSubListValuesIsMutable();
                     subListValues_.remove(index);
@@ -22025,7 +22028,7 @@ public final class ProtoFeature {
                 return getSubListValuesFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     List, Builder, ListOrBuilder>
             getSubListValuesFieldBuilder() {
                 if (subListValuesBuilder_ == null) {
@@ -22057,7 +22060,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.List)
-        private static final List DEFAULT_INSTANCE;
+        private static final @NotNull List DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new List();
@@ -22070,8 +22073,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<List>
                 PARSER = new com.google.protobuf.AbstractParser<List>() {
             @Override
-            public List parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull List parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new List(input, extensionRegistry);
@@ -22410,7 +22413,7 @@ public final class ProtoFeature {
         private static final long serialVersionUID = 0L;
 
         // Use FeatureCollection.newBuilder() to construct.
-        private FeatureCollection(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private FeatureCollection(com.google.protobuf.GeneratedMessageV3.@NotNull Builder<?> builder) {
             super(builder);
         }
 
@@ -22428,7 +22431,7 @@ public final class ProtoFeature {
 
         @Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected @NotNull Object newInstance(
                 UnusedPrivateParameter unused) {
             return new FeatureCollection();
         }
@@ -22440,8 +22443,8 @@ public final class ProtoFeature {
         }
 
         private FeatureCollection(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                com.google.protobuf.@NotNull CodedInputStream input,
+                com.google.protobuf.@Nullable ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -22654,7 +22657,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        protected FieldAccessorTable
+        protected @NotNull FieldAccessorTable
         internalGetFieldAccessorTable() {
             return ProtoFeature.internal_static_pojo_FeatureCollection_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
@@ -23085,7 +23088,7 @@ public final class ProtoFeature {
          * <code>.pojo.Map headers = 10;</code>
          */
         @Override
-        public MapOrBuilder getHeadersOrBuilder() {
+        public @NotNull MapOrBuilder getHeadersOrBuilder() {
             return getHeaders();
         }
 
@@ -23102,7 +23105,7 @@ public final class ProtoFeature {
         }
 
         @Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
+        public void writeTo(com.google.protobuf.@NotNull CodedOutputStream output)
                 throws java.io.IOException {
             getSerializedSize();
             for (int i = 0; i < keys_.size(); i++) {
@@ -23431,18 +23434,18 @@ public final class ProtoFeature {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(FeatureCollection prototype) {
+        public static @NotNull Builder newBuilder(@NotNull FeatureCollection prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
         @Override
-        public Builder toBuilder() {
+        public @NotNull Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
         @Override
-        protected Builder newBuilderForType(
+        protected @NotNull Builder newBuilderForType(
                 BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
@@ -23465,7 +23468,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            protected FieldAccessorTable
+            protected @NotNull FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return ProtoFeature.internal_static_pojo_FeatureCollection_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
@@ -23492,7 +23495,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder clear() {
+            public @NotNull Builder clear() {
                 super.clear();
                 keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
                 bitField0_ = (bitField0_ & ~0x00000001);
@@ -23541,7 +23544,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public FeatureCollection build() {
+            public @NotNull FeatureCollection build() {
                 FeatureCollection result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
@@ -23550,7 +23553,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public FeatureCollection buildPartial() {
+            public @NotNull FeatureCollection buildPartial() {
                 FeatureCollection result = new FeatureCollection(this);
                 int from_bitField0_ = bitField0_;
                 if (((bitField0_ & 0x00000001) != 0)) {
@@ -23654,7 +23657,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
+            public @NotNull Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof FeatureCollection) {
                     return mergeFrom((FeatureCollection) other);
                 } else {
@@ -23663,7 +23666,7 @@ public final class ProtoFeature {
                 }
             }
 
-            public Builder mergeFrom(FeatureCollection other) {
+            public @NotNull Builder mergeFrom(@NotNull FeatureCollection other) {
                 if (other == FeatureCollection.getDefaultInstance()) return this;
                 if (!other.keys_.isEmpty()) {
                     if (keys_.isEmpty()) {
@@ -23801,7 +23804,7 @@ public final class ProtoFeature {
             }
 
             @Override
-            public Builder mergeFrom(
+            public @NotNull Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
@@ -23897,8 +23900,8 @@ public final class ProtoFeature {
              * @param value The keys to set.
              * @return This builder for chaining.
              */
-            public Builder setKeys(
-                    int index, String value) {
+            public @NotNull Builder setKeys(
+                    int index, @Nullable String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -23918,8 +23921,8 @@ public final class ProtoFeature {
              * @param value The keys to add.
              * @return This builder for chaining.
              */
-            public Builder addKeys(
-                    String value) {
+            public @NotNull Builder addKeys(
+                    @Nullable String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -23939,8 +23942,8 @@ public final class ProtoFeature {
              * @param values The keys to add.
              * @return This builder for chaining.
              */
-            public Builder addAllKeys(
-                    Iterable<String> values) {
+            public @NotNull Builder addAllKeys(
+                    @NotNull Iterable<String> values) {
                 ensureKeysIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, keys_);
@@ -23957,7 +23960,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearKeys() {
+            public @NotNull Builder clearKeys() {
                 keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
                 bitField0_ = (bitField0_ & ~0x00000001);
                 onChanged();
@@ -23974,8 +23977,8 @@ public final class ProtoFeature {
              * @param value The bytes of the keys to add.
              * @return This builder for chaining.
              */
-            public Builder addKeysBytes(
-                    com.google.protobuf.ByteString value) {
+            public @NotNull Builder addKeysBytes(
+                    com.google.protobuf.@Nullable ByteString value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -24032,7 +24035,7 @@ public final class ProtoFeature {
              * @param value The doubleValues to set.
              * @return This builder for chaining.
              */
-            public Builder setDoubleValues(
+            public @NotNull Builder setDoubleValues(
                     int index, double value) {
                 ensureDoubleValuesIsMutable();
                 doubleValues_.setDouble(index, value);
@@ -24046,7 +24049,7 @@ public final class ProtoFeature {
              * @param value The doubleValues to add.
              * @return This builder for chaining.
              */
-            public Builder addDoubleValues(double value) {
+            public @NotNull Builder addDoubleValues(double value) {
                 ensureDoubleValuesIsMutable();
                 doubleValues_.addDouble(value);
                 onChanged();
@@ -24059,8 +24062,8 @@ public final class ProtoFeature {
              * @param values The doubleValues to add.
              * @return This builder for chaining.
              */
-            public Builder addAllDoubleValues(
-                    Iterable<? extends Double> values) {
+            public @NotNull Builder addAllDoubleValues(
+                    @NotNull Iterable<? extends Double> values) {
                 ensureDoubleValuesIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, doubleValues_);
@@ -24073,7 +24076,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearDoubleValues() {
+            public @NotNull Builder clearDoubleValues() {
                 doubleValues_ = emptyDoubleList();
                 bitField0_ = (bitField0_ & ~0x00000002);
                 onChanged();
@@ -24126,7 +24129,7 @@ public final class ProtoFeature {
              * @param value The floatValues to set.
              * @return This builder for chaining.
              */
-            public Builder setFloatValues(
+            public @NotNull Builder setFloatValues(
                     int index, float value) {
                 ensureFloatValuesIsMutable();
                 floatValues_.setFloat(index, value);
@@ -24140,7 +24143,7 @@ public final class ProtoFeature {
              * @param value The floatValues to add.
              * @return This builder for chaining.
              */
-            public Builder addFloatValues(float value) {
+            public @NotNull Builder addFloatValues(float value) {
                 ensureFloatValuesIsMutable();
                 floatValues_.addFloat(value);
                 onChanged();
@@ -24153,8 +24156,8 @@ public final class ProtoFeature {
              * @param values The floatValues to add.
              * @return This builder for chaining.
              */
-            public Builder addAllFloatValues(
-                    Iterable<? extends Float> values) {
+            public @NotNull Builder addAllFloatValues(
+                    @NotNull Iterable<? extends Float> values) {
                 ensureFloatValuesIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, floatValues_);
@@ -24167,7 +24170,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearFloatValues() {
+            public @NotNull Builder clearFloatValues() {
                 floatValues_ = emptyFloatList();
                 bitField0_ = (bitField0_ & ~0x00000004);
                 onChanged();
@@ -24220,7 +24223,7 @@ public final class ProtoFeature {
              * @param value The sint32Values to set.
              * @return This builder for chaining.
              */
-            public Builder setSint32Values(
+            public @NotNull Builder setSint32Values(
                     int index, int value) {
                 ensureSint32ValuesIsMutable();
                 sint32Values_.setInt(index, value);
@@ -24234,7 +24237,7 @@ public final class ProtoFeature {
              * @param value The sint32Values to add.
              * @return This builder for chaining.
              */
-            public Builder addSint32Values(int value) {
+            public @NotNull Builder addSint32Values(int value) {
                 ensureSint32ValuesIsMutable();
                 sint32Values_.addInt(value);
                 onChanged();
@@ -24247,8 +24250,8 @@ public final class ProtoFeature {
              * @param values The sint32Values to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSint32Values(
-                    Iterable<? extends Integer> values) {
+            public @NotNull Builder addAllSint32Values(
+                    @NotNull Iterable<? extends Integer> values) {
                 ensureSint32ValuesIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, sint32Values_);
@@ -24261,7 +24264,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSint32Values() {
+            public @NotNull Builder clearSint32Values() {
                 sint32Values_ = emptyIntList();
                 bitField0_ = (bitField0_ & ~0x00000008);
                 onChanged();
@@ -24314,7 +24317,7 @@ public final class ProtoFeature {
              * @param value The sint64Values to set.
              * @return This builder for chaining.
              */
-            public Builder setSint64Values(
+            public @NotNull Builder setSint64Values(
                     int index, long value) {
                 ensureSint64ValuesIsMutable();
                 sint64Values_.setLong(index, value);
@@ -24328,7 +24331,7 @@ public final class ProtoFeature {
              * @param value The sint64Values to add.
              * @return This builder for chaining.
              */
-            public Builder addSint64Values(long value) {
+            public @NotNull Builder addSint64Values(long value) {
                 ensureSint64ValuesIsMutable();
                 sint64Values_.addLong(value);
                 onChanged();
@@ -24341,8 +24344,8 @@ public final class ProtoFeature {
              * @param values The sint64Values to add.
              * @return This builder for chaining.
              */
-            public Builder addAllSint64Values(
-                    Iterable<? extends Long> values) {
+            public @NotNull Builder addAllSint64Values(
+                    @NotNull Iterable<? extends Long> values) {
                 ensureSint64ValuesIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, sint64Values_);
@@ -24355,7 +24358,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearSint64Values() {
+            public @NotNull Builder clearSint64Values() {
                 sint64Values_ = emptyLongList();
                 bitField0_ = (bitField0_ & ~0x00000010);
                 onChanged();
@@ -24418,8 +24421,8 @@ public final class ProtoFeature {
              * @param value The stringValues to set.
              * @return This builder for chaining.
              */
-            public Builder setStringValues(
-                    int index, String value) {
+            public @NotNull Builder setStringValues(
+                    int index, @Nullable String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -24435,8 +24438,8 @@ public final class ProtoFeature {
              * @param value The stringValues to add.
              * @return This builder for chaining.
              */
-            public Builder addStringValues(
-                    String value) {
+            public @NotNull Builder addStringValues(
+                    @Nullable String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -24452,8 +24455,8 @@ public final class ProtoFeature {
              * @param values The stringValues to add.
              * @return This builder for chaining.
              */
-            public Builder addAllStringValues(
-                    Iterable<String> values) {
+            public @NotNull Builder addAllStringValues(
+                    @NotNull Iterable<String> values) {
                 ensureStringValuesIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, stringValues_);
@@ -24466,7 +24469,7 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearStringValues() {
+            public @NotNull Builder clearStringValues() {
                 stringValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
                 bitField0_ = (bitField0_ & ~0x00000020);
                 onChanged();
@@ -24479,8 +24482,8 @@ public final class ProtoFeature {
              * @param value The bytes of the stringValues to add.
              * @return This builder for chaining.
              */
-            public Builder addStringValuesBytes(
-                    com.google.protobuf.ByteString value) {
+            public @NotNull Builder addStringValuesBytes(
+                    com.google.protobuf.@Nullable ByteString value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -24491,7 +24494,7 @@ public final class ProtoFeature {
                 return this;
             }
 
-            private java.util.List<com.google.protobuf.ByteString> bytesValues_ = java.util.Collections.emptyList();
+            private java.util.@NotNull List<com.google.protobuf.ByteString> bytesValues_ = java.util.Collections.emptyList();
 
             private void ensureBytesValuesIsMutable() {
                 if (!((bitField0_ & 0x00000040) != 0)) {
@@ -24537,8 +24540,8 @@ public final class ProtoFeature {
              * @param value The bytesValues to set.
              * @return This builder for chaining.
              */
-            public Builder setBytesValues(
-                    int index, com.google.protobuf.ByteString value) {
+            public @NotNull Builder setBytesValues(
+                    int index, com.google.protobuf.@Nullable ByteString value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -24554,7 +24557,7 @@ public final class ProtoFeature {
              * @param value The bytesValues to add.
              * @return This builder for chaining.
              */
-            public Builder addBytesValues(com.google.protobuf.ByteString value) {
+            public @NotNull Builder addBytesValues(com.google.protobuf.@Nullable ByteString value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -24570,8 +24573,8 @@ public final class ProtoFeature {
              * @param values The bytesValues to add.
              * @return This builder for chaining.
              */
-            public Builder addAllBytesValues(
-                    Iterable<? extends com.google.protobuf.ByteString> values) {
+            public @NotNull Builder addAllBytesValues(
+                    @NotNull Iterable<? extends com.google.protobuf.ByteString> values) {
                 ensureBytesValuesIsMutable();
                 com.google.protobuf.AbstractMessageLite.Builder.addAll(
                         values, bytesValues_);
@@ -24584,14 +24587,14 @@ public final class ProtoFeature {
              *
              * @return This builder for chaining.
              */
-            public Builder clearBytesValues() {
+            public @NotNull Builder clearBytesValues() {
                 bytesValues_ = java.util.Collections.emptyList();
                 bitField0_ = (bitField0_ & ~0x00000040);
                 onChanged();
                 return this;
             }
 
-            private java.util.List<Geometry> geometries_ =
+            private java.util.@Nullable List<Geometry> geometries_ =
                     java.util.Collections.emptyList();
 
             private void ensureGeometriesIsMutable() {
@@ -24601,7 +24604,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     Geometry, Geometry.Builder, GeometryOrBuilder> geometriesBuilder_;
 
             /**
@@ -24656,8 +24659,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Geometry geometries = 8;</code>
              */
-            public Builder setGeometries(
-                    int index, Geometry value) {
+            public @NotNull Builder setGeometries(
+                    int index, @Nullable Geometry value) {
                 if (geometriesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -24678,8 +24681,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Geometry geometries = 8;</code>
              */
-            public Builder setGeometries(
-                    int index, Geometry.Builder builderForValue) {
+            public @NotNull Builder setGeometries(
+                    int index, Geometry.@NotNull Builder builderForValue) {
                 if (geometriesBuilder_ == null) {
                     ensureGeometriesIsMutable();
                     geometries_.set(index, builderForValue.build());
@@ -24697,7 +24700,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Geometry geometries = 8;</code>
              */
-            public Builder addGeometries(Geometry value) {
+            public @NotNull Builder addGeometries(@Nullable Geometry value) {
                 if (geometriesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -24718,8 +24721,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Geometry geometries = 8;</code>
              */
-            public Builder addGeometries(
-                    int index, Geometry value) {
+            public @NotNull Builder addGeometries(
+                    int index, @Nullable Geometry value) {
                 if (geometriesBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -24740,8 +24743,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Geometry geometries = 8;</code>
              */
-            public Builder addGeometries(
-                    Geometry.Builder builderForValue) {
+            public @NotNull Builder addGeometries(
+                    Geometry.@NotNull Builder builderForValue) {
                 if (geometriesBuilder_ == null) {
                     ensureGeometriesIsMutable();
                     geometries_.add(builderForValue.build());
@@ -24759,8 +24762,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Geometry geometries = 8;</code>
              */
-            public Builder addGeometries(
-                    int index, Geometry.Builder builderForValue) {
+            public @NotNull Builder addGeometries(
+                    int index, Geometry.@NotNull Builder builderForValue) {
                 if (geometriesBuilder_ == null) {
                     ensureGeometriesIsMutable();
                     geometries_.add(index, builderForValue.build());
@@ -24778,8 +24781,8 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Geometry geometries = 8;</code>
              */
-            public Builder addAllGeometries(
-                    Iterable<? extends Geometry> values) {
+            public @NotNull Builder addAllGeometries(
+                    @NotNull Iterable<? extends Geometry> values) {
                 if (geometriesBuilder_ == null) {
                     ensureGeometriesIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -24798,7 +24801,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Geometry geometries = 8;</code>
              */
-            public Builder clearGeometries() {
+            public @NotNull Builder clearGeometries() {
                 if (geometriesBuilder_ == null) {
                     geometries_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000080);
@@ -24816,7 +24819,7 @@ public final class ProtoFeature {
              *
              * <code>repeated .pojo.Geometry geometries = 8;</code>
              */
-            public Builder removeGeometries(int index) {
+            public @NotNull Builder removeGeometries(int index) {
                 if (geometriesBuilder_ == null) {
                     ensureGeometriesIsMutable();
                     geometries_.remove(index);
@@ -24908,7 +24911,7 @@ public final class ProtoFeature {
                 return getGeometriesFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     Geometry, Geometry.Builder, GeometryOrBuilder>
             getGeometriesFieldBuilder() {
                 if (geometriesBuilder_ == null) {
@@ -24923,7 +24926,7 @@ public final class ProtoFeature {
                 return geometriesBuilder_;
             }
 
-            private java.util.List<Map> propertiess_ =
+            private java.util.@Nullable List<Map> propertiess_ =
                     java.util.Collections.emptyList();
 
             private void ensurePropertiessIsMutable() {
@@ -24933,7 +24936,7 @@ public final class ProtoFeature {
                 }
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@Nullable RepeatedFieldBuilderV3<
                     Map, Map.Builder, MapOrBuilder> propertiessBuilder_;
 
             /**
@@ -24972,8 +24975,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map propertiess = 9;</code>
              */
-            public Builder setPropertiess(
-                    int index, Map value) {
+            public @NotNull Builder setPropertiess(
+                    int index, @Nullable Map value) {
                 if (propertiessBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -24990,8 +24993,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map propertiess = 9;</code>
              */
-            public Builder setPropertiess(
-                    int index, Map.Builder builderForValue) {
+            public @NotNull Builder setPropertiess(
+                    int index, Map.@NotNull Builder builderForValue) {
                 if (propertiessBuilder_ == null) {
                     ensurePropertiessIsMutable();
                     propertiess_.set(index, builderForValue.build());
@@ -25005,7 +25008,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map propertiess = 9;</code>
              */
-            public Builder addPropertiess(Map value) {
+            public @NotNull Builder addPropertiess(@Nullable Map value) {
                 if (propertiessBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -25022,8 +25025,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map propertiess = 9;</code>
              */
-            public Builder addPropertiess(
-                    int index, Map value) {
+            public @NotNull Builder addPropertiess(
+                    int index, @Nullable Map value) {
                 if (propertiessBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -25040,8 +25043,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map propertiess = 9;</code>
              */
-            public Builder addPropertiess(
-                    Map.Builder builderForValue) {
+            public @NotNull Builder addPropertiess(
+                    Map.@NotNull Builder builderForValue) {
                 if (propertiessBuilder_ == null) {
                     ensurePropertiessIsMutable();
                     propertiess_.add(builderForValue.build());
@@ -25055,8 +25058,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map propertiess = 9;</code>
              */
-            public Builder addPropertiess(
-                    int index, Map.Builder builderForValue) {
+            public @NotNull Builder addPropertiess(
+                    int index, Map.@NotNull Builder builderForValue) {
                 if (propertiessBuilder_ == null) {
                     ensurePropertiessIsMutable();
                     propertiess_.add(index, builderForValue.build());
@@ -25070,8 +25073,8 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map propertiess = 9;</code>
              */
-            public Builder addAllPropertiess(
-                    Iterable<? extends Map> values) {
+            public @NotNull Builder addAllPropertiess(
+                    @NotNull Iterable<? extends Map> values) {
                 if (propertiessBuilder_ == null) {
                     ensurePropertiessIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -25086,7 +25089,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map propertiess = 9;</code>
              */
-            public Builder clearPropertiess() {
+            public @NotNull Builder clearPropertiess() {
                 if (propertiessBuilder_ == null) {
                     propertiess_ = java.util.Collections.emptyList();
                     bitField0_ = (bitField0_ & ~0x00000100);
@@ -25100,7 +25103,7 @@ public final class ProtoFeature {
             /**
              * <code>repeated .pojo.Map propertiess = 9;</code>
              */
-            public Builder removePropertiess(int index) {
+            public @NotNull Builder removePropertiess(int index) {
                 if (propertiessBuilder_ == null) {
                     ensurePropertiessIsMutable();
                     propertiess_.remove(index);
@@ -25168,7 +25171,7 @@ public final class ProtoFeature {
                 return getPropertiessFieldBuilder().getBuilderList();
             }
 
-            private com.google.protobuf.RepeatedFieldBuilderV3<
+            private com.google.protobuf.@NotNull RepeatedFieldBuilderV3<
                     Map, Map.Builder, MapOrBuilder>
             getPropertiessFieldBuilder() {
                 if (propertiessBuilder_ == null) {
@@ -25183,8 +25186,8 @@ public final class ProtoFeature {
                 return propertiessBuilder_;
             }
 
-            private Map headers_;
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private @Nullable Map headers_;
+            private com.google.protobuf.@Nullable SingleFieldBuilderV3<
                     Map, Map.Builder, MapOrBuilder> headersBuilder_;
 
             /**
@@ -25224,7 +25227,7 @@ public final class ProtoFeature {
              *
              * <code>.pojo.Map headers = 10;</code>
              */
-            public Builder setHeaders(Map value) {
+            public @NotNull Builder setHeaders(@Nullable Map value) {
                 if (headersBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -25245,8 +25248,8 @@ public final class ProtoFeature {
              *
              * <code>.pojo.Map headers = 10;</code>
              */
-            public Builder setHeaders(
-                    Map.Builder builderForValue) {
+            public @NotNull Builder setHeaders(
+                    Map.@NotNull Builder builderForValue) {
                 if (headersBuilder_ == null) {
                     headers_ = builderForValue.build();
                     onChanged();
@@ -25264,7 +25267,7 @@ public final class ProtoFeature {
              *
              * <code>.pojo.Map headers = 10;</code>
              */
-            public Builder mergeHeaders(Map value) {
+            public @NotNull Builder mergeHeaders(@NotNull Map value) {
                 if (headersBuilder_ == null) {
                     if (headers_ != null) {
                         headers_ =
@@ -25287,7 +25290,7 @@ public final class ProtoFeature {
              *
              * <code>.pojo.Map headers = 10;</code>
              */
-            public Builder clearHeaders() {
+            public @NotNull Builder clearHeaders() {
                 if (headersBuilder_ == null) {
                     headers_ = null;
                     onChanged();
@@ -25335,7 +25338,7 @@ public final class ProtoFeature {
              *
              * <code>.pojo.Map headers = 10;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
+            private com.google.protobuf.@NotNull SingleFieldBuilderV3<
                     Map, Map.Builder, MapOrBuilder>
             getHeadersFieldBuilder() {
                 if (headersBuilder_ == null) {
@@ -25366,7 +25369,7 @@ public final class ProtoFeature {
         }
 
         // @@protoc_insertion_point(class_scope:pojo.FeatureCollection)
-        private static final FeatureCollection DEFAULT_INSTANCE;
+        private static final @NotNull FeatureCollection DEFAULT_INSTANCE;
 
         static {
             DEFAULT_INSTANCE = new FeatureCollection();
@@ -25379,8 +25382,8 @@ public final class ProtoFeature {
         private static final com.google.protobuf.Parser<FeatureCollection>
                 PARSER = new com.google.protobuf.AbstractParser<FeatureCollection>() {
             @Override
-            public FeatureCollection parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
+            public @NotNull FeatureCollection parsePartialFrom(
+                    com.google.protobuf.@NotNull CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new FeatureCollection(input, extensionRegistry);
@@ -25406,67 +25409,67 @@ public final class ProtoFeature {
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_NullGeometry_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_NullGeometry_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_Point_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_Point_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_LineString_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_LineString_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_Polygon_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_Polygon_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_MultiPoint_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_MultiPoint_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_MultiLineString_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_MultiLineString_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_MultiPolygon_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_MultiPolygon_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_GeometryCollection_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_GeometryCollection_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_Geometry_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_Geometry_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_Feature_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_Feature_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_Map_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_Map_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_List_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_List_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
             internal_static_pojo_FeatureCollection_descriptor;
     private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    com.google.protobuf.GeneratedMessageV3.@NotNull FieldAccessorTable
             internal_static_pojo_FeatureCollection_fieldAccessorTable;
 
     public static com.google.protobuf.Descriptors.FileDescriptor
