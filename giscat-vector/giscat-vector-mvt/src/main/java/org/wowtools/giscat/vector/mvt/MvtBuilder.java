@@ -77,6 +77,28 @@ public class MvtBuilder {
     }
 
     /**
+     * 新建一个图层，按simplifyDistance的值简化geometry
+     *
+     * @param layerName        图层名 本方法没有对图层名进行唯一校验，故若图层已存在，则原图层会被覆盖
+     * @param simplifyDistance 对geometry进行简化的长度,单位是瓦片像素，取值范围[0,extent+clipBuffer]，为0时表示不做简化
+     * @return MvtLayer
+     */
+    public MvtLayer createLayer(String layerName, int simplifyDistance) {
+        MvtLayer layer = new MvtLayer(this, simplifyDistance);
+        layers.put(layerName, layer);
+        return layer;
+    }
+    /**
+     * 新建一个图层，不对geometry进行简化
+     *
+     * @param layerName 图层名 本方法没有对图层名进行唯一校验，故若图层已存在，则原图层会被覆盖
+     * @return MvtLayer
+     */
+    public MvtLayer createLayer(String layerName) {
+        return createLayer(layerName, 0);
+    }
+
+    /**
      * 新建或获取一个图层，按simplifyDistance的值简化geometry
      *
      * @param layerName        图层名
@@ -88,9 +110,7 @@ public class MvtBuilder {
         if (layer != null) {
             return layer;
         }
-        layer = new MvtLayer(this, simplifyDistance);
-        layers.put(layerName, layer);
-        return layer;
+        return createLayer(layerName, simplifyDistance);
     }
 
     /**
@@ -104,9 +124,7 @@ public class MvtBuilder {
         if (layer != null) {
             return layer;
         }
-        layer = new MvtLayer(this, 0);
-        layers.put(layerName, layer);
-        return layer;
+        return createLayer(layerName, 0);
     }
 
 

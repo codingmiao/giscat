@@ -25,8 +25,8 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.TopologyException;
 import org.locationtech.jts.simplify.TopologyPreservingSimplifier;
-import org.wowtools.giscat.vector.util.analyse.Bbox;
 import org.wowtools.giscat.vector.pojo.Feature;
+import org.wowtools.giscat.vector.util.analyse.Bbox;
 
 import java.util.*;
 
@@ -38,7 +38,7 @@ import java.util.*;
  */
 public final class MvtLayer {
 
-    protected final List<MvtFeature> features = new ArrayList<>();
+    protected final List<MvtFeature> features = new LinkedList<>();
 
     private final Map<String, Integer> keys = new LinkedHashMap<>();
     private final Map<Object, Integer> values = new LinkedHashMap<>();
@@ -145,16 +145,16 @@ public final class MvtLayer {
         return keys.computeIfAbsent(key, k -> keys.size());
     }
 
-    protected @NotNull List<String> keys() {
-        return new ArrayList<>(keys.keySet());
+    protected @NotNull Set<String> keys() {
+        return keys.keySet();
     }
 
     private @NotNull Integer value(Object value) {
         return values.computeIfAbsent(value, k -> values.size());
     }
 
-    protected List<Object> values() {
-        return List.copyOf(values.keySet());
+    protected Set<Object> values() {
+        return values.keySet();
     }
 
 
