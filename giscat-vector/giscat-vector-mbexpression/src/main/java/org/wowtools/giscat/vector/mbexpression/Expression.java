@@ -27,10 +27,7 @@ import org.reflections.Reflections;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 参见 <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions">...</a>
@@ -153,6 +150,37 @@ public abstract class Expression<R> {
         return expressionArray;
     }
 
+    /**
+     * 过滤输入的Iterator中满足条件的要素并返回新的Iterator
+     * @param inputIterator inputIterator
+     * @param expressionParams expressionParams
+     * @return 新的满足条件的Iterator 且迭代器是懒加载的
+     */
+    public Iterator<Feature> filter(Iterator<Feature> inputIterator,@NotNull ExpressionParams expressionParams) {
+        return new Iterator<>() {
+            private Feature currentFeature;
+
+            @Override
+            public boolean hasNext() {
+                while (inputIterator.hasNext()) {
+                    currentFeature = inputIterator.next();
+                    R value = getValue(currentFeature, expressionParams);
+                    if (Boolean.TRUE.equals(value)) {
+                        return true;
+                    } else if (value instanceof Feature) {
+                        currentFeature = (Feature) value;
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public Feature next() {
+                return currentFeature;
+            }
+        };
+    }
 
     public static Object getRealValue(Feature feature, Object o, @NotNull ExpressionParams expressionParams) {
         //若结果不是表达式，即结果是具体值，检查是不是绑定变量，绑定变量返回绑定值，否则返回原值

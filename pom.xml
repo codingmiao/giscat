@@ -7,7 +7,7 @@
     <groupId>org.wowtools</groupId>
     <artifactId>giscat</artifactId>
     <packaging>pom</packaging>
-    <version>g1.6.1</version>
+    <version>g1.7.0</version>
     <name>giscat</name>
     <modules>
         <module>giscat-vector</module>
@@ -27,22 +27,22 @@
             <dependency>
                 <artifactId>giscat-vector-pojo</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>g1.6.1</version>
+                <version>g1.7.0</version>
             </dependency>
             <dependency>
                 <artifactId>giscat-vector-util</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>g1.6.1</version>
+                <version>g1.7.0</version>
             </dependency>
             <dependency>
                 <artifactId>giscat-vector-mvt</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>g1.6.1</version>
+                <version>g1.7.0</version>
             </dependency>
             <dependency>
                 <artifactId>giscat-vector-mbexpression</artifactId>
                 <groupId>org.wowtools</groupId>
-                <version>g1.6.1</version>
+                <version>g1.7.0</version>
             </dependency>
 
             <dependency>
@@ -116,6 +116,16 @@
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
                 <version>0.10.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.rocksdb</groupId>
+                <artifactId>rocksdbjni</artifactId>
+                <version>7.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <version>15.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -76,8 +76,8 @@ public class BboxIntersection extends Expression<Feature> {
         if (null == featureGeometry || featureGeometry.isEmpty()) {
             return null;
         }
-        feature.setGeometry(featureGeometry);
-        return feature;
+        Feature newFeature = new Feature(featureGeometry, feature.getProperties());
+        return newFeature;
     }
 
 }

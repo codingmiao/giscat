@@ -5,12 +5,12 @@
     <parent>
         <artifactId>giscat</artifactId>
         <groupId>org.wowtools</groupId>
-        <version>g1.6.1</version>
+        <version>g1.7.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>giscat-vector</artifactId>
-    <version>g1.6.1</version>
+    <version>g1.7.0</version>
 
     <packaging>pom</packaging>
     <modules>
@@ -18,6 +18,7 @@
         <module>giscat-vector-mvt</module>
         <module>giscat-vector-util</module>
         <module>giscat-vector-mbexpression</module>
+        <module>giscat-vector-rocksrtree</module>
     </modules>
 
 </project>

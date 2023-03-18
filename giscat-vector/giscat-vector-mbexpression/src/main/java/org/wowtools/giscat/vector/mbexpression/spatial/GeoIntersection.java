@@ -74,8 +74,8 @@ public class GeoIntersection extends Expression<Feature> {
         if (featureGeometry.isEmpty()) {
             return null;
         }
-        feature.setGeometry(featureGeometry);
-        return feature;
+        Feature newFeature = new Feature(featureGeometry, feature.getProperties());
+        return newFeature;
     }
 
 }

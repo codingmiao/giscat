@@ -2,15 +2,15 @@ package org.wowtools.giscat.vector.mbexpression;
 
 import org.junit.Assert;
 import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.io.WKTReader;
+import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.util.analyse.Bbox;
 import org.wowtools.giscat.vector.util.analyse.TileClip;
-import org.wowtools.giscat.vector.pojo.Feature;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 public class ExpressionTest {
 
@@ -39,6 +39,42 @@ public class ExpressionTest {
                 "double2", 2d
         ));
         return feature;
+    }
+
+    @org.junit.Test
+    public void filterIterator() {
+        List<Feature> features = new LinkedList<>();
+        for (int i = 1; i <= 100; i++) {
+            Geometry geo = new GeometryFactory().createPoint(new Coordinate(i, i));
+            Feature feature = new Feature(geo, Map.of(
+                    "id", i
+            ));
+            features.add(feature);
+        }
+        {
+            Expression expression = Expression.newInstance("[\"bboxIntersection\",\"$1\"]");
+            Iterator<Feature> iterator = expression.filter(features.iterator(), new ExpressionParams(Map.of("$1", new Bbox(10.1, 10.1, 100, 100))));
+            int i = 0;
+            while (iterator.hasNext()) {
+                Feature feature = iterator.next();
+                int id = (int) feature.getProperties().get("id");
+                Assert.assertTrue(id > 10);
+                i++;
+            }
+            Assert.assertEquals(90, i);
+        }
+        {
+            Expression expression = Expression.newInstance("[\">\", [\"get\", \"id\"],10]");
+            Iterator<Feature> iterator = expression.filter(features.iterator(), new ExpressionParams());
+            int i = 0;
+            while (iterator.hasNext()) {
+                Feature feature = iterator.next();
+                int id = (int) feature.getProperties().get("id");
+                Assert.assertTrue(id > 10);
+                i++;
+            }
+            Assert.assertEquals(90, i);
+        }
     }
 
     @org.junit.Test
