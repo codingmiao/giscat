@@ -19,6 +19,11 @@ public class Test1 {
     public static void main(String[] args) throws Exception {
         Map<String, Object> p = Map.of("a", List.of("1", 2.5d, true, "x", Map.of("xx", 111)), "b", "测试");
         FeatureCollection fc = new FeatureCollection();
+        fc.setHeaders(Map.of(
+                "version",1.1,
+                "list",List.of(1,"ss",1.23)
+
+        ));
         List<Feature> features = new LinkedList<>();
         fc.setFeatures(features);
         features.add(new Feature(SampleData.point, p));

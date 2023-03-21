@@ -193,14 +193,6 @@ public abstract class Expression<R> {
             }
             return o;
         }
-        //尝试取缓存
-        Object cache = expressionParams.getCache(o);
-        if (null != cache) {
-            if (ExpressionParams.empty == cache) {
-                return null;
-            }
-            return cache;
-        }
         Object key = o;
         //若结果是表达式，则取表达式的值
         Expression expression = (Expression) o;
@@ -209,8 +201,6 @@ public abstract class Expression<R> {
             //取出来的表达式仍是一个表达式，则进行递归
             return getRealValue(feature, o, expressionParams);
         }
-        //缓存结果
-        expressionParams.putCache(key, o);
         return o;
     }
 

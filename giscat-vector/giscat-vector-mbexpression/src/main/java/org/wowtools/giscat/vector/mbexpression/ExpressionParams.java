@@ -31,7 +31,7 @@ public class ExpressionParams {
     private final @Nullable Map<String, Object> params;
 
     //取值缓存，供表达式解析用，减少重复的解析
-    private final Map<Object, Object> cache = new HashMap<>();
+    private final Map<Expression, Object> cache = new HashMap<>();
 
     private GeometryFactory geometryFactory = defaultGeometryFactory;
 
@@ -53,14 +53,14 @@ public class ExpressionParams {
         return params.get(paramKey);
     }
 
-    public void putCache(Object key, @Nullable Object value) {
+    public void putCache(Expression key, @Nullable Object value) {
         if (null == value) {
             value = empty;
         }
         cache.put(key, value);
     }
 
-    public Object getCache(Object key) {
+    public Object getCache(Expression key) {
         return cache.get(key);
     }
 
