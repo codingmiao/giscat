@@ -18,7 +18,7 @@
             <artifactId>rocksdbjni</artifactId>
         </dependency>
         <dependency>
-            <artifactId>giscat-vector-pojo</artifactId>
+            <artifactId>giscat-vector-util</artifactId>
             <groupId>org.wowtools</groupId>
         </dependency>
     </dependencies>

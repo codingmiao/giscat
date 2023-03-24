@@ -1,4 +1,14 @@
-package org.wowtools.giscat.vector.rocksrtree.internal;
+/*
+ *
+ *  * Copyright (c) 2022- "giscat (https://github.com/codingmiao/giscat)"
+ *  *
+ *  * 本项目采用自定义版权协议，在不同行业使用时有不同约束，详情参阅：
+ *  *
+ *  * https://github.com/codingmiao/giscat/blob/main/LICENSE
+ *
+ */
+
+package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
 
 /*
  * #%L
@@ -20,10 +30,6 @@ package org.wowtools.giscat.vector.rocksrtree.internal;
  * #L%
  */
 
-
-import org.wowtools.giscat.vector.rocksrtree.pojo.PointNd;
-import org.wowtools.giscat.vector.rocksrtree.pojo.RectNd;
-
 /**
  * Created by jcairns on 4/30/15.
  */
@@ -33,6 +39,7 @@ public interface RectBuilder {
      * Build a bounding rectangle for the given element
      *
      * @param t - element to bound
+     *
      * @return HyperRect impl for this entry
      */
     RectNd getBBox(RectNd t);
@@ -43,6 +50,7 @@ public interface RectBuilder {
      *
      * @param p1 - first point (top-left point, for example)
      * @param p2 - second point (bottom-right point, for example)
+     *
      * @return HyperRect impl defined by two points
      */
     RectNd getMbr(PointNd p1, PointNd p2);

@@ -1,4 +1,14 @@
-package org.wowtools.giscat.vector.rocksrtree.internal;
+/*
+ *
+ *  * Copyright (c) 2022- "giscat (https://github.com/codingmiao/giscat)"
+ *  *
+ *  * 本项目采用自定义版权协议，在不同行业使用时有不同约束，详情参阅：
+ *  *
+ *  * https://github.com/codingmiao/giscat/blob/main/LICENSE
+ *
+ */
+
+package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
 
 /*
  * #%L
@@ -20,15 +30,12 @@ package org.wowtools.giscat.vector.rocksrtree.internal;
  * #L%
  */
 
-
-import org.wowtools.giscat.vector.rocksrtree.pojo.RectNd;
-
 import java.util.function.Consumer;
 
 /**
  * Created by jcairns on 4/30/15.
  */
-public interface Node {
+interface Node {
 
     /**
      * @return boolean - true if this node is a leaf
@@ -66,18 +73,18 @@ public interface Node {
      * Search for rect within this node
      *
      * @param rect - HyperRect to search for
-     * @param t    - array of found results
-     * @param n    - total result count so far (from recursive call)
+     * @param t - array of found results
+     * @param n - total result count so far (from recursive call)
      * @return result count from search of this node
      */
     int search(RectNd rect, RectNd[] t, int n);
 
     /**
      * Visitor pattern:
-     * <p>
+     *
      * Consumer "accepts" every node contained by the given rect
      *
-     * @param rect     - limiting rect
+     * @param rect - limiting rect
      * @param consumer
      */
     void search(RectNd rect, Consumer<RectNd> consumer);
@@ -86,24 +93,25 @@ public interface Node {
      * intersect rect with this node
      *
      * @param rect - HyperRect to search for
-     * @param t    - array of found results
-     * @param n    - total result count so far (from recursive call)
+     * @param t - array of found results
+     * @param n - total result count so far (from recursive call)
      * @return result count from search of this node
      */
     int intersects(RectNd rect, RectNd[] t, int n);
 
     /**
      * Visitor pattern:
-     * <p>
+     *
      * Consumer "accepts" every node intersecting the given rect
      *
-     * @param rect     - limiting rect
+     * @param rect - limiting rect
      * @param consumer
      */
     void intersects(RectNd rect, Consumer<RectNd> consumer);
 
 
     /**
+     *
      * @param rect
      * @param t
      * @return boolean true if subtree contains t
@@ -127,16 +135,23 @@ public interface Node {
     /**
      * Consumer "accepts" every node in the entire index
      *
-     * @param consumer consumer
+     * @param consumer
      */
     void forEach(Consumer<RectNd> consumer);
 
+    /**
+     * Recurses over index collecting stats
+     *
+     * @param stats - Stats object being populated
+     * @param depth - current depth in tree
+     */
+    void collectStats(Stats stats, int depth);
 
     /**
-     * 获取图库中的id
+     * Visits node, wraps it in an instrumented node, (see CounterNode)
      *
-     * @return id
+     * @return instrumented node wrapper
      */
-    long getNeoNodeId();
+    Node instrument();
 
 }
