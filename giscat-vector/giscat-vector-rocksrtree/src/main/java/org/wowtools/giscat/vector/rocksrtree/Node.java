@@ -8,7 +8,7 @@
  *
  */
 
-package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
+package org.wowtools.giscat.vector.rocksrtree;
 
 /*
  * #%L
@@ -35,31 +35,37 @@ import java.util.function.Consumer;
 /**
  * Created by jcairns on 4/30/15.
  */
-interface Node {
+abstract class Node {
+
+    protected final long id;
+
+    public Node(long id) {
+        this.id = id;
+    }
 
     /**
      * @return boolean - true if this node is a leaf
      */
-    boolean isLeaf();
+    abstract boolean isLeaf();
 
     /**
      * @return Rect - the bounding rectangle for this node
      */
-    RectNd getBound();
+    public abstract RectNd getBound();
 
     /**
      * Add t to the index
      *
      * @param t - value to add to index
      */
-    Node add(RectNd t);
+    public abstract Node add(RectNd t);
 
     /**
      * Remove t from the index
      *
      * @param t - value to remove from index
      */
-    Node remove(RectNd t);
+    public abstract Node remove(RectNd t);
 
     /**
      * update an existing t in the index
@@ -67,77 +73,76 @@ interface Node {
      * @param told - old index to be updated
      * @param tnew - value to update old index to
      */
-    Node update(RectNd told, RectNd tnew);
+    public abstract Node update(RectNd told, RectNd tnew);
 
     /**
      * Search for rect within this node
      *
      * @param rect - HyperRect to search for
-     * @param t - array of found results
-     * @param n - total result count so far (from recursive call)
+     * @param t    - array of found results
+     * @param n    - total result count so far (from recursive call)
      * @return result count from search of this node
      */
-    int search(RectNd rect, RectNd[] t, int n);
+    public abstract int search(RectNd rect, RectNd[] t, int n);
 
     /**
      * Visitor pattern:
-     *
+     * <p>
      * Consumer "accepts" every node contained by the given rect
      *
-     * @param rect - limiting rect
+     * @param rect     - limiting rect
      * @param consumer
      */
-    void search(RectNd rect, Consumer<RectNd> consumer);
+    public abstract void search(RectNd rect, Consumer<RectNd> consumer);
 
     /**
      * intersect rect with this node
      *
      * @param rect - HyperRect to search for
-     * @param t - array of found results
-     * @param n - total result count so far (from recursive call)
+     * @param t    - array of found results
+     * @param n    - total result count so far (from recursive call)
      * @return result count from search of this node
      */
-    int intersects(RectNd rect, RectNd[] t, int n);
+    public abstract int intersects(RectNd rect, RectNd[] t, int n);
 
     /**
      * Visitor pattern:
-     *
+     * <p>
      * Consumer "accepts" every node intersecting the given rect
      *
-     * @param rect - limiting rect
+     * @param rect     - limiting rect
      * @param consumer
      */
-    void intersects(RectNd rect, Consumer<RectNd> consumer);
+    public abstract void intersects(RectNd rect, Consumer<RectNd> consumer);
 
 
     /**
-     *
      * @param rect
      * @param t
      * @return boolean true if subtree contains t
      */
-    boolean contains(RectNd rect, RectNd t);
+    public abstract boolean contains(RectNd rect, RectNd t);
 
     /**
      * The number of entries in the node
      *
      * @return int - entry count
      */
-    int size();
+    public abstract int size();
 
     /**
      * The number of entries in the subtree
      *
      * @return int - entry count
      */
-    int totalSize();
+    public abstract int totalSize();
 
     /**
      * Consumer "accepts" every node in the entire index
      *
      * @param consumer
      */
-    void forEach(Consumer<RectNd> consumer);
+    public abstract void forEach(Consumer<RectNd> consumer);
 
     /**
      * Recurses over index collecting stats
@@ -145,7 +150,7 @@ interface Node {
      * @param stats - Stats object being populated
      * @param depth - current depth in tree
      */
-    void collectStats(Stats stats, int depth);
+    public abstract void collectStats(Stats stats, int depth);
 
 
 }

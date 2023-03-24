@@ -8,7 +8,7 @@
  *
  */
 
-package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
+package org.wowtools.giscat.vector.rocksrtree;
 
 /*
  * #%L
@@ -37,9 +37,9 @@ import java.util.function.Consumer;
  *
  * Created by jcairns on 4/30/15.
  */
-final class Branch implements Node {
+final class Branch extends Node {
 
-    private final RectBuilder builder;
+    private final TreeBuilder builder;
 
     private final Node[] child;
 
@@ -47,7 +47,8 @@ final class Branch implements Node {
 
     private int size;
 
-    Branch(final RectBuilder builder) {
+    Branch(final TreeBuilder builder,long id) {
+        super(id);
         this.builder = builder;
         this.mbr = null;
         this.size = 0;
@@ -105,7 +106,7 @@ final class Branch implements Node {
                 }
             }
             // no overlapping node - grow
-            final Node nextLeaf = new Leaf(builder);
+            final Node nextLeaf = builder.newLeaf();
             nextLeaf.add(t);
             final int nextChild = addChild(nextLeaf);
             mbr = mbr.getMbr(child[nextChild].getBound());
@@ -257,7 +258,7 @@ final class Branch implements Node {
             return bestNode;
         }
         else {
-            final Node n = new Leaf(builder);
+            final Node n = builder.newLeaf();
             n.add(t);
             child[size++] = n;
 

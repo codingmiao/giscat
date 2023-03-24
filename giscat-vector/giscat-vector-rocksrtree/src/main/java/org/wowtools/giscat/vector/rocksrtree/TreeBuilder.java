@@ -8,7 +8,7 @@
  *
  */
 
-package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
+package org.wowtools.giscat.vector.rocksrtree;
 
 /*
  * #%L
@@ -30,24 +30,63 @@ package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
  * #L%
  */
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by jcairns on 4/30/15.
  */
-public abstract class RectBuilder {
+public abstract class TreeBuilder {
 
+    private final Map<Long, Branch> branchMap = new HashMap<>();
+
+    private final Map<Long, Leaf> leafMap = new HashMap<>();
+
+    private long branchIdIndex = 0;
+
+    private long leafIdIndex = 0;
     protected final int mMin;
     protected final int mMax;
 
-    public RectBuilder(int mMin, int mMax) {
+    public TreeBuilder(int mMin, int mMax) {
         this.mMin = mMin;
         this.mMax = mMax;
+    }
+
+    protected Branch newBranch() {
+        branchIdIndex++;
+        Branch node = new Branch(this, branchIdIndex);
+        branchMap.put(branchIdIndex, node);
+        return node;
+    }
+
+    protected Leaf newLeaf() {
+        leafIdIndex++;
+        Leaf node = new Leaf(this, leafIdIndex);
+        leafMap.put(leafIdIndex, node);
+        return node;
+    }
+
+    protected Branch getBranch(long branchId) {
+        return branchMap.get(branchId);
+    }
+
+    protected Leaf getLeaf(long leafId) {
+        return leafMap.get(leafId);
+    }
+
+    protected Node getNode(long nodeId) {
+        Node node = getLeaf(nodeId);
+        if (null != node) {
+            return node;
+        }
+        return getBranch(nodeId);
     }
 
     /**
      * Build a bounding rectangle for the given element
      *
      * @param t - element to bound
-     *
      * @return HyperRect impl for this entry
      */
     protected abstract RectNd getBBox(RectNd t);
@@ -58,7 +97,6 @@ public abstract class RectBuilder {
      *
      * @param p1 - first point (top-left point, for example)
      * @param p2 - second point (bottom-right point, for example)
-     *
      * @return HyperRect impl defined by two points
      */
     protected abstract RectNd getMbr(PointNd p1, PointNd p2);

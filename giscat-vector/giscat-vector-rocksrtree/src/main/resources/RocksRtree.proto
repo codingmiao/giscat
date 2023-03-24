@@ -1,0 +1,44 @@
+syntax = "proto3";
+package pojo;
+option java_package = "org.wowtools.giscat.vector.rocksrtree";
+option java_outer_classname = "RocksRtreePb";
+
+// Rect
+message RectNdPb{
+	repeated double min = 1;
+	repeated double max = 2;
+}
+
+// 非叶子节点
+message BranchPb{
+    // 节点Rect
+    RectNdPb mbr = 1;
+
+    // 子节点id
+    repeated sint64 childIds = 2;
+    // 子节点数
+    int32 size = 3;
+}
+
+// 叶子节点
+message LeafPb{
+    // 节点Rect
+    RectNdPb mbr = 1;
+
+    // 实体Rect
+    repeated RectNdPb entryRects = 2;
+    // 实体id
+    repeated sint64 entryIds = 3;
+    // 实体数
+    int32 size = 4;
+}
+
+// RTree
+message RTreePb{
+    // 根节点id
+    sint64 rootId = 1;
+    // 每个节点最少有几个子节点
+    int32 mMin = 2;
+    // 每个节点最多有几个子节点
+    int32 mMax = 3;
+}

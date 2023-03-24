@@ -8,14 +8,14 @@
  *
  */
 
-package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
+package org.wowtools.giscat.vector.rocksrtree;
 
 /**
  * @author liuyu
  * @date 2023/3/24
  */
-public class RectNdBuilder extends RectBuilder{
-    public RectNdBuilder(int mMin, int mMax) {
+public class TreeNdBuilder extends TreeBuilder {
+    public TreeNdBuilder(int mMin, int mMax) {
         super(mMin, mMax);
     }
 

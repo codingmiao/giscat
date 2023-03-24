@@ -8,7 +8,7 @@
  *
  */
 
-package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
+package org.wowtools.giscat.vector.rocksrtree;
 
 /*
  * #%L
@@ -39,23 +39,23 @@ import java.util.function.Consumer;
  *
  * Created by jcairns on 4/30/15.
  */
- final class Leaf implements Node {
+ final class Leaf extends Node {
+    protected final TreeBuilder builder;
 
 
-    protected final RectNd[] r;
+    protected final RectNd[] entryRects;
 
     protected final RectNd[] entry;
-
-    protected final RectBuilder builder;
 
     protected RectNd mbr;
 
     protected int size;
 
-    protected Leaf(final RectBuilder builder) {
+    protected Leaf(final TreeBuilder builder,long id) {
+        super(id);
         this.mbr = null;
         this.builder = builder;
-        this.r  = new RectNd[builder.mMax];
+        this.entryRects = new RectNd[builder.mMax];
         this.entry = new RectNd[builder.mMax];
         this.size = 0;
     }
@@ -70,8 +70,9 @@ import java.util.function.Consumer;
                 mbr = tRect;
             }
 
-            r[size] = tRect;
-            entry[size++] = t;
+            entryRects[size] = tRect;
+            entry[size] = t;
+            size++;
         } else {
             return split(t);
         }
@@ -99,10 +100,10 @@ import java.util.function.Consumer;
             final int nRemoved = j-i;
             if (j < size) {
                 final int nRemaining = size-j;
-                System.arraycopy(r, j, r, i, nRemaining);
+                System.arraycopy(entryRects, j, entryRects, i, nRemaining);
                 System.arraycopy(entry, j, entry, i, nRemaining);
                 for (int k=size-nRemoved; k < size; k++) {
-                    r[k] = null;
+                    entryRects[k] = null;
                     entry[k] = null;
                 }
             } else {
@@ -111,7 +112,7 @@ import java.util.function.Consumer;
                     return null;
                 }
                 for (int k=i; k < size; k++) {
-                    r[k] = null;
+                    entryRects[k] = null;
                     entry[k] = null;
                 }
             }
@@ -120,9 +121,9 @@ import java.util.function.Consumer;
 
             for(int k=0; k<size; k++) {
                 if(k==0) {
-                    mbr = r[k];
+                    mbr = entryRects[k];
                 } else {
-                    mbr = mbr.getMbr(r[k]);
+                    mbr = mbr.getMbr(entryRects[k]);
                 }
             }
 
@@ -138,14 +139,14 @@ import java.util.function.Consumer;
 
         for(int i=0; i<size; i++) {
             if (entry[i].equals(told)) {
-                r[i] = bbox;
+                entryRects[i] = bbox;
                 entry[i] = tnew;
             }
 
             if (i == 0) {
-                mbr = r[i];
+                mbr = entryRects[i];
             } else {
-                mbr = mbr.getMbr(r[i]);
+                mbr = mbr.getMbr(entryRects[i]);
             }
         }
 
@@ -158,7 +159,7 @@ import java.util.function.Consumer;
         final int n0 = n;
 
         for(int i=0; i<size && n<tLen; i++) {
-            if(rect.contains(r[i])) {
+            if(rect.contains(entryRects[i])) {
                 t[n++] = entry[i];
             }
         }
@@ -168,7 +169,7 @@ import java.util.function.Consumer;
     @Override
     public void search(RectNd rect, Consumer<RectNd> consumer) {
         for(int i = 0; i < size; i++) {
-            if(rect.contains(r[i])) {
+            if(rect.contains(entryRects[i])) {
                 consumer.accept(entry[i]);
             }
         }
@@ -180,8 +181,9 @@ import java.util.function.Consumer;
         final int n0 = n;
 
         for(int i=0; i<size && n<tLen; i++) {
-            if(rect.intersects(r[i])) {
-                t[n++] = entry[i];
+            if(rect.intersects(entryRects[i])) {
+                t[n] = entry[i];
+                n++;
             }
         }
         return n - n0;
@@ -190,7 +192,7 @@ import java.util.function.Consumer;
     @Override
     public void intersects(RectNd rect, Consumer<RectNd> consumer) {
         for(int i = 0; i < size; i++) {
-            if(rect.intersects(r[i])) {
+            if(rect.intersects(entryRects[i])) {
                 consumer.accept(entry[i]);
             }
         }
@@ -228,10 +230,10 @@ import java.util.function.Consumer;
      * @return newly created node storing half the entries of this node
      */
     protected Node split(final RectNd t) {
-        final Branch pNode = new Branch(builder);
-        final Node l1Node = new Leaf(builder);
-        final Node l2Node = new Leaf(builder);
-        final int nD = r[0].getNDim();
+        final Branch pNode = builder.newBranch();
+        final Node l1Node = builder.newLeaf();
+        final Node l2Node = builder.newLeaf();
+        final int nD = entryRects[0].getNDim();
 
         // choose axis to split
         int axis = 0;
@@ -248,7 +250,7 @@ import java.util.function.Consumer;
         final int splitDimension = axis;
 
         // sort along split dimension
-        final RectNd[] sortedMbr = Arrays.copyOf(r, r.length);
+        final RectNd[] sortedMbr = Arrays.copyOf(entryRects, entryRects.length);
 
         Arrays.sort(sortedMbr, new Comparator<RectNd>() {
             @Override
@@ -264,7 +266,7 @@ import java.util.function.Consumer;
         for (int i = 0; i < size / 2; i++) {
             outerLoop:
             for (int j = 0; j < size; j++) {
-                if (r[j] == sortedMbr[i]) {
+                if (entryRects[j] == sortedMbr[i]) {
                     l1Node.add(entry[j]);
                     break outerLoop;
                 }
@@ -274,7 +276,7 @@ import java.util.function.Consumer;
         for (int i = size / 2; i < size; i++) {
             outerLoop:
             for (int j = 0; j < size; j++) {
-                if (r[j] == sortedMbr[i]) {
+                if (entryRects[j] == sortedMbr[i]) {
                     l2Node.add(entry[j]);
                     break outerLoop;
                 }
@@ -299,7 +301,7 @@ import java.util.function.Consumer;
     @Override
     public boolean contains(RectNd rect, RectNd t) {
         for(int i = 0; i < size; i++) {
-            if(rect.contains(r[i])) {
+            if(rect.contains(entryRects[i])) {
                 if(entry[i].equals(t)) {
                     return true;
                 }

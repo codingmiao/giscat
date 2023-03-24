@@ -8,7 +8,7 @@
  *
  */
 
-package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
+package org.wowtools.giscat.vector.rocksrtree;
 
 /*
  * #%L
@@ -45,11 +45,11 @@ import java.util.function.Consumer;
 public final class RTree {
     private static final double EPSILON = 1e-12;
 
-    private final RectBuilder builder;
+    private final TreeBuilder builder;
 
     private Node root = null;
 
-    protected RTree(final RectBuilder builder) {
+    protected RTree(final TreeBuilder builder) {
         this.builder = builder;
     }
 
@@ -116,7 +116,7 @@ public final class RTree {
         if (root != null) {
             root = root.add(t);
         } else {
-            root = new Leaf(builder);
+            root = builder.newLeaf();
             root.add(t);
         }
     }
