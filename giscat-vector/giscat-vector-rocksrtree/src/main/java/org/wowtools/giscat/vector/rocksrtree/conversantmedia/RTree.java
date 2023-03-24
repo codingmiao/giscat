@@ -149,14 +149,6 @@ public final class RTree implements SpatialSearch {
         }
     }
 
-    void instrumentTree() {
-        if(root != null) {
-            root = root.instrument();
-            ((CounterNode) root).searchCount = 0;
-            ((CounterNode) root).bboxEvalCount = 0;
-        }
-    }
-
     @Override
     public Stats collectStats() {
         Stats stats = new Stats();

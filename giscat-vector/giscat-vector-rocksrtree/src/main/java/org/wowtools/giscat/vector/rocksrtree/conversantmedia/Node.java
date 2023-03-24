@@ -147,11 +147,5 @@ interface Node {
      */
     void collectStats(Stats stats, int depth);
 
-    /**
-     * Visits node, wraps it in an instrumented node, (see CounterNode)
-     *
-     * @return instrumented node wrapper
-     */
-    Node instrument();
 
 }

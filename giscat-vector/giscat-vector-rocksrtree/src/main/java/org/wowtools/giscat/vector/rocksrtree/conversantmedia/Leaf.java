@@ -379,8 +379,4 @@ import java.util.function.Consumer;
         return sb.toString();
     }
 
-    @Override
-    public Node instrument() {
-        return new CounterNode(this);
-    }
 }

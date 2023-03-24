@@ -322,11 +322,4 @@ final class Branch implements Node {
         return sb.toString();
     }
 
-    @Override
-    public Node instrument() {
-        for(int i = 0; i < size; i++) {
-            child[i] = child[i].instrument();
-        }
-        return new CounterNode(this);
-    }
 }
