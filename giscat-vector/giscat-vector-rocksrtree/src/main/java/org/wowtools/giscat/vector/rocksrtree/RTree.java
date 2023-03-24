@@ -30,6 +30,8 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
+import org.rocksdb.Transaction;
+
 import java.util.Collection;
 import java.util.function.Consumer;
 
@@ -112,12 +114,12 @@ public final class RTree {
      *
      * @param t Data entry to be added
      */
-    public void add(final RectNd t) {
+    public void add(final RectNd t, Transaction tx) {
         if (root != null) {
-            root = root.add(t);
+            root = root.add(t,tx);
         } else {
-            root = builder.newLeaf();
-            root.add(t);
+            root = builder.newLeaf(tx);
+            root.add(t,tx);
         }
     }
 
@@ -126,9 +128,9 @@ public final class RTree {
      *
      * @param t Data entry to be removed
      */
-    public void remove(final RectNd t) {
+    public void remove(final RectNd t, Transaction tx) {
         if (root != null) {
-            root = root.remove(t);
+            root = root.remove(t,tx);
         }
     }
 
@@ -138,9 +140,9 @@ public final class RTree {
      * @param told - Entry to update
      * @param tnew - Entry to update it to
      */
-    public void update(final RectNd told, final RectNd tnew) {
+    public void update(final RectNd told, final RectNd tnew, Transaction tx) {
         if (root != null) {
-            root = root.update(told, tnew);
+            root = root.update(told, tnew,tx);
         }
     }
 

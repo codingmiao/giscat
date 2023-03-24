@@ -30,6 +30,8 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
+import org.rocksdb.Transaction;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,14 +53,30 @@ public abstract class TreeBuilder {
         this.mMax = mMax;
     }
 
-    protected Branch newBranch() {
+    public Transaction newTx() {
+        //TODO
+        return null;
+    }
+
+    public void commitTx(Transaction tx) {
+        //TODO
+    }
+
+    public void rollbackTx(Transaction tx) {
+        //TODO
+        // 由于事务出错，缓存变得不可靠，将其清空
+        branchMap.clear();
+        leafMap.clear();
+    }
+
+    protected Branch newBranch(Transaction tx) {
         nodeIdIndex++;
         Branch node = new Branch(this, nodeIdIndex);
         branchMap.put(nodeIdIndex, node);
         return node;
     }
 
-    protected Leaf newLeaf() {
+    protected Leaf newLeaf(Transaction tx) {
         nodeIdIndex++;
         Leaf node = new Leaf(this, nodeIdIndex);
         leafMap.put(nodeIdIndex, node);
@@ -71,6 +89,14 @@ public abstract class TreeBuilder {
 
     protected Leaf getLeaf(long leafId) {
         return leafMap.get(leafId);
+    }
+
+    protected void save2Rocks(Branch branch, Transaction tx) {
+
+    }
+
+    protected void save2Rocks(Leaf leaf, Transaction tx) {
+
     }
 
     protected Node getNode(long nodeId) {

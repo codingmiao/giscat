@@ -30,16 +30,18 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
+import org.rocksdb.Transaction;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Consumer;
 
 /**
  * Node that will contain the data entries. Implemented by different type of SplitType leaf classes.
- *
+ * <p>
  * Created by jcairns on 4/30/15.
  */
- final class Leaf extends Node {
+final class Leaf extends Node {
     protected final TreeBuilder builder;
 
 
@@ -51,20 +53,18 @@ import java.util.function.Consumer;
 
     protected int size;
 
-    protected Leaf(final TreeBuilder builder,long id) {
+    protected Leaf(final TreeBuilder builder, long id) {
         super(id);
-        this.mbr = null;
         this.builder = builder;
         this.entryRects = new RectNd[builder.mMax];
         this.entry = new RectNd[builder.mMax];
-        this.size = 0;
     }
 
     @Override
-    public Node add(final RectNd t) {
-        if(size < builder.mMax) {
+     Node add(final RectNd t,Transaction tx) {
+        if (size < builder.mMax) {
             final RectNd tRect = builder.getBBox(t);
-            if(mbr != null) {
+            if (mbr != null) {
                 mbr = mbr.getMbr(tRect);
             } else {
                 mbr = tRect;
@@ -74,44 +74,44 @@ import java.util.function.Consumer;
             entry[size] = t;
             size++;
         } else {
-            return split(t);
+            return split(t,tx);
         }
 
         return this;
     }
 
     @Override
-    public Node remove(final RectNd t)  {
+     Node remove(final RectNd t,Transaction tx) {
 
-        int i=0;
+        int i = 0;
         int j;
 
-        while(i<size && (entry[i]!=t) && (!entry[i].equals(t))) {
+        while (i < size && (entry[i] != t) && (!entry[i].equals(t))) {
             i++;
         }
 
-        j=i;
+        j = i;
 
-        while(j<size && ((entry[j]==t) || entry[j].equals(t))) {
+        while (j < size && ((entry[j] == t) || entry[j].equals(t))) {
             j++;
         }
 
-        if(i < j) {
-            final int nRemoved = j-i;
+        if (i < j) {
+            final int nRemoved = j - i;
             if (j < size) {
-                final int nRemaining = size-j;
+                final int nRemaining = size - j;
                 System.arraycopy(entryRects, j, entryRects, i, nRemaining);
                 System.arraycopy(entry, j, entry, i, nRemaining);
-                for (int k=size-nRemoved; k < size; k++) {
+                for (int k = size - nRemoved; k < size; k++) {
                     entryRects[k] = null;
                     entry[k] = null;
                 }
             } else {
-                if(i==0) {
+                if (i == 0) {
                     // clean sweep
                     return null;
                 }
-                for (int k=i; k < size; k++) {
+                for (int k = i; k < size; k++) {
                     entryRects[k] = null;
                     entry[k] = null;
                 }
@@ -119,8 +119,8 @@ import java.util.function.Consumer;
 
             size -= nRemoved;
 
-            for(int k=0; k<size; k++) {
-                if(k==0) {
+            for (int k = 0; k < size; k++) {
+                if (k == 0) {
                     mbr = entryRects[k];
                 } else {
                     mbr = mbr.getMbr(entryRects[k]);
@@ -134,10 +134,10 @@ import java.util.function.Consumer;
     }
 
     @Override
-    public Node update(final RectNd told, final RectNd tnew) {
+     Node update(final RectNd told, final RectNd tnew,Transaction tx) {
         final RectNd bbox = builder.getBBox(tnew);
 
-        for(int i=0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             if (entry[i].equals(told)) {
                 entryRects[i] = bbox;
                 entry[i] = tnew;
@@ -158,8 +158,8 @@ import java.util.function.Consumer;
         final int tLen = t.length;
         final int n0 = n;
 
-        for(int i=0; i<size && n<tLen; i++) {
-            if(rect.contains(entryRects[i])) {
+        for (int i = 0; i < size && n < tLen; i++) {
+            if (rect.contains(entryRects[i])) {
                 t[n++] = entry[i];
             }
         }
@@ -168,8 +168,8 @@ import java.util.function.Consumer;
 
     @Override
     public void search(RectNd rect, Consumer<RectNd> consumer) {
-        for(int i = 0; i < size; i++) {
-            if(rect.contains(entryRects[i])) {
+        for (int i = 0; i < size; i++) {
+            if (rect.contains(entryRects[i])) {
                 consumer.accept(entry[i]);
             }
         }
@@ -180,8 +180,8 @@ import java.util.function.Consumer;
         final int tLen = t.length;
         final int n0 = n;
 
-        for(int i=0; i<size && n<tLen; i++) {
-            if(rect.intersects(entryRects[i])) {
+        for (int i = 0; i < size && n < tLen; i++) {
+            if (rect.intersects(entryRects[i])) {
                 t[n] = entry[i];
                 n++;
             }
@@ -191,8 +191,8 @@ import java.util.function.Consumer;
 
     @Override
     public void intersects(RectNd rect, Consumer<RectNd> consumer) {
-        for(int i = 0; i < size; i++) {
-            if(rect.intersects(entryRects[i])) {
+        for (int i = 0; i < size; i++) {
+            if (rect.intersects(entryRects[i])) {
                 consumer.accept(entry[i]);
             }
         }
@@ -229,10 +229,10 @@ import java.util.function.Consumer;
      * @param t entry to be added to the full leaf node
      * @return newly created node storing half the entries of this node
      */
-    protected Node split(final RectNd t) {
-        final Branch pNode = builder.newBranch();
-        final Node l1Node = builder.newLeaf();
-        final Node l2Node = builder.newLeaf();
+    protected Node split(final RectNd t,Transaction tx) {
+        final Branch pNode = builder.newBranch(tx);
+        final Node l1Node = builder.newLeaf(tx);
+        final Node l2Node = builder.newLeaf(tx);
         final int nD = entryRects[0].getNDim();
 
         // choose axis to split
@@ -267,7 +267,7 @@ import java.util.function.Consumer;
             outerLoop:
             for (int j = 0; j < size; j++) {
                 if (entryRects[j] == sortedMbr[i]) {
-                    l1Node.add(entry[j]);
+                    l1Node.add(entry[j],tx);
                     break outerLoop;
                 }
             }
@@ -277,13 +277,13 @@ import java.util.function.Consumer;
             outerLoop:
             for (int j = 0; j < size; j++) {
                 if (entryRects[j] == sortedMbr[i]) {
-                    l2Node.add(entry[j]);
+                    l2Node.add(entry[j],tx);
                     break outerLoop;
                 }
             }
         }
 
-        classify(l1Node, l2Node, t);
+        classify(l1Node, l2Node, t,tx);
 
         pNode.addChild(l1Node);
         pNode.addChild(l2Node);
@@ -293,16 +293,16 @@ import java.util.function.Consumer;
 
     @Override
     public void forEach(Consumer<RectNd> consumer) {
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             consumer.accept(entry[i]);
         }
     }
 
     @Override
     public boolean contains(RectNd rect, RectNd t) {
-        for(int i = 0; i < size; i++) {
-            if(rect.contains(entryRects[i])) {
-                if(entry[i].equals(t)) {
+        for (int i = 0; i < size; i++) {
+            if (rect.contains(entryRects[i])) {
+                if (entry[i].equals(t)) {
                     return true;
                 }
             }
@@ -324,42 +324,41 @@ import java.util.function.Consumer;
      *
      * @param l1Node left node
      * @param l2Node right node
-     * @param t data entry to be added
+     * @param t      data entry to be added
      */
-    protected final void classify(final Node l1Node, final Node l2Node, final RectNd t) {
+    protected final void classify(final Node l1Node, final Node l2Node, final RectNd t,Transaction tx) {
         final RectNd tRect = builder.getBBox(t);
         final RectNd l1Mbr = l1Node.getBound().getMbr(tRect);
         final RectNd l2Mbr = l2Node.getBound().getMbr(tRect);
         final double l1CostInc = Math.max(l1Mbr.cost() - (l1Node.getBound().cost() + tRect.cost()), 0.0);
         final double l2CostInc = Math.max(l2Mbr.cost() - (l2Node.getBound().cost() + tRect.cost()), 0.0);
-        if(l2CostInc > l1CostInc) {
-            l1Node.add(t);
-        } else if(RTree.isEqual(l1CostInc, l2CostInc)) {
+        if (l2CostInc > l1CostInc) {
+            l1Node.add(t,tx);
+        } else if (RTree.isEqual(l1CostInc, l2CostInc)) {
             final double l1MbrCost = l1Mbr.cost();
             final double l2MbrCost = l2Mbr.cost();
-            if(l1MbrCost < l2MbrCost) {
-                l1Node.add(t);
-            } else if(RTree.isEqual(l1MbrCost, l2MbrCost)) {
+            if (l1MbrCost < l2MbrCost) {
+                l1Node.add(t,tx);
+            } else if (RTree.isEqual(l1MbrCost, l2MbrCost)) {
                 final double l1MbrMargin = l1Mbr.perimeter();
                 final double l2MbrMargin = l2Mbr.perimeter();
-                if(l1MbrMargin < l2MbrMargin) {
-                    l1Node.add(t);
-                } else if(RTree.isEqual(l1MbrMargin, l2MbrMargin)) {
+                if (l1MbrMargin < l2MbrMargin) {
+                    l1Node.add(t,tx);
+                } else if (RTree.isEqual(l1MbrMargin, l2MbrMargin)) {
                     // break ties with least number
                     if (l1Node.size() < l2Node.size()) {
-                        l1Node.add(t);
+                        l1Node.add(t,tx);
                     } else {
-                        l2Node.add(t);
+                        l2Node.add(t,tx);
                     }
                 } else {
-                    l2Node.add(t);
+                    l2Node.add(t,tx);
                 }
             } else {
-                l2Node.add(t);
+                l2Node.add(t,tx);
             }
-        }
-        else {
-            l2Node.add(t);
+        } else {
+            l2Node.add(t,tx);
         }
 
     }

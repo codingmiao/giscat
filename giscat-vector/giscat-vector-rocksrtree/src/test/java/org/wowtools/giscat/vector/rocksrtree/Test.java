@@ -2,6 +2,7 @@ package org.wowtools.giscat.vector.rocksrtree;
 
 
 import org.locationtech.jts.util.Assert;
+import org.rocksdb.Transaction;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,13 +14,20 @@ import java.util.function.Consumer;
  */
 public class Test {
     public static void main(String[] args) {
-        final RTree pTree = new RTree(new TreeNdBuilder(2, 8));
-
-        for (int i = 0; i < 10; i++) {
-            pTree.add(new RectNd(new PointNd(new double[]{i, i}),new PointNd(new double[]{i, i})));
+        TreeNdBuilder builder = new TreeNdBuilder(2, 8);
+        final RTree pTree = new RTree(builder);
+        Transaction tx = builder.newTx();
+        try {
+            for (int i = 0; i < 10; i++) {
+                pTree.add(new RectNd(new PointNd(new double[]{i, i}), new PointNd(new double[]{i, i})), tx);
+            }
+            builder.commitTx(tx);
+        } catch (Exception e) {
+            builder.rollbackTx(tx);
+            throw e;
         }
 
-        final RectNd rect = new RectNd(new PointNd(new double[]{1.9,1.9}), new PointNd(new double[]{8.1,8.1}));
+        final RectNd rect = new RectNd(new PointNd(new double[]{1.9, 1.9}), new PointNd(new double[]{8.1, 8.1}));
 
         List<RectNd> res = new LinkedList<>();
 

@@ -30,6 +30,8 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
+import org.rocksdb.Transaction;
+
 import java.util.function.Consumer;
 
 /**
@@ -58,14 +60,14 @@ abstract class Node {
      *
      * @param t - value to add to index
      */
-    public abstract Node add(RectNd t);
+    abstract Node add(RectNd t, Transaction tx);
 
     /**
      * Remove t from the index
      *
      * @param t - value to remove from index
      */
-    public abstract Node remove(RectNd t);
+    abstract Node remove(RectNd t, Transaction tx);
 
     /**
      * update an existing t in the index
@@ -73,7 +75,7 @@ abstract class Node {
      * @param told - old index to be updated
      * @param tnew - value to update old index to
      */
-    public abstract Node update(RectNd told, RectNd tnew);
+    abstract Node update(RectNd told, RectNd tnew, Transaction tx);
 
     /**
      * Search for rect within this node
