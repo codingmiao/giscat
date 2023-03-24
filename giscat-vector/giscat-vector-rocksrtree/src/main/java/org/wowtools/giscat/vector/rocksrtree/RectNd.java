@@ -47,6 +47,11 @@ public final class RectNd {
         this.max = max;
     }
 
+    @Override
+    public String toString() {
+        return min + " " + max;
+    }
+
     /**
      * Calculate the resulting mbr when combining param HyperRect with this HyperRect
      *
@@ -138,7 +143,7 @@ public final class RectNd {
      * @param r2 - HyperRect to test
      * @return true if intersects, false otherwise
      */
-    boolean intersects(RectNd r2){
+    boolean intersects(RectNd r2) {
         for (int i = 0; i < min.getNDim(); i++) {
             if (min.getCoord(i) > r2.max.getCoord(i) ||
                     r2.min.getCoord(i) > max.getCoord(i)) {

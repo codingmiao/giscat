@@ -41,6 +41,17 @@ public final class PointNd {
 
     final double[] xs;
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder('[');
+        for (double x : xs) {
+           sb.append(x).append(' ');
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(']');
+        return sb.toString();
+    }
+
     public PointNd(double[] xs) {
         this.xs = xs;
     }

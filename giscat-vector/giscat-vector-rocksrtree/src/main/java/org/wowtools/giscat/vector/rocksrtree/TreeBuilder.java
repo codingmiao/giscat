@@ -42,9 +42,7 @@ public abstract class TreeBuilder {
 
     private final Map<Long, Leaf> leafMap = new HashMap<>();
 
-    private long branchIdIndex = 0;
-
-    private long leafIdIndex = 0;
+    private long nodeIdIndex = 0;
     protected final int mMin;
     protected final int mMax;
 
@@ -54,16 +52,16 @@ public abstract class TreeBuilder {
     }
 
     protected Branch newBranch() {
-        branchIdIndex++;
-        Branch node = new Branch(this, branchIdIndex);
-        branchMap.put(branchIdIndex, node);
+        nodeIdIndex++;
+        Branch node = new Branch(this, nodeIdIndex);
+        branchMap.put(nodeIdIndex, node);
         return node;
     }
 
     protected Leaf newLeaf() {
-        leafIdIndex++;
-        Leaf node = new Leaf(this, leafIdIndex);
-        leafMap.put(leafIdIndex, node);
+        nodeIdIndex++;
+        Leaf node = new Leaf(this, nodeIdIndex);
+        leafMap.put(nodeIdIndex, node);
         return node;
     }
 

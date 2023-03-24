@@ -15,7 +15,7 @@ public class Test {
     public static void main(String[] args) {
         final RTree pTree = new RTree(new TreeNdBuilder(2, 8));
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             pTree.add(new RectNd(new PointNd(new double[]{i, i}),new PointNd(new double[]{i, i})));
         }
 

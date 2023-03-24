@@ -41,7 +41,7 @@ final class Branch extends Node {
 
     private final TreeBuilder builder;
 
-    private final Node[] child;
+    private final long[] child;
 
     private RectNd mbr;
 
@@ -52,7 +52,7 @@ final class Branch extends Node {
         this.builder = builder;
         this.mbr = null;
         this.size = 0;
-        this.child = new Node[builder.mMax];
+        this.child = new long[builder.mMax];
     }
 
     /**
@@ -63,7 +63,8 @@ final class Branch extends Node {
      */
     protected int addChild(final Node n) {
         if(size < builder.mMax) {
-            child[size++] = n;
+            child[size] = n.id;
+            size++;
 
             if(mbr != null) {
                 mbr = mbr.getMbr(n.getBound());
@@ -88,6 +89,10 @@ final class Branch extends Node {
         return mbr;
     }
 
+    private Node getChild(int i) {
+        return builder.getNode(child[i]);
+    }
+
     /**
      * Adds a data entry to one of the child nodes of this branch
      *
@@ -99,9 +104,9 @@ final class Branch extends Node {
         final RectNd tRect = builder.getBBox(t);
         if(size < builder.mMin) {
             for(int i=0; i<size; i++) {
-                if(child[i].getBound().contains(tRect)) {
-                    child[i] = child[i].add(t);
-                    mbr = mbr.getMbr(child[i].getBound());
+                if(getChild(i).getBound().contains(tRect)) {
+                    child[i] = getChild(i).add(t).id;
+                    mbr = mbr.getMbr(getChild(i).getBound());
                     return this;
                 }
             }
@@ -109,15 +114,15 @@ final class Branch extends Node {
             final Node nextLeaf = builder.newLeaf();
             nextLeaf.add(t);
             final int nextChild = addChild(nextLeaf);
-            mbr = mbr.getMbr(child[nextChild].getBound());
+            mbr = mbr.getMbr(getChild(nextChild).getBound());
 
             return this;
 
         } else {
             final int bestLeaf = chooseLeaf(t, tRect);
 
-            child[bestLeaf] = child[bestLeaf].add(t);
-            mbr = mbr.getMbr(child[bestLeaf].getBound());
+            child[bestLeaf] = getChild(bestLeaf).add(t).id;
+            mbr = mbr.getMbr(getChild(bestLeaf).getBound());
 
             return this;
         }
@@ -128,13 +133,13 @@ final class Branch extends Node {
         final RectNd tRect = builder.getBBox(t);
 
         for (int i = 0; i < size; i++) {
-            if (child[i].getBound().intersects(tRect)) {
-                child[i] = child[i].remove(t);
+            if (getChild(i).getBound().intersects(tRect)) {
+                child[i] = getChild(i).remove(t).id;
 
-                if (child[i] == null) {
+                if (getChild(i) == null) {
                     System.arraycopy(child, i+1, child, i, size-i-1);
                     size--;
-                    child[size] = null;
+                    child[size] = 0;
                     if(size > 0) i--;
                 }
             }
@@ -144,12 +149,12 @@ final class Branch extends Node {
             return null;
         } else if (size == 1) {
             // unsplit branch
-            return child[0];
+            return getChild(0);
         }
 
-        mbr = child[0].getBound();
+        mbr = getChild(0).getBound();
         for(int i=1; i<size; i++) {
-            mbr = mbr.getMbr(child[i].getBound());
+            mbr = mbr.getMbr(getChild(i).getBound());
         }
 
         return this;
@@ -159,13 +164,13 @@ final class Branch extends Node {
     public Node update(final RectNd told, final RectNd tnew) {
         final RectNd tRect = builder.getBBox(told);
         for(int i = 0; i < size; i++){
-            if(tRect.intersects(child[i].getBound())) {
-                child[i] = child[i].update(told, tnew);
+            if(tRect.intersects(getChild(i).getBound())) {
+                child[i] = getChild(i).update(told, tnew).id;
             }
             if(i==0) {
-                mbr = child[i].getBound();
+                mbr = getChild(i).getBound();
             } else {
-                mbr = mbr.getMbr(child[i].getBound());
+                mbr = mbr.getMbr(getChild(i).getBound());
             }
         }
         return this;
@@ -174,8 +179,8 @@ final class Branch extends Node {
     @Override
     public void search(RectNd rect, Consumer<RectNd> consumer) {
         for(int i = 0; i < size; i++) {
-            if(rect.intersects(child[i].getBound())) {
-                child[i].search(rect, consumer);
+            if(rect.intersects(getChild(i).getBound())) {
+                getChild(i).search(rect, consumer);
             }
         }
     }
@@ -185,8 +190,8 @@ final class Branch extends Node {
         final int tLen = t.length;
         final int n0 = n;
         for(int i=0; i < size && n < tLen; i++) {
-            if (rect.intersects(child[i].getBound())) {
-                n += child[i].search(rect, t, n);
+            if (rect.intersects(getChild(i).getBound())) {
+                n += getChild(i).search(rect, t, n);
             }
         }
         return n-n0;
@@ -195,8 +200,8 @@ final class Branch extends Node {
     @Override
     public void intersects(RectNd rect, Consumer<RectNd> consumer) {
         for(int i = 0; i < size; i++) {
-            if(rect.intersects(child[i].getBound())) {
-                child[i].intersects(rect, consumer);
+            if(rect.intersects(getChild(i).getBound())) {
+                getChild(i).intersects(rect, consumer);
             }
         }
     }
@@ -206,8 +211,8 @@ final class Branch extends Node {
         final int tLen = t.length;
         final int n0 = n;
         for(int i=0; i < size && n < tLen; i++) {
-            if (rect.intersects(child[i].getBound())) {
-                n += child[i].intersects(rect, t, n);
+            if (rect.intersects(getChild(i).getBound())) {
+                n += getChild(i).intersects(rect, t, n);
             }
         }
         return n-n0;
@@ -225,7 +230,7 @@ final class Branch extends Node {
     public int totalSize() {
         int s = 0;
         for(int i=0; i<size; i++) {
-            s+= child[i].totalSize();
+            s+= getChild(i).totalSize();
         }
         return s;
     }
@@ -233,13 +238,13 @@ final class Branch extends Node {
     private int chooseLeaf(final RectNd t, final RectNd tRect) {
         if(size > 0) {
             int bestNode = 0;
-            RectNd childMbr = child[0].getBound().getMbr(tRect);
-            double leastEnlargement = childMbr.cost() - (child[0].getBound().cost() + tRect.cost());
+            RectNd childMbr = getChild(0).getBound().getMbr(tRect);
+            double leastEnlargement = childMbr.cost() - (getChild(0).getBound().cost() + tRect.cost());
             double leastPerimeter   = childMbr.perimeter();
 
             for(int i = 1; i<size; i++) {
-                childMbr = child[i].getBound().getMbr(tRect);
-                final double nodeEnlargement = childMbr.cost() - (child[i].getBound().cost() + tRect.cost());
+                childMbr = getChild(i).getBound().getMbr(tRect);
+                final double nodeEnlargement = childMbr.cost() - (getChild(i).getBound().cost() + tRect.cost());
                 if (nodeEnlargement < leastEnlargement) {
                     leastEnlargement = nodeEnlargement;
                     leastPerimeter  = childMbr.perimeter();
@@ -260,7 +265,8 @@ final class Branch extends Node {
         else {
             final Node n = builder.newLeaf();
             n.add(t);
-            child[size++] = n;
+            child[size] = n.id;
+            size++;
 
             if(mbr == null) {
                 mbr = n.getBound();
@@ -279,21 +285,25 @@ final class Branch extends Node {
      * @return array of child nodes (leaves or branches)
      */
     public Node[] getChildren() {
-        return child;
+        Node[] nodes = new Node[size];
+        for (int i = 0; i < size; i++) {
+            nodes[i] = getChild(i);
+        }
+        return nodes;
     }
 
     @Override
     public void forEach(Consumer<RectNd> consumer) {
         for(int i = 0; i < size; i++) {
-            child[i].forEach(consumer);
+            getChild(i).forEach(consumer);
         }
     }
 
     @Override
     public boolean contains(RectNd rect, RectNd t) {
         for(int i = 0; i < size; i++) {
-            if(rect.intersects(child[i].getBound())) {
-                child[i].contains(rect, t);
+            if(rect.intersects(getChild(i).getBound())) {
+                getChild(i).contains(rect, t);
             }
         }
         return false;
@@ -302,7 +312,7 @@ final class Branch extends Node {
     @Override
     public void collectStats(Stats stats, int depth) {
         for(int i = 0; i < size; i++) {
-            child[i].collectStats(stats, depth + 1);
+            getChild(i).collectStats(stats, depth + 1);
         }
         stats.countBranchAtDepth(depth);
     }
