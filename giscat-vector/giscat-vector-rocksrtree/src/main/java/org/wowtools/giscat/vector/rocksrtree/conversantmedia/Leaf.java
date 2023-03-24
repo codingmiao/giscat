@@ -30,6 +30,8 @@ package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
  * #L%
  */
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Consumer;
 
 /**
@@ -37,13 +39,12 @@ import java.util.function.Consumer;
  *
  * Created by jcairns on 4/30/15.
  */
-abstract class Leaf implements Node {
+ final class Leaf implements Node {
 
     protected final int mMax;       // max entries per node
 
     protected final int mMin;       // least number of entries per node
 
-    protected final RTree.Split splitType;
 
     protected final RectNd[] r;
 
@@ -55,7 +56,7 @@ abstract class Leaf implements Node {
 
     protected int size;
 
-    protected Leaf(final RectBuilder builder, final int mMin, final int mMax, final RTree.Split splitType) {
+    protected Leaf(final RectBuilder builder, final int mMin, final int mMax) {
         this.mMin = mMin;
         this.mMax = mMax;
         this.mbr = null;
@@ -63,7 +64,6 @@ abstract class Leaf implements Node {
         this.r  = new RectNd[mMax];
         this.entry = new RectNd[mMax];
         this.size = 0;
-        this.splitType = splitType;
     }
 
     @Override
@@ -222,20 +222,9 @@ abstract class Leaf implements Node {
         return mbr;
     }
 
-    static  Node create(final RectBuilder builder, final int mMin, final int M, final RTree.Split splitType) {
-
-        switch(splitType) {
-            case LINEAR:
-                return new LinearSplitLeaf(builder, mMin, M);
-            case QUADRATIC:
-                return new QuadraticSplitLeaf(builder, mMin, M);
-            case AXIAL:
-            default:
-                return new AxialSplitLeaf(builder, mMin, M);
-
-        }
-
-    }
+//    static  Node create(final RectBuilder builder, final int mMin, final int M) {
+//        return new Leaf(builder, mMin, M);
+//    }
 
     /**
      * Splits a leaf node that has the maximum number of entries into 2 leaf nodes of the same type with half
@@ -244,7 +233,67 @@ abstract class Leaf implements Node {
      * @param t entry to be added to the full leaf node
      * @return newly created node storing half the entries of this node
      */
-    protected abstract Node split(final RectNd t);
+    protected Node split(final RectNd t) {
+        final Branch pNode = new Branch(builder, mMin, mMax);
+        final Node l1Node = new Leaf(builder, mMin, mMax);
+        final Node l2Node = new Leaf(builder, mMin, mMax);
+        final int nD = r[0].getNDim();
+
+        // choose axis to split
+        int axis = 0;
+        double rangeD = mbr.getRange(0);
+        for (int d = 1; d < nD; d++) {
+            // split along the greatest range extent
+            final double dr = mbr.getRange(d);
+            if (dr > rangeD) {
+                axis = d;
+                rangeD = dr;
+            }
+        }
+
+        final int splitDimension = axis;
+
+        // sort along split dimension
+        final RectNd[] sortedMbr = Arrays.copyOf(r, r.length);
+
+        Arrays.sort(sortedMbr, new Comparator<RectNd>() {
+            @Override
+            public int compare(final RectNd o1, final RectNd o2) {
+                final PointNd p1 = o1.getCentroid();
+                final PointNd p2 = o2.getCentroid();
+
+                return Double.compare(p1.getCoord(splitDimension), p2.getCoord(splitDimension));
+            }
+        });
+
+        // divide sorted leafs
+        for (int i = 0; i < size / 2; i++) {
+            outerLoop:
+            for (int j = 0; j < size; j++) {
+                if (r[j] == sortedMbr[i]) {
+                    l1Node.add(entry[j]);
+                    break outerLoop;
+                }
+            }
+        }
+
+        for (int i = size / 2; i < size; i++) {
+            outerLoop:
+            for (int j = 0; j < size; j++) {
+                if (r[j] == sortedMbr[i]) {
+                    l2Node.add(entry[j]);
+                    break outerLoop;
+                }
+            }
+        }
+
+        classify(l1Node, l2Node, t);
+
+        pNode.addChild(l1Node);
+        pNode.addChild(l2Node);
+
+        return pNode;
+    }
 
     @Override
     public void forEach(Consumer<RectNd> consumer) {
@@ -323,7 +372,6 @@ abstract class Leaf implements Node {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(128);
-        sb.append(splitType.name());
         sb.append('[');
         sb.append(mbr);
         sb.append(']');

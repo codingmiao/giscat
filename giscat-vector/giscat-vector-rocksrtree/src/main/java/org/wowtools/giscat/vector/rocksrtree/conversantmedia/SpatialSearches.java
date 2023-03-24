@@ -39,7 +39,6 @@ public class SpatialSearches {
 
     private static final int DEFAULT_MIN_M = 2;
     private static final int DEFAULT_MAX_M = 8;
-    private static final RTree.Split DEFAULT_SPLIT_TYPE = RTree.Split.AXIAL;
 
     private SpatialSearches() {}
 
@@ -51,7 +50,7 @@ public class SpatialSearches {
      * @return SpatialSearch - The spatial search and index structure
      */
     public static  SpatialSearch rTree(final RectBuilder builder) {
-        return new RTree(builder, DEFAULT_MIN_M, DEFAULT_MAX_M, DEFAULT_SPLIT_TYPE);
+        return new RTree(builder, DEFAULT_MIN_M, DEFAULT_MAX_M);
     }
 
     /**
@@ -64,8 +63,8 @@ public class SpatialSearches {
      *
      * @return SpatialSearch - The spatial search and index structure
      */
-    public static  SpatialSearch rTree(final RectBuilder builder, final int minM, final int maxM, final RTree.Split splitType) {
-        return new RTree(builder, minM, maxM, splitType);
+    public static  SpatialSearch rTree(final RectBuilder builder, final int minM, final int maxM) {
+        return new RTree(builder, minM, maxM);
     }
 
 

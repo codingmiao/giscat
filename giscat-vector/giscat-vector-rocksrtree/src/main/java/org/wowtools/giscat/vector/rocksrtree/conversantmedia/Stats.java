@@ -37,7 +37,6 @@ import java.io.PrintStream;
  */
 public class Stats {
 
-    private RTree.Split type;
     private int maxFill;
     private int minFill;
 
@@ -50,7 +49,7 @@ public class Stats {
     private int[] leavesAtDepth = new int[1000];
 
     public void print(PrintStream out) {
-        out.println("[" + type + "] m=" + minFill + " M=" + maxFill);
+        out.println("m=" + minFill + " M=" + maxFill);
         out.println("   Branches (" + branchCount + " total)");
         out.print("      ");
         for (int i = 0; i <= maxDepth; i++) {
@@ -80,13 +79,6 @@ public class Stats {
         return (getEntriesPerLeaf() * 100) / maxFill;
     }
 
-    public RTree.Split getType() {
-        return type;
-    }
-
-    public void setType(RTree.Split type) {
-        this.type = type;
-    }
 
     public void setMaxFill(int maxFill) {
         this.maxFill = maxFill;

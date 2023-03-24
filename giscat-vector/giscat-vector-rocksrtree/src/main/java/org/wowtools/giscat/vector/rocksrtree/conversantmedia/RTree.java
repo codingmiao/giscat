@@ -48,15 +48,13 @@ public final class RTree implements SpatialSearch {
     private final int mMin;
     private final int mMax;
     private final RectBuilder builder;
-    private final Split splitType;
 
     private Node root = null;
 
-    protected RTree(final RectBuilder builder, final int mMin, final int mMax, final Split splitType) {
+    protected RTree(final RectBuilder builder, final int mMin, final int mMax) {
         this.mMin = mMin;
         this.mMax = mMax;
         this.builder = builder;
-        this.splitType = splitType;
     }
 
     @Override
@@ -93,7 +91,7 @@ public final class RTree implements SpatialSearch {
         if(root != null) {
             root = root.add(t);
         } else {
-            root = Leaf.create(builder, mMin, mMax, splitType);
+            root = new Leaf(builder, mMin, mMax);
             root.add(t);
         }
     }
@@ -162,7 +160,6 @@ public final class RTree implements SpatialSearch {
     @Override
     public Stats collectStats() {
         Stats stats = new Stats();
-        stats.setType(splitType);
         stats.setMaxFill(mMax);
         stats.setMinFill(mMin);
         root.collectStats(stats, 0);
@@ -173,18 +170,4 @@ public final class RTree implements SpatialSearch {
         return root;
     }
 
-
-    /**
-     * Different methods for splitting nodes in an RTree.
-     *
-     * AXIAL has been shown to give good performance for many general spatial problems,
-     *
-     * <p>
-     * Created by ewhite on 10/28/15.
-     */
-    public enum Split {
-        AXIAL,
-        LINEAR,
-        QUADRATIC,
-    }
 }

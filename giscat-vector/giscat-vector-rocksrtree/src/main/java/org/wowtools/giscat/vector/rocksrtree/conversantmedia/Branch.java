@@ -45,22 +45,19 @@ final class Branch implements Node {
 
     private final int mMin;
 
-    private final RTree.Split splitType;
-
     private final Node[] child;
 
     private RectNd mbr;
 
     private int size;
 
-    Branch(final RectBuilder builder, final int mMin, final int mMax, final RTree.Split splitType) {
+    Branch(final RectBuilder builder, final int mMin, final int mMax) {
         this.mMin = mMin;
         this.mMax = mMax;
         this.builder = builder;
         this.mbr = null;
         this.size = 0;
         this.child = new Node[mMax];
-        this.splitType = splitType;
     }
 
     /**
@@ -114,7 +111,7 @@ final class Branch implements Node {
                 }
             }
             // no overlapping node - grow
-            final Node nextLeaf = Leaf.create(builder, mMin, mMax, splitType);
+            final Node nextLeaf = new Leaf(builder, mMin, mMax);
             nextLeaf.add(t);
             final int nextChild = addChild(nextLeaf);
             mbr = mbr.getMbr(child[nextChild].getBound());
@@ -266,7 +263,7 @@ final class Branch implements Node {
             return bestNode;
         }
         else {
-            final Node n = Leaf.create(builder, mMin, mMax, splitType);
+            final Node n = new Leaf(builder, mMin, mMax);
             n.add(t);
             child[size++] = n;
 
