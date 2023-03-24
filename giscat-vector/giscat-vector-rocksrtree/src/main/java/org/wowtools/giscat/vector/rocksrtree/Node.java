@@ -39,6 +39,8 @@ import java.util.function.Consumer;
  */
 abstract class Node {
 
+    protected static final long emptyId = 0L;
+
     protected final long id;
 
     public Node(long id) {
@@ -77,15 +79,16 @@ abstract class Node {
      */
     abstract Node update(RectNd told, RectNd tnew, Transaction tx);
 
+
     /**
-     * Search for rect within this node
+     * Visitor pattern:
+     * <p>
+     * Consumer "accepts" every node intersecting the given rect, if consumer return false, break it.
      *
-     * @param rect - HyperRect to search for
-     * @param t    - array of found results
-     * @param n    - total result count so far (from recursive call)
-     * @return result count from search of this node
+     * @param rect     - limiting rect
+     * @param consumer consumer
      */
-    public abstract int search(RectNd rect, RectNd[] t, int n);
+    public abstract boolean intersects(RectNd rect, FeatureConsumer consumer);
 
     /**
      * Visitor pattern:
@@ -95,35 +98,14 @@ abstract class Node {
      * @param rect     - limiting rect
      * @param consumer
      */
-    public abstract void search(RectNd rect, Consumer<RectNd> consumer);
-
-    /**
-     * intersect rect with this node
-     *
-     * @param rect - HyperRect to search for
-     * @param t    - array of found results
-     * @param n    - total result count so far (from recursive call)
-     * @return result count from search of this node
-     */
-    public abstract int intersects(RectNd rect, RectNd[] t, int n);
-
-    /**
-     * Visitor pattern:
-     * <p>
-     * Consumer "accepts" every node intersecting the given rect
-     *
-     * @param rect     - limiting rect
-     * @param consumer
-     */
-    public abstract void intersects(RectNd rect, Consumer<RectNd> consumer);
-
+    public abstract boolean contains(RectNd rect, FeatureConsumer consumer);
 
     /**
      * @param rect
      * @param t
      * @return boolean true if subtree contains t
      */
-    public abstract boolean contains(RectNd rect, RectNd t);
+    protected abstract boolean contains(RectNd rect, RectNd t);
 
     /**
      * The number of entries in the node

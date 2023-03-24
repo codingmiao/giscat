@@ -31,7 +31,10 @@ package org.wowtools.giscat.vector.rocksrtree;
  */
 
 import org.rocksdb.Transaction;
+import org.wowtools.giscat.vector.pojo.Feature;
+import org.wowtools.giscat.vector.pojo.FeatureCollection;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,14 +47,38 @@ public abstract class TreeBuilder {
 
     private final Map<Long, Leaf> leafMap = new HashMap<>();
 
+    private final Map<Long, FeatureCollection> entryMap = new HashMap<>();
+
+    private final Map<String, Long> featureKeyInLeafId = new HashMap<>();
+
     private long nodeIdIndex = 0;
+
     protected final int mMin;
     protected final int mMax;
+
 
     public TreeBuilder(int mMin, int mMax) {
         this.mMin = mMin;
         this.mMax = mMax;
     }
+
+    public abstract String getFeatureKey(Feature feature);
+
+    protected void putFeatureKeyInLeafId(String key,long id) {
+        featureKeyInLeafId.put(key, id);
+    }
+
+    public long getLeafByFeatureKey(String key) {
+        return featureKeyInLeafId.get(key);
+    }
+
+    protected RectNd buildFeatureRect(Feature feature) {
+        RectNd rectNd = getFeatureRect(feature);
+        rectNd.feature = feature;
+        return rectNd;
+    }
+
+    public abstract RectNd getFeatureRect(Feature feature);
 
     public Transaction newTx() {
         //TODO
@@ -64,9 +91,11 @@ public abstract class TreeBuilder {
 
     public void rollbackTx(Transaction tx) {
         //TODO
+
         // 由于事务出错，缓存变得不可靠，将其清空
         branchMap.clear();
         leafMap.clear();
+        entryMap.clear();
     }
 
     protected Branch newBranch(Transaction tx) {
@@ -80,6 +109,9 @@ public abstract class TreeBuilder {
         nodeIdIndex++;
         Leaf node = new Leaf(this, nodeIdIndex);
         leafMap.put(nodeIdIndex, node);
+        FeatureCollection fc = new FeatureCollection();
+        fc.setFeatures(new ArrayList<>(mMax));
+        entryMap.put(nodeIdIndex, fc);
         return node;
     }
 
@@ -113,8 +145,9 @@ public abstract class TreeBuilder {
      * @param t - element to bound
      * @return HyperRect impl for this entry
      */
-    protected abstract RectNd getBBox(RectNd t);
-
+    protected RectNd getBBox(RectNd t) {
+        return t;
+    }
 
     /**
      * Build a bounding rectangle for given points (min and max, usually)
@@ -123,5 +156,7 @@ public abstract class TreeBuilder {
      * @param p2 - second point (bottom-right point, for example)
      * @return HyperRect impl defined by two points
      */
-    protected abstract RectNd getMbr(PointNd p1, PointNd p2);
+    protected RectNd getMbr(PointNd p1, PointNd p2) {
+        return new RectNd(p1, p2);
+    }
 }

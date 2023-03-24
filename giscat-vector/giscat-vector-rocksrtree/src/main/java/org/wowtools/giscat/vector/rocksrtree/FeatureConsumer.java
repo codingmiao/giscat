@@ -10,22 +10,18 @@
 
 package org.wowtools.giscat.vector.rocksrtree;
 
+import org.wowtools.giscat.vector.pojo.Feature;
+
 /**
  * @author liuyu
  * @date 2023/3/24
  */
-public class TreeNdBuilder extends TreeBuilder {
-    public TreeNdBuilder(int mMin, int mMax) {
-        super(mMin, mMax);
-    }
+@FunctionalInterface
+public interface FeatureConsumer {
 
-    @Override
-    public RectNd getBBox(RectNd t) {
-        return t;
-    }
+    boolean accept(Feature feature);
 
-    @Override
-    public RectNd getMbr(PointNd p1, PointNd p2) {
-        return new RectNd(p1, p2);
+    default boolean accept(RectNd rectNd) {
+        return accept(rectNd.feature);
     }
 }

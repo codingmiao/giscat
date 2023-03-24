@@ -138,7 +138,7 @@ final class Branch extends Node {
                 if (getChild(i) == null) {
                     System.arraycopy(child, i + 1, child, i, size - i - 1);
                     size--;
-                    child[size] = 0;
+                    child[size] = emptyId;
                     if (size > 0) i--;
                 }
             }
@@ -175,47 +175,34 @@ final class Branch extends Node {
         return this;
     }
 
+
+
     @Override
-    public void search(RectNd rect, Consumer<RectNd> consumer) {
+    public boolean intersects(RectNd rect, FeatureConsumer consumer) {
         for (int i = 0; i < size; i++) {
-            if (rect.intersects(getChild(i).getBound())) {
-                getChild(i).search(rect, consumer);
+            Node ci = getChild(i);
+            if (rect.intersects(ci.getBound())) {
+                if (!ci.intersects(rect, consumer)){
+                    return false;
+                }
             }
         }
+        return true;
     }
 
     @Override
-    public int search(final RectNd rect, final RectNd[] t, int n) {
-        final int tLen = t.length;
-        final int n0 = n;
-        for (int i = 0; i < size && n < tLen; i++) {
-            if (rect.intersects(getChild(i).getBound())) {
-                n += getChild(i).search(rect, t, n);
-            }
-        }
-        return n - n0;
-    }
-
-    @Override
-    public void intersects(RectNd rect, Consumer<RectNd> consumer) {
+    public boolean contains(RectNd rect, FeatureConsumer consumer) {
         for (int i = 0; i < size; i++) {
-            if (rect.intersects(getChild(i).getBound())) {
-                getChild(i).intersects(rect, consumer);
+            Node ci = getChild(i);
+            if (rect.intersects(ci.getBound())) {
+                if (!ci.contains(rect, consumer)){
+                    return false;
+                }
             }
         }
+        return true;
     }
 
-    @Override
-    public int intersects(final RectNd rect, final RectNd[] t, int n) {
-        final int tLen = t.length;
-        final int n0 = n;
-        for (int i = 0; i < size && n < tLen; i++) {
-            if (rect.intersects(getChild(i).getBound())) {
-                n += getChild(i).intersects(rect, t, n);
-            }
-        }
-        return n - n0;
-    }
 
     /**
      * @return number of child nodes

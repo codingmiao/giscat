@@ -37,7 +37,7 @@ import java.util.Arrays;
  * <p>
  * Created by jcairns on 5/5/15.
  */
-public final class PointNd {
+final class PointNd {
 
     final double[] xs;
 
@@ -45,7 +45,7 @@ public final class PointNd {
     public String toString() {
         StringBuilder sb = new StringBuilder('[');
         for (double x : xs) {
-           sb.append(x).append(' ');
+            sb.append(x).append(' ');
         }
         sb.deleteCharAt(sb.length() - 1);
         sb.append(']');

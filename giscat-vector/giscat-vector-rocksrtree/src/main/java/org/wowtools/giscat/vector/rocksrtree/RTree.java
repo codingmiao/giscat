@@ -31,8 +31,8 @@ package org.wowtools.giscat.vector.rocksrtree;
  */
 
 import org.rocksdb.Transaction;
+import org.wowtools.giscat.vector.pojo.Feature;
 
-import java.util.Collection;
 import java.util.function.Consumer;
 
 /**
@@ -51,100 +51,98 @@ public final class RTree {
 
     private Node root = null;
 
-    protected RTree(final TreeBuilder builder) {
+    public RTree(final TreeBuilder builder) {
         this.builder = builder;
     }
 
     /**
-     * Search for entries contained by the given bounding rect
+     * 查询被输入的范围完全覆盖的要素范围
      *
-     * @param rect - Bounding rectangle to use for querying
-     * @param consumer - callback to receive intersecting objects
-     *
+     * @param rect     输入范围
+     * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
      */
-    public void search(RectNd rect, Consumer<RectNd> consumer) {
+    public void contains(RectNd rect, FeatureConsumer consumer) {
         if (root != null) {
-            root.search(rect, consumer);
+            root.contains(rect, consumer);
         }
     }
 
-    /**
-     * Search for entries contained by the given bounding rect
-     *
-     * @param rect - Bounding rectangle to use for querying
-     * @param collection - collection to receive results
-     *
-     */
-    public void search(RectNd rect, Collection<RectNd> collection) {
-        if (root != null) {
-            root.search(rect, t -> collection.add(t));
-        }
-    }
 
     /**
-     * Search for entries intersecting given bounding rect
+     * 查询与输入范围相交的要素范围
      *
-     * @param rect - Bounding rectangle to use for querying
-     * @param t - Array to store found entries
-     *
-     * @return Number of results found
+     * @param rect     输入范围
+     * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
      */
-    public int intersects(final RectNd rect, final RectNd[] t) {
-        if (root != null) {
-            return root.intersects(rect, t, 0);
-        }
-        return 0;
-    }
-
-    /**
-     * Search for entries intersecting given bounding rect
-     *
-     * @param rect - Bounding rectangle to use for querying
-     * @param consumer - callback to receive intersecting objects
-     *
-     */
-    public void intersects(RectNd rect, Consumer<RectNd> consumer) {
+    public void intersects(RectNd rect, FeatureConsumer consumer) {
         if (root != null) {
             root.intersects(rect, consumer);
         }
     }
+
+
+    /**
+     * 添加一个feature
+     *
+     * @param feature feature
+     * @param tx      事务
+     */
+    public void add(Feature feature, Transaction tx) {
+        RectNd t = builder.buildFeatureRect(feature);
+        add(t, tx);
+        String key = builder.getFeatureKey(feature);
+        builder.putFeatureKeyInLeafId(key, t.leafId);
+    }
+
 
     /**
      * Add the data entry to the SpatialSearch structure
      *
      * @param t Data entry to be added
      */
-    public void add(final RectNd t, Transaction tx) {
+    protected void add(final RectNd t, Transaction tx) {
         if (root != null) {
-            root = root.add(t,tx);
+            root = root.add(t, tx);
         } else {
             root = builder.newLeaf(tx);
-            root.add(t,tx);
+            root.add(t, tx);
         }
     }
 
-    /**
-     * Remove the data entry from the SpatialSearch structure
-     *
-     * @param t Data entry to be removed
-     */
-    public void remove(final RectNd t, Transaction tx) {
-        if (root != null) {
-            root = root.remove(t,tx);
-        }
-    }
+    // TODO 删除和修改由于equals不易判断，暂不开放 后续通过featurekey拿到RectNd再  featureEquals来比较删除和修改
 
-    /**
-     * Update entry in tree
-     *
-     * @param told - Entry to update
-     * @param tnew - Entry to update it to
-     */
-    public void update(final RectNd told, final RectNd tnew, Transaction tx) {
-        if (root != null) {
-            root = root.update(told, tnew,tx);
-        }
-    }
+//    /**
+//     * 添加一个feature
+//     * @param feature feature
+//     * @param tx 事务
+//     */
+//    public void remove(Feature feature,Transaction tx) {
+//        RectNd t = builder.getFeatureRect(feature);
+//        remove(t,tx);
+//    }
+//
+//    /**
+//     * Remove the data entry from the SpatialSearch structure
+//     *
+//     * @param t Data entry to be removed
+//     */
+//    protected void remove(final RectNd t, Transaction tx) {
+//        if (root != null) {
+//            root = root.remove(t, tx);
+//        }
+//    }
+//
+//    /**
+//     * Update entry in tree
+//     *
+//     * @param told - Entry to update
+//     * @param tnew - Entry to update it to
+//     */
+//    protected void update(final RectNd told, final RectNd tnew, Transaction tx) {
+//        if (root != null) {
+//            root = root.update(told, tnew, tx);
+//        }
+//    }
 
     /**
      * Get the number of entries in the tree
@@ -158,21 +156,7 @@ public final class RTree {
         return 0;
     }
 
-    /**
-     * returns whether or not the HyperRect will enclose all of the data entries in t
-     *
-     * @param t Data entries to be evaluated
-     * @return boolean - Whether or not all entries lie inside rect
-     */
-    public boolean contains(final RectNd t) {
-        if (root != null) {
-            final RectNd bbox = builder.getBBox(t);
-            return root.contains(bbox, t);
-        }
-        return false;
-    }
-
-    public static boolean isEqual(final double a, final double b) {
+    protected static boolean isEqual(final double a, final double b) {
         return isEqual(a, b, EPSILON);
     }
 
@@ -185,13 +169,13 @@ public final class RTree {
      *
      * @param consumer - callback for each element
      */
-    public void forEach(Consumer<RectNd> consumer) {
+    protected void forEach(Consumer<RectNd> consumer) {
         if (root != null) {
             root.forEach(consumer);
         }
     }
 
-    public Stats collectStats() {
+    protected Stats collectStats() {
         Stats stats = new Stats();
         stats.setMaxFill(builder.mMax);
         stats.setMinFill(builder.mMin);

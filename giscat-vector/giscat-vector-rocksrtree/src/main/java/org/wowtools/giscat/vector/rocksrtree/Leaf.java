@@ -61,7 +61,7 @@ final class Leaf extends Node {
     }
 
     @Override
-     Node add(final RectNd t,Transaction tx) {
+    Node add(final RectNd t, Transaction tx) {
         if (size < builder.mMax) {
             final RectNd tRect = builder.getBBox(t);
             if (mbr != null) {
@@ -72,27 +72,28 @@ final class Leaf extends Node {
 
             entryRects[size] = tRect;
             entry[size] = t;
+            t.leafId = this.id;
             size++;
         } else {
-            return split(t,tx);
+            return split(t, tx);
         }
 
         return this;
     }
 
     @Override
-     Node remove(final RectNd t,Transaction tx) {
+    Node remove(final RectNd t, Transaction tx) {
 
         int i = 0;
         int j;
 
-        while (i < size && (entry[i] != t) && (!entry[i].equals(t))) {
+        while (i < size && (entry[i] != t) && (!entry[i].featureEquals(t,builder))) {
             i++;
         }
 
         j = i;
 
-        while (j < size && ((entry[j] == t) || entry[j].equals(t))) {
+        while (j < size && ((entry[j] == t) || entry[j].featureEquals(t,builder))) {
             j++;
         }
 
@@ -104,6 +105,7 @@ final class Leaf extends Node {
                 System.arraycopy(entry, j, entry, i, nRemaining);
                 for (int k = size - nRemoved; k < size; k++) {
                     entryRects[k] = null;
+                    entry[k].leafId = emptyId;
                     entry[k] = null;
                 }
             } else {
@@ -113,6 +115,7 @@ final class Leaf extends Node {
                 }
                 for (int k = i; k < size; k++) {
                     entryRects[k] = null;
+                    entry[k].leafId = emptyId;
                     entry[k] = null;
                 }
             }
@@ -134,12 +137,14 @@ final class Leaf extends Node {
     }
 
     @Override
-     Node update(final RectNd told, final RectNd tnew,Transaction tx) {
+    Node update(final RectNd told, final RectNd tnew, Transaction tx) {
         final RectNd bbox = builder.getBBox(tnew);
 
         for (int i = 0; i < size; i++) {
-            if (entry[i].equals(told)) {
+            if (entry[i].featureEquals(told,builder)) {
                 entryRects[i] = bbox;
+                tnew.leafId = this.id;
+                entry[i].leafId = emptyId;
                 entry[i] = tnew;
             }
 
@@ -153,49 +158,29 @@ final class Leaf extends Node {
         return this;
     }
 
-    @Override
-    public int search(final RectNd rect, final RectNd[] t, int n) {
-        final int tLen = t.length;
-        final int n0 = n;
-
-        for (int i = 0; i < size && n < tLen; i++) {
-            if (rect.contains(entryRects[i])) {
-                t[n++] = entry[i];
-            }
-        }
-        return n - n0;
-    }
 
     @Override
-    public void search(RectNd rect, Consumer<RectNd> consumer) {
-        for (int i = 0; i < size; i++) {
-            if (rect.contains(entryRects[i])) {
-                consumer.accept(entry[i]);
-            }
-        }
-    }
-
-    @Override
-    public int intersects(final RectNd rect, final RectNd[] t, int n) {
-        final int tLen = t.length;
-        final int n0 = n;
-
-        for (int i = 0; i < size && n < tLen; i++) {
-            if (rect.intersects(entryRects[i])) {
-                t[n] = entry[i];
-                n++;
-            }
-        }
-        return n - n0;
-    }
-
-    @Override
-    public void intersects(RectNd rect, Consumer<RectNd> consumer) {
+    public boolean intersects(RectNd rect, FeatureConsumer consumer) {
         for (int i = 0; i < size; i++) {
             if (rect.intersects(entryRects[i])) {
-                consumer.accept(entry[i]);
+                if (!consumer.accept(entry[i])) {
+                    return false;
+                }
             }
         }
+        return true;
+    }
+
+    @Override
+    public boolean contains(RectNd rect, FeatureConsumer consumer) {
+        for (int i = 0; i < size; i++) {
+            if (rect.contains(entryRects[i])) {
+                if (!consumer.accept(entry[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
@@ -229,7 +214,7 @@ final class Leaf extends Node {
      * @param t entry to be added to the full leaf node
      * @return newly created node storing half the entries of this node
      */
-    protected Node split(final RectNd t,Transaction tx) {
+    protected Node split(final RectNd t, Transaction tx) {
         final Branch pNode = builder.newBranch(tx);
         final Node l1Node = builder.newLeaf(tx);
         final Node l2Node = builder.newLeaf(tx);
@@ -267,7 +252,7 @@ final class Leaf extends Node {
             outerLoop:
             for (int j = 0; j < size; j++) {
                 if (entryRects[j] == sortedMbr[i]) {
-                    l1Node.add(entry[j],tx);
+                    l1Node.add(entry[j], tx);
                     break outerLoop;
                 }
             }
@@ -277,13 +262,13 @@ final class Leaf extends Node {
             outerLoop:
             for (int j = 0; j < size; j++) {
                 if (entryRects[j] == sortedMbr[i]) {
-                    l2Node.add(entry[j],tx);
+                    l2Node.add(entry[j], tx);
                     break outerLoop;
                 }
             }
         }
 
-        classify(l1Node, l2Node, t,tx);
+        classify(l1Node, l2Node, t, tx);
 
         pNode.addChild(l1Node);
         pNode.addChild(l2Node);
@@ -326,39 +311,39 @@ final class Leaf extends Node {
      * @param l2Node right node
      * @param t      data entry to be added
      */
-    protected final void classify(final Node l1Node, final Node l2Node, final RectNd t,Transaction tx) {
+    protected final void classify(final Node l1Node, final Node l2Node, final RectNd t, Transaction tx) {
         final RectNd tRect = builder.getBBox(t);
         final RectNd l1Mbr = l1Node.getBound().getMbr(tRect);
         final RectNd l2Mbr = l2Node.getBound().getMbr(tRect);
         final double l1CostInc = Math.max(l1Mbr.cost() - (l1Node.getBound().cost() + tRect.cost()), 0.0);
         final double l2CostInc = Math.max(l2Mbr.cost() - (l2Node.getBound().cost() + tRect.cost()), 0.0);
         if (l2CostInc > l1CostInc) {
-            l1Node.add(t,tx);
+            l1Node.add(t, tx);
         } else if (RTree.isEqual(l1CostInc, l2CostInc)) {
             final double l1MbrCost = l1Mbr.cost();
             final double l2MbrCost = l2Mbr.cost();
             if (l1MbrCost < l2MbrCost) {
-                l1Node.add(t,tx);
+                l1Node.add(t, tx);
             } else if (RTree.isEqual(l1MbrCost, l2MbrCost)) {
                 final double l1MbrMargin = l1Mbr.perimeter();
                 final double l2MbrMargin = l2Mbr.perimeter();
                 if (l1MbrMargin < l2MbrMargin) {
-                    l1Node.add(t,tx);
+                    l1Node.add(t, tx);
                 } else if (RTree.isEqual(l1MbrMargin, l2MbrMargin)) {
                     // break ties with least number
                     if (l1Node.size() < l2Node.size()) {
-                        l1Node.add(t,tx);
+                        l1Node.add(t, tx);
                     } else {
-                        l2Node.add(t,tx);
+                        l2Node.add(t, tx);
                     }
                 } else {
-                    l2Node.add(t,tx);
+                    l2Node.add(t, tx);
                 }
             } else {
-                l2Node.add(t,tx);
+                l2Node.add(t, tx);
             }
         } else {
-            l2Node.add(t,tx);
+            l2Node.add(t, tx);
         }
 
     }
