@@ -41,23 +41,17 @@ final class Branch implements Node {
 
     private final RectBuilder builder;
 
-    private final int mMax;
-
-    private final int mMin;
-
     private final Node[] child;
 
     private RectNd mbr;
 
     private int size;
 
-    Branch(final RectBuilder builder, final int mMin, final int mMax) {
-        this.mMin = mMin;
-        this.mMax = mMax;
+    Branch(final RectBuilder builder) {
         this.builder = builder;
         this.mbr = null;
         this.size = 0;
-        this.child = new Node[mMax];
+        this.child = new Node[builder.mMax];
     }
 
     /**
@@ -67,7 +61,7 @@ final class Branch implements Node {
      * @return position of the added node
      */
     protected int addChild(final Node n) {
-        if(size < mMax) {
+        if(size < builder.mMax) {
             child[size++] = n;
 
             if(mbr != null) {
@@ -102,7 +96,7 @@ final class Branch implements Node {
     @Override
     public Node add(final RectNd t) {
         final RectNd tRect = builder.getBBox(t);
-        if(size < mMin) {
+        if(size < builder.mMin) {
             for(int i=0; i<size; i++) {
                 if(child[i].getBound().contains(tRect)) {
                     child[i] = child[i].add(t);
@@ -111,7 +105,7 @@ final class Branch implements Node {
                 }
             }
             // no overlapping node - grow
-            final Node nextLeaf = new Leaf(builder, mMin, mMax);
+            final Node nextLeaf = new Leaf(builder);
             nextLeaf.add(t);
             final int nextChild = addChild(nextLeaf);
             mbr = mbr.getMbr(child[nextChild].getBound());
@@ -263,7 +257,7 @@ final class Branch implements Node {
             return bestNode;
         }
         else {
-            final Node n = new Leaf(builder, mMin, mMax);
+            final Node n = new Leaf(builder);
             n.add(t);
             child[size++] = n;
 

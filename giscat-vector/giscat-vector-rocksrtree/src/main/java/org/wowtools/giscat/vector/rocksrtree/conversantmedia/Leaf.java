@@ -41,10 +41,6 @@ import java.util.function.Consumer;
  */
  final class Leaf implements Node {
 
-    protected final int mMax;       // max entries per node
-
-    protected final int mMin;       // least number of entries per node
-
 
     protected final RectNd[] r;
 
@@ -56,19 +52,17 @@ import java.util.function.Consumer;
 
     protected int size;
 
-    protected Leaf(final RectBuilder builder, final int mMin, final int mMax) {
-        this.mMin = mMin;
-        this.mMax = mMax;
+    protected Leaf(final RectBuilder builder) {
         this.mbr = null;
         this.builder = builder;
-        this.r  = new RectNd[mMax];
-        this.entry = new RectNd[mMax];
+        this.r  = new RectNd[builder.mMax];
+        this.entry = new RectNd[builder.mMax];
         this.size = 0;
     }
 
     @Override
     public Node add(final RectNd t) {
-        if(size < mMax) {
+        if(size < builder.mMax) {
             final RectNd tRect = builder.getBBox(t);
             if(mbr != null) {
                 mbr = mbr.getMbr(tRect);
@@ -234,9 +228,9 @@ import java.util.function.Consumer;
      * @return newly created node storing half the entries of this node
      */
     protected Node split(final RectNd t) {
-        final Branch pNode = new Branch(builder, mMin, mMax);
-        final Node l1Node = new Leaf(builder, mMin, mMax);
-        final Node l2Node = new Leaf(builder, mMin, mMax);
+        final Branch pNode = new Branch(builder);
+        final Node l1Node = new Leaf(builder);
+        final Node l2Node = new Leaf(builder);
         final int nD = r[0].getNDim();
 
         // choose axis to split

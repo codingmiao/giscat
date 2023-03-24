@@ -33,7 +33,15 @@ package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
 /**
  * Created by jcairns on 4/30/15.
  */
-public interface RectBuilder {
+public abstract class RectBuilder {
+
+    protected final int mMin;
+    protected final int mMax;
+
+    public RectBuilder(int mMin, int mMax) {
+        this.mMin = mMin;
+        this.mMax = mMax;
+    }
 
     /**
      * Build a bounding rectangle for the given element
@@ -42,7 +50,7 @@ public interface RectBuilder {
      *
      * @return HyperRect impl for this entry
      */
-    RectNd getBBox(RectNd t);
+    protected abstract RectNd getBBox(RectNd t);
 
 
     /**
@@ -53,5 +61,5 @@ public interface RectBuilder {
      *
      * @return HyperRect impl defined by two points
      */
-    RectNd getMbr(PointNd p1, PointNd p2);
+    protected abstract RectNd getMbr(PointNd p1, PointNd p2);
 }

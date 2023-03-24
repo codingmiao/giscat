@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  */
 public class Test {
     public static void main(String[] args) {
-        final RTree pTree = new RTree(new RectNdBuilder(), 2, 8, RTree.Split.AXIAL);
+        final RTree pTree = new RTree(new RectNdBuilder(2, 8));
 
         for (int i = 0; i < 100; i++) {
             pTree.add(new RectNd(new PointNd(new double[]{i, i}),new PointNd(new double[]{i, i})));

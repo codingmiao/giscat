@@ -14,7 +14,11 @@ package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
  * @author liuyu
  * @date 2023/3/24
  */
-public class RectNdBuilder implements RectBuilder{
+public class RectNdBuilder extends RectBuilder{
+    public RectNdBuilder(int mMin, int mMax) {
+        super(mMin, mMax);
+    }
+
     @Override
     public RectNd getBBox(RectNd t) {
         return t;

@@ -30,8 +30,8 @@ package org.wowtools.giscat.vector.rocksrtree.conversantmedia;
  * #L%
  */
 
-import java.util.function.Consumer;
 import java.util.Collection;
+import java.util.function.Consumer;
 
 /**
  * <p>Data structure to make range searching more efficient. Indexes multi-dimensional information
@@ -42,77 +42,115 @@ import java.util.Collection;
  * <p>
  * Created by jcairns on 4/30/15.</p>
  */
-public final class RTree implements SpatialSearch {
+public final class RTree {
     private static final double EPSILON = 1e-12;
 
-    private final int mMin;
-    private final int mMax;
     private final RectBuilder builder;
 
     private Node root = null;
 
-    protected RTree(final RectBuilder builder, final int mMin, final int mMax) {
-        this.mMin = mMin;
-        this.mMax = mMax;
+    protected RTree(final RectBuilder builder) {
         this.builder = builder;
     }
 
-    @Override
+    /**
+     * Search for entries contained by the given bounding rect
+     *
+     * @param rect - Bounding rectangle to use for querying
+     * @param consumer - callback to receive intersecting objects
+     *
+     */
     public void search(RectNd rect, Consumer<RectNd> consumer) {
-        if(root != null) {
+        if (root != null) {
             root.search(rect, consumer);
         }
     }
 
-    @Override
+    /**
+     * Search for entries contained by the given bounding rect
+     *
+     * @param rect - Bounding rectangle to use for querying
+     * @param collection - collection to receive results
+     *
+     */
     public void search(RectNd rect, Collection<RectNd> collection) {
-        if(root != null) {
+        if (root != null) {
             root.search(rect, t -> collection.add(t));
         }
     }
 
-    @Override
+    /**
+     * Search for entries intersecting given bounding rect
+     *
+     * @param rect - Bounding rectangle to use for querying
+     * @param t - Array to store found entries
+     *
+     * @return Number of results found
+     */
     public int intersects(final RectNd rect, final RectNd[] t) {
-        if(root != null) {
+        if (root != null) {
             return root.intersects(rect, t, 0);
         }
         return 0;
     }
 
-    @Override
+    /**
+     * Search for entries intersecting given bounding rect
+     *
+     * @param rect - Bounding rectangle to use for querying
+     * @param consumer - callback to receive intersecting objects
+     *
+     */
     public void intersects(RectNd rect, Consumer<RectNd> consumer) {
-        if(root != null) {
+        if (root != null) {
             root.intersects(rect, consumer);
         }
     }
 
-    @Override
+    /**
+     * Add the data entry to the SpatialSearch structure
+     *
+     * @param t Data entry to be added
+     */
     public void add(final RectNd t) {
-        if(root != null) {
+        if (root != null) {
             root = root.add(t);
         } else {
-            root = new Leaf(builder, mMin, mMax);
+            root = new Leaf(builder);
             root.add(t);
         }
     }
 
-    @Override
+    /**
+     * Remove the data entry from the SpatialSearch structure
+     *
+     * @param t Data entry to be removed
+     */
     public void remove(final RectNd t) {
-        if(root != null) {
+        if (root != null) {
             root = root.remove(t);
         }
     }
 
-    @Override
+    /**
+     * Update entry in tree
+     *
+     * @param told - Entry to update
+     * @param tnew - Entry to update it to
+     */
     public void update(final RectNd told, final RectNd tnew) {
-        if(root != null) {
+        if (root != null) {
             root = root.update(told, tnew);
         }
     }
 
-    @Override
+    /**
+     * Get the number of entries in the tree
+     *
+     * @return entry count
+     */
     public int getEntryCount() {
-        if(root  != null) {
+        if (root != null) {
             return root.totalSize();
         }
         return 0;
@@ -121,13 +159,11 @@ public final class RTree implements SpatialSearch {
     /**
      * returns whether or not the HyperRect will enclose all of the data entries in t
      *
-     * @param t    Data entries to be evaluated
-     *
+     * @param t Data entries to be evaluated
      * @return boolean - Whether or not all entries lie inside rect
      */
-    @Override
     public boolean contains(final RectNd t) {
-        if(root != null) {
+        if (root != null) {
             final RectNd bbox = builder.getBBox(t);
             return root.contains(bbox, t);
         }
@@ -142,18 +178,21 @@ public final class RTree implements SpatialSearch {
         return Math.abs(a - b) <= ((Math.abs(a) < Math.abs(b) ? Math.abs(b) : Math.abs(a)) * eps);
     }
 
-    @Override
+    /**
+     * Iterate over all entries in the tree
+     *
+     * @param consumer - callback for each element
+     */
     public void forEach(Consumer<RectNd> consumer) {
-        if(root != null) {
+        if (root != null) {
             root.forEach(consumer);
         }
     }
 
-    @Override
     public Stats collectStats() {
         Stats stats = new Stats();
-        stats.setMaxFill(mMax);
-        stats.setMinFill(mMin);
+        stats.setMaxFill(builder.mMax);
+        stats.setMinFill(builder.mMin);
         root.collectStats(stats, 0);
         return stats;
     }

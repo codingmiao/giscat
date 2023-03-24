@@ -37,7 +37,7 @@ public class Test1 {
         features.add(new Feature(SampleData.multiPolygon2, p));
         features.add(new Feature(SampleData.geometryCollection, p));
         byte[] bytes = ProtoFeatureConverter.featureCollection2Proto(fc);
-        save2File("D:\\_test\\1\\testbytes.pbf", bytes);
+        save2File("D:/_test/1/testbytes.pbf", bytes);
         System.out.println(GeoJsonFeatureConverter.toGeoJson(fc).toGeoJsonString());
     }
 
@@ -46,12 +46,8 @@ public class Test1 {
         OutputStream fos = null;
         try {
             File file = new File(fname);
-            File parent = file.getParentFile();
-            boolean bool;
-            if ((!parent.exists()) &&
-                    (!parent.mkdirs())) {
-                return false;
-            }
+            file.mkdirs();
+            System.out.println(file.getAbsolutePath());
             fos = new FileOutputStream(file);
             fos.write(msg);
             fos.flush();
