@@ -43,6 +43,8 @@ import java.util.Map;
  */
 public abstract class TreeBuilder {
 
+    public static final long emptyId = 0L;
+
     private final Map<Long, Branch> branchMap = new HashMap<>();
 
     private final Map<Long, Leaf> leafMap = new HashMap<>();
@@ -64,7 +66,7 @@ public abstract class TreeBuilder {
 
     public abstract String getFeatureKey(Feature feature);
 
-    protected void putFeatureKeyInLeafId(String key,long id) {
+    protected void putFeatureKeyInLeafId(String key, long id) {
         featureKeyInLeafId.put(key, id);
     }
 

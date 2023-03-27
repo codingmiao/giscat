@@ -13,6 +13,7 @@ package org.wowtools.giscat.vector.rocksrtree;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 /**
+ * 结果消费者
  * @author liuyu
  * @date 2023/3/24
  */

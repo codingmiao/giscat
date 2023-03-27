@@ -39,8 +39,6 @@ import java.util.function.Consumer;
  */
 abstract class Node {
 
-    protected static final long emptyId = 0L;
-
     protected final long id;
 
     public Node(long id) {

@@ -32,6 +32,7 @@ package org.wowtools.giscat.vector.rocksrtree;
 
 import org.wowtools.giscat.vector.pojo.Feature;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -46,6 +47,13 @@ public final class RectNd {
     Feature feature;
 
     long leafId;
+
+    protected RocksRtreePb.RectNdPb.Builder toBuilder() {
+        RocksRtreePb.RectNdPb.Builder builder = RocksRtreePb.RectNdPb.newBuilder();
+        builder.addAllMin(min.toList());
+        builder.addAllMax(max.toList());
+        return builder;
+    }
 
     public boolean featureEquals(RectNd other,TreeBuilder builder) {
         if (feature == null) {
@@ -73,6 +81,12 @@ public final class RectNd {
         this.max = new PointNd(max);
     }
 
+    protected RectNd(RocksRtreePb.RectNdPb pb) {
+        min = new PointNd(pb.getMinList());
+        max = new PointNd(pb.getMaxList());
+    }
+
+
     @Override
     public String toString() {
         return min + " " + max;
@@ -89,8 +103,12 @@ public final class RectNd {
         double[] min = new double[dim];
         double[] max = new double[dim];
         for (int i = 0; i < dim; i++) {
-            min[i] = Math.min(this.min.xs[i], r.min.xs[i]);
-            max[i] = Math.max(this.max.xs[i], r.max.xs[i]);
+            try {
+                min[i] = Math.min(this.min.xs[i], r.min.xs[i]);
+                max[i] = Math.max(this.max.xs[i], r.max.xs[i]);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         return new RectNd(new PointNd(min), new PointNd(max));
     }

@@ -36,7 +36,7 @@ public class Test {
         final RTree pTree = new RTree(builder);
         Transaction tx = builder.newTx();
         try {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 100; i++) {
                 Point point = geometryFactory.createPoint(new Coordinate(i, i));
                 pTree.add(new Feature(point), tx);
             }
@@ -59,6 +59,7 @@ public class Test {
         };
         pTree.contains(rect, consumer);
         Assert.equals(7, res.size());
+        System.out.println(res.size());
 
         for (Feature feature : res) {
             Assert.isTrue(feature.getGeometry().getCoordinate().x >= 2);

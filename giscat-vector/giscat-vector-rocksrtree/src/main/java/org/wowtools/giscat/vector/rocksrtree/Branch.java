@@ -30,9 +30,15 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.rocksdb.Transaction;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
+
+import static org.wowtools.giscat.vector.rocksrtree.TreeBuilder.emptyId;
 
 /**
  * RTree node that contains leaf nodes
@@ -53,6 +59,48 @@ final class Branch extends Node {
         super(id);
         this.builder = builder;
         this.child = new long[builder.mMax];
+    }
+
+
+    protected static Branch fromBytes(TreeBuilder builder,long id,byte[] bytes) {
+        RocksRtreePb.BranchPb branchPb;
+        try {
+            branchPb = RocksRtreePb.BranchPb.parseFrom(bytes);
+        } catch (InvalidProtocolBufferException e) {
+            throw new RuntimeException(e);
+        }
+        Branch branch = new Branch(builder, id);
+        List<Long> childIdsList = branchPb.getChildIdsList();
+        if (childIdsList.size() > 0) {
+            int i = 0;
+            for (Long l : childIdsList) {
+                branch.child[i] = l;
+                i++;
+            }
+            branch.size = childIdsList.size();
+        }
+        if (branchPb.hasMbr()) {
+            branch.mbr = new RectNd(branchPb.getMbr());
+        }
+        return branch;
+    }
+
+    protected byte[] toBytes() {
+        RocksRtreePb.BranchPb.Builder branchBuilder = RocksRtreePb.BranchPb.newBuilder();
+        if (null != child) {
+            List<Long> list = new ArrayList<>(child.length);
+            for (long l : child) {
+                if (l == 0) {
+                    break;
+                }
+                list.add(l);
+            }
+            branchBuilder.addAllChildIds(list);
+        }
+        if (null != mbr) {
+            branchBuilder.setMbr(mbr.toBuilder());
+        }
+        return branchBuilder.build().toByteArray();
     }
 
     /**
@@ -119,7 +167,6 @@ final class Branch extends Node {
 
         } else {
             final int bestLeaf = chooseLeaf(t, tRect,tx);
-
             child[bestLeaf] = getChild(bestLeaf).add(t,tx).id;
             mbr = mbr.getMbr(getChild(bestLeaf).getBound());
 
@@ -229,7 +276,8 @@ final class Branch extends Node {
             double leastPerimeter = childMbr.perimeter();
 
             for (int i = 1; i < size; i++) {
-                childMbr = getChild(i).getBound().getMbr(tRect);
+                RectNd cRect = getChild(i).getBound();
+                childMbr = tRect.getMbr(cRect);
                 final double nodeEnlargement = childMbr.cost() - (getChild(i).getBound().cost() + tRect.cost());
                 if (nodeEnlargement < leastEnlargement) {
                     leastEnlargement = nodeEnlargement;

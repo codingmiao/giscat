@@ -30,7 +30,9 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * N dimensional point used to signify the bounds of a HyperRect
@@ -40,6 +42,14 @@ import java.util.Arrays;
 final class PointNd {
 
     final double[] xs;
+
+    protected List<Double> toList() {
+        ArrayList<Double> list = new ArrayList<>(xs.length);
+        for (double x : xs) {
+            list.add(x);
+        }
+        return list;
+    }
 
     @Override
     public String toString() {
@@ -56,6 +66,15 @@ final class PointNd {
         this.xs = xs;
     }
 
+    public PointNd(List<Double> list) {
+        double[] arr = new double[list.size()];
+        int i = 0;
+        for (double v : arr) {
+            arr[i] = v;
+            i++;
+        }
+        xs = arr;
+    }
     /**
      * The number of dimensions represented by this point
      *

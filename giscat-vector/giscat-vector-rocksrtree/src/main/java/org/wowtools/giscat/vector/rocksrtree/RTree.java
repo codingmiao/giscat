@@ -35,6 +35,8 @@ import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.function.Consumer;
 
+import static org.wowtools.giscat.vector.rocksrtree.TreeBuilder.emptyId;
+
 /**
  * <p>Data structure to make range searching more efficient. Indexes multi-dimensional information
  * such as geographical coordinates or rectangles. Groups information and represents them with a
@@ -49,7 +51,7 @@ public final class RTree {
 
     private final TreeBuilder builder;
 
-    private Node root = null;
+    private long root = emptyId;
 
     public RTree(final TreeBuilder builder) {
         this.builder = builder;
@@ -62,8 +64,8 @@ public final class RTree {
      * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
      */
     public void contains(RectNd rect, FeatureConsumer consumer) {
-        if (root != null) {
-            root.contains(rect, consumer);
+        if (root != emptyId) {
+            builder.getNode(root).contains(rect, consumer);
         }
     }
 
@@ -75,8 +77,8 @@ public final class RTree {
      * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
      */
     public void intersects(RectNd rect, FeatureConsumer consumer) {
-        if (root != null) {
-            root.intersects(rect, consumer);
+        if (root != emptyId) {
+            builder.getNode(root).intersects(rect, consumer);
         }
     }
 
@@ -101,11 +103,11 @@ public final class RTree {
      * @param t Data entry to be added
      */
     protected void add(final RectNd t, Transaction tx) {
-        if (root != null) {
-            root = root.add(t, tx);
+        if (root != emptyId) {
+            root = builder.getNode(root).add(t, tx).id;
         } else {
-            root = builder.newLeaf(tx);
-            root.add(t, tx);
+            root = builder.newLeaf(tx).id;
+            builder.getNode(root).add(t, tx);
         }
     }
 
@@ -150,8 +152,8 @@ public final class RTree {
      * @return entry count
      */
     public int getEntryCount() {
-        if (root != null) {
-            return root.totalSize();
+        if (root != emptyId) {
+            return  builder.getNode(root).totalSize();
         }
         return 0;
     }
@@ -170,8 +172,8 @@ public final class RTree {
      * @param consumer - callback for each element
      */
     protected void forEach(Consumer<RectNd> consumer) {
-        if (root != null) {
-            root.forEach(consumer);
+        if (root != emptyId) {
+            builder.getNode(root).forEach(consumer);
         }
     }
 
@@ -179,12 +181,12 @@ public final class RTree {
         Stats stats = new Stats();
         stats.setMaxFill(builder.mMax);
         stats.setMinFill(builder.mMin);
-        root.collectStats(stats, 0);
+        builder.getNode(root).collectStats(stats, 0);
         return stats;
     }
 
     Node getRoot() {
-        return root;
+        return  builder.getNode(root);
     }
 
 }

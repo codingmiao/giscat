@@ -36,6 +36,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Consumer;
 
+import static org.wowtools.giscat.vector.rocksrtree.TreeBuilder.emptyId;
+
 /**
  * Node that will contain the data entries. Implemented by different type of SplitType leaf classes.
  * <p>
@@ -59,6 +61,10 @@ final class Leaf extends Node {
         this.entryRects = new RectNd[builder.mMax];
         this.entry = new RectNd[builder.mMax];
     }
+
+//    protected byte[] toBytes() {
+//
+//    }
 
     @Override
     Node add(final RectNd t, Transaction tx) {
