@@ -862,16 +862,17 @@ public final class RocksRtreePb {
      * 子节点id
      * </pre>
      *
-     * <code>repeated sint64 childIds = 2;</code>
+     * <code>repeated string childIds = 2;</code>
      * @return A list containing the childIds.
      */
-    java.util.List<Long> getChildIdsList();
+    java.util.List<String>
+        getChildIdsList();
     /**
      * <pre>
      * 子节点id
      * </pre>
      *
-     * <code>repeated sint64 childIds = 2;</code>
+     * <code>repeated string childIds = 2;</code>
      * @return The count of childIds.
      */
     int getChildIdsCount();
@@ -880,21 +881,22 @@ public final class RocksRtreePb {
      * 子节点id
      * </pre>
      *
-     * <code>repeated sint64 childIds = 2;</code>
+     * <code>repeated string childIds = 2;</code>
      * @param index The index of the element to return.
      * @return The childIds at the given index.
      */
-    long getChildIds(int index);
-
+    String getChildIds(int index);
     /**
      * <pre>
-     * 子节点数
+     * 子节点id
      * </pre>
      *
-     * <code>int32 size = 3;</code>
-     * @return The size.
+     * <code>repeated string childIds = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the childIds at the given index.
      */
-    int getSize();
+    com.google.protobuf.ByteString
+        getChildIdsBytes(int index);
   }
   /**
    * <pre>
@@ -913,7 +915,7 @@ public final class RocksRtreePb {
       super(builder);
     }
     private BranchPb() {
-      childIds_ = emptyLongList();
+      childIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @Override
@@ -960,30 +962,13 @@ public final class RocksRtreePb {
 
               break;
             }
-            case 16: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                childIds_ = newLongList();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              childIds_.addLong(input.readSInt64());
-              break;
-            }
             case 18: {
-              int length = input.readRawVarint32();
-              int limit = input.pushLimit(length);
-              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
-                childIds_ = newLongList();
+              String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                childIds_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000001;
               }
-              while (input.getBytesUntilLimit() > 0) {
-                childIds_.addLong(input.readSInt64());
-              }
-              input.popLimit(limit);
-              break;
-            }
-            case 24: {
-
-              size_ = input.readInt32();
+              childIds_.add(s);
               break;
             }
             default: {
@@ -1004,7 +989,7 @@ public final class RocksRtreePb {
             e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          childIds_.makeImmutable(); // C
+          childIds_ = childIds_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1062,17 +1047,16 @@ public final class RocksRtreePb {
     }
 
     public static final int CHILDIDS_FIELD_NUMBER = 2;
-    private com.google.protobuf.Internal.LongList childIds_;
+    private com.google.protobuf.LazyStringList childIds_;
     /**
      * <pre>
      * 子节点id
      * </pre>
      *
-     * <code>repeated sint64 childIds = 2;</code>
+     * <code>repeated string childIds = 2;</code>
      * @return A list containing the childIds.
      */
-    @Override
-    public java.util.List<Long>
+    public com.google.protobuf.ProtocolStringList
         getChildIdsList() {
       return childIds_;
     }
@@ -1081,7 +1065,7 @@ public final class RocksRtreePb {
      * 子节点id
      * </pre>
      *
-     * <code>repeated sint64 childIds = 2;</code>
+     * <code>repeated string childIds = 2;</code>
      * @return The count of childIds.
      */
     public int getChildIdsCount() {
@@ -1092,28 +1076,25 @@ public final class RocksRtreePb {
      * 子节点id
      * </pre>
      *
-     * <code>repeated sint64 childIds = 2;</code>
+     * <code>repeated string childIds = 2;</code>
      * @param index The index of the element to return.
      * @return The childIds at the given index.
      */
-    public long getChildIds(int index) {
-      return childIds_.getLong(index);
+    public String getChildIds(int index) {
+      return childIds_.get(index);
     }
-    private int childIdsMemoizedSerializedSize = -1;
-
-    public static final int SIZE_FIELD_NUMBER = 3;
-    private int size_;
     /**
      * <pre>
-     * 子节点数
+     * 子节点id
      * </pre>
      *
-     * <code>int32 size = 3;</code>
-     * @return The size.
+     * <code>repeated string childIds = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the childIds at the given index.
      */
-    @Override
-    public int getSize() {
-      return size_;
+    public com.google.protobuf.ByteString
+        getChildIdsBytes(int index) {
+      return childIds_.getByteString(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1130,19 +1111,11 @@ public final class RocksRtreePb {
     @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (mbr_ != null) {
         output.writeMessage(1, getMbr());
       }
-      if (getChildIdsList().size() > 0) {
-        output.writeUInt32NoTag(18);
-        output.writeUInt32NoTag(childIdsMemoizedSerializedSize);
-      }
       for (int i = 0; i < childIds_.size(); i++) {
-        output.writeSInt64NoTag(childIds_.getLong(i));
-      }
-      if (size_ != 0) {
-        output.writeInt32(3, size_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, childIds_.getRaw(i));
       }
       unknownFields.writeTo(output);
     }
@@ -1160,20 +1133,10 @@ public final class RocksRtreePb {
       {
         int dataSize = 0;
         for (int i = 0; i < childIds_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeSInt64SizeNoTag(childIds_.getLong(i));
+          dataSize += computeStringSizeNoTag(childIds_.getRaw(i));
         }
         size += dataSize;
-        if (!getChildIdsList().isEmpty()) {
-          size += 1;
-          size += com.google.protobuf.CodedOutputStream
-              .computeInt32SizeNoTag(dataSize);
-        }
-        childIdsMemoizedSerializedSize = dataSize;
-      }
-      if (size_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, size_);
+        size += 1 * getChildIdsList().size();
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1197,8 +1160,6 @@ public final class RocksRtreePb {
       }
       if (!getChildIdsList()
           .equals(other.getChildIdsList())) return false;
-      if (getSize()
-          != other.getSize()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1218,8 +1179,6 @@ public final class RocksRtreePb {
         hash = (37 * hash) + CHILDIDS_FIELD_NUMBER;
         hash = (53 * hash) + getChildIdsList().hashCode();
       }
-      hash = (37 * hash) + SIZE_FIELD_NUMBER;
-      hash = (53 * hash) + getSize();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1363,10 +1322,8 @@ public final class RocksRtreePb {
           mbr_ = null;
           mbrBuilder_ = null;
         }
-        childIds_ = emptyLongList();
+        childIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
-        size_ = 0;
-
         return this;
       }
 
@@ -1400,11 +1357,10 @@ public final class RocksRtreePb {
           result.mbr_ = mbrBuilder_.build();
         }
         if (((bitField0_ & 0x00000001) != 0)) {
-          childIds_.makeImmutable();
+          childIds_ = childIds_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.childIds_ = childIds_;
-        result.size_ = size_;
         onBuilt();
         return result;
       }
@@ -1465,9 +1421,6 @@ public final class RocksRtreePb {
             childIds_.addAll(other.childIds_);
           }
           onChanged();
-        }
-        if (other.getSize() != 0) {
-          setSize(other.getSize());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1654,10 +1607,10 @@ public final class RocksRtreePb {
         return mbrBuilder_;
       }
 
-      private com.google.protobuf.Internal.LongList childIds_ = emptyLongList();
+      private com.google.protobuf.LazyStringList childIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureChildIdsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          childIds_ = mutableCopy(childIds_);
+          childIds_ = new com.google.protobuf.LazyStringArrayList(childIds_);
           bitField0_ |= 0x00000001;
          }
       }
@@ -1666,20 +1619,19 @@ public final class RocksRtreePb {
        * 子节点id
        * </pre>
        *
-       * <code>repeated sint64 childIds = 2;</code>
+       * <code>repeated string childIds = 2;</code>
        * @return A list containing the childIds.
        */
-      public java.util.List<Long>
+      public com.google.protobuf.ProtocolStringList
           getChildIdsList() {
-        return ((bitField0_ & 0x00000001) != 0) ?
-                 java.util.Collections.unmodifiableList(childIds_) : childIds_;
+        return childIds_.getUnmodifiableView();
       }
       /**
        * <pre>
        * 子节点id
        * </pre>
        *
-       * <code>repeated sint64 childIds = 2;</code>
+       * <code>repeated string childIds = 2;</code>
        * @return The count of childIds.
        */
       public int getChildIdsCount() {
@@ -1690,27 +1642,43 @@ public final class RocksRtreePb {
        * 子节点id
        * </pre>
        *
-       * <code>repeated sint64 childIds = 2;</code>
+       * <code>repeated string childIds = 2;</code>
        * @param index The index of the element to return.
        * @return The childIds at the given index.
        */
-      public long getChildIds(int index) {
-        return childIds_.getLong(index);
+      public String getChildIds(int index) {
+        return childIds_.get(index);
       }
       /**
        * <pre>
        * 子节点id
        * </pre>
        *
-       * <code>repeated sint64 childIds = 2;</code>
+       * <code>repeated string childIds = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the childIds at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getChildIdsBytes(int index) {
+        return childIds_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * 子节点id
+       * </pre>
+       *
+       * <code>repeated string childIds = 2;</code>
        * @param index The index to set the value at.
        * @param value The childIds to set.
        * @return This builder for chaining.
        */
       public Builder setChildIds(
-          int index, long value) {
-        ensureChildIdsIsMutable();
-        childIds_.setLong(index, value);
+          int index, String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureChildIdsIsMutable();
+        childIds_.set(index, value);
         onChanged();
         return this;
       }
@@ -1719,13 +1687,17 @@ public final class RocksRtreePb {
        * 子节点id
        * </pre>
        *
-       * <code>repeated sint64 childIds = 2;</code>
+       * <code>repeated string childIds = 2;</code>
        * @param value The childIds to add.
        * @return This builder for chaining.
        */
-      public Builder addChildIds(long value) {
-        ensureChildIdsIsMutable();
-        childIds_.addLong(value);
+      public Builder addChildIds(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureChildIdsIsMutable();
+        childIds_.add(value);
         onChanged();
         return this;
       }
@@ -1734,12 +1706,12 @@ public final class RocksRtreePb {
        * 子节点id
        * </pre>
        *
-       * <code>repeated sint64 childIds = 2;</code>
+       * <code>repeated string childIds = 2;</code>
        * @param values The childIds to add.
        * @return This builder for chaining.
        */
       public Builder addAllChildIds(
-          Iterable<? extends Long> values) {
+          Iterable<String> values) {
         ensureChildIdsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
             values, childIds_);
@@ -1751,55 +1723,32 @@ public final class RocksRtreePb {
        * 子节点id
        * </pre>
        *
-       * <code>repeated sint64 childIds = 2;</code>
+       * <code>repeated string childIds = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearChildIds() {
-        childIds_ = emptyLongList();
+        childIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
-
-      private int size_ ;
       /**
        * <pre>
-       * 子节点数
+       * 子节点id
        * </pre>
        *
-       * <code>int32 size = 3;</code>
-       * @return The size.
-       */
-      @Override
-      public int getSize() {
-        return size_;
-      }
-      /**
-       * <pre>
-       * 子节点数
-       * </pre>
-       *
-       * <code>int32 size = 3;</code>
-       * @param value The size to set.
+       * <code>repeated string childIds = 2;</code>
+       * @param value The bytes of the childIds to add.
        * @return This builder for chaining.
        */
-      public Builder setSize(int value) {
-
-        size_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * 子节点数
-       * </pre>
-       *
-       * <code>int32 size = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSize() {
-
-        size_ = 0;
+      public Builder addChildIdsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureChildIdsIsMutable();
+        childIds_.add(value);
         onChanged();
         return this;
       }
@@ -1933,42 +1882,13 @@ public final class RocksRtreePb {
 
     /**
      * <pre>
-     * 实体id
+     * 实体
      * </pre>
      *
-     * <code>repeated sint64 entryIds = 3;</code>
-     * @return A list containing the entryIds.
+     * <code>bytes entries = 3;</code>
+     * @return The entries.
      */
-    java.util.List<Long> getEntryIdsList();
-    /**
-     * <pre>
-     * 实体id
-     * </pre>
-     *
-     * <code>repeated sint64 entryIds = 3;</code>
-     * @return The count of entryIds.
-     */
-    int getEntryIdsCount();
-    /**
-     * <pre>
-     * 实体id
-     * </pre>
-     *
-     * <code>repeated sint64 entryIds = 3;</code>
-     * @param index The index of the element to return.
-     * @return The entryIds at the given index.
-     */
-    long getEntryIds(int index);
-
-    /**
-     * <pre>
-     * 实体数
-     * </pre>
-     *
-     * <code>int32 size = 4;</code>
-     * @return The size.
-     */
-    int getSize();
+    com.google.protobuf.ByteString getEntries();
   }
   /**
    * <pre>
@@ -1988,7 +1908,7 @@ public final class RocksRtreePb {
     }
     private LeafPb() {
       entryRects_ = java.util.Collections.emptyList();
-      entryIds_ = emptyLongList();
+      entries_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @Override
@@ -2044,30 +1964,9 @@ public final class RocksRtreePb {
                   input.readMessage(RectNdPb.parser(), extensionRegistry));
               break;
             }
-            case 24: {
-              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                entryIds_ = newLongList();
-                mutable_bitField0_ |= 0x00000002;
-              }
-              entryIds_.addLong(input.readSInt64());
-              break;
-            }
             case 26: {
-              int length = input.readRawVarint32();
-              int limit = input.pushLimit(length);
-              if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
-                entryIds_ = newLongList();
-                mutable_bitField0_ |= 0x00000002;
-              }
-              while (input.getBytesUntilLimit() > 0) {
-                entryIds_.addLong(input.readSInt64());
-              }
-              input.popLimit(limit);
-              break;
-            }
-            case 32: {
 
-              size_ = input.readInt32();
+              entries_ = input.readBytes();
               break;
             }
             default: {
@@ -2089,9 +1988,6 @@ public final class RocksRtreePb {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
           entryRects_ = java.util.Collections.unmodifiableList(entryRects_);
-        }
-        if (((mutable_bitField0_ & 0x00000002) != 0)) {
-          entryIds_.makeImmutable(); // C
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2208,59 +2104,19 @@ public final class RocksRtreePb {
       return entryRects_.get(index);
     }
 
-    public static final int ENTRYIDS_FIELD_NUMBER = 3;
-    private com.google.protobuf.Internal.LongList entryIds_;
+    public static final int ENTRIES_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString entries_;
     /**
      * <pre>
-     * 实体id
+     * 实体
      * </pre>
      *
-     * <code>repeated sint64 entryIds = 3;</code>
-     * @return A list containing the entryIds.
+     * <code>bytes entries = 3;</code>
+     * @return The entries.
      */
     @Override
-    public java.util.List<Long>
-        getEntryIdsList() {
-      return entryIds_;
-    }
-    /**
-     * <pre>
-     * 实体id
-     * </pre>
-     *
-     * <code>repeated sint64 entryIds = 3;</code>
-     * @return The count of entryIds.
-     */
-    public int getEntryIdsCount() {
-      return entryIds_.size();
-    }
-    /**
-     * <pre>
-     * 实体id
-     * </pre>
-     *
-     * <code>repeated sint64 entryIds = 3;</code>
-     * @param index The index of the element to return.
-     * @return The entryIds at the given index.
-     */
-    public long getEntryIds(int index) {
-      return entryIds_.getLong(index);
-    }
-    private int entryIdsMemoizedSerializedSize = -1;
-
-    public static final int SIZE_FIELD_NUMBER = 4;
-    private int size_;
-    /**
-     * <pre>
-     * 实体数
-     * </pre>
-     *
-     * <code>int32 size = 4;</code>
-     * @return The size.
-     */
-    @Override
-    public int getSize() {
-      return size_;
+    public com.google.protobuf.ByteString getEntries() {
+      return entries_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2277,22 +2133,14 @@ public final class RocksRtreePb {
     @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (mbr_ != null) {
         output.writeMessage(1, getMbr());
       }
       for (int i = 0; i < entryRects_.size(); i++) {
         output.writeMessage(2, entryRects_.get(i));
       }
-      if (getEntryIdsList().size() > 0) {
-        output.writeUInt32NoTag(26);
-        output.writeUInt32NoTag(entryIdsMemoizedSerializedSize);
-      }
-      for (int i = 0; i < entryIds_.size(); i++) {
-        output.writeSInt64NoTag(entryIds_.getLong(i));
-      }
-      if (size_ != 0) {
-        output.writeInt32(4, size_);
+      if (!entries_.isEmpty()) {
+        output.writeBytes(3, entries_);
       }
       unknownFields.writeTo(output);
     }
@@ -2311,23 +2159,9 @@ public final class RocksRtreePb {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, entryRects_.get(i));
       }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < entryIds_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeSInt64SizeNoTag(entryIds_.getLong(i));
-        }
-        size += dataSize;
-        if (!getEntryIdsList().isEmpty()) {
-          size += 1;
-          size += com.google.protobuf.CodedOutputStream
-              .computeInt32SizeNoTag(dataSize);
-        }
-        entryIdsMemoizedSerializedSize = dataSize;
-      }
-      if (size_ != 0) {
+      if (!entries_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, size_);
+          .computeBytesSize(3, entries_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2351,10 +2185,8 @@ public final class RocksRtreePb {
       }
       if (!getEntryRectsList()
           .equals(other.getEntryRectsList())) return false;
-      if (!getEntryIdsList()
-          .equals(other.getEntryIdsList())) return false;
-      if (getSize()
-          != other.getSize()) return false;
+      if (!getEntries()
+          .equals(other.getEntries())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2374,12 +2206,8 @@ public final class RocksRtreePb {
         hash = (37 * hash) + ENTRYRECTS_FIELD_NUMBER;
         hash = (53 * hash) + getEntryRectsList().hashCode();
       }
-      if (getEntryIdsCount() > 0) {
-        hash = (37 * hash) + ENTRYIDS_FIELD_NUMBER;
-        hash = (53 * hash) + getEntryIdsList().hashCode();
-      }
-      hash = (37 * hash) + SIZE_FIELD_NUMBER;
-      hash = (53 * hash) + getSize();
+      hash = (37 * hash) + ENTRIES_FIELD_NUMBER;
+      hash = (53 * hash) + getEntries().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2530,9 +2358,7 @@ public final class RocksRtreePb {
         } else {
           entryRectsBuilder_.clear();
         }
-        entryIds_ = emptyLongList();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        size_ = 0;
+        entries_ = com.google.protobuf.ByteString.EMPTY;
 
         return this;
       }
@@ -2575,12 +2401,7 @@ public final class RocksRtreePb {
         } else {
           result.entryRects_ = entryRectsBuilder_.build();
         }
-        if (((bitField0_ & 0x00000002) != 0)) {
-          entryIds_.makeImmutable();
-          bitField0_ = (bitField0_ & ~0x00000002);
-        }
-        result.entryIds_ = entryIds_;
-        result.size_ = size_;
+        result.entries_ = entries_;
         onBuilt();
         return result;
       }
@@ -2658,18 +2479,8 @@ public final class RocksRtreePb {
             }
           }
         }
-        if (!other.entryIds_.isEmpty()) {
-          if (entryIds_.isEmpty()) {
-            entryIds_ = other.entryIds_;
-            bitField0_ = (bitField0_ & ~0x00000002);
-          } else {
-            ensureEntryIdsIsMutable();
-            entryIds_.addAll(other.entryIds_);
-          }
-          onChanged();
-        }
-        if (other.getSize() != 0) {
-          setSize(other.getSize());
+        if (other.getEntries() != com.google.protobuf.ByteString.EMPTY) {
+          setEntries(other.getEntries());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -3168,152 +2979,48 @@ public final class RocksRtreePb {
         return entryRectsBuilder_;
       }
 
-      private com.google.protobuf.Internal.LongList entryIds_ = emptyLongList();
-      private void ensureEntryIdsIsMutable() {
-        if (!((bitField0_ & 0x00000002) != 0)) {
-          entryIds_ = mutableCopy(entryIds_);
-          bitField0_ |= 0x00000002;
-         }
-      }
+      private com.google.protobuf.ByteString entries_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <pre>
-       * 实体id
+       * 实体
        * </pre>
        *
-       * <code>repeated sint64 entryIds = 3;</code>
-       * @return A list containing the entryIds.
-       */
-      public java.util.List<Long>
-          getEntryIdsList() {
-        return ((bitField0_ & 0x00000002) != 0) ?
-                 java.util.Collections.unmodifiableList(entryIds_) : entryIds_;
-      }
-      /**
-       * <pre>
-       * 实体id
-       * </pre>
-       *
-       * <code>repeated sint64 entryIds = 3;</code>
-       * @return The count of entryIds.
-       */
-      public int getEntryIdsCount() {
-        return entryIds_.size();
-      }
-      /**
-       * <pre>
-       * 实体id
-       * </pre>
-       *
-       * <code>repeated sint64 entryIds = 3;</code>
-       * @param index The index of the element to return.
-       * @return The entryIds at the given index.
-       */
-      public long getEntryIds(int index) {
-        return entryIds_.getLong(index);
-      }
-      /**
-       * <pre>
-       * 实体id
-       * </pre>
-       *
-       * <code>repeated sint64 entryIds = 3;</code>
-       * @param index The index to set the value at.
-       * @param value The entryIds to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEntryIds(
-          int index, long value) {
-        ensureEntryIdsIsMutable();
-        entryIds_.setLong(index, value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * 实体id
-       * </pre>
-       *
-       * <code>repeated sint64 entryIds = 3;</code>
-       * @param value The entryIds to add.
-       * @return This builder for chaining.
-       */
-      public Builder addEntryIds(long value) {
-        ensureEntryIdsIsMutable();
-        entryIds_.addLong(value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * 实体id
-       * </pre>
-       *
-       * <code>repeated sint64 entryIds = 3;</code>
-       * @param values The entryIds to add.
-       * @return This builder for chaining.
-       */
-      public Builder addAllEntryIds(
-          Iterable<? extends Long> values) {
-        ensureEntryIdsIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, entryIds_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * 实体id
-       * </pre>
-       *
-       * <code>repeated sint64 entryIds = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearEntryIds() {
-        entryIds_ = emptyLongList();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-
-      private int size_ ;
-      /**
-       * <pre>
-       * 实体数
-       * </pre>
-       *
-       * <code>int32 size = 4;</code>
-       * @return The size.
+       * <code>bytes entries = 3;</code>
+       * @return The entries.
        */
       @Override
-      public int getSize() {
-        return size_;
+      public com.google.protobuf.ByteString getEntries() {
+        return entries_;
       }
       /**
        * <pre>
-       * 实体数
+       * 实体
        * </pre>
        *
-       * <code>int32 size = 4;</code>
-       * @param value The size to set.
+       * <code>bytes entries = 3;</code>
+       * @param value The entries to set.
        * @return This builder for chaining.
        */
-      public Builder setSize(int value) {
+      public Builder setEntries(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
 
-        size_ = value;
+        entries_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * 实体数
+       * 实体
        * </pre>
        *
-       * <code>int32 size = 4;</code>
+       * <code>bytes entries = 3;</code>
        * @return This builder for chaining.
        */
-      public Builder clearSize() {
+      public Builder clearEntries() {
 
-        size_ = 0;
+        entries_ = getDefaultInstance().getEntries();
         onChanged();
         return this;
       }
@@ -3379,10 +3086,20 @@ public final class RocksRtreePb {
      * 根节点id
      * </pre>
      *
-     * <code>sint64 rootId = 1;</code>
+     * <code>string rootId = 1;</code>
      * @return The rootId.
      */
-    long getRootId();
+    String getRootId();
+    /**
+     * <pre>
+     * 根节点id
+     * </pre>
+     *
+     * <code>string rootId = 1;</code>
+     * @return The bytes for rootId.
+     */
+    com.google.protobuf.ByteString
+        getRootIdBytes();
 
     /**
      * <pre>
@@ -3421,6 +3138,7 @@ public final class RocksRtreePb {
       super(builder);
     }
     private RTreePb() {
+      rootId_ = "";
     }
 
     @Override
@@ -3453,9 +3171,10 @@ public final class RocksRtreePb {
             case 0:
               done = true;
               break;
-            case 8: {
+            case 10: {
+              String s = input.readStringRequireUtf8();
 
-              rootId_ = input.readSInt64();
+              rootId_ = s;
               break;
             }
             case 16: {
@@ -3503,18 +3222,49 @@ public final class RocksRtreePb {
     }
 
     public static final int ROOTID_FIELD_NUMBER = 1;
-    private long rootId_;
+    private volatile Object rootId_;
     /**
      * <pre>
      * 根节点id
      * </pre>
      *
-     * <code>sint64 rootId = 1;</code>
+     * <code>string rootId = 1;</code>
      * @return The rootId.
      */
     @Override
-    public long getRootId() {
-      return rootId_;
+    public String getRootId() {
+      Object ref = rootId_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        rootId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * 根节点id
+     * </pre>
+     *
+     * <code>string rootId = 1;</code>
+     * @return The bytes for rootId.
+     */
+    @Override
+    public com.google.protobuf.ByteString
+        getRootIdBytes() {
+      Object ref = rootId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        rootId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int MMIN_FIELD_NUMBER = 2;
@@ -3561,8 +3311,8 @@ public final class RocksRtreePb {
     @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (rootId_ != 0L) {
-        output.writeSInt64(1, rootId_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(rootId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, rootId_);
       }
       if (mMin_ != 0) {
         output.writeInt32(2, mMin_);
@@ -3579,9 +3329,8 @@ public final class RocksRtreePb {
       if (size != -1) return size;
 
       size = 0;
-      if (rootId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeSInt64Size(1, rootId_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(rootId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, rootId_);
       }
       if (mMin_ != 0) {
         size += com.google.protobuf.CodedOutputStream
@@ -3606,8 +3355,8 @@ public final class RocksRtreePb {
       }
       RTreePb other = (RTreePb) obj;
 
-      if (getRootId()
-          != other.getRootId()) return false;
+      if (!getRootId()
+          .equals(other.getRootId())) return false;
       if (getMMin()
           != other.getMMin()) return false;
       if (getMMax()
@@ -3624,8 +3373,7 @@ public final class RocksRtreePb {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ROOTID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getRootId());
+      hash = (53 * hash) + getRootId().hashCode();
       hash = (37 * hash) + MMIN_FIELD_NUMBER;
       hash = (53 * hash) + getMMin();
       hash = (37 * hash) + MMAX_FIELD_NUMBER;
@@ -3767,7 +3515,7 @@ public final class RocksRtreePb {
       @Override
       public Builder clear() {
         super.clear();
-        rootId_ = 0L;
+        rootId_ = "";
 
         mMin_ = 0;
 
@@ -3850,8 +3598,9 @@ public final class RocksRtreePb {
 
       public Builder mergeFrom(RTreePb other) {
         if (other == RTreePb.getDefaultInstance()) return this;
-        if (other.getRootId() != 0L) {
-          setRootId(other.getRootId());
+        if (!other.getRootId().isEmpty()) {
+          rootId_ = other.rootId_;
+          onChanged();
         }
         if (other.getMMin() != 0) {
           setMMin(other.getMMin());
@@ -3888,29 +3637,62 @@ public final class RocksRtreePb {
         return this;
       }
 
-      private long rootId_ ;
+      private Object rootId_ = "";
       /**
        * <pre>
        * 根节点id
        * </pre>
        *
-       * <code>sint64 rootId = 1;</code>
+       * <code>string rootId = 1;</code>
        * @return The rootId.
        */
-      @Override
-      public long getRootId() {
-        return rootId_;
+      public String getRootId() {
+        Object ref = rootId_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          rootId_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
       }
       /**
        * <pre>
        * 根节点id
        * </pre>
        *
-       * <code>sint64 rootId = 1;</code>
+       * <code>string rootId = 1;</code>
+       * @return The bytes for rootId.
+       */
+      public com.google.protobuf.ByteString
+          getRootIdBytes() {
+        Object ref = rootId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          rootId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * 根节点id
+       * </pre>
+       *
+       * <code>string rootId = 1;</code>
        * @param value The rootId to set.
        * @return This builder for chaining.
        */
-      public Builder setRootId(long value) {
+      public Builder setRootId(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
 
         rootId_ = value;
         onChanged();
@@ -3921,12 +3703,32 @@ public final class RocksRtreePb {
        * 根节点id
        * </pre>
        *
-       * <code>sint64 rootId = 1;</code>
+       * <code>string rootId = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearRootId() {
 
-        rootId_ = 0L;
+        rootId_ = getDefaultInstance().getRootId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 根节点id
+       * </pre>
+       *
+       * <code>string rootId = 1;</code>
+       * @param value The bytes for rootId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRootIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
+        rootId_ = value;
         onChanged();
         return this;
       }
@@ -4099,15 +3901,14 @@ public final class RocksRtreePb {
   static {
     String[] descriptorData = {
       "\n\033definition/RocksRtree.proto\022\004pojo\"$\n\010R" +
-      "ectNdPb\022\013\n\003min\030\001 \003(\001\022\013\n\003max\030\002 \003(\001\"G\n\010Bra" +
+      "ectNdPb\022\013\n\003min\030\001 \003(\001\022\013\n\003max\030\002 \003(\001\"9\n\010Bra" +
       "nchPb\022\033\n\003mbr\030\001 \001(\0132\016.pojo.RectNdPb\022\020\n\010ch" +
-      "ildIds\030\002 \003(\022\022\014\n\004size\030\003 \001(\005\"i\n\006LeafPb\022\033\n\003" +
-      "mbr\030\001 \001(\0132\016.pojo.RectNdPb\022\"\n\nentryRects\030" +
-      "\002 \003(\0132\016.pojo.RectNdPb\022\020\n\010entryIds\030\003 \003(\022\022" +
-      "\014\n\004size\030\004 \001(\005\"5\n\007RTreePb\022\016\n\006rootId\030\001 \001(\022" +
-      "\022\014\n\004mMin\030\002 \001(\005\022\014\n\004mMax\030\003 \001(\005B5\n%org.wowt" +
-      "ools.giscat.vector.rocksrtreeB\014RocksRtre" +
-      "ePbb\006proto3"
+      "ildIds\030\002 \003(\t\"Z\n\006LeafPb\022\033\n\003mbr\030\001 \001(\0132\016.po" +
+      "jo.RectNdPb\022\"\n\nentryRects\030\002 \003(\0132\016.pojo.R" +
+      "ectNdPb\022\017\n\007entries\030\003 \001(\014\"5\n\007RTreePb\022\016\n\006r" +
+      "ootId\030\001 \001(\t\022\014\n\004mMin\030\002 \001(\005\022\014\n\004mMax\030\003 \001(\005B" +
+      "5\n%org.wowtools.giscat.vector.rocksrtree" +
+      "B\014RocksRtreePbb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4124,13 +3925,13 @@ public final class RocksRtreePb {
     internal_static_pojo_BranchPb_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pojo_BranchPb_descriptor,
-        new String[] { "Mbr", "ChildIds", "Size", });
+        new String[] { "Mbr", "ChildIds", });
     internal_static_pojo_LeafPb_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_pojo_LeafPb_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pojo_LeafPb_descriptor,
-        new String[] { "Mbr", "EntryRects", "EntryIds", "Size", });
+        new String[] { "Mbr", "EntryRects", "Entries", });
     internal_static_pojo_RTreePb_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_pojo_RTreePb_fieldAccessorTable = new

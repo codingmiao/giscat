@@ -30,12 +30,10 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
-import org.rocksdb.Transaction;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.util.function.Consumer;
 
-import static org.wowtools.giscat.vector.rocksrtree.TreeBuilder.emptyId;
 
 /**
  * <p>Data structure to make range searching more efficient. Indexes multi-dimensional information
@@ -51,7 +49,7 @@ public final class RTree {
 
     private final TreeBuilder builder;
 
-    private long root = emptyId;
+    private String root = null;
 
     public RTree(final TreeBuilder builder) {
         this.builder = builder;
@@ -63,9 +61,9 @@ public final class RTree {
      * @param rect     输入范围
      * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
      */
-    public void contains(RectNd rect, FeatureConsumer consumer) {
-        if (root != emptyId) {
-            builder.getNode(root).contains(rect, consumer);
+    public void contains(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
+        if (root != null) {
+            builder.getNode(root, tx).contains(rect, consumer, tx);
         }
     }
 
@@ -76,9 +74,9 @@ public final class RTree {
      * @param rect     输入范围
      * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
      */
-    public void intersects(RectNd rect, FeatureConsumer consumer) {
-        if (root != emptyId) {
-            builder.getNode(root).intersects(rect, consumer);
+    public void intersects(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
+        if (root != null) {
+            builder.getNode(root, tx).intersects(rect, consumer, tx);
         }
     }
 
@@ -89,11 +87,9 @@ public final class RTree {
      * @param feature feature
      * @param tx      事务
      */
-    public void add(Feature feature, Transaction tx) {
+    public void add(Feature feature, TreeTransaction tx) {
         RectNd t = builder.buildFeatureRect(feature);
         add(t, tx);
-        String key = builder.getFeatureKey(feature);
-        builder.putFeatureKeyInLeafId(key, t.leafId);
     }
 
 
@@ -102,12 +98,14 @@ public final class RTree {
      *
      * @param t Data entry to be added
      */
-    protected void add(final RectNd t, Transaction tx) {
-        if (root != emptyId) {
-            root = builder.getNode(root).add(t, tx).id;
+    protected void add(final RectNd t, TreeTransaction tx) {
+        if (root != null) {
+            Node node = builder.getNode(root, tx);
+            Node newNode = node.add(t, tx);
+            root = newNode.id;
         } else {
             root = builder.newLeaf(tx).id;
-            builder.getNode(root).add(t, tx);
+            builder.getNode(root, tx).add(t, tx);
         }
     }
 
@@ -151,9 +149,9 @@ public final class RTree {
      *
      * @return entry count
      */
-    public int getEntryCount() {
-        if (root != emptyId) {
-            return  builder.getNode(root).totalSize();
+    public int getEntryCount(TreeTransaction tx) {
+        if (root != null) {
+            return builder.getNode(root, tx).totalSize(tx);
         }
         return 0;
     }
@@ -171,22 +169,22 @@ public final class RTree {
      *
      * @param consumer - callback for each element
      */
-    protected void forEach(Consumer<RectNd> consumer) {
-        if (root != emptyId) {
-            builder.getNode(root).forEach(consumer);
+    protected void forEach(Consumer<RectNd> consumer, TreeTransaction tx) {
+        if (root != null) {
+            builder.getNode(root, tx).forEach(consumer,tx);
         }
     }
 
-    protected Stats collectStats() {
+    protected Stats collectStats(TreeTransaction tx) {
         Stats stats = new Stats();
         stats.setMaxFill(builder.mMax);
         stats.setMinFill(builder.mMin);
-        builder.getNode(root).collectStats(stats, 0);
+        builder.getNode(root, tx).collectStats(stats, 0,tx);
         return stats;
     }
 
-    Node getRoot() {
-        return  builder.getNode(root);
+    Node getRoot(TreeTransaction tx) {
+        return builder.getNode(root, tx);
     }
 
 }

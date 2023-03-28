@@ -31,14 +31,11 @@ package org.wowtools.giscat.vector.rocksrtree;
  */
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.rocksdb.Transaction;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static org.wowtools.giscat.vector.rocksrtree.TreeBuilder.emptyId;
 
 /**
  * RTree node that contains leaf nodes
@@ -49,20 +46,20 @@ final class Branch extends Node {
 
     private final TreeBuilder builder;
 
-    private final long[] child;
+    private final String[] child;
 
     private RectNd mbr;
 
     private int size;
 
-    Branch(final TreeBuilder builder, long id) {
+    Branch(final TreeBuilder builder, String id) {
         super(id);
         this.builder = builder;
-        this.child = new long[builder.mMax];
+        this.child = new String[builder.mMax];
     }
 
 
-    protected static Branch fromBytes(TreeBuilder builder,long id,byte[] bytes) {
+    protected static Branch fromBytes(TreeBuilder builder, String id, byte[] bytes) {
         RocksRtreePb.BranchPb branchPb;
         try {
             branchPb = RocksRtreePb.BranchPb.parseFrom(bytes);
@@ -70,10 +67,10 @@ final class Branch extends Node {
             throw new RuntimeException(e);
         }
         Branch branch = new Branch(builder, id);
-        List<Long> childIdsList = branchPb.getChildIdsList();
+        List<String> childIdsList = branchPb.getChildIdsList();
         if (childIdsList.size() > 0) {
             int i = 0;
-            for (Long l : childIdsList) {
+            for (String l : childIdsList) {
                 branch.child[i] = l;
                 i++;
             }
@@ -85,12 +82,13 @@ final class Branch extends Node {
         return branch;
     }
 
-    protected byte[] toBytes() {
+    @Override
+    public byte[] toBytes() {
         RocksRtreePb.BranchPb.Builder branchBuilder = RocksRtreePb.BranchPb.newBuilder();
         if (null != child) {
-            List<Long> list = new ArrayList<>(child.length);
-            for (long l : child) {
-                if (l == 0) {
+            List<String> list = new ArrayList<>(size);
+            for (String l : child) {
+                if (l == null) {
                     break;
                 }
                 list.add(l);
@@ -136,8 +134,8 @@ final class Branch extends Node {
         return mbr;
     }
 
-    private Node getChild(int i) {
-        return builder.getNode(child[i]);
+    private Node getChild(int i, TreeTransaction tx) {
+        return builder.getNode(child[i], tx);
     }
 
     /**
@@ -147,89 +145,95 @@ final class Branch extends Node {
      * @return Node that the entry was added to
      */
     @Override
-    Node add(final RectNd t, Transaction tx) {
+    Node add(final RectNd t, TreeTransaction tx) {
         final RectNd tRect = builder.getBBox(t);
         if (size < builder.mMin) {
             for (int i = 0; i < size; i++) {
-                if (getChild(i).getBound().contains(tRect)) {
-                    child[i] = getChild(i).add(t,tx).id;
-                    mbr = mbr.getMbr(getChild(i).getBound());
+                if (getChild(i, tx).getBound().contains(tRect)) {
+                    child[i] = getChild(i, tx).add(t, tx).id;
+                    mbr = mbr.getMbr(getChild(i, tx).getBound());
+                    tx.put(id, toBytes());
                     return this;
                 }
             }
             // no overlapping node - grow
             final Node nextLeaf = builder.newLeaf(tx);
-            nextLeaf.add(t,tx);
+            nextLeaf.add(t, tx);
             final int nextChild = addChild(nextLeaf);
-            mbr = mbr.getMbr(getChild(nextChild).getBound());
-
+            mbr = mbr.getMbr(getChild(nextChild, tx).getBound());
+            tx.put(id, toBytes());
             return this;
 
         } else {
-            final int bestLeaf = chooseLeaf(t, tRect,tx);
-            child[bestLeaf] = getChild(bestLeaf).add(t,tx).id;
-            mbr = mbr.getMbr(getChild(bestLeaf).getBound());
-
+            final int bestLeaf = chooseLeaf(t, tRect, tx);
+            child[bestLeaf] = getChild(bestLeaf, tx).add(t, tx).id;
+            mbr = mbr.getMbr(getChild(bestLeaf, tx).getBound());
+            tx.put(id, toBytes());
             return this;
         }
     }
 
     @Override
-    Node remove(final RectNd t, Transaction tx) {
+    Node remove(final RectNd t, TreeTransaction tx) {
+        //TODO 用tx.remove "GC" 掉没有被引用的node
         final RectNd tRect = builder.getBBox(t);
 
         for (int i = 0; i < size; i++) {
-            if (getChild(i).getBound().intersects(tRect)) {
-                child[i] = getChild(i).remove(t,tx).id;
+            if (getChild(i, tx).getBound().intersects(tRect)) {
+                child[i] = getChild(i, tx).remove(t, tx).id;
 
-                if (getChild(i) == null) {
+                if (getChild(i, tx) == null) {
                     System.arraycopy(child, i + 1, child, i, size - i - 1);
                     size--;
-                    child[size] = emptyId;
+                    child[size] = null;
                     if (size > 0) i--;
                 }
             }
         }
 
         if (size == 0) {
+            tx.put(id, toBytes());
             return null;
         } else if (size == 1) {
             // unsplit branch
-            return getChild(0);
+            tx.put(id, toBytes());
+            Node c = getChild(0, tx);
+            return c;
         }
 
-        mbr = getChild(0).getBound();
+        mbr = getChild(0, tx).getBound();
         for (int i = 1; i < size; i++) {
-            mbr = mbr.getMbr(getChild(i).getBound());
+            mbr = mbr.getMbr(getChild(i, tx).getBound());
         }
-
+        tx.put(id, toBytes());
         return this;
     }
 
     @Override
-    Node update(final RectNd told, final RectNd tnew, Transaction tx) {
+    Node update(final RectNd told, final RectNd tnew, TreeTransaction tx) {
+        //TODO 用tx.remove "GC" 掉没有被引用的node
         final RectNd tRect = builder.getBBox(told);
         for (int i = 0; i < size; i++) {
-            if (tRect.intersects(getChild(i).getBound())) {
-                child[i] = getChild(i).update(told, tnew,tx).id;
+            if (tRect.intersects(getChild(i, tx).getBound())) {
+                child[i] = getChild(i, tx).update(told, tnew, tx).id;
             }
             if (i == 0) {
-                mbr = getChild(i).getBound();
+                mbr = getChild(i, tx).getBound();
             } else {
-                mbr = mbr.getMbr(getChild(i).getBound());
+                mbr = mbr.getMbr(getChild(i, tx).getBound());
             }
         }
+        tx.put(id, toBytes());
         return this;
     }
 
 
-
     @Override
-    public boolean intersects(RectNd rect, FeatureConsumer consumer) {
+    public boolean intersects(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
         for (int i = 0; i < size; i++) {
-            Node ci = getChild(i);
+            Node ci = getChild(i, tx);
             if (rect.intersects(ci.getBound())) {
-                if (!ci.intersects(rect, consumer)){
+                if (!ci.intersects(rect, consumer, tx)) {
                     return false;
                 }
             }
@@ -238,11 +242,11 @@ final class Branch extends Node {
     }
 
     @Override
-    public boolean contains(RectNd rect, FeatureConsumer consumer) {
+    public boolean contains(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
         for (int i = 0; i < size; i++) {
-            Node ci = getChild(i);
+            Node ci = getChild(i, tx);
             if (rect.intersects(ci.getBound())) {
-                if (!ci.contains(rect, consumer)){
+                if (!ci.contains(rect, consumer, tx)) {
                     return false;
                 }
             }
@@ -260,25 +264,25 @@ final class Branch extends Node {
     }
 
     @Override
-    public int totalSize() {
+    public int totalSize(TreeTransaction tx) {
         int s = 0;
         for (int i = 0; i < size; i++) {
-            s += getChild(i).totalSize();
+            s += getChild(i, tx).totalSize(tx);
         }
         return s;
     }
 
-    private int chooseLeaf(final RectNd t, final RectNd tRect,Transaction tx) {
+    private int chooseLeaf(final RectNd t, final RectNd tRect, TreeTransaction tx) {
         if (size > 0) {
             int bestNode = 0;
-            RectNd childMbr = getChild(0).getBound().getMbr(tRect);
-            double leastEnlargement = childMbr.cost() - (getChild(0).getBound().cost() + tRect.cost());
+            RectNd childMbr = getChild(0, tx).getBound().getMbr(tRect);
+            double leastEnlargement = childMbr.cost() - (getChild(0, tx).getBound().cost() + tRect.cost());
             double leastPerimeter = childMbr.perimeter();
 
             for (int i = 1; i < size; i++) {
-                RectNd cRect = getChild(i).getBound();
+                RectNd cRect = getChild(i, tx).getBound();
                 childMbr = tRect.getMbr(cRect);
-                final double nodeEnlargement = childMbr.cost() - (getChild(i).getBound().cost() + tRect.cost());
+                final double nodeEnlargement = childMbr.cost() - (getChild(i, tx).getBound().cost() + tRect.cost());
                 if (nodeEnlargement < leastEnlargement) {
                     leastEnlargement = nodeEnlargement;
                     leastPerimeter = childMbr.perimeter();
@@ -296,7 +300,7 @@ final class Branch extends Node {
             return bestNode;
         } else {
             final Node n = builder.newLeaf(tx);
-            n.add(t,tx);
+            n.add(t, tx);
             child[size] = n.id;
             size++;
 
@@ -315,35 +319,35 @@ final class Branch extends Node {
      *
      * @return array of child nodes (leaves or branches)
      */
-    public Node[] getChildren() {
+    public Node[] getChildren(TreeTransaction tx) {
         Node[] nodes = new Node[size];
         for (int i = 0; i < size; i++) {
-            nodes[i] = getChild(i);
+            nodes[i] = getChild(i, tx);
         }
         return nodes;
     }
 
     @Override
-    public void forEach(Consumer<RectNd> consumer) {
+    public void forEach(Consumer<RectNd> consumer, TreeTransaction tx) {
         for (int i = 0; i < size; i++) {
-            getChild(i).forEach(consumer);
+            getChild(i, tx).forEach(consumer, tx);
         }
     }
 
     @Override
-    public boolean contains(RectNd rect, RectNd t) {
+    public boolean contains(RectNd rect, RectNd t, TreeTransaction tx) {
         for (int i = 0; i < size; i++) {
-            if (rect.intersects(getChild(i).getBound())) {
-                getChild(i).contains(rect, t);
+            if (rect.intersects(getChild(i, tx).getBound())) {
+                getChild(i, tx).contains(rect, t, tx);
             }
         }
         return false;
     }
 
     @Override
-    public void collectStats(Stats stats, int depth) {
+    public void collectStats(Stats stats, int depth, TreeTransaction tx) {
         for (int i = 0; i < size; i++) {
-            getChild(i).collectStats(stats, depth + 1);
+            getChild(i, tx).collectStats(stats, depth + 1, tx);
         }
         stats.countBranchAtDepth(depth);
     }

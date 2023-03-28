@@ -69,7 +69,7 @@ final class PointNd {
     public PointNd(List<Double> list) {
         double[] arr = new double[list.size()];
         int i = 0;
-        for (double v : arr) {
+        for (Double v : list) {
             arr[i] = v;
             i++;
         }

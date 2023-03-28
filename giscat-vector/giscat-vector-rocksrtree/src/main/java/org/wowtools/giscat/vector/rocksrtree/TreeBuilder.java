@@ -30,49 +30,76 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
-import org.rocksdb.Transaction;
+import org.jetbrains.annotations.Nullable;
+import org.rocksdb.*;
+import org.rocksdb.util.SizeUnit;
 import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by jcairns on 4/30/15.
  */
 public abstract class TreeBuilder {
 
-    public static final long emptyId = 0L;
 
-    private final Map<Long, Branch> branchMap = new HashMap<>();
+//    private final Map<Long, byte[]> branchMap = new HashMap<>();
 
-    private final Map<Long, Leaf> leafMap = new HashMap<>();
+//    private final Map<Long, Leaf> leafMap = new HashMap<>();
 
-    private final Map<Long, FeatureCollection> entryMap = new HashMap<>();
+    private long leafIdIndex = 0;
 
-    private final Map<String, Long> featureKeyInLeafId = new HashMap<>();
-
-    private long nodeIdIndex = 0;
+    private long branchIdIndex = 0;
 
     protected final int mMin;
     protected final int mMax;
 
+    private final RocksDB db;
 
-    public TreeBuilder(int mMin, int mMax) {
+    private static Options buildDefaultRocksDbOptions() {
+        Options options = new Options();
+        final Filter bloomFilter = new BloomFilter(10);
+        final Statistics stats = new Statistics();
+        final RateLimiter rateLimiter = new RateLimiter(10000000, 10000, 10);
+
+        options.setCreateIfMissing(true)
+                .setStatistics(stats)
+                .setWriteBufferSize(8 * SizeUnit.KB)
+                .setMaxWriteBufferNumber(3)
+                .setMaxBackgroundJobs(10)
+                .setCompressionType(CompressionType.SNAPPY_COMPRESSION)
+                .setCompactionStyle(CompactionStyle.UNIVERSAL);
+
+        final BlockBasedTableConfig table_options = new BlockBasedTableConfig();
+        Cache cache = new LRUCache(512, 6);
+        table_options.setBlockCache(cache)
+                .setFilterPolicy(bloomFilter)
+                .setBlockSizeDeviation(5)
+                .setBlockRestartInterval(10)
+                .setCacheIndexAndFilterBlocks(true)
+                .setBlockCacheCompressed(new LRUCache(512, 10));
+        options.setTableFormatConfig(table_options);
+        options.setRateLimiter(rateLimiter);
+        return options;
+    }
+
+
+    public TreeBuilder(String fileDir, @Nullable Options options, int mMin, int mMax) {
+        if (null == options) {
+            options = buildDefaultRocksDbOptions();
+        }
+        try {
+            db = RocksDB.open(options, fileDir);
+        } catch (RocksDBException e) {
+            throw new RuntimeException(e);
+        }
         this.mMin = mMin;
         this.mMax = mMax;
     }
 
     public abstract String getFeatureKey(Feature feature);
 
-    protected void putFeatureKeyInLeafId(String key, long id) {
-        featureKeyInLeafId.put(key, id);
-    }
-
-    public long getLeafByFeatureKey(String key) {
-        return featureKeyInLeafId.get(key);
-    }
 
     protected RectNd buildFeatureRect(Feature feature) {
         RectNd rectNd = getFeatureRect(feature);
@@ -82,63 +109,61 @@ public abstract class TreeBuilder {
 
     public abstract RectNd getFeatureRect(Feature feature);
 
-    public Transaction newTx() {
-        //TODO
-        return null;
+    public TreeTransaction newTx() {
+        return new TreeTransaction(db);
     }
 
-    public void commitTx(Transaction tx) {
-        //TODO
+    protected void clearCache() {
+//        branchMap.clear();
+//        leafMap.clear();
     }
 
-    public void rollbackTx(Transaction tx) {
-        //TODO
-
-        // 由于事务出错，缓存变得不可靠，将其清空
-        branchMap.clear();
-        leafMap.clear();
-        entryMap.clear();
-    }
-
-    protected Branch newBranch(Transaction tx) {
-        nodeIdIndex++;
-        Branch node = new Branch(this, nodeIdIndex);
-        branchMap.put(nodeIdIndex, node);
+    protected Branch newBranch(TreeTransaction tx) {
+        branchIdIndex++;
+        String branchId = "B" + branchIdIndex;
+        Branch node = new Branch(this, branchId);
+        tx.put(branchId, node.toBytes());
         return node;
     }
 
-    protected Leaf newLeaf(Transaction tx) {
-        nodeIdIndex++;
-        Leaf node = new Leaf(this, nodeIdIndex);
-        leafMap.put(nodeIdIndex, node);
+    protected Leaf newLeaf(TreeTransaction tx) {
+        leafIdIndex++;
+        String leafId = "L" + leafIdIndex;
+        Leaf node = new Leaf(this, leafId);
+        tx.put(leafId, node.toBytes());
+//        leafMap.put(nodeIdIndex, node);
         FeatureCollection fc = new FeatureCollection();
         fc.setFeatures(new ArrayList<>(mMax));
-        entryMap.put(nodeIdIndex, fc);
         return node;
     }
 
-    protected Branch getBranch(long branchId) {
-        return branchMap.get(branchId);
-    }
-
-    protected Leaf getLeaf(long leafId) {
-        return leafMap.get(leafId);
-    }
-
-    protected void save2Rocks(Branch branch, Transaction tx) {
-
-    }
-
-    protected void save2Rocks(Leaf leaf, Transaction tx) {
-
-    }
-
-    protected Node getNode(long nodeId) {
-        Node node = getLeaf(nodeId);
-        if (null != node) {
-            return node;
+    protected Branch getBranch(String branchId, TreeTransaction tx) {
+//        byte[] bytes = branchMap.get(branchId);
+        byte[] bytes = tx.get(branchId);
+        if (null == bytes) {
+            return null;
         }
-        return getBranch(nodeId);
+        return Branch.fromBytes(this, branchId, bytes);
+    }
+
+    protected Leaf getLeaf(String leafId, TreeTransaction tx) {
+        byte[] bytes = tx.get(leafId);
+        if (null == bytes) {
+            return null;
+        }
+        return Leaf.fromBytes(this, leafId, bytes);
+    }
+
+
+    protected Node getNode(String nodeId, TreeTransaction tx) {
+        char type = nodeId.charAt(0);
+        if ('L' == type) {
+            return getLeaf(nodeId, tx);
+        } else if ('B' == type) {
+            return getBranch(nodeId, tx);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -161,4 +186,6 @@ public abstract class TreeBuilder {
     protected RectNd getMbr(PointNd p1, PointNd p2) {
         return new RectNd(p1, p2);
     }
+
+
 }

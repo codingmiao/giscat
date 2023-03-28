@@ -30,13 +30,20 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
-import org.rocksdb.Transaction;
 
+import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.wowtools.giscat.vector.pojo.Feature;
+import org.wowtools.giscat.vector.pojo.FeatureCollection;
+import org.wowtools.giscat.vector.pojo.converter.ProtoFeatureConverter;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
 
-import static org.wowtools.giscat.vector.rocksrtree.TreeBuilder.emptyId;
 
 /**
  * Node that will contain the data entries. Implemented by different type of SplitType leaf classes.
@@ -44,6 +51,8 @@ import static org.wowtools.giscat.vector.rocksrtree.TreeBuilder.emptyId;
  * Created by jcairns on 4/30/15.
  */
 final class Leaf extends Node {
+
+    private static final GeometryFactory gf = new GeometryFactory();
     protected final TreeBuilder builder;
 
 
@@ -55,19 +64,77 @@ final class Leaf extends Node {
 
     protected int size;
 
-    protected Leaf(final TreeBuilder builder, long id) {
+    protected Leaf(final TreeBuilder builder, String id) {
         super(id);
         this.builder = builder;
         this.entryRects = new RectNd[builder.mMax];
         this.entry = new RectNd[builder.mMax];
     }
 
-//    protected byte[] toBytes() {
-//
-//    }
+    protected static Leaf fromBytes(TreeBuilder builder, String id, byte[] bytes) {
+        RocksRtreePb.LeafPb leafPb;
+        try {
+            leafPb = RocksRtreePb.LeafPb.parseFrom(bytes);
+        } catch (InvalidProtocolBufferException e) {
+            throw new RuntimeException(e);
+        }
+        Leaf leaf = new Leaf(builder, id);
+
+        if (leafPb.hasMbr()) {
+            leaf.mbr = new RectNd(leafPb.getMbr());
+        }
+
+        List<RocksRtreePb.RectNdPb> entryRectPbs = leafPb.getEntryRectsList();
+        if (entryRectPbs.size() > 0) {
+            int i = 0;
+            for (RocksRtreePb.RectNdPb entryRectPb : entryRectPbs) {
+                leaf.entryRects[i] = new RectNd(entryRectPb);
+                leaf.entry[i] = leaf.entryRects[i];
+                i++;
+            }
+            leaf.size = entryRectPbs.size();
+
+            i = 0;
+            byte[] fcBytes = leafPb.getEntries().toByteArray();
+            FeatureCollection fc = ProtoFeatureConverter.proto2featureCollection(fcBytes, gf);
+            for (Feature feature : fc.getFeatures()) {
+                leaf.entry[i].feature = feature;
+                i++;
+            }
+
+        }
+
+        return leaf;
+    }
 
     @Override
-    Node add(final RectNd t, Transaction tx) {
+    public byte[] toBytes() {
+        RocksRtreePb.LeafPb.Builder leafBuilder = RocksRtreePb.LeafPb.newBuilder();
+        if (null != mbr) {
+            leafBuilder.setMbr(mbr.toBuilder());
+        }
+        if (size > 0) {
+            ArrayList<RocksRtreePb.RectNdPb> rectList = new ArrayList<>(size);
+            for (int i = 0; i < size; i++) {
+                rectList.add(entryRects[i].toBuilder().build());
+            }
+            leafBuilder.addAllEntryRects(rectList);
+
+            List<Feature> features = new ArrayList<>(size);
+            for (int i = 0; i < size; i++) {
+                features.add(entryRects[i].feature);
+            }
+            FeatureCollection fc = new FeatureCollection();
+            fc.setFeatures(features);
+            byte[] bytes = ProtoFeatureConverter.featureCollection2Proto(fc);
+            leafBuilder.setEntries(ByteString.copyFrom(bytes));
+        }
+
+        return leafBuilder.build().toByteArray();
+    }
+
+    @Override
+    Node add(final RectNd t, TreeTransaction tx) {
         if (size < builder.mMax) {
             final RectNd tRect = builder.getBBox(t);
             if (mbr != null) {
@@ -81,25 +148,27 @@ final class Leaf extends Node {
             t.leafId = this.id;
             size++;
         } else {
-            return split(t, tx);
+            Node sp = split(t, tx);
+            tx.put(id, toBytes());
+            return sp;
         }
-
+        tx.put(id, toBytes());
         return this;
     }
 
     @Override
-    Node remove(final RectNd t, Transaction tx) {
+    Node remove(final RectNd t, TreeTransaction tx) {
 
         int i = 0;
         int j;
 
-        while (i < size && (entry[i] != t) && (!entry[i].featureEquals(t,builder))) {
+        while (i < size && (entry[i] != t) && (!entry[i].featureEquals(t, builder))) {
             i++;
         }
 
         j = i;
 
-        while (j < size && ((entry[j] == t) || entry[j].featureEquals(t,builder))) {
+        while (j < size && ((entry[j] == t) || entry[j].featureEquals(t, builder))) {
             j++;
         }
 
@@ -111,7 +180,7 @@ final class Leaf extends Node {
                 System.arraycopy(entry, j, entry, i, nRemaining);
                 for (int k = size - nRemoved; k < size; k++) {
                     entryRects[k] = null;
-                    entry[k].leafId = emptyId;
+                    entry[k].leafId = null;
                     entry[k] = null;
                 }
             } else {
@@ -121,7 +190,7 @@ final class Leaf extends Node {
                 }
                 for (int k = i; k < size; k++) {
                     entryRects[k] = null;
-                    entry[k].leafId = emptyId;
+                    entry[k].leafId = null;
                     entry[k] = null;
                 }
             }
@@ -143,14 +212,14 @@ final class Leaf extends Node {
     }
 
     @Override
-    Node update(final RectNd told, final RectNd tnew, Transaction tx) {
+    Node update(final RectNd told, final RectNd tnew, TreeTransaction tx) {
         final RectNd bbox = builder.getBBox(tnew);
 
         for (int i = 0; i < size; i++) {
-            if (entry[i].featureEquals(told,builder)) {
+            if (entry[i].featureEquals(told, builder)) {
                 entryRects[i] = bbox;
                 tnew.leafId = this.id;
-                entry[i].leafId = emptyId;
+                entry[i].leafId = null;
                 entry[i] = tnew;
             }
 
@@ -166,7 +235,7 @@ final class Leaf extends Node {
 
 
     @Override
-    public boolean intersects(RectNd rect, FeatureConsumer consumer) {
+    public boolean intersects(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
         for (int i = 0; i < size; i++) {
             if (rect.intersects(entryRects[i])) {
                 if (!consumer.accept(entry[i])) {
@@ -178,7 +247,7 @@ final class Leaf extends Node {
     }
 
     @Override
-    public boolean contains(RectNd rect, FeatureConsumer consumer) {
+    public boolean contains(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
         for (int i = 0; i < size; i++) {
             if (rect.contains(entryRects[i])) {
                 if (!consumer.accept(entry[i])) {
@@ -195,7 +264,7 @@ final class Leaf extends Node {
     }
 
     @Override
-    public int totalSize() {
+    public int totalSize(TreeTransaction tx) {
         return size;
     }
 
@@ -220,7 +289,7 @@ final class Leaf extends Node {
      * @param t entry to be added to the full leaf node
      * @return newly created node storing half the entries of this node
      */
-    protected Node split(final RectNd t, Transaction tx) {
+    protected Node split(final RectNd t, TreeTransaction tx) {
         final Branch pNode = builder.newBranch(tx);
         final Node l1Node = builder.newLeaf(tx);
         final Node l2Node = builder.newLeaf(tx);
@@ -279,18 +348,19 @@ final class Leaf extends Node {
         pNode.addChild(l1Node);
         pNode.addChild(l2Node);
 
+        tx.put(pNode.id, pNode.toBytes());
         return pNode;
     }
 
     @Override
-    public void forEach(Consumer<RectNd> consumer) {
+    public void forEach(Consumer<RectNd> consumer, TreeTransaction tx) {
         for (int i = 0; i < size; i++) {
             consumer.accept(entry[i]);
         }
     }
 
     @Override
-    public boolean contains(RectNd rect, RectNd t) {
+    public boolean contains(RectNd rect, RectNd t, TreeTransaction tx) {
         for (int i = 0; i < size; i++) {
             if (rect.contains(entryRects[i])) {
                 if (entry[i].equals(t)) {
@@ -302,7 +372,7 @@ final class Leaf extends Node {
     }
 
     @Override
-    public void collectStats(Stats stats, int depth) {
+    public void collectStats(Stats stats, int depth, TreeTransaction tx) {
         if (depth > stats.getMaxDepth()) {
             stats.setMaxDepth(depth);
         }
@@ -317,7 +387,7 @@ final class Leaf extends Node {
      * @param l2Node right node
      * @param t      data entry to be added
      */
-    protected final void classify(final Node l1Node, final Node l2Node, final RectNd t, Transaction tx) {
+    protected final void classify(final Node l1Node, final Node l2Node, final RectNd t, TreeTransaction tx) {
         final RectNd tRect = builder.getBBox(t);
         final RectNd l1Mbr = l1Node.getBound().getMbr(tRect);
         final RectNd l2Mbr = l2Node.getBound().getMbr(tRect);

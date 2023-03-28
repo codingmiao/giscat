@@ -10,6 +10,7 @@ import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.rocksrtree.*;
 import org.wowtools.giscat.vector.util.analyse.Bbox;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -19,9 +20,22 @@ import java.util.function.Consumer;
  * @date 2023/3/23
  */
 public class Test {
+    public static void deleteFolder(File folder) {
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles(); // 获取文件夹中的所有文件和子文件夹
+            if (files != null) {
+                for (File file : files) {
+                    deleteFolder(file); // 递归删除子文件夹或文件
+                }
+            }
+        }
+        folder.delete(); // 删除空文件夹或文件
+    }
     public static void main(String[] args) {
+        String dir = "D:\\_tmp\\1\\rocksrtree";
+        deleteFolder(new File(dir));
         GeometryFactory geometryFactory = new GeometryFactory();
-        TreeBuilder builder = new TreeBuilder(2, 8) {
+        TreeBuilder builder = new TreeBuilder(dir,null,2, 8) {
             @Override
             public String getFeatureKey(Feature feature) {
                 return feature.getGeometry().toText();
@@ -34,15 +48,15 @@ public class Test {
             }
         };
         final RTree pTree = new RTree(builder);
-        Transaction tx = builder.newTx();
+        TreeTransaction tx = builder.newTx();
         try {
             for (int i = 0; i < 100; i++) {
                 Point point = geometryFactory.createPoint(new Coordinate(i, i));
                 pTree.add(new Feature(point), tx);
             }
-            builder.commitTx(tx);
+            tx.commit();
         } catch (Exception e) {
-            builder.rollbackTx(tx);
+            tx.rollback();
             throw e;
         }
 
@@ -57,7 +71,9 @@ public class Test {
                 return true;
             }
         };
-        pTree.contains(rect, consumer);
+        tx = builder.newTx();
+        pTree.contains(rect, consumer,tx);
+        tx.close();
         Assert.equals(7, res.size());
         System.out.println(res.size());
 
@@ -67,5 +83,6 @@ public class Test {
             Assert.isTrue(feature.getGeometry().getCoordinate().y >= 2);
             Assert.isTrue(feature.getGeometry().getCoordinate().y <= 8);
         }
+        deleteFolder(new File(dir));
     }
 }

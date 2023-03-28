@@ -15,7 +15,7 @@ message BranchPb{
     RectNdPb mbr = 1;
 
     // 子节点id
-    repeated sint64 childIds = 2;
+    repeated string childIds = 2;
 }
 
 // 叶子节点
@@ -33,7 +33,7 @@ message LeafPb{
 // RTree
 message RTreePb{
     // 根节点id
-    sint64 rootId = 1;
+    string rootId = 1;
     // 每个节点最少有几个子节点
     int32 mMin = 2;
     // 每个节点最多有几个子节点

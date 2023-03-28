@@ -30,18 +30,17 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
-import org.rocksdb.Transaction;
 
 import java.util.function.Consumer;
 
 /**
  * Created by jcairns on 4/30/15.
  */
-abstract class Node {
+abstract class Node implements ProtoAble{
 
-    protected final long id;
+    protected final String id;
 
-    public Node(long id) {
+    public Node(String id) {
         this.id = id;
     }
 
@@ -60,14 +59,14 @@ abstract class Node {
      *
      * @param t - value to add to index
      */
-    abstract Node add(RectNd t, Transaction tx);
+    abstract Node add(RectNd t, TreeTransaction tx);
 
     /**
      * Remove t from the index
      *
      * @param t - value to remove from index
      */
-    abstract Node remove(RectNd t, Transaction tx);
+    abstract Node remove(RectNd t, TreeTransaction tx);
 
     /**
      * update an existing t in the index
@@ -75,7 +74,7 @@ abstract class Node {
      * @param told - old index to be updated
      * @param tnew - value to update old index to
      */
-    abstract Node update(RectNd told, RectNd tnew, Transaction tx);
+    abstract Node update(RectNd told, RectNd tnew, TreeTransaction tx);
 
 
     /**
@@ -86,7 +85,7 @@ abstract class Node {
      * @param rect     - limiting rect
      * @param consumer consumer
      */
-    public abstract boolean intersects(RectNd rect, FeatureConsumer consumer);
+    public abstract boolean intersects(RectNd rect, FeatureConsumer consumer, TreeTransaction tx);
 
     /**
      * Visitor pattern:
@@ -96,14 +95,14 @@ abstract class Node {
      * @param rect     - limiting rect
      * @param consumer
      */
-    public abstract boolean contains(RectNd rect, FeatureConsumer consumer);
+    public abstract boolean contains(RectNd rect, FeatureConsumer consumer, TreeTransaction tx);
 
     /**
      * @param rect
      * @param t
      * @return boolean true if subtree contains t
      */
-    protected abstract boolean contains(RectNd rect, RectNd t);
+    protected abstract boolean contains(RectNd rect, RectNd t, TreeTransaction tx);
 
     /**
      * The number of entries in the node
@@ -117,14 +116,14 @@ abstract class Node {
      *
      * @return int - entry count
      */
-    public abstract int totalSize();
+    public abstract int totalSize(TreeTransaction tx);
 
     /**
      * Consumer "accepts" every node in the entire index
      *
      * @param consumer
      */
-    public abstract void forEach(Consumer<RectNd> consumer);
+    public abstract void forEach(Consumer<RectNd> consumer, TreeTransaction tx);
 
     /**
      * Recurses over index collecting stats
@@ -132,7 +131,7 @@ abstract class Node {
      * @param stats - Stats object being populated
      * @param depth - current depth in tree
      */
-    public abstract void collectStats(Stats stats, int depth);
+    public abstract void collectStats(Stats stats, int depth, TreeTransaction tx);
 
 
 }
