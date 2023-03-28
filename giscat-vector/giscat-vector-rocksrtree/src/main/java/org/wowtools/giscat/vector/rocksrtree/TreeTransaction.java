@@ -10,17 +10,17 @@
 
 package org.wowtools.giscat.vector.rocksrtree;
 
-import org.jetbrains.annotations.NotNull;
 import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.WriteBatch;
 import org.rocksdb.WriteOptions;
 
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+
+import static org.wowtools.giscat.vector.rocksrtree.RTree.TreeDbKey;
 
 /**
  * 操作树的事务
@@ -34,17 +34,22 @@ public class TreeTransaction implements AutoCloseable {
     private final WriteOptions writeOpt;
     private final WriteBatch batch;
 
-    private final HashMap<String, byte[]> txAdded = new HashMap<>();
+    private final HashMap<String, ProtoAble> txAdded = new HashMap<>();
     private final HashSet<String> txDeleted = new HashSet<>();
 
+    private final TreeBuilder builder;
 
-    protected TreeTransaction(RocksDB db) {
+    private final String treeRootId;
+
+    protected TreeTransaction(RocksDB db, TreeBuilder builder) {
         this.db = db;
+        this.builder = builder;
         writeOpt = new WriteOptions();
         batch = new WriteBatch();
+        treeRootId = builder.getRTree().root;
     }
 
-    protected void put(String key, byte[] value) {
+    protected void put(String key, ProtoAble value) {
         txDeleted.remove(key);
         txAdded.put(key, value);
     }
@@ -56,29 +61,36 @@ public class TreeTransaction implements AutoCloseable {
     }
 
 
-    protected byte[] get(String key) {
+    protected <T extends ProtoAble> T get(Class<T> t, String key) {
         if (txDeleted.contains(key)) {
             return null;
         }
-        byte[] txb = txAdded.get(key);
+        T txb = (T) txAdded.get(key);
         if (null != txb) {
             return txb;
         }
+        byte[] bytes;
         try {
-            return db.get(key.getBytes(StandardCharsets.UTF_8));
+            bytes = db.get(key.getBytes(StandardCharsets.UTF_8));
         } catch (RocksDBException e) {
             throw new RuntimeException(e);
         }
+        txb = ProtoAble.fromBytes(t, builder, key, bytes);
+        return txb;
     }
 
 
     public void commit() {
         try {
-            for (Map.Entry<String, byte[]> e : txAdded.entrySet()) {
-                batch.put(e.getKey().getBytes(StandardCharsets.UTF_8), e.getValue());
+            for (Map.Entry<String, ProtoAble> e : txAdded.entrySet()) {
+                batch.put(e.getKey().getBytes(StandardCharsets.UTF_8), e.getValue().toBytes());
             }
             for (String k : txDeleted) {
                 batch.delete(k.getBytes(StandardCharsets.UTF_8));
+            }
+            if (null == treeRootId || !treeRootId.equals(builder.getRTree().root)) {
+                //rtree发生过变化，存储一次rtree
+                batch.put(TreeDbKey, builder.getRTree().toBytes());
             }
             db.write(writeOpt, batch);
         } catch (RocksDBException e) {

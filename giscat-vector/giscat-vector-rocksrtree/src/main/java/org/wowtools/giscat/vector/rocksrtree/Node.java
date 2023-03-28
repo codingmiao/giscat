@@ -36,12 +36,10 @@ import java.util.function.Consumer;
 /**
  * Created by jcairns on 4/30/15.
  */
-abstract class Node implements ProtoAble{
+abstract class Node extends ProtoAble{
 
-    protected final String id;
-
-    public Node(String id) {
-        this.id = id;
+    public Node(TreeBuilder builder, String id) {
+        super(builder, id);
     }
 
     /**

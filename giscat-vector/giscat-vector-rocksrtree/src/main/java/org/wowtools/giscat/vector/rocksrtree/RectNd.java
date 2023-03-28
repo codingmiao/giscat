@@ -32,9 +32,6 @@ package org.wowtools.giscat.vector.rocksrtree;
 
 import org.wowtools.giscat.vector.pojo.Feature;
 
-import java.util.List;
-import java.util.Objects;
-
 /**
  * An N dimensional rectangle or "hypercube" that is a representation of a data entry.
  * <p>
@@ -55,14 +52,15 @@ public final class RectNd {
         return builder;
     }
 
-    public boolean featureEquals(RectNd other,TreeBuilder builder) {
-        if (feature == null) {
-            throw new RuntimeException("feature为空，不符合逻辑");
-        }
-        if (other.feature == null) {
-            throw new RuntimeException("feature为空，不符合逻辑");
-        }
-        return Objects.equals(builder.getFeatureKey(feature), builder.getFeatureKey(other.feature));
+    public boolean featureEquals(RectNd other, TreeBuilder builder) {
+        return false;
+//        if (feature == null) {
+//            throw new RuntimeException("feature为空，不符合逻辑");
+//        }
+//        if (other.feature == null) {
+//            throw new RuntimeException("feature为空，不符合逻辑");
+//        }
+//        return Objects.equals(builder.getFeatureKey(feature), builder.getFeatureKey(other.feature));
     }
 
     protected RectNd(PointNd min, PointNd max) {

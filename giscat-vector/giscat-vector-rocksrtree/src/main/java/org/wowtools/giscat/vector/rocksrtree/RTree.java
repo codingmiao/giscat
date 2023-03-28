@@ -30,8 +30,12 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
+import com.google.protobuf.InvalidProtocolBufferException;
+import org.rocksdb.RocksDB;
+import org.rocksdb.RocksDBException;
 import org.wowtools.giscat.vector.pojo.Feature;
 
+import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
 
@@ -44,14 +48,17 @@ import java.util.function.Consumer;
  * <p>
  * Created by jcairns on 4/30/15.</p>
  */
-public final class RTree {
+public final class RTree{
+
+    public static final byte[] TreeDbKey = "T".getBytes(StandardCharsets.UTF_8);
+
     private static final double EPSILON = 1e-12;
+
+    protected String root = null;
 
     private final TreeBuilder builder;
 
-    private String root = null;
-
-    public RTree(final TreeBuilder builder) {
+    protected RTree(TreeBuilder builder) {
         this.builder = builder;
     }
 
@@ -187,4 +194,12 @@ public final class RTree {
         return builder.getNode(root, tx);
     }
 
+
+    protected byte[] toBytes() {
+        RocksRtreePb.RTreePb.Builder rtreeBuilder = RocksRtreePb.RTreePb.newBuilder();
+        rtreeBuilder.setMMax(builder.mMax);
+        rtreeBuilder.setMMin(builder.mMin);
+        rtreeBuilder.setRootId(root);
+        return rtreeBuilder.build().toByteArray();
+    }
 }

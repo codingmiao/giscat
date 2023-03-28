@@ -52,38 +52,38 @@ final class Branch extends Node {
 
     private int size;
 
-    Branch(final TreeBuilder builder, String id) {
-        super(id);
+    public Branch(TreeBuilder builder, String id) {
+        super(builder, id);
         this.builder = builder;
         this.child = new String[builder.mMax];
     }
 
-
-    protected static Branch fromBytes(TreeBuilder builder, String id, byte[] bytes) {
+    @Override
+    public void fill(byte[] bytes) {
         RocksRtreePb.BranchPb branchPb;
         try {
             branchPb = RocksRtreePb.BranchPb.parseFrom(bytes);
         } catch (InvalidProtocolBufferException e) {
             throw new RuntimeException(e);
         }
-        Branch branch = new Branch(builder, id);
         List<String> childIdsList = branchPb.getChildIdsList();
         if (childIdsList.size() > 0) {
             int i = 0;
             for (String l : childIdsList) {
-                branch.child[i] = l;
+                child[i] = l;
                 i++;
             }
-            branch.size = childIdsList.size();
+            size = childIdsList.size();
         }
         if (branchPb.hasMbr()) {
-            branch.mbr = new RectNd(branchPb.getMbr());
+            mbr = new RectNd(branchPb.getMbr());
         }
-        return branch;
     }
 
+
+
     @Override
-    public byte[] toBytes() {
+    protected byte[] toBytes() {
         RocksRtreePb.BranchPb.Builder branchBuilder = RocksRtreePb.BranchPb.newBuilder();
         if (null != child) {
             List<String> list = new ArrayList<>(size);
@@ -152,7 +152,7 @@ final class Branch extends Node {
                 if (getChild(i, tx).getBound().contains(tRect)) {
                     child[i] = getChild(i, tx).add(t, tx).id;
                     mbr = mbr.getMbr(getChild(i, tx).getBound());
-                    tx.put(id, toBytes());
+                    tx.put(id, this);
                     return this;
                 }
             }
@@ -161,14 +161,14 @@ final class Branch extends Node {
             nextLeaf.add(t, tx);
             final int nextChild = addChild(nextLeaf);
             mbr = mbr.getMbr(getChild(nextChild, tx).getBound());
-            tx.put(id, toBytes());
+            tx.put(id, this);
             return this;
 
         } else {
             final int bestLeaf = chooseLeaf(t, tRect, tx);
             child[bestLeaf] = getChild(bestLeaf, tx).add(t, tx).id;
             mbr = mbr.getMbr(getChild(bestLeaf, tx).getBound());
-            tx.put(id, toBytes());
+            tx.put(id, this);
             return this;
         }
     }
@@ -192,11 +192,11 @@ final class Branch extends Node {
         }
 
         if (size == 0) {
-            tx.put(id, toBytes());
+            tx.put(id, this);
             return null;
         } else if (size == 1) {
             // unsplit branch
-            tx.put(id, toBytes());
+            tx.put(id, this);
             Node c = getChild(0, tx);
             return c;
         }
@@ -205,7 +205,7 @@ final class Branch extends Node {
         for (int i = 1; i < size; i++) {
             mbr = mbr.getMbr(getChild(i, tx).getBound());
         }
-        tx.put(id, toBytes());
+        tx.put(id, this);
         return this;
     }
 
@@ -223,7 +223,7 @@ final class Branch extends Node {
                 mbr = mbr.getMbr(getChild(i, tx).getBound());
             }
         }
-        tx.put(id, toBytes());
+        tx.put(id, this);
         return this;
     }
 

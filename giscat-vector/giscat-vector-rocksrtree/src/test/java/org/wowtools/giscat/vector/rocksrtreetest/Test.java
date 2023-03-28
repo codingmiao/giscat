@@ -5,7 +5,6 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.util.Assert;
-import org.rocksdb.Transaction;
 import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.rocksrtree.*;
 import org.wowtools.giscat.vector.util.analyse.Bbox;
@@ -13,7 +12,7 @@ import org.wowtools.giscat.vector.util.analyse.Bbox;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @author liuyu
@@ -31,39 +30,38 @@ public class Test {
         }
         folder.delete(); // 删除空文件夹或文件
     }
-    public static void main(String[] args) {
-        String dir = "D:\\_tmp\\1\\rocksrtree";
+
+    private static void add(String dir, Function<Feature, RectNd> featureRectNdFunction, GeometryFactory geometryFactory) {
         deleteFolder(new File(dir));
-        GeometryFactory geometryFactory = new GeometryFactory();
-        TreeBuilder builder = new TreeBuilder(dir,null,2, 8) {
-            @Override
-            public String getFeatureKey(Feature feature) {
-                return feature.getGeometry().toText();
-            }
+        int num = 12345;
+        int txSize = 1000;
 
-            @Override
-            public RectNd getFeatureRect(Feature feature) {
-                Bbox bbox = new Bbox(feature.getGeometry());
-                return new RectNd(new double[]{bbox.xmin, bbox.ymin}, new double[]{bbox.xmax, bbox.ymax});
-            }
-        };
-        final RTree pTree = new RTree(builder);
+        TreeBuilder builder = new TreeBuilder(dir, null, 2, 64, featureRectNdFunction);
+        RTree pTree = builder.getRTree();
+
+        long t = System.currentTimeMillis();
         TreeTransaction tx = builder.newTx();
-        try {
-            for (int i = 0; i < 100; i++) {
-                Point point = geometryFactory.createPoint(new Coordinate(i, i));
-                pTree.add(new Feature(point), tx);
+        for (int i = 0; i < num; i++) {
+            Point point = geometryFactory.createPoint(new Coordinate(i, i));
+            pTree.add(new Feature(point), tx);
+            if (i % txSize == 0) {
+                tx.commit();
+                tx = builder.newTx();
+                System.out.println("add "+i);
             }
-            tx.commit();
-        } catch (Exception e) {
-            tx.rollback();
-            throw e;
         }
+        tx.commit();
+        System.out.println("add success,cost " + (System.currentTimeMillis() - t));
 
+        builder.close();
+    }
+
+    private static void query(String dir, Function<Feature, RectNd> featureRectNdFunction) {
+        TreeBuilder builder = new TreeBuilder(dir, null, featureRectNdFunction);
         final RectNd rect = new RectNd(new double[]{1.9, 1.9}, new double[]{8.1, 8.1});
+        RTree pTree = builder.getRTree();
 
         List<Feature> res = new LinkedList<>();
-
         FeatureConsumer consumer = new FeatureConsumer() {
             @Override
             public boolean accept(Feature f) {
@@ -71,9 +69,13 @@ public class Test {
                 return true;
             }
         };
-        tx = builder.newTx();
-        pTree.contains(rect, consumer,tx);
-        tx.close();
+
+        long t = System.currentTimeMillis();
+        try (TreeTransaction tx = builder.newTx()) {
+            pTree.contains(rect, consumer, tx);
+        }
+        System.out.println("query success,cost " + (System.currentTimeMillis() - t));
+
         Assert.equals(7, res.size());
         System.out.println(res.size());
 
@@ -83,6 +85,21 @@ public class Test {
             Assert.isTrue(feature.getGeometry().getCoordinate().y >= 2);
             Assert.isTrue(feature.getGeometry().getCoordinate().y <= 8);
         }
-        deleteFolder(new File(dir));
+//        builder.close();
+    }
+
+    public static void main(String[] args) {
+        String dir = "D:\\_tmp\\1\\rocksrtree";
+
+        Function<Feature, RectNd> featureRectNdFunction = (feature) -> {
+            Bbox bbox = new Bbox(feature.getGeometry());
+            return new RectNd(new double[]{bbox.xmin, bbox.ymin}, new double[]{bbox.xmax, bbox.ymax});
+        };
+        GeometryFactory geometryFactory = new GeometryFactory();
+
+        add(dir, featureRectNdFunction, geometryFactory);
+
+        query(dir, featureRectNdFunction);
+
     }
 }

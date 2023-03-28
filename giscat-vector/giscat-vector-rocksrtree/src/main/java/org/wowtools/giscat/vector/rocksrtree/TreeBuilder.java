@@ -30,19 +30,24 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.jetbrains.annotations.Nullable;
 import org.rocksdb.*;
 import org.rocksdb.util.SizeUnit;
 import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
 
+import java.io.Closeable;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.function.Function;
+
+import static org.wowtools.giscat.vector.rocksrtree.RTree.TreeDbKey;
 
 /**
  * Created by jcairns on 4/30/15.
  */
-public abstract class TreeBuilder {
-
+public class TreeBuilder implements Closeable {
 
 //    private final Map<Long, byte[]> branchMap = new HashMap<>();
 
@@ -56,6 +61,10 @@ public abstract class TreeBuilder {
     protected final int mMax;
 
     private final RocksDB db;
+
+    private final RTree rTree;
+
+    private final Function<Feature, RectNd> featureRectNdFunction;
 
     private static Options buildDefaultRocksDbOptions() {
         Options options = new Options();
@@ -85,7 +94,7 @@ public abstract class TreeBuilder {
     }
 
 
-    public TreeBuilder(String fileDir, @Nullable Options options, int mMin, int mMax) {
+    public TreeBuilder(String fileDir, @Nullable Options options, int mMin, int mMax, Function<Feature, RectNd> featureRectNdFunction) {
         if (null == options) {
             options = buildDefaultRocksDbOptions();
         }
@@ -96,21 +105,53 @@ public abstract class TreeBuilder {
         }
         this.mMin = mMin;
         this.mMax = mMax;
+        rTree = new RTree(this);
+        this.featureRectNdFunction = featureRectNdFunction;
     }
 
-    public abstract String getFeatureKey(Feature feature);
+    public TreeBuilder(String fileDir, @Nullable Options options, Function<Feature, RectNd> featureRectNdFunction) {
+        if (null == options) {
+            options = buildDefaultRocksDbOptions();
+        }
+        try {
+            db = RocksDB.open(options, fileDir);
+        } catch (RocksDBException e) {
+            throw new RuntimeException(e);
+        }
+        byte[] bytes;
+        try {
+            bytes = db.get(TreeDbKey);
+        } catch (RocksDBException e) {
+            throw new RuntimeException(e);
+        }
+        if (null == bytes) {
+            throw new RuntimeException(fileDir+"未构建过rtree,需调用TreeBuilder(String fileDir, @Nullable Options options, int mMin, int mMax, Function<Feature, RectNd> featureRectNdFunction)构造");
+        }
+        RocksRtreePb.RTreePb pbTree;
+        try {
+            pbTree = RocksRtreePb.RTreePb.parseFrom(bytes);
+        } catch (InvalidProtocolBufferException e) {
+            throw new RuntimeException(e);
+        }
+        mMin = pbTree.getMMin();
+        mMax = pbTree.getMMax();
+        rTree = new RTree(this);
+        rTree.root = pbTree.getRootId();
+        this.featureRectNdFunction = featureRectNdFunction;
+    }
 
+    public RTree getRTree() {
+        return rTree;
+    }
 
     protected RectNd buildFeatureRect(Feature feature) {
-        RectNd rectNd = getFeatureRect(feature);
+        RectNd rectNd = featureRectNdFunction.apply(feature);
         rectNd.feature = feature;
         return rectNd;
     }
 
-    public abstract RectNd getFeatureRect(Feature feature);
-
     public TreeTransaction newTx() {
-        return new TreeTransaction(db);
+        return new TreeTransaction(db, this);
     }
 
     protected void clearCache() {
@@ -122,7 +163,7 @@ public abstract class TreeBuilder {
         branchIdIndex++;
         String branchId = "B" + branchIdIndex;
         Branch node = new Branch(this, branchId);
-        tx.put(branchId, node.toBytes());
+        tx.put(branchId, node);
         return node;
     }
 
@@ -130,7 +171,7 @@ public abstract class TreeBuilder {
         leafIdIndex++;
         String leafId = "L" + leafIdIndex;
         Leaf node = new Leaf(this, leafId);
-        tx.put(leafId, node.toBytes());
+        tx.put(leafId, node);
 //        leafMap.put(nodeIdIndex, node);
         FeatureCollection fc = new FeatureCollection();
         fc.setFeatures(new ArrayList<>(mMax));
@@ -138,20 +179,11 @@ public abstract class TreeBuilder {
     }
 
     protected Branch getBranch(String branchId, TreeTransaction tx) {
-//        byte[] bytes = branchMap.get(branchId);
-        byte[] bytes = tx.get(branchId);
-        if (null == bytes) {
-            return null;
-        }
-        return Branch.fromBytes(this, branchId, bytes);
+        return tx.get(Branch.class, branchId);
     }
 
     protected Leaf getLeaf(String leafId, TreeTransaction tx) {
-        byte[] bytes = tx.get(leafId);
-        if (null == bytes) {
-            return null;
-        }
-        return Leaf.fromBytes(this, leafId, bytes);
+        return tx.get(Leaf.class, leafId);
     }
 
 
@@ -188,4 +220,7 @@ public abstract class TreeBuilder {
     }
 
 
+    public void close() {
+        db.close();
+    }
 }

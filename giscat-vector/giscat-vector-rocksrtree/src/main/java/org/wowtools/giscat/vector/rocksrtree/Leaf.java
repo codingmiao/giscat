@@ -64,47 +64,46 @@ final class Leaf extends Node {
 
     protected int size;
 
-    protected Leaf(final TreeBuilder builder, String id) {
-        super(id);
+    public  Leaf(final TreeBuilder builder, String id) {
+        super(builder, id);
         this.builder = builder;
         this.entryRects = new RectNd[builder.mMax];
         this.entry = new RectNd[builder.mMax];
     }
 
-    protected static Leaf fromBytes(TreeBuilder builder, String id, byte[] bytes) {
+    @Override
+    public void fill(byte[] bytes) {
         RocksRtreePb.LeafPb leafPb;
         try {
             leafPb = RocksRtreePb.LeafPb.parseFrom(bytes);
         } catch (InvalidProtocolBufferException e) {
             throw new RuntimeException(e);
         }
-        Leaf leaf = new Leaf(builder, id);
 
         if (leafPb.hasMbr()) {
-            leaf.mbr = new RectNd(leafPb.getMbr());
+            mbr = new RectNd(leafPb.getMbr());
         }
 
         List<RocksRtreePb.RectNdPb> entryRectPbs = leafPb.getEntryRectsList();
         if (entryRectPbs.size() > 0) {
             int i = 0;
             for (RocksRtreePb.RectNdPb entryRectPb : entryRectPbs) {
-                leaf.entryRects[i] = new RectNd(entryRectPb);
-                leaf.entry[i] = leaf.entryRects[i];
+                entryRects[i] = new RectNd(entryRectPb);
+                entry[i] = entryRects[i];
                 i++;
             }
-            leaf.size = entryRectPbs.size();
+            size = entryRectPbs.size();
 
             i = 0;
             byte[] fcBytes = leafPb.getEntries().toByteArray();
             FeatureCollection fc = ProtoFeatureConverter.proto2featureCollection(fcBytes, gf);
             for (Feature feature : fc.getFeatures()) {
-                leaf.entry[i].feature = feature;
+                entry[i].feature = feature;
                 i++;
             }
 
         }
 
-        return leaf;
     }
 
     @Override
@@ -149,10 +148,10 @@ final class Leaf extends Node {
             size++;
         } else {
             Node sp = split(t, tx);
-            tx.put(id, toBytes());
+            tx.put(id, this);
             return sp;
         }
-        tx.put(id, toBytes());
+        tx.put(id, this);
         return this;
     }
 
@@ -348,7 +347,7 @@ final class Leaf extends Node {
         pNode.addChild(l1Node);
         pNode.addChild(l2Node);
 
-        tx.put(pNode.id, pNode.toBytes());
+        tx.put(pNode.id, pNode);
         return pNode;
     }
 
