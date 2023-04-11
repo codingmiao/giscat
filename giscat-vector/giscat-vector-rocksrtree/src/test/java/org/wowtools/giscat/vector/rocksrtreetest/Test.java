@@ -19,6 +19,8 @@ import java.util.function.Function;
  * @date 2023/3/23
  */
 public class Test {
+
+
     public static void deleteFolder(File folder) {
         if (folder.isDirectory()) {
             File[] files = folder.listFiles(); // 获取文件夹中的所有文件和子文件夹
@@ -33,10 +35,10 @@ public class Test {
 
     private static void add(String dir, Function<Feature, RectNd> featureRectNdFunction, GeometryFactory geometryFactory) {
         deleteFolder(new File(dir));
-        int num = 12345;
-        int txSize = 1000;
+        int num = 10000;
+        int txSize = 2000;
 
-        TreeBuilder builder = new TreeBuilder(dir, null, 2, 64, featureRectNdFunction);
+        TreeBuilder builder = new TreeBuilder(dir, null);
         RTree pTree = builder.getRTree();
 
         long t = System.currentTimeMillis();
@@ -46,8 +48,9 @@ public class Test {
             pTree.add(new Feature(point), tx);
             if (i % txSize == 0) {
                 tx.commit();
+                tx.close();
                 tx = builder.newTx();
-                System.out.println("add "+i);
+                System.out.println("add " + i);
             }
         }
         tx.commit();
@@ -56,8 +59,8 @@ public class Test {
         builder.close();
     }
 
-    private static void query(String dir, Function<Feature, RectNd> featureRectNdFunction) {
-        TreeBuilder builder = new TreeBuilder(dir, null, featureRectNdFunction);
+    private static void query(String dir, Function<Feature, RectNd> featureRectNdFunction) throws Exception {
+        TreeBuilder builder = new TreeBuilder(dir, null);
         final RectNd rect = new RectNd(new double[]{1.9, 1.9}, new double[]{8.1, 8.1});
         RTree pTree = builder.getRTree();
 
@@ -74,7 +77,7 @@ public class Test {
         try (TreeTransaction tx = builder.newTx()) {
             pTree.contains(rect, consumer, tx);
         }
-        System.out.println("query success,cost " + (System.currentTimeMillis() - t));
+        System.out.println("1 query success,cost " + (System.currentTimeMillis() - t));
 
         Assert.equals(7, res.size());
         System.out.println(res.size());
@@ -85,10 +88,21 @@ public class Test {
             Assert.isTrue(feature.getGeometry().getCoordinate().y >= 2);
             Assert.isTrue(feature.getGeometry().getCoordinate().y <= 8);
         }
-//        builder.close();
+
+        for (int i = 0; i < 10; i++) {
+            res.clear();
+            t = System.currentTimeMillis();
+            try (TreeTransaction tx = builder.newTx()) {
+                pTree.contains(rect, consumer, tx);
+            }
+            System.out.println("2 query success,cost " + (System.currentTimeMillis() - t));
+            Assert.equals(7, res.size());
+        }
+
+        builder.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String dir = "D:\\_tmp\\1\\rocksrtree";
 
         Function<Feature, RectNd> featureRectNdFunction = (feature) -> {

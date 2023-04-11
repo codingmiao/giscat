@@ -2,28 +2,26 @@
 target
 
 logs
+*.log
 
-# windows #
 Thumbs.db
 
-# Mac #
 .DS_Store
 
-# eclipse #
 .settings
 .project
 .classpath
 .log
 *.class
 
-# idea #
 .idea
 *.iml
 
-# Package Files #
 *.war
 *.ear
 /target
 /public
 
 jmhResult.json
+/D_tmp1rocksrtree/
+/arthas-output/

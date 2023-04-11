@@ -18,7 +18,9 @@ import org.rocksdb.WriteOptions;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import static org.wowtools.giscat.vector.rocksrtree.RTree.TreeDbKey;
 
@@ -29,6 +31,20 @@ import static org.wowtools.giscat.vector.rocksrtree.RTree.TreeDbKey;
  * @date 2023/3/27
  */
 public class TreeTransaction implements AutoCloseable {
+
+    private static final byte[] nullBytes = new byte[0];
+
+    private static final ProtoAble nullProtoAble = new ProtoAble(null, null) {
+        @Override
+        public void fill(byte[] bytes) {
+
+        }
+
+        @Override
+        protected byte[] toBytes() {
+            return nullBytes;
+        }
+    };
 
     private final RocksDB db;
     private final WriteOptions writeOpt;
@@ -41,12 +57,32 @@ public class TreeTransaction implements AutoCloseable {
 
     private final String treeRootId;
 
-    protected TreeTransaction(RocksDB db, TreeBuilder builder) {
+    private final ReadWriteLock lock;
+
+    private boolean commited = false;
+
+
+    //TODO 一二级缓存设计考虑
+    private final Map<String, ProtoAble> protoAbleCaches2;
+    private final Map<String, ProtoAble> protoAbleCaches1;
+
+    protected TreeTransaction(RocksDB db, TreeBuilder builder, int cache1Size, Map<String, ProtoAble> protoAbleCaches2, ReadWriteLock lock) {
+        protoAbleCaches1 = new LinkedHashMap(cache1Size, 0.75f, true) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                return size() > cache1Size;
+            }
+        };
         this.db = db;
         this.builder = builder;
+        this.protoAbleCaches2 = protoAbleCaches2;
         writeOpt = new WriteOptions();
         batch = new WriteBatch();
-        treeRootId = builder.getRTree().root;
+        treeRootId = builder.rootId;
+        this.lock = lock;
+        lock.readLock().lock();
     }
 
     protected void put(String key, ProtoAble value) {
@@ -69,18 +105,49 @@ public class TreeTransaction implements AutoCloseable {
         if (null != txb) {
             return txb;
         }
+        ProtoAble cache;
+        cache = protoAbleCaches1.get(key);
+        if (null != cache) {
+            if (cache == nullProtoAble) {
+                return null;
+            } else {
+                return (T) cache;
+            }
+        }
+
+        cache = protoAbleCaches2.get(key);
+        if (null != cache) {
+            if (cache == nullProtoAble) {
+                return null;
+            } else {
+                return (T) cache;
+            }
+        }
+
+
         byte[] bytes;
         try {
             bytes = db.get(key.getBytes(StandardCharsets.UTF_8));
         } catch (RocksDBException e) {
             throw new RuntimeException(e);
         }
-        txb = ProtoAble.fromBytes(t, builder, key, bytes);
-        return txb;
+        if (null == bytes) {
+            protoAbleCaches1.put(key, nullProtoAble);
+            return null;
+        } else {
+            txb = ProtoAble.fromBytes(t, builder, key, bytes);
+            protoAbleCaches1.put(key, txb);
+            return txb;
+        }
+
     }
 
 
     public void commit() {
+        if (commited) {
+            throw new RuntimeException("事务已经提交过一次了");
+        }
+        commited = true;
         try {
             for (Map.Entry<String, ProtoAble> e : txAdded.entrySet()) {
                 batch.put(e.getKey().getBytes(StandardCharsets.UTF_8), e.getValue().toBytes());
@@ -88,24 +155,45 @@ public class TreeTransaction implements AutoCloseable {
             for (String k : txDeleted) {
                 batch.delete(k.getBytes(StandardCharsets.UTF_8));
             }
-            if (null == treeRootId || !treeRootId.equals(builder.getRTree().root)) {
+            if (null == treeRootId || !treeRootId.equals(builder.rootId)) {
                 //rtree发生过变化，存储一次rtree
                 batch.put(TreeDbKey, builder.getRTree().toBytes());
             }
-            db.write(writeOpt, batch);
+            lock.readLock().unlock();
+            lock.writeLock().lock();
+            try {
+                db.write(writeOpt, batch);
+                protoAbleCaches2.putAll(txAdded);
+                for (String s : txDeleted) {
+                    protoAbleCaches2.remove(s);
+                }
+            } finally {
+                lock.writeLock().unlock();
+            }
         } catch (RocksDBException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void rollback() {
-        close();
+        txAdded.clear();
+        txDeleted.clear();
+        protoAbleCaches1.clear();
     }
 
 
     @Override
     public void close() {
-
+        if (!commited) {
+            lock.readLock().unlock();
+            if (protoAbleCaches1.size() > 0) {
+                lock.writeLock().lock();
+                protoAbleCaches2.putAll(protoAbleCaches1);
+                lock.writeLock().unlock();
+            }
+        }
+        batch.close();
+        writeOpt.close();
     }
 
 

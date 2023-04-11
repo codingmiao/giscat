@@ -215,6 +215,9 @@
                             <head>createdate</head>
                         </tag>
                     </tags>
+                    <sourceFileExcludes>
+                        <exclude>**/RocksRtreePb.java</exclude>
+                    </sourceFileExcludes>
                 </configuration>
                 <executions>
                     <execution>

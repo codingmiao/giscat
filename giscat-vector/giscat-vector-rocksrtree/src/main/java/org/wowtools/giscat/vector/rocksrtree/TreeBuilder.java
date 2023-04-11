@@ -31,28 +31,32 @@ package org.wowtools.giscat.vector.rocksrtree;
  */
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.rocksdb.*;
 import org.rocksdb.util.SizeUnit;
 import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
+import org.wowtools.giscat.vector.util.analyse.Bbox;
 
 import java.io.Closeable;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Function;
 
 import static org.wowtools.giscat.vector.rocksrtree.RTree.TreeDbKey;
 
 /**
- * Created by jcairns on 4/30/15.
+ * RTree构建器，利用TreeBuilder构建出RTree，继而进行后续的修改、查询操作
  */
+@Slf4j
 public class TreeBuilder implements Closeable {
 
-//    private final Map<Long, byte[]> branchMap = new HashMap<>();
-
-//    private final Map<Long, Leaf> leafMap = new HashMap<>();
-
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
     private long leafIdIndex = 0;
 
     private long branchIdIndex = 0;
@@ -60,11 +64,16 @@ public class TreeBuilder implements Closeable {
     protected final int mMin;
     protected final int mMax;
 
+    private final int cache1Size;
     private final RocksDB db;
 
     private final RTree rTree;
 
+    protected String rootId;
+
     private final Function<Feature, RectNd> featureRectNdFunction;
+
+    private final Map<String, ProtoAble> protoAbleCaches2;
 
     private static Options buildDefaultRocksDbOptions() {
         Options options = new Options();
@@ -94,27 +103,55 @@ public class TreeBuilder implements Closeable {
     }
 
 
-    public TreeBuilder(String fileDir, @Nullable Options options, int mMin, int mMax, Function<Feature, RectNd> featureRectNdFunction) {
-        if (null == options) {
-            options = buildDefaultRocksDbOptions();
-        }
-        try {
-            db = RocksDB.open(options, fileDir);
-        } catch (RocksDBException e) {
-            throw new RuntimeException(e);
-        }
-        this.mMin = mMin;
-        this.mMax = mMax;
-        rTree = new RTree(this);
-        this.featureRectNdFunction = featureRectNdFunction;
+    public static final class TreeBuilderConfig {
+        /**
+         * rocksdb配置参数
+         */
+        public @Nullable Options options;
+        /**
+         * 每个非叶子节点最少有几个子节点
+         */
+        public int mMin = 16;
+        /**
+         * 每个非叶子节点最多有几个子节点
+         */
+        public int mMax = 64;
+
+        /**
+         * 缓存的节点数，数值越大从磁盘读数据的概率越小，但越吃内存
+         */
+        public int cacheSize = 100000;
+
+        /**
+         * 如何取得feature的外接矩形，可以从geometry或属性入手进行构建，例如，默认值是取二维矩形范围:
+         * <pre>
+         *  (feature) -&gt; {
+         *                 Bbox bbox = new Bbox(feature.getGeometry());
+         *                 return new RectNd(new double[]{bbox.xmin, bbox.ymin}, new double[]{bbox.xmax, bbox.ymax});
+         *      }
+         * </pre>
+         */
+        public @Nullable Function<Feature, RectNd> featureRectNdFunction;
     }
 
-    public TreeBuilder(String fileDir, @Nullable Options options, Function<Feature, RectNd> featureRectNdFunction) {
+
+    /**
+     * 获得一个TreeBuilder示例
+     *
+     * @param dir    RTree持久化存储到本地磁盘的路径
+     * @param config rtree的配置信息
+     * @see TreeBuilderConfig
+     */
+    public TreeBuilder(@NotNull String dir, @Nullable TreeBuilderConfig config) {
+        if (null == config) {
+            config = new TreeBuilderConfig();
+        }
+        Options options = config.options;
         if (null == options) {
             options = buildDefaultRocksDbOptions();
         }
         try {
-            db = RocksDB.open(options, fileDir);
+            db = RocksDB.open(options, dir);
         } catch (RocksDBException e) {
             throw new RuntimeException(e);
         }
@@ -124,20 +161,56 @@ public class TreeBuilder implements Closeable {
         } catch (RocksDBException e) {
             throw new RuntimeException(e);
         }
+
         if (null == bytes) {
-            throw new RuntimeException(fileDir+"未构建过rtree,需调用TreeBuilder(String fileDir, @Nullable Options options, int mMin, int mMax, Function<Feature, RectNd> featureRectNdFunction)构造");
+            if (config.mMin < 2) {
+                log.warn("mMin的值过小，自动调整为2");
+                config.mMin = 2;
+            }
+            if (config.mMax < config.mMin) {
+                log.warn("mMax的值过小，自动调整为{}", config.mMin);
+                config.mMax = config.mMin;
+            }
+            mMin = config.mMin;
+            mMax = config.mMax;
+        } else {
+            RocksRtreePb.RTreePb pbTree;
+            try {
+                pbTree = RocksRtreePb.RTreePb.parseFrom(bytes);
+            } catch (InvalidProtocolBufferException e) {
+                throw new RuntimeException(e);
+            }
+            mMin = pbTree.getMMin();
+            mMax = pbTree.getMMax();
+            log.debug("rtree已存在，使用已有值 mMin {} mMax {}", mMin, mMax);
+            rootId = pbTree.getRootId();
         }
-        RocksRtreePb.RTreePb pbTree;
-        try {
-            pbTree = RocksRtreePb.RTreePb.parseFrom(bytes);
-        } catch (InvalidProtocolBufferException e) {
-            throw new RuntimeException(e);
-        }
-        mMin = pbTree.getMMin();
-        mMax = pbTree.getMMax();
+
         rTree = new RTree(this);
-        rTree.root = pbTree.getRootId();
-        this.featureRectNdFunction = featureRectNdFunction;
+        if (null == config.featureRectNdFunction) {
+            featureRectNdFunction = (feature) -> {
+                Bbox bbox = new Bbox(feature.getGeometry());
+                return new RectNd(new double[]{bbox.xmin, bbox.ymin}, new double[]{bbox.xmax, bbox.ymax});
+            };
+        } else {
+            featureRectNdFunction = config.featureRectNdFunction;
+        }
+
+        if (config.cacheSize < 128) {
+            log.warn("cacheSize过小，调整为128");
+            config.cacheSize = 128;
+        }
+        final int cacheSize = config.cacheSize;
+        cache1Size = config.cacheSize / 10;
+
+        protoAbleCaches2 = new LinkedHashMap(cacheSize, 0.75f, true) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                return size() > cacheSize;
+            }
+        };
     }
 
     public RTree getRTree() {
@@ -151,7 +224,7 @@ public class TreeBuilder implements Closeable {
     }
 
     public TreeTransaction newTx() {
-        return new TreeTransaction(db, this);
+        return new TreeTransaction(db, this, cache1Size, protoAbleCaches2, lock);
     }
 
     protected void clearCache() {

@@ -90,6 +90,7 @@ public final class RectNd {
         return min + " " + max;
     }
 
+    private RectNd getMbrCache;
     /**
      * Calculate the resulting mbr when combining param HyperRect with this HyperRect
      *
@@ -97,6 +98,9 @@ public final class RectNd {
      * @return new HyperRect representing mbr of both HyperRects combined
      */
     public RectNd getMbr(RectNd r) {
+        if (null != getMbrCache) {
+            return getMbrCache;
+        }
         int dim = min.xs.length;
         double[] min = new double[dim];
         double[] max = new double[dim];
@@ -108,7 +112,8 @@ public final class RectNd {
                 throw new RuntimeException(e);
             }
         }
-        return new RectNd(new PointNd(min), new PointNd(max));
+        getMbrCache = new RectNd(new PointNd(min), new PointNd(max));
+        return getMbrCache;
     }
 
     /**
@@ -195,31 +200,42 @@ public final class RectNd {
         return true;
     }
 
+    private double costCache = -1;
     /**
      * Calculate the "cost" of this HyperRect - usually the area across all dimensions
      *
      * @return - cost
      */
     double cost() {
+        if (costCache >= 0) {
+            return costCache;
+        }
         double res = 1;
         for (int i = 0; i < min.getNDim(); i++) {
             res = res * (max.getCoord(i) - min.getCoord(i));
         }
-        return Math.abs(res);
+
+        costCache = Math.abs(res);
+        return costCache;
     }
 
+    private double perimeterCache = -1;
     /**
      * Calculate the perimeter of this HyperRect - across all dimesnions
      *
      * @return - perimeter
      */
     double perimeter() {
+        if (perimeterCache >= 0) {
+            return perimeterCache;
+        }
         double n = Math.pow(2, getNDim());
         double p = 0.0;
         final int nD = this.getNDim();
         for (int d = 0; d < nD; d++) {
             p += n * this.getRange(d);
         }
+        perimeterCache = p;
         return p;
     }
 }

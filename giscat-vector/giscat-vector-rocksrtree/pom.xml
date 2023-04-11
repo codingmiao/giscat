@@ -18,8 +18,12 @@
             <artifactId>rocksdbjni</artifactId>
         </dependency>
         <dependency>
-            <artifactId>giscat-vector-util</artifactId>
             <groupId>org.wowtools</groupId>
+            <artifactId>giscat-vector-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.wowtools</groupId>
+            <artifactId>catframe-common</artifactId>
         </dependency>
 
         <dependency>

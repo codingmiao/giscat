@@ -166,8 +166,9 @@ final class Branch extends Node {
 
         } else {
             final int bestLeaf = chooseLeaf(t, tRect, tx);
-            child[bestLeaf] = getChild(bestLeaf, tx).add(t, tx).id;
-            mbr = mbr.getMbr(getChild(bestLeaf, tx).getBound());
+            Node c = getChild(bestLeaf, tx);
+            child[bestLeaf] = c.add(t, tx).id;
+            mbr = mbr.getMbr(c.getBound());
             tx.put(id, this);
             return this;
         }

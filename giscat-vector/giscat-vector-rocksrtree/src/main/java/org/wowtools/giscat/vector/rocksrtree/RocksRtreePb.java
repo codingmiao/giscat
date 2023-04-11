@@ -2,7 +2,6 @@
 // source: definition/RocksRtree.proto
 
 package org.wowtools.giscat.vector.rocksrtree;
-
 public final class RocksRtreePb {
   private RocksRtreePb() {}
   public static void registerAllExtensions(

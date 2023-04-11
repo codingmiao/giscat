@@ -30,9 +30,6 @@ package org.wowtools.giscat.vector.rocksrtree;
  * #L%
  */
 
-import com.google.protobuf.InvalidProtocolBufferException;
-import org.rocksdb.RocksDB;
-import org.rocksdb.RocksDBException;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.nio.charset.StandardCharsets;
@@ -48,13 +45,11 @@ import java.util.function.Consumer;
  * <p>
  * Created by jcairns on 4/30/15.</p>
  */
-public final class RTree{
+public final class RTree {
 
     public static final byte[] TreeDbKey = "T".getBytes(StandardCharsets.UTF_8);
 
     private static final double EPSILON = 1e-12;
-
-    protected String root = null;
 
     private final TreeBuilder builder;
 
@@ -67,10 +62,11 @@ public final class RTree{
      *
      * @param rect     输入范围
      * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
+     * @param tx       事务
      */
     public void contains(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
-        if (root != null) {
-            builder.getNode(root, tx).contains(rect, consumer, tx);
+        if (builder.rootId != null) {
+            builder.getNode(builder.rootId, tx).contains(rect, consumer, tx);
         }
     }
 
@@ -80,10 +76,11 @@ public final class RTree{
      *
      * @param rect     输入范围
      * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
+     * @param tx       事务
      */
     public void intersects(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
-        if (root != null) {
-            builder.getNode(root, tx).intersects(rect, consumer, tx);
+        if (builder.rootId != null) {
+            builder.getNode(builder.rootId, tx).intersects(rect, consumer, tx);
         }
     }
 
@@ -103,16 +100,17 @@ public final class RTree{
     /**
      * Add the data entry to the SpatialSearch structure
      *
-     * @param t Data entry to be added
+     * @param t  Data entry to be added
+     * @param tx 事务
      */
     protected void add(final RectNd t, TreeTransaction tx) {
-        if (root != null) {
-            Node node = builder.getNode(root, tx);
+        if (builder.rootId != null) {
+            Node node = builder.getNode(builder.rootId, tx);
             Node newNode = node.add(t, tx);
-            root = newNode.id;
+            builder.rootId = newNode.id;
         } else {
-            root = builder.newLeaf(tx).id;
-            builder.getNode(root, tx).add(t, tx);
+            builder.rootId = builder.newLeaf(tx).id;
+            builder.getNode(builder.rootId, tx).add(t, tx);
         }
     }
 
@@ -157,8 +155,8 @@ public final class RTree{
      * @return entry count
      */
     public int getEntryCount(TreeTransaction tx) {
-        if (root != null) {
-            return builder.getNode(root, tx).totalSize(tx);
+        if (builder.rootId != null) {
+            return builder.getNode(builder.rootId, tx).totalSize(tx);
         }
         return 0;
     }
@@ -177,8 +175,8 @@ public final class RTree{
      * @param consumer - callback for each element
      */
     protected void forEach(Consumer<RectNd> consumer, TreeTransaction tx) {
-        if (root != null) {
-            builder.getNode(root, tx).forEach(consumer,tx);
+        if (builder.rootId != null) {
+            builder.getNode(builder.rootId, tx).forEach(consumer, tx);
         }
     }
 
@@ -186,12 +184,12 @@ public final class RTree{
         Stats stats = new Stats();
         stats.setMaxFill(builder.mMax);
         stats.setMinFill(builder.mMin);
-        builder.getNode(root, tx).collectStats(stats, 0,tx);
+        builder.getNode(builder.rootId, tx).collectStats(stats, 0, tx);
         return stats;
     }
 
     Node getRoot(TreeTransaction tx) {
-        return builder.getNode(root, tx);
+        return builder.getNode(builder.rootId, tx);
     }
 
 
@@ -199,7 +197,7 @@ public final class RTree{
         RocksRtreePb.RTreePb.Builder rtreeBuilder = RocksRtreePb.RTreePb.newBuilder();
         rtreeBuilder.setMMax(builder.mMax);
         rtreeBuilder.setMMin(builder.mMin);
-        rtreeBuilder.setRootId(root);
+        rtreeBuilder.setRootId(builder.rootId);
         return rtreeBuilder.build().toByteArray();
     }
 }
