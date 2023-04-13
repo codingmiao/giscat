@@ -33,6 +33,8 @@ package org.wowtools.giscat.vector.rocksrtree;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Deque;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -229,30 +231,22 @@ final class Branch extends Node {
     }
 
 
-    @Override
-    public boolean intersects(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
+    /**
+     * 获取与输入rect相交的节点并加入res
+     * @param rect rect
+     * @param res res
+     * @param tx tx
+     */
+    public void intersects(RectNd rect, Collection<Node> res, TreeTransaction tx) {
+        if (!mbr.intersects(rect)) {
+            return;
+        }
         for (int i = 0; i < size; i++) {
             Node ci = getChild(i, tx);
             if (rect.intersects(ci.getBound())) {
-                if (!ci.intersects(rect, consumer, tx)) {
-                    return false;
-                }
+                res.add(ci);
             }
         }
-        return true;
-    }
-
-    @Override
-    public boolean contains(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
-        for (int i = 0; i < size; i++) {
-            Node ci = getChild(i, tx);
-            if (rect.intersects(ci.getBound())) {
-                if (!ci.contains(rect, consumer, tx)) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
 

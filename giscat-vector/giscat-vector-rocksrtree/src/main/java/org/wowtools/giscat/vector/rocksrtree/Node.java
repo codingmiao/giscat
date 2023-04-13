@@ -74,27 +74,6 @@ abstract class Node extends ProtoAble{
      */
     abstract Node update(RectNd told, RectNd tnew, TreeTransaction tx);
 
-
-    /**
-     * Visitor pattern:
-     * <p>
-     * Consumer "accepts" every node intersecting the given rect, if consumer return false, break it.
-     *
-     * @param rect     - limiting rect
-     * @param consumer consumer
-     */
-    public abstract boolean intersects(RectNd rect, FeatureConsumer consumer, TreeTransaction tx);
-
-    /**
-     * Visitor pattern:
-     * <p>
-     * Consumer "accepts" every node contained by the given rect
-     *
-     * @param rect     - limiting rect
-     * @param consumer
-     */
-    public abstract boolean contains(RectNd rect, FeatureConsumer consumer, TreeTransaction tx);
-
     /**
      * @param rect
      * @param t

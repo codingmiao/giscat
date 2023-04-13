@@ -33,6 +33,7 @@ package org.wowtools.giscat.vector.rocksrtree;
 import org.wowtools.giscat.vector.pojo.Feature;
 
 import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.function.Consumer;
 
 
@@ -57,30 +58,97 @@ public final class RTree {
         this.builder = builder;
     }
 
+
     /**
      * 查询被输入的范围完全覆盖的要素范围
      *
-     * @param rect     输入范围
-     * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
-     * @param tx       事务
+     * @param rect 输入范围
+     * @param tx   事务
      */
-    public void contains(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
-        if (builder.rootId != null) {
-            builder.getNode(builder.rootId, tx).contains(rect, consumer, tx);
-        }
+    public Iterator<Feature> contains(RectNd rect, TreeTransaction tx) {
+        return new ContainsFeatureIterator(rect, tx);
     }
 
 
     /**
      * 查询与输入范围相交的要素范围
      *
-     * @param rect     输入范围
-     * @param consumer 查询结果消费者，若accept返回false，则终止查询过程
-     * @param tx       事务
+     * @param rect 输入范围
+     * @param tx   事务
      */
-    public void intersects(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
-        if (builder.rootId != null) {
-            builder.getNode(builder.rootId, tx).intersects(rect, consumer, tx);
+    public Iterator<Feature> intersects(RectNd rect, TreeTransaction tx) {
+        return new IntersectsFeatureIterator(rect, tx);
+    }
+
+
+    /**
+     * 范围查找的Iterator<Feature> 抽象类
+     */
+    private abstract class SearchFeatureIterator implements Iterator<Feature> {
+
+        protected abstract void add(Leaf leaf, RectNd rect, List<Feature> res);
+
+        private final RectNd rect;
+        private final TreeTransaction tx;
+
+        private final LinkedList<Feature> featurePool = new LinkedList<>();
+        private final Deque<Node> stack = new ArrayDeque<>();
+
+        private SearchFeatureIterator(RectNd rect, TreeTransaction tx) {
+            this.rect = rect;
+            this.tx = tx;
+            if (builder.rootId != null) {
+                stack.push(builder.getNode(builder.rootId, tx));
+            }
+        }
+
+
+        @Override
+        public boolean hasNext() {
+            if (featurePool.size() > 0) {
+                return true;
+            }
+            while (!stack.isEmpty()) {
+                Node node = stack.pop();
+                if (node instanceof Branch) {
+                    Branch branch = (Branch) node;
+                    branch.intersects(rect, stack, tx);
+                } else {
+                    Leaf leaf = (Leaf) node;
+                    add(leaf, rect, featurePool);
+                    if (featurePool.size() > 0) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public Feature next() {
+            return featurePool.pop();
+        }
+    }
+
+    private final class ContainsFeatureIterator extends SearchFeatureIterator {
+        private ContainsFeatureIterator(RectNd rect, TreeTransaction tx) {
+            super(rect, tx);
+        }
+
+        @Override
+        protected void add(Leaf leaf, RectNd rect, List<Feature> res) {
+            leaf.contains(rect, res);
+        }
+    }
+
+    private final class IntersectsFeatureIterator extends SearchFeatureIterator {
+        private IntersectsFeatureIterator(RectNd rect, TreeTransaction tx) {
+            super(rect, tx);
+        }
+
+        @Override
+        protected void add(Leaf leaf, RectNd rect, List<Feature> res) {
+            leaf.intersects(rect, res);
         }
     }
 

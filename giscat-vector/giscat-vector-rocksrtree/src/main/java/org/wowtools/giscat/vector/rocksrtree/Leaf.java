@@ -38,10 +38,7 @@ import org.wowtools.giscat.vector.pojo.Feature;
 import org.wowtools.giscat.vector.pojo.FeatureCollection;
 import org.wowtools.giscat.vector.pojo.converter.ProtoFeatureConverter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 
@@ -64,7 +61,7 @@ final class Leaf extends Node {
 
     protected int size;
 
-    public  Leaf(final TreeBuilder builder, String id) {
+    public Leaf(final TreeBuilder builder, String id) {
         super(builder, id);
         this.builder = builder;
         this.entryRects = new RectNd[builder.mMax];
@@ -233,28 +230,40 @@ final class Leaf extends Node {
     }
 
 
-    @Override
-    public boolean intersects(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
+    /**
+     * 获取与输入rect相交的feature并加入res
+     *
+     * @param rect rect
+     * @param res  res
+     */
+    public void intersects(RectNd rect, Collection<Feature> res) {
+        if (!mbr.intersects(rect)) {
+            return;
+        }
         for (int i = 0; i < size; i++) {
-            if (rect.intersects(entryRects[i])) {
-                if (!consumer.accept(entry[i])) {
-                    return false;
-                }
+            RectNd e = entryRects[i];
+            if (rect.intersects(e)) {
+                res.add(e.feature);
             }
         }
-        return true;
     }
 
-    @Override
-    public boolean contains(RectNd rect, FeatureConsumer consumer, TreeTransaction tx) {
+    /**
+     * 获取被输入rect覆盖的feature并加入res
+     *
+     * @param rect rect
+     * @param res  res
+     */
+    public void contains(RectNd rect, Collection<Feature> res) {
+        if (!mbr.intersects(rect)) {
+            return;
+        }
         for (int i = 0; i < size; i++) {
-            if (rect.contains(entryRects[i])) {
-                if (!consumer.accept(entry[i])) {
-                    return false;
-                }
+            RectNd e = entryRects[i];
+            if (rect.contains(e)) {
+                res.add(e.feature);
             }
         }
-        return true;
     }
 
     @Override
