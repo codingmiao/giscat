@@ -19,9 +19,8 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mvt;
 
-import org.locationtech.jts.geom.Geometry;
-
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * mvt feature
@@ -30,7 +29,11 @@ import java.util.ArrayList;
  * @date 2022/4/24
  */
 public final class MvtFeature {
+    //几何对象类型
+    public VectorTile.Tile.GeomType geomType;
+    //几何对象commands
+    public List<Integer> commands;
 
-    Geometry geometry;
-    ArrayList<Integer> tags;
+    // tags用以映射属性
+    public ArrayList<Integer> tags;
 }

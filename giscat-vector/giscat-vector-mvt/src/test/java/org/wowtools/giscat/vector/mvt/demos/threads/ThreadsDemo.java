@@ -1,4 +1,4 @@
-package org.wowtools.giscat.vector.mvt.demos.hello;
+package org.wowtools.giscat.vector.mvt.demos.threads;
 
 import org.locationtech.jts.geom.*;
 import org.springframework.boot.SpringApplication;
@@ -18,9 +18,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 /**
  * 用springboot起一个web服务演示矢量瓦片的使用
+ * 多线程添加图层和要素演示
  *
  * @author liuyu
  * @date 2022/4/26
@@ -29,9 +33,9 @@ import java.util.Map;
 @RestController()
 @RequestMapping("/tile")
 @CrossOrigin
-public class WebDemo {
+public class ThreadsDemo {
     public static void main(String[] args) {
-        SpringApplication.run(WebDemo.class, args);
+        SpringApplication.run(ThreadsDemo.class, args);
     }
 
     /**
@@ -48,7 +52,7 @@ public class WebDemo {
     static {
         //构造示例数据
         GeometryFactory gf = new GeometryFactory();
-        String strJson = org.wowtools.common.utils.ResourcesReader.readStr(WebDemo.class, "china.json");
+        String strJson = org.wowtools.common.utils.ResourcesReader.readStr(ThreadsDemo.class, "china.json");
         areaFeatureCollection = GeoJsonFeatureConverter.fromGeoJsonFeatureCollection(strJson, gf);
         ArrayList<Feature> pointFeatures = new ArrayList<>(areaFeatureCollection.getFeatures().size());
         ArrayList<Feature> lineFeatures = new ArrayList<>(areaFeatureCollection.getFeatures().size());
@@ -116,35 +120,55 @@ public class WebDemo {
 
     private static final String vtContentType = "application/octet-stream";
 
+    private static final ExecutorService threadPool = Executors.newCachedThreadPool();
+
     @RequestMapping("/{z}/{x}/{y}")
     public void getTile(@PathVariable byte z, @PathVariable int x, @PathVariable int y, HttpServletResponse response) {
         //构造一个MvtBuilder对象
         MvtBuilder mvtBuilder = new MvtBuilder(z, x, y, geometryFactory);
 
         //向mvt中添加layer
-        MvtLayer layer = mvtBuilder.getOrCreateLayer("省区域");
-        //向layer中添加feature
-        for (Feature feature : areaFeatureCollection.getFeatures()) {
-            //这里简单地从内存中取数据并判断其是否与瓦片有交集，实际运用中可从数据库查询，例如postgis的ST_intersects函数
-            if (mvtBuilder.getBbox().envIntersects(feature.getGeometry())) {
-                layer.addFeature(feature);
-            }
-        }
+        MvtLayer areaLayer = mvtBuilder.createLayer("省区域");
+        MvtLayer lineLayer = mvtBuilder.createLayer("省边界");
+        MvtLayer pointLayer = mvtBuilder.createLayer("省会位置");
 
-        //如法炮制添加layer
-        layer = mvtBuilder.getOrCreateLayer("省边界");
-        for (Feature feature : lineFeatureCollection.getFeatures()) {
-            if (mvtBuilder.getBbox().envIntersects(feature.getGeometry())) {
-                layer.addFeature(feature);
-            }
-        }
+        //多线程添加数据，实际运用中也可以起多个线程去查询并添加
+        Semaphore semaphore = new Semaphore(0);
 
-        //如法炮制添加layer
-        layer = mvtBuilder.getOrCreateLayer("省会位置");
-        for (Feature feature : pointFeatureCollection.getFeatures()) {
-            if (mvtBuilder.getBbox().envIntersects(feature.getGeometry())) {
-                layer.addFeature(feature);
+        threadPool.execute(() -> {
+            for (Feature feature : areaFeatureCollection.getFeatures()) {
+                //这里简单地从内存中取数据并判断其是否与瓦片有交集，实际运用中可从数据库查询，例如postgis的ST_intersects函数
+                if (mvtBuilder.getBbox().envIntersects(feature.getGeometry())) {
+                    areaLayer.addFeature(feature);
+                }
             }
+            semaphore.release();
+        });
+
+        threadPool.execute(() -> {
+            for (Feature feature : pointFeatureCollection.getFeatures()) {
+                //这里简单地从内存中取数据并判断其是否与瓦片有交集，实际运用中可从数据库查询，例如postgis的ST_intersects函数
+                if (mvtBuilder.getBbox().envIntersects(feature.getGeometry())) {
+                    pointLayer.addFeature(feature);
+                }
+            }
+            semaphore.release();
+        });
+
+        threadPool.execute(() -> {
+            for (Feature feature : lineFeatureCollection.getFeatures()) {
+                //这里简单地从内存中取数据并判断其是否与瓦片有交集，实际运用中可从数据库查询，例如postgis的ST_intersects函数
+                if (mvtBuilder.getBbox().envIntersects(feature.getGeometry())) {
+                    lineLayer.addFeature(feature);
+                }
+            }
+            semaphore.release();
+        });
+
+        try {
+            semaphore.acquire(3);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         //数据添加完毕，转为bytes

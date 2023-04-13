@@ -20,16 +20,12 @@
  ****************************************************************/
 package org.wowtools.giscat.vector.mvt;
 
-import org.jetbrains.annotations.NotNull;
-import org.locationtech.jts.algorithm.Orientation;
-import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.GeometryFactory;
 import org.wowtools.giscat.vector.util.analyse.Bbox;
 import org.wowtools.giscat.vector.util.analyse.TileClip;
 import org.wowtools.giscat.vector.util.cst.Tile2Wgs84;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,15 +37,15 @@ import java.util.Map;
 public class MvtBuilder {
     protected final int extent;
 
-    protected final @NotNull TileClip tileClip;
+    protected final TileClip tileClip;
 
-    private final @NotNull MvtCoordinateConvertor mvtCoordinateConvertor;
+    protected final MvtCoordinateConvertor mvtCoordinateConvertor;
 
     private final Map<String, MvtLayer> layers = new LinkedHashMap<>();
 
-    private final @NotNull Bbox bbox;
+    private final Bbox bbox;
 
-    public MvtBuilder(byte z, int x, int y, @NotNull GeometryFactory geometryFactory) {
+    public MvtBuilder(byte z, int x, int y, GeometryFactory geometryFactory) {
         this(z, x, y, 4096, 8, geometryFactory);
     }
 
@@ -67,7 +63,7 @@ public class MvtBuilder {
      * @param extent     a int with extent value. 4096 is a good value.
      * @param clipBuffer a int with clip buffer size for geometries. 8 is a good value.
      */
-    public MvtBuilder(byte z, int x, int y, int extent, int clipBuffer, @NotNull GeometryFactory geometryFactory) {
+    public MvtBuilder(byte z, int x, int y, int extent, int clipBuffer, GeometryFactory geometryFactory) {
         this.extent = extent;
         bbox = createTileBbox(z, x, y, extent, clipBuffer);
         tileClip = new TileClip(bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax, geometryFactory);
@@ -77,7 +73,7 @@ public class MvtBuilder {
     }
 
     /**
-     * 新建一个图层，按simplifyDistance的值简化geometry
+     * 新建一个图层，按simplifyDistance的值简化geometry。此方法非线程安全，但得到的MvtLayer对象可以在单独的线程中使用，各个MvtLayer不会彼此影响。
      *
      * @param layerName        图层名 本方法没有对图层名进行唯一校验，故若图层已存在，则原图层会被覆盖
      * @param simplifyDistance 对geometry进行简化的长度,单位是瓦片像素，取值范围[0,extent+clipBuffer]，为0时表示不做简化
@@ -88,8 +84,9 @@ public class MvtBuilder {
         layers.put(layerName, layer);
         return layer;
     }
+
     /**
-     * 新建一个图层，不对geometry进行简化
+     * 新建一个图层，不对geometry进行简化。此方法非线程安全，但得到的MvtLayer对象可以在单独的线程中使用，各个MvtLayer不会彼此影响。
      *
      * @param layerName 图层名 本方法没有对图层名进行唯一校验，故若图层已存在，则原图层会被覆盖
      * @return MvtLayer
@@ -99,13 +96,13 @@ public class MvtBuilder {
     }
 
     /**
-     * 新建或获取一个图层，按simplifyDistance的值简化geometry
+     * 新建或获取一个图层，按simplifyDistance的值简化geometry。此方法非线程安全，但得到的MvtLayer对象可以在单独的线程中使用，各个MvtLayer不会彼此影响。
      *
      * @param layerName        图层名
      * @param simplifyDistance 对geometry进行简化的长度,单位是瓦片像素，取值范围[0,extent+clipBuffer]，为0时表示不做简化
      * @return 若已有同名图层则返回现有图层，否则新建一个
      */
-    public @NotNull MvtLayer getOrCreateLayer(String layerName, int simplifyDistance) {
+    public MvtLayer getOrCreateLayer(String layerName, int simplifyDistance) {
         MvtLayer layer = layers.get(layerName);
         if (layer != null) {
             return layer;
@@ -114,12 +111,12 @@ public class MvtBuilder {
     }
 
     /**
-     * 新建或获取一个图层，不对geometry进行简化
+     * 新建或获取一个图层，不对geometry进行简化。此方法非线程安全，但得到的MvtLayer对象可以在单独的线程中使用，各个MvtLayer不会彼此影响。
      *
      * @param layerName 图层名
      * @return 若已有同名图层则返回现有图层，否则新建一个
      */
-    public @NotNull MvtLayer getOrCreateLayer(String layerName) {
+    public MvtLayer getOrCreateLayer(String layerName) {
         MvtLayer layer = layers.get(layerName);
         if (layer != null) {
             return layer;
@@ -127,8 +124,28 @@ public class MvtBuilder {
         return createLayer(layerName, 0);
     }
 
+    /**
+     * 移除一个图层
+     *
+     * @param layerName 图层名
+     */
+    public void removeLayer(String layerName) {
+        layers.remove(layerName);
+    }
 
-    private static @NotNull Bbox createTileBbox(byte z, int tileX, int tileY, int extent, int clipBuffer) {
+    /**
+     * 添加一个自定义实现的图层
+     *
+     * @param layerName 图层名
+     * @param layer     图层具体实例
+     * @param <T>       MvtLayer的实现类，可通过扩展MvtLayer.addMvtFeature、MvtLayer.getFeatures方法来灵活地控制添加要素的方式
+     */
+    public <T extends MvtLayer> void addLayer(String layerName, T layer) {
+        layers.put(layerName, layer);
+    }
+
+
+    private static Bbox createTileBbox(byte z, int tileX, int tileY, int extent, int clipBuffer) {
         //瓦片左上角坐标
         double x0 = Tile2Wgs84.tileX2lon(tileX, z);
         double y0 = Tile2Wgs84.tileY2lat(tileY, z);
@@ -154,6 +171,7 @@ public class MvtBuilder {
         return bbox;
     }
 
+
     /**
      * 转为 bytes
      *
@@ -163,7 +181,6 @@ public class MvtBuilder {
 
         VectorTile.Tile.Builder tile = VectorTile.Tile.newBuilder();
         layers.forEach((layerName, layer) -> {
-
             VectorTile.Tile.Layer.Builder tileLayer = VectorTile.Tile.Layer.newBuilder();
 
             tileLayer.setVersion(2);
@@ -192,24 +209,16 @@ public class MvtBuilder {
             }
 
             tileLayer.setExtent(extent);
-            for (MvtFeature feature : layer.features) {
-
-                Geometry geometry = feature.geometry;
-
+            for (MvtFeature feature : layer.getFeatures()) {
                 VectorTile.Tile.Feature.Builder featureBuilder = VectorTile.Tile.Feature.newBuilder();
 
                 if (null != feature.tags) {
                     featureBuilder.addAllTags(feature.tags);
                 }
 
-                VectorTile.Tile.GeomType geomType = toGeomType(geometry);
-                x = 0;
-                y = 0;
-                List<Integer> commands = commands(geometry);
 
-
-                featureBuilder.setType(geomType);
-                featureBuilder.addAllGeometry(commands);
+                featureBuilder.setType(feature.geomType);
+                featureBuilder.addAllGeometry(feature.commands);
 
                 tileLayer.addFeatures(featureBuilder.build());
             }
@@ -221,185 +230,4 @@ public class MvtBuilder {
         return tile.build().toByteArray();
     }
 
-    private static VectorTile.Tile.@NotNull GeomType toGeomType(Geometry geometry) {
-        if (geometry instanceof Point) {
-            return VectorTile.Tile.GeomType.POINT;
-        }
-        if (geometry instanceof MultiPoint) {
-            return VectorTile.Tile.GeomType.POINT;
-        }
-        if (geometry instanceof LineString) {
-            return VectorTile.Tile.GeomType.LINESTRING;
-        }
-        if (geometry instanceof MultiLineString) {
-            return VectorTile.Tile.GeomType.LINESTRING;
-        }
-        if (geometry instanceof Polygon) {
-            return VectorTile.Tile.GeomType.POLYGON;
-        }
-        if (geometry instanceof MultiPolygon) {
-            return VectorTile.Tile.GeomType.POLYGON;
-        }
-        return VectorTile.Tile.GeomType.UNKNOWN;
-    }
-
-    List<Integer> commands(Geometry geometry) {
-
-        if (geometry instanceof MultiLineString) {
-            return commands((MultiLineString) geometry);
-        }
-        if (geometry instanceof Polygon) {
-            return commands((Polygon) geometry);
-        }
-        if (geometry instanceof MultiPolygon) {
-            return commands((MultiPolygon) geometry);
-        }
-
-        return commands(geometry.getCoordinates(), shouldClosePath(geometry), geometry instanceof MultiPoint);
-    }
-
-    @NotNull List<Integer> commands(@NotNull MultiLineString mls) {
-        List<Integer> commands = new ArrayList<>();
-        for (int i = 0; i < mls.getNumGeometries(); i++) {
-            commands.addAll(commands(mls.getGeometryN(i).getCoordinates(), false));
-        }
-        return commands;
-    }
-
-    @NotNull List<Integer> commands(@NotNull MultiPolygon mp) {
-        List<Integer> commands = new ArrayList<>();
-        for (int i = 0; i < mp.getNumGeometries(); i++) {
-            Polygon polygon = (Polygon) mp.getGeometryN(i);
-            commands.addAll(commands(polygon));
-        }
-        return commands;
-    }
-
-    @NotNull List<Integer> commands(@NotNull Polygon polygon) {
-
-        // According to the vector tile specification, the exterior ring of a polygon
-        // must be in clockwise order, while the interior ring in counter-clockwise order.
-        // In the tile coordinate system, Y axis is positive down.
-        //
-        // However, in geographic coordinate system, Y axis is positive up.
-        // Therefore, we must reverse the coordinates.
-        // So, the code below will make sure that exterior ring is in counter-clockwise order
-        // and interior ring in clockwise order.
-        LineString exteriorRing = polygon.getExteriorRing();
-        if (!Orientation.isCCW(exteriorRing.getCoordinates())) {
-            exteriorRing = (LineString) exteriorRing.reverse();
-        }
-        List<Integer> commands = new ArrayList<>(commands(exteriorRing.getCoordinates(), true));
-
-        for (int i = 0; i < polygon.getNumInteriorRing(); i++) {
-            LineString interiorRing = polygon.getInteriorRingN(i);
-            if (Orientation.isCCW(interiorRing.getCoordinates())) {
-                interiorRing = (LineString) interiorRing.reverse();
-            }
-            commands.addAll(commands(interiorRing.getCoordinates(), true));
-        }
-        return commands;
-    }
-
-    /**
-     * // // // Ex.: MoveTo(3, 6), LineTo(8, 12), LineTo(20, 34), ClosePath //
-     * Encoded as: [ 9 3 6 18 5 6 12 22 15 ] // == command type 7 (ClosePath),
-     * length 1 // ===== relative LineTo(+12, +22) == LineTo(20, 34) // ===
-     * relative LineTo(+5, +6) == LineTo(8, 12) // == [00010 010] = command type
-     * 2 (LineTo), length 2 // === relative MoveTo(+3, +6) // == [00001 001] =
-     * command type 1 (MoveTo), length 1 // Commands are encoded as uint32
-     * varints, vertex parameters are // encoded as sint32 varints (zigzag).
-     * Vertex parameters are // also encoded as deltas to the previous position.
-     * The original // position is (0,0)
-     *
-     * @param cs cs
-     * @return list
-     */
-    List<Integer> commands(Coordinate @NotNull [] cs, boolean closePathAtEnd) {
-        return commands(cs, closePathAtEnd, false);
-    }
-
-    @NotNull List<Integer> commands(Coordinate @NotNull [] cs, boolean closePathAtEnd, boolean multiPoint) {
-        if (cs.length == 0) {
-            throw new IllegalArgumentException("empty geometry");
-        }
-
-        List<Integer> r = new ArrayList<>();
-
-        int lineToIndex = 0;
-        int lineToLength = 0;
-
-
-        for (int i = 0; i < cs.length; i++) {
-            Coordinate c = cs[i];
-            double cx = mvtCoordinateConvertor.wgs84X2mvt(c.x);
-            double cy = mvtCoordinateConvertor.wgs84Y2mvt(c.y);
-            if (i == 0) {
-                r.add(commandAndLength(Command.MoveTo, multiPoint ? cs.length : 1));
-            }
-
-            int _x = (int) Math.round(cx);
-            int _y = (int) Math.round(cy);
-
-            // prevent point equal to the previous
-            if (i > 0 && _x == x && _y == y) {
-                lineToLength--;
-                continue;
-            }
-
-            // prevent double closing
-            if (closePathAtEnd && cs.length > 1 && i == (cs.length - 1) && cs[0].equals(c)) {
-                lineToLength--;
-                continue;
-            }
-
-            // delta, then zigzag
-            r.add(zigZagEncode(_x - x));
-            r.add(zigZagEncode(_y - y));
-
-            x = _x;
-            y = _y;
-
-            if (i == 0 && cs.length > 1 && !multiPoint) {
-                // can length be too long?
-                lineToIndex = r.size();
-                lineToLength = cs.length - 1;
-                r.add(commandAndLength(Command.LineTo, lineToLength));
-            }
-
-        }
-
-        // update LineTo length
-        if (lineToIndex > 0) {
-            if (lineToLength == 0) {
-                // remove empty LineTo
-                r.remove(lineToIndex);
-            } else {
-                // update LineTo with new length
-                r.set(lineToIndex, commandAndLength(Command.LineTo, lineToLength));
-            }
-        }
-
-        if (closePathAtEnd) {
-            r.add(commandAndLength(Command.ClosePath, 1));
-        }
-
-        return r;
-    }
-
-    private int x = 0;
-    private int y = 0;
-
-    static int commandAndLength(int command, int repeat) {
-        return repeat << 3 | command;
-    }
-
-    static int zigZagEncode(int n) {
-        // https://developers.google.com/protocol-buffers/docs/encoding#types
-        return (n << 1) ^ (n >> 31);
-    }
-
-    static boolean shouldClosePath(Geometry geometry) {
-        return (geometry instanceof Polygon) || (geometry instanceof LinearRing);
-    }
 }
