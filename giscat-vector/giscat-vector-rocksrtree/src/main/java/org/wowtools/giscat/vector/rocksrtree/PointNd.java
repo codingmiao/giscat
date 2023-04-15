@@ -39,7 +39,7 @@ import java.util.List;
  * <p>
  * Created by jcairns on 5/5/15.
  */
-final class PointNd {
+public final class PointNd {
 
     final double[] xs;
 

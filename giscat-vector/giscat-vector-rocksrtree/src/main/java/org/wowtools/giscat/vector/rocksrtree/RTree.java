@@ -154,6 +154,16 @@ public final class RTree {
 
 
     /**
+     * 最邻近查询
+     *
+     * @param nearestNeighbour 查询条件，包含输入点、最大返回条数、距离计算公式
+     * @return 最邻近查询结果，包含要素及要素到输入点的距离
+     */
+    public ArrayList<DistanceResult> nearest(NearestNeighbour nearestNeighbour, TreeTransaction tx) {
+        return nearestNeighbour.find(builder.getNode(builder.rootId, tx), tx);
+    }
+
+    /**
      * 添加一个feature
      *
      * @param feature feature
@@ -161,17 +171,6 @@ public final class RTree {
      */
     public void add(Feature feature, TreeTransaction tx) {
         RectNd t = builder.buildFeatureRect(feature);
-        add(t, tx);
-    }
-
-
-    /**
-     * Add the data entry to the SpatialSearch structure
-     *
-     * @param t  Data entry to be added
-     * @param tx 事务
-     */
-    protected void add(final RectNd t, TreeTransaction tx) {
         if (builder.rootId != null) {
             Node node = builder.getNode(builder.rootId, tx);
             Node newNode = node.add(t, tx);
@@ -181,6 +180,8 @@ public final class RTree {
             builder.getNode(builder.rootId, tx).add(t, tx);
         }
     }
+
+
 
     // TODO 删除和修改由于equals不易判断，暂不开放 后续通过featurekey拿到RectNd再  featureEquals来比较删除和修改
 
