@@ -36,7 +36,16 @@ public class ExpressionTest {
                 "int1", 1,
                 "int2", 2,
                 "double1", 1d,
-                "double2", 2d
+                "double2", 2d,
+                "sub", Map.of(
+                        "s1", "xx",
+                        "sub1", Map.of(
+                                "s1", "xx",
+                                "sub2", Map.of(
+                                        "str", "1"
+                                )
+                        )
+                )
         ));
         return feature;
     }
@@ -225,6 +234,11 @@ public class ExpressionTest {
         Assert.assertEquals("1",
                 getValue(feature, "[\"get\",\"str1\"]")
         );
+        //nesting-get
+        Assert.assertEquals("1",
+                getValue(feature, "[\"nesting-get\",\"sub\",\"sub1\",\"sub2\",\"str\"]")
+        );
+        Assert.assertNull(getValue(feature, "[\"nesting-get\",\"sub\",\"subxx\",\"sub2\",\"str\"]"));
         //has
         Assert.assertEquals(true,
                 getValue(feature, "[\"has\", \"int1\"]")

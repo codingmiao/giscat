@@ -36,7 +36,6 @@ import java.util.Map;
  * Syntax
  * ["get", string]: value
  * ["get", string, object]: value
- *
  * @author liuyu
  * @date 2022/7/15
  */

@@ -193,7 +193,6 @@ public abstract class Expression<R> {
             }
             return o;
         }
-        Object key = o;
         //若结果是表达式，则取表达式的值
         Expression expression = (Expression) o;
         o = expression.getValue(feature, expressionParams);
