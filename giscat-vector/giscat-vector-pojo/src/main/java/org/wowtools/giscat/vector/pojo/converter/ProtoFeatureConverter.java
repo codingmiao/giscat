@@ -639,6 +639,8 @@ public class ProtoFeatureConverter {
             private int index = 0;
             //实际值-id对应关系
             private final HashMap<T, Integer> indexMap = new HashMap<>();
+            //按id顺序存放的value值
+            private final List<T> sortList = new LinkedList<>();
 
             public @NotNull Integer getId(T t) {
 //                if (index < 0) {
@@ -651,55 +653,17 @@ public class ProtoFeatureConverter {
                 id = index;
                 indexMap.put(t, id);
                 index++;
+                sortList.add(t);
                 return id;
             }
 
             //输出一个按id顺序的t list
-            public @NotNull ArrayList<T> toList() {
-                ArrayList<SortT<T>> sortList = new ArrayList<>(indexMap.size());
-                indexMap.forEach((t, id) -> sortList.add(new SortT(t, id)));
-                sortList.sort(Comparator.comparingInt((SortT c) -> c.id));
-                ArrayList<T> res = new ArrayList<>(indexMap.size());
-                for (SortT<T> sortT : sortList) {
-                    res.add(sortT.t);
-                }
-                return res;
+            public @NotNull List<T> toList() {
+                return sortList;
             }
 
             public int size() {
                 return index;
-            }
-        }
-
-        private static final class NoReusableIndex<T> {
-            //实际值-id对应关系
-            private final List<T> list = new LinkedList<>();
-
-            public @NotNull Integer getId(T t) {
-                int id = list.size();
-                list.add(t);
-                return id;
-            }
-
-            //输出一个按id顺序的t list
-            public @NotNull ArrayList<T> toList() {
-                ArrayList<T> res = new ArrayList<>(list.size());
-                res.addAll(list);
-                return res;
-            }
-
-            public int size() {
-                return list.size();
-            }
-        }
-
-        private static final class SortT<T> {
-            private final T t;
-            private final int id;
-
-            public SortT(T t, int id) {
-                this.t = t;
-                this.id = id;
             }
         }
 
@@ -734,12 +698,10 @@ public class ProtoFeatureConverter {
             }
             if (bytesValues.size() > 0) {
                 // bytes比较特殊,需要转成ByteString，所以不用toList单独写一下
-                ArrayList<SortT<byte[]>> sortList = new ArrayList<>(bytesValues.size());
-                bytesValues.indexMap.forEach((t, id) -> sortList.add(new SortT(t, id)));
-                sortList.sort(Comparator.comparingInt((c) -> c.id));
-                ArrayList<ByteString> res = new ArrayList<>(bytesValues.indexMap.size());
-                for (SortT<byte[]> sortT : sortList) {
-                    res.add(ByteString.copyFrom(sortT.t));
+                @NotNull List<byte[]> list = bytesValues.toList();
+                ArrayList<ByteString> res = new ArrayList<>(list.size());
+                for (byte[] bytes : list) {
+                    res.add(ByteString.copyFrom(bytes));
                 }
                 builder.addAllBytesValues(res);
             }

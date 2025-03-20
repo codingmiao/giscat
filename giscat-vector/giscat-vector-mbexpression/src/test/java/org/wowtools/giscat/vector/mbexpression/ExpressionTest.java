@@ -102,6 +102,38 @@ public class ExpressionTest {
     }
 
     @org.junit.Test
+    public void types() {
+        Feature feature = buildTestFeature();
+        Assert.assertEquals("1",
+                getValue(feature, "[\"to-string\", 1]")
+        );
+        Assert.assertEquals("1.2",
+                getValue(feature, "[\"to-string\", 1.2]")
+        );
+        Assert.assertEquals(1.2,
+                getValue(feature, "[\"to-double\", \"1.2\"]")
+        );
+        Assert.assertEquals(1.2,
+                getValue(feature, "[\"to-double\", \"xxx\", \"1.2\"]")
+        );
+        Assert.assertEquals(1,
+                getValue(feature, "[\"to-int\",  \"1\"]")
+        );
+        Assert.assertEquals(1,
+                getValue(feature, "[\"to-int\", \"xxx\", \"1\"]")
+        );
+        Assert.assertEquals(1,
+                getValue(feature, "[\"to-int\", true]")
+        );
+        Assert.assertEquals(0,
+                getValue(feature, "[\"to-int\", false]")
+        );
+        Assert.assertEquals(0,
+                getValue(feature, "[\"to-int\", null]")
+        );
+    }
+
+    @org.junit.Test
     public void decision() {
         Feature feature = buildTestFeature();
 //        System.out.println(GeoJsonFeatureConverter.toGeoJson(feature).toGeoJsonString());
