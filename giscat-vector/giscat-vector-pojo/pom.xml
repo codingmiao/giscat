@@ -11,6 +11,8 @@
 
     <artifactId>giscat-vector-pojo</artifactId>
     <version>g1.7.4</version>
+    <name>giscat-vector-pojo</name>
+    <description>基本矢量对象定义</description>
     <dependencies>
         <dependency>
             <groupId>org.locationtech.jts</groupId>

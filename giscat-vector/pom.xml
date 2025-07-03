@@ -11,6 +11,8 @@
 
     <artifactId>giscat-vector</artifactId>
     <version>g1.7.4</version>
+    <name>giscat-vector</name>
+    <description>矢量</description>
 
     <packaging>pom</packaging>
     <modules>

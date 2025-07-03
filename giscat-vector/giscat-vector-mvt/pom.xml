@@ -12,6 +12,7 @@
     <artifactId>giscat-vector-mvt</artifactId>
     <version>g1.7.4</version>
     <description>Mapbox vector tile (mvt) 的序列化与反序列化</description>
+    <name>giscat-vector-mvt</name>
 
     <dependencies>
         <dependency>

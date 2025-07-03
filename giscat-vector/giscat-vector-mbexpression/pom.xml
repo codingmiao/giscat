@@ -11,6 +11,7 @@
 
     <artifactId>giscat-vector-mbexpression</artifactId>
     <version>g1.7.4</version>
+    <name>giscat-vector-mbexpression</name>
     <description>mapbox expressions表达式解析为java对象，用以支持数据过滤等场景</description>
 
     <dependencies>

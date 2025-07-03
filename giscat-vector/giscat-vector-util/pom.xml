@@ -11,6 +11,7 @@
 
     <artifactId>giscat-vector-util</artifactId>
     <version>g1.7.4</version>
+    <name>giscat-vector-util</name>
 
     <description>常用gis工具</description>
 

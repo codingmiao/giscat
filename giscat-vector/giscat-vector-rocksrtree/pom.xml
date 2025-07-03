@@ -11,6 +11,7 @@
 
     <artifactId>giscat-vector-rocksrtree</artifactId>
     <description>基于RocksDb实现的文件存储Rtree</description>
+    <name>giscat-vector-rocksrtree</name>
 
     <dependencies>
         <dependency>
