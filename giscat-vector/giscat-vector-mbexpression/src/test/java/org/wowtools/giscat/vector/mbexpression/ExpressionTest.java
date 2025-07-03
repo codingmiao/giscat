@@ -291,6 +291,23 @@ public class ExpressionTest {
         Assert.assertEquals(false,
                 getValue(feature, "[\"in\", \"a\",\"bbc\"]")
         );
+        //in-map
+        Assert.assertEquals(true,
+                getValue(feature, "[\"in-map\", 1,[0,1]]")
+        );
+        Assert.assertEquals(false,
+                getValue(feature, "[\"in-map\", 1,[0,2]]")
+        );
+        Assert.assertEquals(true,
+                getValue(feature, "[\"in-map\", \"1\",[\"0\",\"1\"]]")
+        );
+        Assert.assertEquals(false,
+                getValue(feature, "[\"in-map\", \"1\",[\"0\",\"2\"]]")
+        );
+        Assert.assertEquals(false,
+                getValue(feature, "[\"in-map\", \"1\",[0,1]]")
+        );
+
         //index-of
         Assert.assertEquals(2,
                 getValue(feature, "[\"index-of\", \"a\",\"ihas\"]")
